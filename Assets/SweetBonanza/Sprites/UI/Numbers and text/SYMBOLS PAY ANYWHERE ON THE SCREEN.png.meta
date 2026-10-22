@@ -1,0 +1,351 @@
+fileFormatVersion: 2
+guid: af203b1ef79904e48993fb0cdc04aaed
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 4797468371868682321
+    second: SYMBOLS PAY ANYWHERE ON THE SCREEN_0
+  - first:
+      213: -629190890530604988
+    second: SYMBOLS PAY ANYWHERE ON THE SCREEN_1
+  - first:
+      213: 6551271821354939028
+    second: SYMBOLS PAY ANYWHERE ON THE SCREEN_2
+  - first:
+      213: -3216202918836856538
+    second: SYMBOLS PAY ANYWHERE ON THE SCREEN_3
+  - first:
+      213: 6876576996682087974
+    second: SYMBOLS PAY ANYWHERE ON THE SCREEN_4
+  - first:
+      213: -2479536572116100853
+    second: SYMBOLS PAY ANYWHERE ON THE SCREEN_5
+  - first:
+      213: 5545967902796405020
+    second: SYMBOLS PAY ANYWHERE ON THE SCREEN_6
+  - first:
+      213: -1410507934851548556
+    second: SYMBOLS PAY ANYWHERE ON THE SCREEN_7
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: SYMBOLS PAY ANYWHERE ON THE SCREEN_0
+      rect:
+        serializedVersion: 2
+        x: 49
+        y: 100
+        width: 269
+        height: 47
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 158876ee018049240800000000000000
+      internalID: 4797468371868682321
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SYMBOLS PAY ANYWHERE ON THE SCREEN_1
+      rect:
+        serializedVersion: 2
+        x: 329
+        y: 100
+        width: 40
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 448f20af73aa447f0800000000000000
+      internalID: -629190890530604988
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SYMBOLS PAY ANYWHERE ON THE SCREEN_2
+      rect:
+        serializedVersion: 2
+        x: 363
+        y: 100
+        width: 45
+        height: 47
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 49233eae20bcaea50800000000000000
+      internalID: 6551271821354939028
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SYMBOLS PAY ANYWHERE ON THE SCREEN_3
+      rect:
+        serializedVersion: 2
+        x: 401
+        y: 100
+        width: 41
+        height: 47
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 62997294c70cd53d0800000000000000
+      internalID: -3216202918836856538
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SYMBOLS PAY ANYWHERE ON THE SCREEN_4
+      rect:
+        serializedVersion: 2
+        x: 450
+        y: 99
+        width: 318
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 62ebbd548528e6f50800000000000000
+      internalID: 6876576996682087974
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SYMBOLS PAY ANYWHERE ON THE SCREEN_5
+      rect:
+        serializedVersion: 2
+        x: 777
+        y: 100
+        width: 85
+        height: 47
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b091e63ff9ae69dd0800000000000000
+      internalID: -2479536572116100853
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SYMBOLS PAY ANYWHERE ON THE SCREEN_6
+      rect:
+        serializedVersion: 2
+        x: 872
+        y: 100
+        width: 120
+        height: 47
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c19d5ed7c6c37fc40800000000000000
+      internalID: 5545967902796405020
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SYMBOLS PAY ANYWHERE ON THE SCREEN_7
+      rect:
+        serializedVersion: 2
+        x: 1000
+        y: 99
+        width: 229
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 47abd46a18edc6ce0800000000000000
+      internalID: -1410507934851548556
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      SYMBOLS PAY ANYWHERE ON THE SCREEN_0: 4797468371868682321
+      SYMBOLS PAY ANYWHERE ON THE SCREEN_1: -629190890530604988
+      SYMBOLS PAY ANYWHERE ON THE SCREEN_2: 6551271821354939028
+      SYMBOLS PAY ANYWHERE ON THE SCREEN_3: -3216202918836856538
+      SYMBOLS PAY ANYWHERE ON THE SCREEN_4: 6876576996682087974
+      SYMBOLS PAY ANYWHERE ON THE SCREEN_5: -2479536572116100853
+      SYMBOLS PAY ANYWHERE ON THE SCREEN_6: 5545967902796405020
+      SYMBOLS PAY ANYWHERE ON THE SCREEN_7: -1410507934851548556
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

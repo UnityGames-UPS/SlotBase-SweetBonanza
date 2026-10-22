@@ -1,0 +1,1547 @@
+fileFormatVersion: 2
+guid: c35737ae069d11642b5796f97d7a28a1
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 8089597442259762519
+    second: Sweet Bonanza_bomb burst effect_0
+  - first:
+      213: -6022698078285633236
+    second: Sweet Bonanza_bomb burst effect_1
+  - first:
+      213: -5520354482911519991
+    second: Sweet Bonanza_bomb burst effect_2
+  - first:
+      213: -9046262694886453136
+    second: Sweet Bonanza_bomb burst effect_3
+  - first:
+      213: 1095961829408106842
+    second: Sweet Bonanza_bomb burst effect_4
+  - first:
+      213: -1771808666765364368
+    second: Sweet Bonanza_bomb burst effect_5
+  - first:
+      213: 1272751544973162978
+    second: Sweet Bonanza_bomb burst effect_6
+  - first:
+      213: -1293393817538936146
+    second: Sweet Bonanza_bomb burst effect_7
+  - first:
+      213: 1268859505671507793
+    second: Sweet Bonanza_bomb burst effect_8
+  - first:
+      213: 1335985110452395839
+    second: Sweet Bonanza_bomb burst effect_9
+  - first:
+      213: -4393805474816563714
+    second: Sweet Bonanza_bomb burst effect_10
+  - first:
+      213: 3761747042946849693
+    second: Sweet Bonanza_bomb burst effect_11
+  - first:
+      213: -6245681145741833482
+    second: Sweet Bonanza_bomb burst effect_12
+  - first:
+      213: 9089508775325602824
+    second: Sweet Bonanza_bomb burst effect_13
+  - first:
+      213: -1512104232204370743
+    second: Sweet Bonanza_bomb burst effect_14
+  - first:
+      213: -3102153661843022308
+    second: Sweet Bonanza_bomb burst effect_15
+  - first:
+      213: 4573075301384300196
+    second: Sweet Bonanza_bomb burst effect_16
+  - first:
+      213: 8853197449112938359
+    second: Sweet Bonanza_bomb burst effect_17
+  - first:
+      213: 5559483538470199842
+    second: Sweet Bonanza_bomb burst effect_18
+  - first:
+      213: 6598503294893912805
+    second: Sweet Bonanza_bomb burst effect_19
+  - first:
+      213: -1127912731072512230
+    second: Sweet Bonanza_bomb burst effect_20
+  - first:
+      213: 8803010577024519965
+    second: Sweet Bonanza_bomb burst effect_21
+  - first:
+      213: 8362335985776830377
+    second: Sweet Bonanza_bomb burst effect_22
+  - first:
+      213: -6460873399872596219
+    second: Sweet Bonanza_bomb burst effect_23
+  - first:
+      213: 3312679147337021814
+    second: Sweet Bonanza_bomb burst effect_24
+  - first:
+      213: 8961487167385085039
+    second: Sweet Bonanza_bomb burst effect_25
+  - first:
+      213: 4945304634537543008
+    second: Sweet Bonanza_bomb burst effect_26
+  - first:
+      213: 7651907173509919774
+    second: Sweet Bonanza_bomb burst effect_27
+  - first:
+      213: 8655472556166633395
+    second: Sweet Bonanza_bomb burst effect_28
+  - first:
+      213: 2725285574175184366
+    second: Sweet Bonanza_bomb burst effect_29
+  - first:
+      213: 934655778222588305
+    second: Sweet Bonanza_bomb burst effect_30
+  - first:
+      213: -2123524378141477328
+    second: Sweet Bonanza_bomb burst effect_31
+  - first:
+      213: 966239041152539410
+    second: Sweet Bonanza_bomb burst effect_32
+  - first:
+      213: -6602923606119347760
+    second: Sweet Bonanza_bomb burst effect_33
+  - first:
+      213: 4762662459325797557
+    second: Sweet Bonanza_bomb burst effect_34
+  - first:
+      213: 2563707260745357692
+    second: Sweet Bonanza_bomb burst effect_35
+  - first:
+      213: 5912106311923274821
+    second: Sweet Bonanza_bomb burst effect_36
+  - first:
+      213: -5100615533391679821
+    second: Sweet Bonanza_bomb burst effect_37
+  - first:
+      213: 3607755666825114688
+    second: Sweet Bonanza_bomb burst effect_38
+  - first:
+      213: -4081067208348215476
+    second: Sweet Bonanza_bomb burst effect_39
+  - first:
+      213: -8107615772583651647
+    second: Sweet Bonanza_bomb burst effect_40
+  - first:
+      213: -8916630687869712971
+    second: Sweet Bonanza_bomb burst effect_41
+  - first:
+      213: 8518639580916030960
+    second: Sweet Bonanza_bomb burst effect_42
+  - first:
+      213: 6402592593865112585
+    second: Sweet Bonanza_bomb burst effect_43
+  - first:
+      213: 7303098356108600682
+    second: Sweet Bonanza_bomb burst effect_44
+  - first:
+      213: -5542132737806095239
+    second: Sweet Bonanza_bomb burst effect_45
+  - first:
+      213: 4235413094237273224
+    second: Sweet Bonanza_bomb burst effect_46
+  - first:
+      213: 4085206306041269283
+    second: Sweet Bonanza_bomb burst effect_47
+  - first:
+      213: 1157994025669836554
+    second: Sweet Bonanza_bomb burst effect_48
+  - first:
+      213: -2493390275560689337
+    second: Sweet Bonanza_bomb burst effect_49
+  - first:
+      213: -3022670621859114789
+    second: Sweet Bonanza_bomb burst effect_50
+  - first:
+      213: -8243822176837744207
+    second: Sweet Bonanza_bomb burst effect_51
+  - first:
+      213: 4764942040172415027
+    second: Sweet Bonanza_bomb burst effect_52
+  - first:
+      213: -5784430267184265630
+    second: Sweet Bonanza_bomb burst effect_53
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 1024
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Sweet Bonanza_bomb burst effect_0
+      rect:
+        serializedVersion: 2
+        x: 474
+        y: 1783
+        width: 26
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 75d3dc16306044070800000000000000
+      internalID: 8089597442259762519
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_bomb burst effect_1
+      rect:
+        serializedVersion: 2
+        x: 599
+        y: 1783
+        width: 38
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c296b56e1041b6ca0800000000000000
+      internalID: -6022698078285633236
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_bomb burst effect_2
+      rect:
+        serializedVersion: 2
+        x: 825
+        y: 1790
+        width: 32
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 90bd2db88d2c363b0800000000000000
+      internalID: -5520354482911519991
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_bomb burst effect_3
+      rect:
+        serializedVersion: 2
+        x: 1310
+        y: 1753
+        width: 37
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 070dc661208357280800000000000000
+      internalID: -9046262694886453136
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_bomb burst effect_4
+      rect:
+        serializedVersion: 2
+        x: 1495
+        y: 1746
+        width: 75
+        height: 44
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a59e1492a73a53f00800000000000000
+      internalID: 1095961829408106842
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_bomb burst effect_5
+      rect:
+        serializedVersion: 2
+        x: 231
+        y: 155
+        width: 1481
+        height: 1610
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 073fd7fa7654967e0800000000000000
+      internalID: -1771808666765364368
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_bomb burst effect_6
+      rect:
+        serializedVersion: 2
+        x: 393
+        y: 1621
+        width: 143
+        height: 144
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2e9747d69c8b9a110800000000000000
+      internalID: 1272751544973162978
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_bomb burst effect_7
+      rect:
+        serializedVersion: 2
+        x: 558
+        y: 1758
+        width: 18
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ea2c7e6fc21fc0ee0800000000000000
+      internalID: -1293393817538936146
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_bomb burst effect_8
+      rect:
+        serializedVersion: 2
+        x: 634
+        y: 1758
+        width: 40
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 15f8d696ff4eb9110800000000000000
+      internalID: 1268859505671507793
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_bomb burst effect_9
+      rect:
+        serializedVersion: 2
+        x: 933
+        y: 1740
+        width: 28
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f3fd9bd216f5a8210800000000000000
+      internalID: 1335985110452395839
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_bomb burst effect_10
+      rect:
+        serializedVersion: 2
+        x: 1175
+        y: 1759
+        width: 33
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ef5646533311603c0800000000000000
+      internalID: -4393805474816563714
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_bomb burst effect_11
+      rect:
+        serializedVersion: 2
+        x: 1356
+        y: 1734
+        width: 18
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d9b19b54109643430800000000000000
+      internalID: 3761747042946849693
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_bomb burst effect_12
+      rect:
+        serializedVersion: 2
+        x: 1357
+        y: 1756
+        width: 25
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6fa04b7c612e259a0800000000000000
+      internalID: -6245681145741833482
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_bomb burst effect_13
+      rect:
+        serializedVersion: 2
+        x: 1397
+        y: 1748
+        width: 13
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8041418a21c642e70800000000000000
+      internalID: 9089508775325602824
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_bomb burst effect_14
+      rect:
+        serializedVersion: 2
+        x: 1034
+        y: 1722
+        width: 68
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9ccf718563de30be0800000000000000
+      internalID: -1512104232204370743
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_bomb burst effect_15
+      rect:
+        serializedVersion: 2
+        x: 1390
+        y: 1727
+        width: 27
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c1e5b233eafe2f4d0800000000000000
+      internalID: -3102153661843022308
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_bomb burst effect_16
+      rect:
+        serializedVersion: 2
+        x: 1700
+        y: 1708
+        width: 42
+        height: 37
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4a6af16e1c3d67f30800000000000000
+      internalID: 4573075301384300196
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_bomb burst effect_17
+      rect:
+        serializedVersion: 2
+        x: 141
+        y: 1517
+        width: 37
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 77765c87c20ecda70800000000000000
+      internalID: 8853197449112938359
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_bomb burst effect_18
+      rect:
+        serializedVersion: 2
+        x: 1723
+        y: 1448
+        width: 28
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 222e525a2d0472d40800000000000000
+      internalID: 5559483538470199842
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_bomb burst effect_19
+      rect:
+        serializedVersion: 2
+        x: 1815
+        y: 1397
+        width: 18
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5e2756d49c7929b50800000000000000
+      internalID: 6598503294893912805
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_bomb burst effect_20
+      rect:
+        serializedVersion: 2
+        x: 99
+        y: 1337
+        width: 26
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a1f38c6d859d850f0800000000000000
+      internalID: -1127912731072512230
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_bomb burst effect_21
+      rect:
+        serializedVersion: 2
+        x: 210
+        y: 1309
+        width: 20
+        height: 37
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d1f8d8dba739a2a70800000000000000
+      internalID: 8803010577024519965
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_bomb burst effect_22
+      rect:
+        serializedVersion: 2
+        x: 1727
+        y: 1330
+        width: 23
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9a7a1b4064cfc0470800000000000000
+      internalID: 8362335985776830377
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_bomb burst effect_23
+      rect:
+        serializedVersion: 2
+        x: 1783
+        y: 1272
+        width: 26
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 507d2ddbfdd5656a0800000000000000
+      internalID: -6460873399872596219
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_bomb burst effect_24
+      rect:
+        serializedVersion: 2
+        x: 196
+        y: 1201
+        width: 41
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 679fdd7122009fd20800000000000000
+      internalID: 3312679147337021814
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_bomb burst effect_25
+      rect:
+        serializedVersion: 2
+        x: 47
+        y: 1135
+        width: 20
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f64a53749199d5c70800000000000000
+      internalID: 8961487167385085039
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_bomb burst effect_26
+      rect:
+        serializedVersion: 2
+        x: 200
+        y: 1134
+        width: 28
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 06504bf1d5041a440800000000000000
+      internalID: 4945304634537543008
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_bomb burst effect_27
+      rect:
+        serializedVersion: 2
+        x: 1780
+        y: 1116
+        width: 19
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e1472536809013a60800000000000000
+      internalID: 7651907173509919774
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_bomb burst effect_28
+      rect:
+        serializedVersion: 2
+        x: 1817
+        y: 1001
+        width: 32
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3b754716e6a6e1870800000000000000
+      internalID: 8655472556166633395
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_bomb burst effect_29
+      rect:
+        serializedVersion: 2
+        x: 142
+        y: 960
+        width: 33
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ee555306ac822d520800000000000000
+      internalID: 2725285574175184366
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_bomb burst effect_30
+      rect:
+        serializedVersion: 2
+        x: 1749
+        y: 893
+        width: 32
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 19149307a7098fc00800000000000000
+      internalID: 934655778222588305
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_bomb burst effect_31
+      rect:
+        serializedVersion: 2
+        x: 82
+        y: 861
+        width: 31
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 036bef834d9b782e0800000000000000
+      internalID: -2123524378141477328
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_bomb burst effect_32
+      rect:
+        serializedVersion: 2
+        x: 139
+        y: 740
+        width: 18
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 21bd200e945c86d00800000000000000
+      internalID: 966239041152539410
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_bomb burst effect_33
+      rect:
+        serializedVersion: 2
+        x: 1685
+        y: 723
+        width: 28
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0d9073ac6f3bd54a0800000000000000
+      internalID: -6602923606119347760
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_bomb burst effect_34
+      rect:
+        serializedVersion: 2
+        x: 1846
+        y: 715
+        width: 20
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5b4d339e540681240800000000000000
+      internalID: 4762662459325797557
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_bomb burst effect_35
+      rect:
+        serializedVersion: 2
+        x: 1716
+        y: 637
+        width: 21
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c7911d8ab2e149320800000000000000
+      internalID: 2563707260745357692
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_bomb burst effect_36
+      rect:
+        serializedVersion: 2
+        x: 1824
+        y: 606
+        width: 25
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5441884fd550c0250800000000000000
+      internalID: 5912106311923274821
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_bomb burst effect_37
+      rect:
+        serializedVersion: 2
+        x: 138
+        y: 594
+        width: 26
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3be69545239f639b0800000000000000
+      internalID: -5100615533391679821
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_bomb burst effect_38
+      rect:
+        serializedVersion: 2
+        x: 201
+        y: 536
+        width: 23
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 044738d0aa2511230800000000000000
+      internalID: 3607755666825114688
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_bomb burst effect_39
+      rect:
+        serializedVersion: 2
+        x: 122
+        y: 459
+        width: 18
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c47d8e51ff22d57c0800000000000000
+      internalID: -4081067208348215476
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_bomb burst effect_40
+      rect:
+        serializedVersion: 2
+        x: 1781
+        y: 443
+        width: 36
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1c61ccb2966fb7f80800000000000000
+      internalID: -8107615772583651647
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_bomb burst effect_41
+      rect:
+        serializedVersion: 2
+        x: 207
+        y: 418
+        width: 29
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5b5cd28b1a3c14480800000000000000
+      internalID: -8916630687869712971
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_bomb burst effect_42
+      rect:
+        serializedVersion: 2
+        x: 233
+        y: 146
+        width: 41
+        height: 137
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0fd151ea099483670800000000000000
+      internalID: 8518639580916030960
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_bomb burst effect_43
+      rect:
+        serializedVersion: 2
+        x: 354
+        y: 155
+        width: 96
+        height: 75
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 90c70eeaa049ad850800000000000000
+      internalID: 6402592593865112585
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_bomb burst effect_44
+      rect:
+        serializedVersion: 2
+        x: 555
+        y: 153
+        width: 68
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a65a79be241d95560800000000000000
+      internalID: 7303098356108600682
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_bomb burst effect_45
+      rect:
+        serializedVersion: 2
+        x: 631
+        y: 120
+        width: 37
+        height: 43
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 97c210173a36613b0800000000000000
+      internalID: -5542132737806095239
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_bomb burst effect_46
+      rect:
+        serializedVersion: 2
+        x: 853
+        y: 155
+        width: 14
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 88cfc0fd4c537ca30800000000000000
+      internalID: 4235413094237273224
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_bomb burst effect_47
+      rect:
+        serializedVersion: 2
+        x: 893
+        y: 155
+        width: 22
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 32c86c1bd7191b830800000000000000
+      internalID: 4085206306041269283
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_bomb burst effect_48
+      rect:
+        serializedVersion: 2
+        x: 1093
+        y: 159
+        width: 22
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a0f33185e65021010800000000000000
+      internalID: 1157994025669836554
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_bomb burst effect_49
+      rect:
+        serializedVersion: 2
+        x: 1232
+        y: 156
+        width: 14
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 741bac241c2b56dd0800000000000000
+      internalID: -2493390275560689337
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_bomb burst effect_50
+      rect:
+        serializedVersion: 2
+        x: 1339
+        y: 136
+        width: 71
+        height: 91
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bd0141f85115d06d0800000000000000
+      internalID: -3022670621859114789
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_bomb burst effect_51
+      rect:
+        serializedVersion: 2
+        x: 1475
+        y: 156
+        width: 28
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1b94916686f089d80800000000000000
+      internalID: -8243822176837744207
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_bomb burst effect_52
+      rect:
+        serializedVersion: 2
+        x: 407
+        y: 111
+        width: 41
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3384dcf2a89702240800000000000000
+      internalID: 4764942040172415027
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_bomb burst effect_53
+      rect:
+        serializedVersion: 2
+        x: 1120
+        y: 114
+        width: 33
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 266c678b15399bfa0800000000000000
+      internalID: -5784430267184265630
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Sweet Bonanza_bomb burst effect_0: 8089597442259762519
+      Sweet Bonanza_bomb burst effect_1: -6022698078285633236
+      Sweet Bonanza_bomb burst effect_10: -4393805474816563714
+      Sweet Bonanza_bomb burst effect_11: 3761747042946849693
+      Sweet Bonanza_bomb burst effect_12: -6245681145741833482
+      Sweet Bonanza_bomb burst effect_13: 9089508775325602824
+      Sweet Bonanza_bomb burst effect_14: -1512104232204370743
+      Sweet Bonanza_bomb burst effect_15: -3102153661843022308
+      Sweet Bonanza_bomb burst effect_16: 4573075301384300196
+      Sweet Bonanza_bomb burst effect_17: 8853197449112938359
+      Sweet Bonanza_bomb burst effect_18: 5559483538470199842
+      Sweet Bonanza_bomb burst effect_19: 6598503294893912805
+      Sweet Bonanza_bomb burst effect_2: -5520354482911519991
+      Sweet Bonanza_bomb burst effect_20: -1127912731072512230
+      Sweet Bonanza_bomb burst effect_21: 8803010577024519965
+      Sweet Bonanza_bomb burst effect_22: 8362335985776830377
+      Sweet Bonanza_bomb burst effect_23: -6460873399872596219
+      Sweet Bonanza_bomb burst effect_24: 3312679147337021814
+      Sweet Bonanza_bomb burst effect_25: 8961487167385085039
+      Sweet Bonanza_bomb burst effect_26: 4945304634537543008
+      Sweet Bonanza_bomb burst effect_27: 7651907173509919774
+      Sweet Bonanza_bomb burst effect_28: 8655472556166633395
+      Sweet Bonanza_bomb burst effect_29: 2725285574175184366
+      Sweet Bonanza_bomb burst effect_3: -9046262694886453136
+      Sweet Bonanza_bomb burst effect_30: 934655778222588305
+      Sweet Bonanza_bomb burst effect_31: -2123524378141477328
+      Sweet Bonanza_bomb burst effect_32: 966239041152539410
+      Sweet Bonanza_bomb burst effect_33: -6602923606119347760
+      Sweet Bonanza_bomb burst effect_34: 4762662459325797557
+      Sweet Bonanza_bomb burst effect_35: 2563707260745357692
+      Sweet Bonanza_bomb burst effect_36: 5912106311923274821
+      Sweet Bonanza_bomb burst effect_37: -5100615533391679821
+      Sweet Bonanza_bomb burst effect_38: 3607755666825114688
+      Sweet Bonanza_bomb burst effect_39: -4081067208348215476
+      Sweet Bonanza_bomb burst effect_4: 1095961829408106842
+      Sweet Bonanza_bomb burst effect_40: -8107615772583651647
+      Sweet Bonanza_bomb burst effect_41: -8916630687869712971
+      Sweet Bonanza_bomb burst effect_42: 8518639580916030960
+      Sweet Bonanza_bomb burst effect_43: 6402592593865112585
+      Sweet Bonanza_bomb burst effect_44: 7303098356108600682
+      Sweet Bonanza_bomb burst effect_45: -5542132737806095239
+      Sweet Bonanza_bomb burst effect_46: 4235413094237273224
+      Sweet Bonanza_bomb burst effect_47: 4085206306041269283
+      Sweet Bonanza_bomb burst effect_48: 1157994025669836554
+      Sweet Bonanza_bomb burst effect_49: -2493390275560689337
+      Sweet Bonanza_bomb burst effect_5: -1771808666765364368
+      Sweet Bonanza_bomb burst effect_50: -3022670621859114789
+      Sweet Bonanza_bomb burst effect_51: -8243822176837744207
+      Sweet Bonanza_bomb burst effect_52: 4764942040172415027
+      Sweet Bonanza_bomb burst effect_53: -5784430267184265630
+      Sweet Bonanza_bomb burst effect_6: 1272751544973162978
+      Sweet Bonanza_bomb burst effect_7: -1293393817538936146
+      Sweet Bonanza_bomb burst effect_8: 1268859505671507793
+      Sweet Bonanza_bomb burst effect_9: 1335985110452395839
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
