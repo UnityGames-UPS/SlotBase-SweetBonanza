@@ -9,704 +9,601 @@ using UnityEngine.UI;
 
 public class SocketIOManager : MonoBehaviour
 {
-  [SerializeField] private string testToken = "test-token";
-  protected string testSocketURL = "https://devrealtime.dingdinghouse.com/";
-  protected string nameSpace = "playground";
+    [Header("Network Configuration")]
+    [SerializeField] private string testToken = "test-token";
+    protected string testSocketURL = "https://devrealtime.dingdinghouse.com/";
+    protected string nameSpace = "playground";
 
+    [Header("References")]
+    [SerializeField] internal JSFunctCalls JSManager;
+    [SerializeField] private GameObject RaycastBlocker;
+    [SerializeField] private List<Button> buttons;
 
-  [Header("References")]
-  [SerializeField] private GameManager gameManager;
+    [Header("Debug Settings")]
+    [SerializeField] private bool enablePingDebug = false;
 
-  [SerializeField] private UIManager uiManager;
-  [SerializeField] private PopupManager popupManager;
-  [SerializeField] internal JSFunctCalls JSManager;
-  [SerializeField] private GameObject RaycastBlocker;
-  [SerializeField] private List<Button> buttons;
-  private SocketManager socketManager;
-  private Socket gameSocket;
+    // Events for decoupled listeners (GameManager, UIManager, etc.)
+    internal event Action<string> OnInitDataReceived;
+    internal event Action<string> OnSpinResultReceived;
+    internal event Action<double> OnBalanceSyncReceived;
+    internal event Action<JackpotSyncData> OnJackpotSyncReceived;
+    internal event Action<int> OnPingLatencyUpdated;
+    internal event Action OnSocketConnectedEvent;
+    internal event Action OnSocketDisconnectedEvent;
+    internal event Action<string> OnSocketErrorEvent;
+    internal event Action OnAnotherDeviceLogin;
 
-  private string authToken;
-  private string socketURL;
+    private SocketManager socketManager;
+    private Socket gameSocket;
 
-  internal bool isConnected;
-  internal bool isInitialized;
-  internal bool isExiting;   // True when CloseSocket is called intentionally (exit button)
-  private bool isDestroyed;  // True when scene is unloading or application is quitting
-  private bool socketSetupStarted;
-  private bool JackpotOpen;
+    private string authToken;
+    private string socketURL;
 
-  private bool hasFocus = true;
-  private float focusLostTime = 0f;
-  private Coroutine focusCheckRoutine;
-  private float maxBackgroundTime = 60f;
+    internal bool isConnected;
+    internal bool isInitialized;
+    internal bool isExiting;
+    private bool isDestroyed;
+    private bool socketSetupStarted;
+    private bool JackpotOpen;
 
-  [Header("Debug Settings")]
-  [SerializeField] private bool enablePingDebug = false;
+    private bool hasFocus = true;
+    private float focusLostTime = 0f;
+    private Coroutine focusCheckRoutine;
+    private float maxBackgroundTime = 60f;
 
-  private Coroutine pingCoroutine;
-  private float pingSendTime;
-  private bool waitingForPong;
-  private int missedPongs;
-  private const int MAX_MISSED_PONGS = 5;
-  private const float PING_INTERVAL = 2f;
-  private const float PONG_TIMEOUT = 5f;
+    private Coroutine pingCoroutine;
+    private float pingSendTime;
+    private bool waitingForPong;
+    private int missedPongs;
+    private const int MAX_MISSED_PONGS = 5;
+    private const float PING_INTERVAL = 2f;
+    private const float PONG_TIMEOUT = 5f;
 
-  #region Initialization
+    #region Initialization
 
-  private void Awake()
-  {
-    isInitialized = false;
-    isConnected = false;
-    isExiting = false;
-    isDestroyed = false;
-    socketSetupStarted = false;
-
-
-    for (int i = 0; i < buttons.Count; i++)
+    private void Awake()
     {
-      buttons[i].onClick.RemoveAllListeners();
-      string buttonName = buttons[i].name;
-      buttons[i].onClick.AddListener(() => SendJackpotOpen(buttonName));
-    }
-  }
+        isInitialized = false;
+        isConnected = false;
+        isExiting = false;
+        isDestroyed = false;
+        socketSetupStarted = false;
 
-
-  void SendJackpotOpen(string JackpotType)
-  {
-    if (JackpotOpen)
-      return;
-
-    JackpotOpen = true;
-
-    var request = new JackpotOpenRequest
-    {
-      type = "JACKPOT_OPEN",
-      payload = new JackpotOpenPayload
-      {
-        tier = JackpotType
-      }
-    };
-
-    string json = JsonConvert.SerializeObject(request);
-    Debug.Log($"[SocketIO] Jackpot Open request: {json}");
-    if (gameSocket != null)
-    {
-      gameSocket.Emit("request", json);
+        for (int i = 0; i < buttons.Count; i++)
+        {
+            if (buttons[i] != null)
+            {
+                buttons[i].onClick.RemoveAllListeners();
+                string buttonName = buttons[i].name;
+                buttons[i].onClick.AddListener(() => SendJackpotOpen(buttonName));
+            }
+        }
     }
 
-    Invoke(nameof(ResetJackpotOpen), 1f);
-  }
+    private void Start()
+    {
+        RequestAuthToken();
+    }
 
-  void ResetJackpotOpen()
-  {
-    JackpotOpen = false;
-  }
-
-  private void Start()
-  {
-    RequestAuthToken();
-  }
-
-  private void RequestAuthToken()
-  {
+    private void RequestAuthToken()
+    {
 #if UNITY_WEBGL && !UNITY_EDITOR
         if (JSManager != null)
         {
             JSManager.SendCustomMessage("authToken");
         }
 #else
-    authToken = testToken;
-    socketURL = testSocketURL;
-    InitializeSocket();
-#endif
-  }
-
-  void ReceiveAuthToken(string jsonData)
-  {
-    Debug.Log($"[SocketIO] Auth received");
-
-    try
-    {
-      var authData = JsonUtility.FromJson<AuthTokenData>(jsonData);
-      string incomingToken = authData.cookie;
-      string incomingSocketURL = authData.socketURL;
-      string incomingNameSpace = !string.IsNullOrEmpty(authData.nameSpace) ? authData.nameSpace : nameSpace;
-
-      // If socket is already initialized and the incoming token matches our current token, bypass re-initialization
-      if (socketSetupStarted && authToken == incomingToken && socketURL == incomingSocketURL)
-      {
-        Debug.LogWarning("[SocketIO] Matching auth token received, bypassing re-initialization.");
-        return;
-      }
-
-      Debug.Log("[SocketIO] New or updated auth token received. Cleaning up old socket and re-initializing.");
-      authToken = incomingToken;
-      socketURL = incomingSocketURL;
-      nameSpace = incomingNameSpace;
-
-      InitializeSocket();
-    }
-    catch (Exception e)
-    {
-      Debug.LogError($"[SocketIO] Auth parse failed: {e.Message}");
-    }
-  }
-
-  private void InitializeSocket()
-  {
-    socketSetupStarted = true;
-    StopPingRoutine();
-
-    // Defensive: tear down any prior manager before building a new one
-    if (socketManager != null)
-    {
-      try { socketManager.Close(); } catch { }
-      socketManager = null;
-    }
-
-    isInitialized = false;
-    isConnected = false;
-    isExiting = false;
-
-    if (RaycastBlocker) RaycastBlocker.SetActive(true);
-
-    SocketOptions options = new SocketOptions
-    {
-      AutoConnect = false,
-      Reconnection = false,
-      Timeout = TimeSpan.FromSeconds(3),
-      ConnectWith = Best.SocketIO.Transports.TransportTypes.WebSocket
-    };
-
-    options.Auth = (SocketManager manager, Socket socket) => new { token = authToken };
-
-#if UNITY_EDITOR
-    socketManager = new SocketManager(new Uri(testSocketURL), options);
-#else
-        socketManager = new SocketManager(new Uri(socketURL), options);
-#endif
-
-    gameSocket = string.IsNullOrEmpty(nameSpace)
-        ? socketManager.Socket
-        : socketManager.GetSocket("/" + nameSpace);
-
-    gameSocket.On<ConnectResponse>(SocketIOEventTypes.Connect, OnSocketConnected);
-    gameSocket.On(SocketIOEventTypes.Disconnect, OnSocketDisconnected);
-    gameSocket.On<Error>(SocketIOEventTypes.Error, OnSocketError);
-
-    gameSocket.On<string>("game:init", OnInitReceived);
-    gameSocket.On<string>("result", OnResultReceived);
-    gameSocket.On<string>("pong", OnPongReceived);
-    gameSocket.On("pong", OnPongReceivedNoArgs);
-    gameSocket.On<string>("AnotherDevice", OnAnotherDevice);
-    gameSocket.On<string>("balance:sync", OnBalanceSyncReceived);
-    gameSocket.On<string>("jackpot:sync", OnJackpotSyncReceived);
-
-    socketManager.Open();
-  }
-
-  #endregion
-
-  #region Socket Events
-
-  private void OnSocketConnected(ConnectResponse resp)
-  {
-    Debug.Log("[SocketIO] Connected");
-
-    isConnected = true;
-    waitingForPong = false;
-    missedPongs = 0;
-    pingSendTime = Time.realtimeSinceStartup;
-
-    if (popupManager != null)
-    {
-      popupManager.CloseReconnectionPopup();
-    }
-
-    StartPingRoutine();
-    SendPing();
-  }
-
-  private void OnSocketDisconnected()
-  {
-    Debug.Log("[SocketIO] Disconnected");
-
-    isConnected = false;
-    StopPingRoutine();
-
-    if (uiManager != null)
-    {
-      uiManager.UpdatePingDisplay("-- ms");
-    }
-
-    if (isDestroyed)
-    {
-      // Do not execute UI transitions or popup animations when destroying object / shutting down scene
-      return;
-    }
-
-    if (isExiting)
-    {
-      // Intentional exit — show loading popup (animation) instead of disconnect popup
-      if (popupManager != null)
-      {
-        popupManager.ShowLoadingPopup(0f); // 0 = indefinite, JS will reload the page
-      }
-      // Do NOT call gameManager.OnDisconnected for an intentional exit
-    }
-    else
-    {
-      // Unexpected disconnection — show the regular disconnection popup
-      if (popupManager != null)
-      {
-        popupManager.ShowDisconnectionPopup();
-      }
-
-      if (gameManager != null)
-      {
-        gameManager.OnDisconnected();
-      }
-    }
-  }
-
-  private void OnSocketError(Error err)
-  {
-    Debug.LogError($"[SocketIO] Error: {err.message}");
-
-    if (!gameManager.isInitialized)
-    {
-      gameManager.initializationFailed = true;
-    }
-
-    if (!string.IsNullOrEmpty(err.message) && err.message.Contains("Session expired"))
-    {
-      Debug.LogWarning("Session expired detected");
-      OnSocketDisconnected();
-#if UNITY_WEBGL && !UNITY_EDITOR
-        JSManager.SendCustomMessage("session_expired");
+        authToken = testToken;
+        socketURL = testSocketURL;
+        InitializeSocket();
 #endif
     }
-    else
+
+    private void ReceiveAuthToken(string jsonData)
     {
+        Debug.Log("[SocketIO] Auth received");
 
-      if (popupManager != null)
-      {
-        popupManager.ShowServerError(err.message);
-      }
-#if UNITY_WEBGL && !UNITY_EDITOR
-        JSManager.SendCustomMessage("error");
-#endif
-    }
-  }
-
-  private void OnInitReceived(string jsonData)
-  {
-    Debug.Log($"[SocketIO] Init received: {jsonData}");
-
-    try
-    {
-      var initData = JsonConvert.DeserializeObject<InitData>(jsonData);
-      var gameConfig = InitDataConverter.ConvertToGameConfig(initData);
-      var playerData = InitDataConverter.ConvertToPlayerData(initData.player);
-      var initialMatrix = GenerateRandomMatrix(gameConfig.rowCount);
-
-      isInitialized = true;
-
-      gameManager.OnInitDataReceived(gameConfig, playerData, initialMatrix);
-
-      if (initData.jackpotData != null && initData.jackpotData.values != null && uiManager != null)
-      {
-        uiManager.UpdateJackpotDisplay(initData.jackpotData.values);
-      }
-
-      if (RaycastBlocker) RaycastBlocker.SetActive(false);
-
-#if UNITY_WEBGL && !UNITY_EDITOR
-            if (JSManager != null)
-            {
-                JSManager.SendCustomMessage("OnEnter");
-            }
-#endif
-    }
-    catch (Exception e)
-    {
-      Debug.LogError($"[SocketIO] Init parse failed: {e.Message}");
-      gameManager.initializationFailed = true;
-      if (popupManager != null)
-      {
-        popupManager.ShowServerError("Failed to parse game initialization data.");
-      }
-    }
-  }
-
-  private void OnResultReceived(string jsonData)
-  {
-    if (!jsonData.Contains("\"id\":\"spinResult\"") && !jsonData.Contains("\"id\":\"ResultData\""))
-    {
-      return;
-    }
-
-    Debug.Log($"[SocketIO] Result received: {jsonData}");
-
-    try
-    {
-      var serverResponse = JsonConvert.DeserializeObject<ServerSpinResponse>(jsonData);
-
-      if (!serverResponse.success)
-      {
-        Debug.LogError("[SocketIO] Spin failed");
-        return;
-      }
-
-      double currentBalance = gameManager.playerData.balance;
-      double betAmount = gameManager.currentBetAmount;
-      GameConfig gameConfig = gameManager.gameConfig;
-
-      SpinResult result = InitDataConverter.ConvertServerResponseToSpinResult(
-          serverResponse,
-          currentBalance,
-          betAmount,
-          gameConfig
-      );
-
-      result.playerData.currentBetIndex = gameManager.currentBetIndex;
-
-      gameManager.OnSpinResultReceived(result);
-    }
-    catch (Exception e)
-    {
-      Debug.LogError($"[SocketIO] Result parse failed: {e.Message}");
-    }
-  }
-
-  private void OnAnotherDevice(string data)
-  {
-    Debug.Log("[SocketIO] Another device login");
-
-    if (popupManager != null)
-    {
-      popupManager.ShowAnotherDeviceError();
-    }
-  }
-
-  private void OnBalanceSyncReceived(string jsonData)
-  {
-    Debug.Log($"[SocketIO] Balance Sync received: {jsonData}");
-
-    try
-    {
-      var syncData = JsonConvert.DeserializeObject<BalanceSyncData>(jsonData);
-
-      if (gameManager != null && gameManager.playerData != null)
-      {
-        gameManager.playerData.balance = syncData.balance;
-
-        if (uiManager != null)
+        try
         {
-          uiManager.UpdateBalanceDisplay();
+            var authData = JsonUtility.FromJson<AuthTokenData>(jsonData);
+            string incomingToken = authData.cookie;
+            string incomingSocketURL = authData.socketURL;
+            string incomingNameSpace = !string.IsNullOrEmpty(authData.nameSpace) ? authData.nameSpace : nameSpace;
+
+            if (socketSetupStarted && authToken == incomingToken && socketURL == incomingSocketURL)
+            {
+                Debug.LogWarning("[SocketIO] Matching auth token received, bypassing re-initialization.");
+                return;
+            }
+
+            Debug.Log("[SocketIO] New or updated auth token received. Cleaning up old socket and re-initializing.");
+            authToken = incomingToken;
+            socketURL = incomingSocketURL;
+            nameSpace = incomingNameSpace;
+
+            InitializeSocket();
         }
-      }
+        catch (Exception e)
+        {
+            Debug.LogError($"[SocketIO] Auth parse failed: {e.Message}");
+        }
     }
-    catch (Exception e)
+
+    private void InitializeSocket()
     {
-      Debug.LogError($"[SocketIO] Balance Sync parse failed: {e.Message}");
-    }
-  }
-
-  private void OnJackpotSyncReceived(string jsonData)
-  {
-    Debug.Log($"[SocketIO] Jackpot Sync received: {jsonData}");
-
-    try
-    {
-      var syncData = JsonConvert.DeserializeObject<JackpotSyncData>(jsonData);
-
-      if (syncData != null && syncData.values != null && uiManager != null)
-      {
-        uiManager.UpdateJackpotDisplay(syncData.values);
-      }
-    }
-    catch (Exception e)
-    {
-      Debug.LogError($"[SocketIO] Jackpot Sync parse failed: {e.Message}");
-    }
-  }
-
-  #endregion
-
-  internal void SetRaycastBlocker(bool active)
-  {
-    if (RaycastBlocker != null) RaycastBlocker.SetActive(active);
-  }
-
-  #region Focus / Background Timeout
-  internal void HandleFocusChange(bool focus)
-  {
-    hasFocus = focus;
-
-    if (!focus)
-    {
-      focusLostTime = Time.time;
-      if (focusCheckRoutine == null && !isExiting && !isDestroyed)
-        focusCheckRoutine = StartCoroutine(FocusTimeoutCheck());
-    }
-    else
-    {
-      if (focusCheckRoutine != null)
-      {
-        StopCoroutine(focusCheckRoutine);
-        focusCheckRoutine = null;
-      }
-    }
-  }
-
-  private IEnumerator FocusTimeoutCheck()
-  {
-    while (!hasFocus && !isExiting && !isDestroyed)
-    {
-      if (Time.time - focusLostTime >= maxBackgroundTime)
-      {
-        Debug.LogWarning("[SOCKET] Background timeout — closing connection");
-        isConnected = false;
+        socketSetupStarted = true;
         StopPingRoutine();
 
         if (socketManager != null)
         {
-          try { socketManager.Close(); }
-          catch (Exception e) { Debug.LogWarning($"[SOCKET] Focus close error: {e.Message}"); }
+            try { socketManager.Close(); } catch { }
+            socketManager = null;
         }
 
-        if (popupManager != null)
+        isInitialized = false;
+        isConnected = false;
+        isExiting = false;
+
+        if (RaycastBlocker != null) RaycastBlocker.SetActive(true);
+
+        SocketOptions options = new SocketOptions
         {
-          popupManager.ShowDisconnectionPopup();
+            AutoConnect = false,
+            Reconnection = false,
+            Timeout = TimeSpan.FromSeconds(3),
+            ConnectWith = Best.SocketIO.Transports.TransportTypes.WebSocket
+        };
+
+        options.Auth = (SocketManager manager, Socket socket) => new { token = authToken };
+
+#if UNITY_EDITOR
+        socketManager = new SocketManager(new Uri(testSocketURL), options);
+#else
+        socketManager = new SocketManager(new Uri(socketURL), options);
+#endif
+
+        gameSocket = string.IsNullOrEmpty(nameSpace)
+            ? socketManager.Socket
+            : socketManager.GetSocket("/" + nameSpace);
+
+        gameSocket.On<ConnectResponse>(SocketIOEventTypes.Connect, OnSocketConnected);
+        gameSocket.On(SocketIOEventTypes.Disconnect, OnSocketDisconnected);
+        gameSocket.On<Error>(SocketIOEventTypes.Error, OnSocketError);
+
+        gameSocket.On<string>("game:init", OnInitReceived);
+        gameSocket.On<string>("result", OnResultReceived);
+        gameSocket.On<string>("pong", OnPongReceived);
+        gameSocket.On("pong", OnPongReceivedNoArgs);
+        gameSocket.On<string>("AnotherDevice", OnAnotherDevice);
+        gameSocket.On<string>("balance:sync", OnBalanceSyncReceivedInternal);
+        gameSocket.On<string>("jackpot:sync", OnJackpotSyncReceivedInternal);
+
+        socketManager.Open();
+    }
+
+    #endregion
+
+    #region Socket Events
+
+    private void OnSocketConnected(ConnectResponse resp)
+    {
+        Debug.Log("[SocketIO] Connected");
+
+        isConnected = true;
+        waitingForPong = false;
+        missedPongs = 0;
+        pingSendTime = Time.realtimeSinceStartup;
+
+        StartPingRoutine();
+        SendPing();
+
+        OnSocketConnectedEvent?.Invoke();
+    }
+
+    private void OnSocketDisconnected()
+    {
+        Debug.Log("[SocketIO] Disconnected");
+
+        isConnected = false;
+        StopPingRoutine();
+
+        if (isDestroyed) return;
+
+        OnSocketDisconnectedEvent?.Invoke();
+    }
+
+    private void OnSocketError(Error err)
+    {
+        Debug.LogError($"[SocketIO] Error: {err.message}");
+
+        if (!string.IsNullOrEmpty(err.message) && err.message.Contains("Session expired"))
+        {
+            Debug.LogWarning("Session expired detected");
+            OnSocketDisconnected();
+#if UNITY_WEBGL && !UNITY_EDITOR
+            JSManager?.SendCustomMessage("session_expired");
+#endif
+        }
+        else
+        {
+            OnSocketErrorEvent?.Invoke(err.message);
+#if UNITY_WEBGL && !UNITY_EDITOR
+            JSManager?.SendCustomMessage("error");
+#endif
+        }
+    }
+
+    private void OnInitReceived(string jsonData)
+    {
+        Debug.Log($"[SocketIO] Init received: {jsonData}");
+
+        try
+        {
+            isInitialized = true;
+            if (RaycastBlocker != null) RaycastBlocker.SetActive(false);
+
+            OnInitDataReceived?.Invoke(jsonData);
+
+#if UNITY_WEBGL && !UNITY_EDITOR
+            JSManager?.SendCustomMessage("OnEnter");
+#endif
+        }
+        catch (Exception e)
+        {
+            Debug.LogError($"[SocketIO] Init parse failed: {e.Message}");
+            OnSocketErrorEvent?.Invoke("Failed to parse game initialization data.");
+        }
+    }
+
+    private void OnResultReceived(string jsonData)
+    {
+        if (!jsonData.Contains("\"id\":\"spinResult\"") && !jsonData.Contains("\"id\":\"ResultData\""))
+        {
+            return;
+        }
+
+        Debug.Log($"[SocketIO] Result received: {jsonData}");
+        OnSpinResultReceived?.Invoke(jsonData);
+    }
+
+    private void OnAnotherDevice(string data)
+    {
+        Debug.Log("[SocketIO] Another device login");
+        OnAnotherDeviceLogin?.Invoke();
+    }
+
+    private void OnBalanceSyncReceivedInternal(string jsonData)
+    {
+        Debug.Log($"[SocketIO] Balance Sync received: {jsonData}");
+
+        try
+        {
+            var syncData = JsonConvert.DeserializeObject<BalanceSyncData>(jsonData);
+            if (syncData != null)
+            {
+                OnBalanceSyncReceived?.Invoke(syncData.balance);
+            }
+        }
+        catch (Exception e)
+        {
+            Debug.LogError($"[SocketIO] Balance Sync parse failed: {e.Message}");
+        }
+    }
+
+    private void OnJackpotSyncReceivedInternal(string jsonData)
+    {
+        Debug.Log($"[SocketIO] Jackpot Sync received: {jsonData}");
+
+        try
+        {
+            var syncData = JsonConvert.DeserializeObject<JackpotSyncData>(jsonData);
+            if (syncData != null)
+            {
+                OnJackpotSyncReceived?.Invoke(syncData);
+            }
+        }
+        catch (Exception e)
+        {
+            Debug.LogError($"[SocketIO] Jackpot Sync parse failed: {e.Message}");
+        }
+    }
+
+    #endregion
+
+    #region Jackpot & Spin Requests
+
+    private void SendJackpotOpen(string JackpotType)
+    {
+        if (JackpotOpen) return;
+
+        JackpotOpen = true;
+
+        var request = new JackpotOpenRequest
+        {
+            type = "JACKPOT_OPEN",
+            payload = new JackpotOpenPayload
+            {
+                tier = JackpotType
+            }
+        };
+
+        string json = JsonConvert.SerializeObject(request);
+        Debug.Log($"[SocketIO] Jackpot Open request: {json}");
+        if (gameSocket != null)
+        {
+            gameSocket.Emit("request", json);
+        }
+
+        Invoke(nameof(ResetJackpotOpen), 1f);
+    }
+
+    private void ResetJackpotOpen()
+    {
+        JackpotOpen = false;
+    }
+
+    internal void SendSpinRequest(int betIndex)
+    {
+        Debug.Log($"[SocketIO] Spin request: betIndex={betIndex}");
+
+        var request = new SpinRequest
+        {
+            type = "SPIN",
+            payload = new SpinPayload
+            {
+                betIndex = betIndex,
+                isFreeSpin = false
+            }
+        };
+
+        string json = JsonUtility.ToJson(request);
+        if (gameSocket != null)
+        {
+            gameSocket.Emit("request", json);
+        }
+    }
+
+    #endregion
+
+    #region Focus & Background Timeout
+
+    internal void SetRaycastBlocker(bool active)
+    {
+        if (RaycastBlocker != null) RaycastBlocker.SetActive(active);
+    }
+
+    internal void HandleFocusChange(bool focus)
+    {
+        hasFocus = focus;
+
+        if (!focus)
+        {
+            focusLostTime = Time.time;
+            if (focusCheckRoutine == null && !isExiting && !isDestroyed)
+                focusCheckRoutine = StartCoroutine(FocusTimeoutCheck());
+        }
+        else
+        {
+            if (focusCheckRoutine != null)
+            {
+                StopCoroutine(focusCheckRoutine);
+                focusCheckRoutine = null;
+            }
+        }
+    }
+
+    private IEnumerator FocusTimeoutCheck()
+    {
+        while (!hasFocus && !isExiting && !isDestroyed)
+        {
+            if (Time.time - focusLostTime >= maxBackgroundTime)
+            {
+                Debug.LogWarning("[SOCKET] Background timeout — closing connection");
+                isConnected = false;
+                StopPingRoutine();
+
+                if (socketManager != null)
+                {
+                    try { socketManager.Close(); }
+                    catch (Exception e) { Debug.LogWarning($"[SOCKET] Focus close error: {e.Message}"); }
+                }
+
+                OnSocketDisconnectedEvent?.Invoke();
+
+                focusCheckRoutine = null;
+                yield break;
+            }
+
+            yield return new WaitForSecondsRealtime(1f);
         }
 
         focusCheckRoutine = null;
-        yield break;
-      }
-
-      yield return new WaitForSecondsRealtime(1f);
     }
 
-    focusCheckRoutine = null;
-  }
-  #endregion
+    #endregion
 
-  #region Ping/Pong Health Check
+    #region Ping / Pong Latency Check
 
-  private void StartPingRoutine()
-  {
-    if (pingCoroutine != null)
-      StopCoroutine(pingCoroutine);
-
-    pingCoroutine = StartCoroutine(PingRoutine());
-  }
-
-  private void StopPingRoutine()
-  {
-    if (pingCoroutine != null)
+    private void StartPingRoutine()
     {
-      StopCoroutine(pingCoroutine);
-      pingCoroutine = null;
+        if (pingCoroutine != null)
+            StopCoroutine(pingCoroutine);
+
+        pingCoroutine = StartCoroutine(PingRoutine());
     }
-  }
 
-  private IEnumerator PingRoutine()
-  {
-    while (isConnected)
+    private void StopPingRoutine()
     {
-      yield return new WaitForSeconds(PING_INTERVAL);
-
-      if (waitingForPong && isInitialized)
-      {
-        missedPongs++;
-
-        if (missedPongs >= MAX_MISSED_PONGS)
+        if (pingCoroutine != null)
         {
-          Debug.LogWarning("[SocketIO] Max pongs missed - disconnecting");
-          OnSocketDisconnected();
-          yield break;
+            StopCoroutine(pingCoroutine);
+            pingCoroutine = null;
+        }
+    }
+
+    private IEnumerator PingRoutine()
+    {
+        while (isConnected)
+        {
+            yield return new WaitForSeconds(PING_INTERVAL);
+
+            if (waitingForPong && isInitialized)
+            {
+                missedPongs++;
+
+                if (missedPongs >= MAX_MISSED_PONGS)
+                {
+                    Debug.LogWarning("[SocketIO] Max pongs missed - disconnecting");
+                    OnSocketDisconnected();
+                    yield break;
+                }
+            }
+
+            SendPing();
+        }
+    }
+
+    private void SendPing()
+    {
+        if (gameSocket != null && isConnected)
+        {
+            pingSendTime = Time.realtimeSinceStartup;
+            waitingForPong = true;
+            gameSocket.Emit("ping");
+
+            if (enablePingDebug)
+            {
+                Debug.Log($"[SocketIO] Ping sent at {pingSendTime:F3}s");
+            }
+        }
+    }
+
+    private void OnPongReceivedNoArgs()
+    {
+        OnPongReceived(string.Empty);
+    }
+
+    private void OnPongReceived(string data)
+    {
+        waitingForPong = false;
+
+        if (pingSendTime > 0f)
+        {
+            float rtt = Time.realtimeSinceStartup - pingSendTime;
+            int pingMs = Mathf.Max(1, Mathf.RoundToInt(rtt * 1000f));
+            OnPingLatencyUpdated?.Invoke(pingMs);
+
+            if (enablePingDebug)
+            {
+                Debug.Log($"[SocketIO] Pong received | Latency: {pingMs} ms");
+            }
         }
 
-        if (missedPongs >= 2 && popupManager != null)
+        if (missedPongs > 0)
         {
-          popupManager.ShowReconnectionPopup(missedPongs, MAX_MISSED_PONGS);
+            missedPongs = 0;
         }
-      }
-
-      SendPing();
-    }
-  }
-
-  private void SendPing()
-  {
-    if (gameSocket != null && isConnected)
-    {
-      pingSendTime = Time.realtimeSinceStartup;
-      waitingForPong = true;
-      gameSocket.Emit("ping");
-
-      if (enablePingDebug)
-      {
-        Debug.Log($"[SocketIO] Ping sent at {pingSendTime:F3}s");
-      }
-    }
-  }
-
-  private void OnPongReceivedNoArgs()
-  {
-    OnPongReceived(string.Empty);
-  }
-
-  private void OnPongReceived(string data)
-  {
-    waitingForPong = false;
-
-    if (pingSendTime > 0f)
-    {
-      float rtt = Time.realtimeSinceStartup - pingSendTime;
-      int pingMs = Mathf.Max(1, Mathf.RoundToInt(rtt * 1000f));
-      if (uiManager != null)
-      {
-        uiManager.UpdatePingDisplay(pingMs);
-      }
-
-      if (enablePingDebug)
-      {
-        Debug.Log($"[SocketIO] Pong received | Latency: {pingMs} ms");
-      }
     }
 
-    if (missedPongs > 0)
+    #endregion
+
+    #region Cleanup & Teardown
+
+    internal void CloseSocket()
     {
-      missedPongs = 0;
+        if (isDestroyed) return;
 
-      if (popupManager != null)
-      {
-        popupManager.CloseReconnectionPopup();
-      }
-    }
-  }
+        isExiting = true;
 
-  #endregion
+        if (RaycastBlocker != null) RaycastBlocker.SetActive(true);
 
-  #region Spin Request
+        StopPingRoutine();
 
-  internal void SendSpinRequest(int betIndex)
-  {
-    Debug.Log($"[SocketIO] Spin request: betIndex={betIndex}");
+        if (socketManager != null)
+        {
+            socketManager.Close();
+            socketManager = null;
+        }
 
-    var request = new SpinRequest
-    {
-      type = "SPIN",
-      payload = new SpinPayload
-      {
-        betIndex = betIndex,
-        isFreeSpin = false
-      }
-    };
-
-    string json = JsonUtility.ToJson(request);
-    gameSocket.Emit("request", json);
-  }
-
-
-  #endregion
-
-
-
-  #region Cleanup
-
-  internal void CloseSocket()
-  {
-    if (isDestroyed) return;
-
-    // Mark as intentional exit BEFORE closing so OnSocketDisconnected shows
-    // the loading popup (with its animation) instead of the disconnect popup.
-    isExiting = true;
-
-    if (RaycastBlocker) RaycastBlocker.SetActive(true);
-
-    StopPingRoutine();
-
-    if (socketManager != null)
-    {
-      socketManager.Close();
-      socketManager = null;
-    }
-
-    isConnected = false;
-    socketSetupStarted = false;
-
-    // If the socket close does not fire OnSocketDisconnected (e.g. already disconnected),
-    // still show the loading popup so the exit transition always looks clean.
-    if (popupManager != null && !popupManager.IsLoadingPopupActive())
-    {
-      popupManager.ShowLoadingPopup(0f);
-    }
+        isConnected = false;
+        socketSetupStarted = false;
 
 #if UNITY_WEBGL && !UNITY_EDITOR
-        if (JSManager != null)
-        {
-            JSManager.SendCustomMessage("OnExit");
-        }
+        JSManager?.SendCustomMessage("OnExit");
 #endif
-  }
-
-  private void OnDisable()
-  {
-    StopPingRoutine();
-  }
-
-  private void OnApplicationQuit()
-  {
-    isDestroyed = true;
-  }
-
-  private void OnDestroy()
-  {
-    isDestroyed = true;
-    StopPingRoutine();
-
-    if (socketManager != null)
-    {
-      socketManager.Close();
-      socketManager = null;
     }
-    isConnected = false;
-  }
 
-  #endregion
-  private List<List<int>> GenerateRandomMatrix(int rowCount)
-  {
-    int reelCount = (gameManager != null && gameManager.gameConfig != null) ? gameManager.gameConfig.reelCount : 3;
-    var matrix = new List<List<int>>();
-    for (int col = 0; col < reelCount; col++)
+    private void OnDisable()
     {
-      var column = new List<int>();
-      for (int row = 0; row < rowCount; row++)
-      {
-        column.Add(UnityEngine.Random.Range(0, 10));
-      }
-      matrix.Add(column);
+        StopPingRoutine();
     }
-    return matrix;
-  }
+
+    private void OnApplicationQuit()
+    {
+        isDestroyed = true;
+    }
+
+    private void OnDestroy()
+    {
+        isDestroyed = true;
+        StopPingRoutine();
+
+        if (socketManager != null)
+        {
+            socketManager.Close();
+            socketManager = null;
+        }
+        isConnected = false;
+    }
+
+    #endregion
 }
-
 
 [Serializable]
 public class AuthTokenData
 {
-  public string cookie;
-  public string socketURL;
-  public string nameSpace;
+    public string cookie;
+    public string socketURL;
+    public string nameSpace;
 }
 
 [Serializable]
 public class BalanceSyncData
 {
-  public string userId;
-  public string gameId;
-  public double balance;
+    public string userId;
+    public string gameId;
+    public double balance;
+}
+
+[Serializable]
+public class JackpotSyncData
+{
+    public List<double> values;
+}
+
+[Serializable]
+public class JackpotOpenRequest
+{
+    public string type = "JACKPOT_OPEN";
+    public JackpotOpenPayload payload = new JackpotOpenPayload();
+}
+
+[Serializable]
+public class JackpotOpenPayload
+{
+    public string tier;
+}
+
+[Serializable]
+public class SpinRequest
+{
+    public string type = "SPIN";
+    public SpinPayload payload;
+}
+
+[Serializable]
+public class SpinPayload
+{
+    public int betIndex;
+    public bool isFreeSpin;
 }
