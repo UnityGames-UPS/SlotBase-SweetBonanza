@@ -6,7 +6,7 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/SweetBonanza.unity
+    path: Assets/SL-SBZ/Scenes/SweetBonanza.unity
     guid: 68348d64bcc999e4ea06872e36249748
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
