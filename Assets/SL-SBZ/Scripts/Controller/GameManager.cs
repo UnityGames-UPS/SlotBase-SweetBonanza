@@ -1,56 +1,75 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using SweetBonanza.Core;
-using SweetBonanza.Service;
+using SweetBonanza.Model;
 using SweetBonanza.View;
+using SweetBonanza.Service;
 
 namespace SweetBonanza.Controller
 {
     public class GameManager : MonoBehaviour
     {
-        [Header("Service & View References")]
-        [SerializeField] private BackendService backendService;
-        [SerializeField] private GridView gridView;
+        [Header("Views Bindings")]
         [SerializeField] private MainView mainView;
         [SerializeField] private UIManager uiManager;
+        [SerializeField] private GridView gridView;
 
-        [Header("Game State")]
-        [SerializeField] private GameState currentState = GameState.Initializing;
+        [Header("Service Binding")]
+        [SerializeField] private BackendService backendService;
 
-        [Header("Main Gameplay Values")]
-        [SerializeField] private double currentBalance;
-        [SerializeField] private double currentBetAmount = 1.00;
-        [SerializeField] private int currentBetIndex = 4;
-        [SerializeField] private double currentTotalWin;
-        [SerializeField] private double anteBetMultiplier = 1.25;
-        [SerializeField] private double buyFeatureCostMultiplier = 100.0;
-        [SerializeField] private double maxWinMultiplier = 21100.0;
+        [Header("Server Data & Balance")]
+        [SerializeField] private double currentBalance = 11645.27;
+        [SerializeField] private float currentBetAmount = 2.0f;
+        [SerializeField] private int currentBetIndex = 9;
+        [SerializeField] private float anteBetMultiplier = 1.25f;
+        [SerializeField] private float buyFeatureCostMultiplier = 100f;
+        [SerializeField] private float maxWinMultiplier = 21100f;
         [SerializeField] private int matrixColumns = 6;
         [SerializeField] private int matrixRows = 5;
-        [SerializeField] private double[] availableBets;
+        [SerializeField] private float[] availableBets = new float[]
+        {
+            0.2f, 0.4f, 0.6f, 0.8f, 1.0f, 1.2f, 1.4f, 1.6f, 1.8f, 2.0f,
+            2.4f, 3.0f, 4.0f, 5.0f, 10.0f, 15.0f, 20.0f, 25.0f, 50.0f,
+            75.0f, 100.0f, 125.0f, 150.0f, 200.0f, 250.0f, 300.0f
+        };
 
-        [Header("Feature And Round Status")]
-        [SerializeField] private bool isAnteBetActive;
-        [SerializeField] private bool isInFreeSpins;
-        [SerializeField] private int remainingFreeSpins;
-        [SerializeField] private bool isAutoplaying;
-        [SerializeField] private int remainingAutoplaySpins;
+        private GameState currentState = GameState.Initializing;
+        private bool isAnteBetActive = false;
+        private bool isInFreeSpins = false;
+        private int remainingFreeSpins = 0;
+        private bool isAutoplaying = false;
+        private int remainingAutoplaySpins = 0;
 
-        private double CurrentBetAmount => (availableBets != null && currentBetIndex < availableBets.Length)
-            ? availableBets[currentBetIndex]
-            : 1.00;
+        internal double CurrentBetAmount => isAnteBetActive ? currentBetAmount * anteBetMultiplier : currentBetAmount;
 
         private void Start()
         {
-            if (backendService != null)
+            InitializeServices();
+            HookViewEvents();
+            UpdateHUD(false);
+            currentState = GameState.Idle;
+        }
+
+        private void InitializeServices()
+        {
+            if (backendService == null)
             {
-                backendService.OnInitDataReceived += HandleInitDataReceived;
-                backendService.OnRoundResultReceived += HandleRoundResultReceived;
-                backendService.OnErrorOccurred += HandleErrorOccurred;
+                backendService = GetComponent<BackendService>();
+                if (backendService == null)
+                {
+                    backendService = gameObject.AddComponent<LocalDemoService>();
+                }
             }
 
+            backendService.OnInitDataReceived += HandleInitDataReceived;
+            backendService.OnRoundResultReceived += HandleRoundResultReceived;
+            backendService.OnErrorOccurred += HandleErrorOccurred;
+
+            backendService.Initialize();
+        }
+
+        private void HookViewEvents()
+        {
             if (uiManager != null)
             {
                 uiManager.OnSpinClicked += HandleSpinClicked;
@@ -62,7 +81,6 @@ namespace SweetBonanza.Controller
                 uiManager.OnBuyFeatureConfirmed += HandleBuyBonusConfirmed;
                 uiManager.OnAutoplayStarted += HandleAutoplayStarted;
                 uiManager.OnAutoplayStopped += HandleAutoplayStopped;
-                uiManager.OnQuickSpinToggled += isQuick => gridView?.SetQuickSpinMode(isQuick);
             }
             else if (mainView != null)
             {
@@ -72,55 +90,30 @@ namespace SweetBonanza.Controller
                 mainView.OnAnteBetToggled += HandleAnteBetToggled;
                 mainView.OnBuyBonusClicked += HandleBuyBonusConfirmed;
             }
-
-            if (backendService != null)
-            {
-                backendService.Initialize();
-            }
         }
 
         private void HandleInitDataReceived(InitPayload payload)
         {
             currentBalance = payload.Balance;
-            availableBets = payload.AvailableBets;
-            if (payload.DefaultBetIndex >= 0 && availableBets != null && payload.DefaultBetIndex < availableBets.Length)
-            {
-                currentBetIndex = payload.DefaultBetIndex;
-            }
-            else
-            {
-                currentBetIndex = 4;
-            }
-            anteBetMultiplier = payload.AnteBetMultiplier > 0 ? payload.AnteBetMultiplier : 1.25;
-            buyFeatureCostMultiplier = payload.BuyFeatureCostMultiplier > 0 ? payload.BuyFeatureCostMultiplier : 100.0;
-            maxWinMultiplier = payload.MaxWinMultiplier > 0 ? payload.MaxWinMultiplier : 21100.0;
-            matrixColumns = payload.MatrixColumns > 0 ? payload.MatrixColumns : 6;
-            matrixRows = payload.MatrixRows > 0 ? payload.MatrixRows : 5;
-            currentBetAmount = CurrentBetAmount;
-            currentTotalWin = 0;
+            currentBetIndex = Mathf.Clamp(payload.DefaultBetIndex, 0, availableBets.Length - 1);
+            currentBetAmount = availableBets[currentBetIndex];
+            anteBetMultiplier = payload.AnteBetMultiplier;
+            buyFeatureCostMultiplier = payload.BuyFeatureCostMultiplier;
+            maxWinMultiplier = payload.MaxWinMultiplier;
 
             UpdateHUD(false);
-
-            if (mainView != null)
-            {
-                mainView.SetAnteBetState(isAnteBetActive);
-                mainView.SetFreeSpinsDisplay(false, 0);
-                mainView.SetStatusMessage("PRESS SPIN TO PLAY");
-            }
-
-            currentState = GameState.Idle;
         }
 
         private void UpdateHUD(bool isSpinning)
         {
             if (uiManager != null)
             {
-                uiManager.UpdateHUD(currentBalance, CurrentBetAmount, 0, isAnteBetActive, isSpinning);
+                uiManager.UpdateHUD(currentBalance, currentBetAmount, 0, isAnteBetActive, isSpinning);
             }
             else if (mainView != null)
             {
                 mainView.SetBalance(currentBalance);
-                mainView.SetBet(CurrentBetAmount, isAnteBetActive);
+                mainView.SetBet(currentBetAmount, isAnteBetActive);
                 mainView.SetSpinButtonInteractable(!isSpinning);
             }
         }
@@ -129,70 +122,66 @@ namespace SweetBonanza.Controller
         {
             if (currentState != GameState.Idle) return;
 
+            if (currentBalance < CurrentBetAmount && !isInFreeSpins)
+            {
+                SetStatusMessage("INSUFFICIENT BALANCE");
+                return;
+            }
+
             currentState = GameState.Spinning;
             UpdateHUD(true);
-            SetStatusMessage("GOOD LUCK!");
-
-            backendService.RequestSpin(CurrentBetAmount, isAnteBetActive, false);
+            backendService.RequestSpin(currentBetAmount, isAnteBetActive, false);
         }
 
         private void HandleBuyBonusRequested()
         {
             if (currentState != GameState.Idle || isAnteBetActive) return;
-
-            if (uiManager != null)
-            {
-                uiManager.OpenBuyFeatureModal(CurrentBetAmount);
-            }
-            else
-            {
-                HandleBuyBonusConfirmed();
-            }
+            if (uiManager != null) uiManager.OpenBuyFeatureModal(currentBetAmount);
         }
 
         private void HandleBuyBonusConfirmed()
         {
-            if (currentState != GameState.Idle || isAnteBetActive) return;
+            if (currentState != GameState.Idle) return;
+            double cost = currentBetAmount * buyFeatureCostMultiplier;
+            if (currentBalance < cost)
+            {
+                SetStatusMessage("INSUFFICIENT BALANCE FOR BUY FEATURE");
+                return;
+            }
 
             currentState = GameState.Spinning;
             UpdateHUD(true);
-            SetStatusMessage("BUYING FREE SPINS FEATURE...");
-
-            backendService.RequestSpin(CurrentBetAmount, isAnteBetActive, true);
+            backendService.RequestSpin(currentBetAmount, false, true);
         }
 
         private void HandleBetIncreaseClicked()
         {
             if (currentState != GameState.Idle || availableBets == null || availableBets.Length == 0) return;
-
-            currentBetIndex++;
-            if (currentBetIndex >= availableBets.Length) currentBetIndex = 0;
-
+            currentBetIndex = (currentBetIndex + 1) % availableBets.Length;
+            currentBetAmount = availableBets[currentBetIndex];
             UpdateHUD(false);
         }
 
         private void HandleBetDecreaseClicked()
         {
             if (currentState != GameState.Idle || availableBets == null || availableBets.Length == 0) return;
-
             currentBetIndex--;
             if (currentBetIndex < 0) currentBetIndex = availableBets.Length - 1;
-
+            currentBetAmount = availableBets[currentBetIndex];
             UpdateHUD(false);
         }
 
         private void HandleBetMaxClicked()
         {
             if (currentState != GameState.Idle || availableBets == null || availableBets.Length == 0) return;
-
             currentBetIndex = availableBets.Length - 1;
+            currentBetAmount = availableBets[currentBetIndex];
             UpdateHUD(false);
         }
 
         private void HandleAnteBetToggled()
         {
             if (currentState != GameState.Idle) return;
-
             isAnteBetActive = !isAnteBetActive;
             if (mainView != null) mainView.SetAnteBetState(isAnteBetActive);
             UpdateHUD(false);
@@ -201,11 +190,9 @@ namespace SweetBonanza.Controller
         private void HandleAutoplayStarted(int rounds)
         {
             if (currentState != GameState.Idle) return;
-
             isAutoplaying = true;
             remainingAutoplaySpins = rounds;
             if (uiManager != null) uiManager.SetAutoplayState(true, remainingAutoplaySpins);
-
             HandleSpinClicked();
         }
 
@@ -224,7 +211,7 @@ namespace SweetBonanza.Controller
         private IEnumerator PlayRoundSequence(RoundResult result)
         {
             currentState = GameState.DroppingInitial;
-            yield return gridView.PlayInitialDropSequence(result.InitialMatrix);
+            if (gridView != null) yield return gridView.PlayInitialDropSequence(result.InitialMatrix);
 
             if (result.ScatterCount >= 4)
             {
@@ -239,9 +226,8 @@ namespace SweetBonanza.Controller
             {
                 var step = result.TumbleSteps[i];
                 rollingTumbleWin += step.StepWinAmount;
-
                 SetStatusMessage($"TUMBLE #{i + 1} WIN: ${step.StepWinAmount:F2}");
-                yield return gridView.PlayTumbleStepSequence(step);
+                if (gridView != null) yield return gridView.PlayTumbleStepSequence(step);
                 if (mainView != null) mainView.SetWin(rollingTumbleWin, true);
             }
 
@@ -249,7 +235,7 @@ namespace SweetBonanza.Controller
             {
                 currentState = GameState.EvaluatingMultipliers;
                 SetStatusMessage($"💣 MULTIPLIERS ACTIVATED: {result.TotalMultiplier}X!");
-                yield return gridView.PlayMultiplierBombRevealSequence(result.MultiplierBombs);
+                if (gridView != null) yield return gridView.PlayMultiplierBombRevealSequence(result.MultiplierBombs);
                 if (mainView != null) mainView.SetWin(result.FinalWinAmount, true);
                 yield return new WaitForSeconds(0.5f);
             }
@@ -272,39 +258,18 @@ namespace SweetBonanza.Controller
                 isInFreeSpins = true;
                 remainingFreeSpins = result.RemainingFreeSpins;
                 if (mainView != null) mainView.SetFreeSpinsDisplay(true, remainingFreeSpins);
-
-                if (uiManager != null)
-                {
-                    uiManager.ShowFreeSpinsIntro(result.FreeSpinsAwarded);
-                }
-                SetStatusMessage($"🎉 CONGRATULATIONS! {result.FreeSpinsAwarded} FREE SPINS WON! 🎉");
+                if (uiManager != null) uiManager.ShowFreeSpinsIntro(result.FreeSpinsAwarded);
                 yield return new WaitForSeconds(1.2f);
             }
             else if (isInFreeSpins)
             {
                 remainingFreeSpins = result.RemainingFreeSpins;
                 if (mainView != null) mainView.SetFreeSpinsDisplay(remainingFreeSpins > 0, remainingFreeSpins);
-
                 if (remainingFreeSpins <= 0)
                 {
                     isInFreeSpins = false;
-                    if (uiManager != null)
-                    {
-                        uiManager.ShowFreeSpinsOutro(result.FinalWinAmount);
-                    }
-                    SetStatusMessage($"FREE SPINS FINISHED! TOTAL WIN: ${result.FinalWinAmount:F2}");
+                    if (uiManager != null) uiManager.ShowFreeSpinsOutro(result.FinalWinAmount);
                     yield return new WaitForSeconds(1.0f);
-                }
-            }
-            else
-            {
-                if (result.FinalWinAmount > 0)
-                {
-                    SetStatusMessage($"WIN: ${result.FinalWinAmount:F2}");
-                }
-                else
-                {
-                    SetStatusMessage("TRY AGAIN");
                 }
             }
 
@@ -314,8 +279,7 @@ namespace SweetBonanza.Controller
             if (isInFreeSpins && remainingFreeSpins > 0)
             {
                 yield return new WaitForSeconds(0.6f);
-                SetStatusMessage($"FREE SPIN REMAINING: {remainingFreeSpins}");
-                backendService.RequestSpin(CurrentBetAmount, false, false);
+                backendService.RequestSpin(currentBetAmount, false, false);
             }
             else if (isAutoplaying)
             {

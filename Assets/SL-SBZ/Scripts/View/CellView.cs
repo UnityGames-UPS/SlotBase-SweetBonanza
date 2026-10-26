@@ -3,12 +3,13 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using DG.Tweening;
-using SweetBonanza.Core;
+using SweetBonanza.Model;
 
 namespace SweetBonanza.View
 {
+    [SelectionBase]
     [RequireComponent(typeof(RectTransform))]
-    internal class CellView : MonoBehaviour
+    public class CellView : MonoBehaviour
     {
         [Header("Components")]
         [SerializeField] private Image symbolImage;
@@ -57,18 +58,13 @@ namespace SweetBonanza.View
                 }
             }
 
-            if (canvasGroup != null)
-            {
-                canvasGroup.alpha = 1f;
-            }
-
-            rectTransform.localScale = Vector3.one;
+            if (canvasGroup != null) canvasGroup.alpha = 1f;
+            if (rectTransform != null) rectTransform.localScale = Vector3.one;
         }
 
         internal void PlayWinPulseAnimation(Action onComplete)
         {
             KillActiveTweens();
-
             activeSequence = DOTween.Sequence();
             activeSequence.Append(rectTransform.DOScale(1.25f, 0.18f).SetEase(Ease.OutQuad));
             activeSequence.Append(rectTransform.DOScale(0.95f, 0.12f).SetEase(Ease.InQuad));
@@ -79,10 +75,9 @@ namespace SweetBonanza.View
         internal void PlayExplodeAnimation(Action onComplete)
         {
             KillActiveTweens();
-
             activeSequence = DOTween.Sequence();
             activeSequence.Append(rectTransform.DOScale(1.3f, 0.1f).SetEase(Ease.OutQuad));
-            activeSequence.Join(canvasGroup != null ? canvasGroup.DOFade(0.3f, 0.15f) : null);
+            if (canvasGroup != null) activeSequence.Join(canvasGroup.DOFade(0.3f, 0.15f));
             activeSequence.Append(rectTransform.DOScale(0.0f, 0.15f).SetEase(Ease.InBack));
             activeSequence.OnComplete(() =>
             {
@@ -94,7 +89,6 @@ namespace SweetBonanza.View
         internal void PlayFallAnimation(Vector2 targetAnchoredPos, float duration, Action onComplete)
         {
             KillActiveTweens();
-
             activeTweener = rectTransform.DOAnchorPos(targetAnchoredPos, duration)
                 .SetEase(Ease.OutBounce, 1.2f)
                 .OnComplete(() => onComplete?.Invoke());
@@ -103,16 +97,12 @@ namespace SweetBonanza.View
         internal void PlayDropInAnimation(Vector2 targetAnchoredPos, float delay, float duration, Action onComplete)
         {
             KillActiveTweens();
-
             rectTransform.localScale = Vector3.one;
             if (canvasGroup != null) canvasGroup.alpha = 1f;
             if (symbolImage != null) symbolImage.enabled = true;
 
             activeSequence = DOTween.Sequence();
-            if (delay > 0)
-            {
-                activeSequence.AppendInterval(delay);
-            }
+            if (delay > 0) activeSequence.AppendInterval(delay);
             activeSequence.Append(rectTransform.DOAnchorPos(targetAnchoredPos, duration).SetEase(Ease.OutBack, 1.1f));
             activeSequence.OnComplete(() => onComplete?.Invoke());
         }
@@ -120,7 +110,6 @@ namespace SweetBonanza.View
         internal void PlayMultiplierBombRevealAnimation(int multiplier, Action onComplete)
         {
             KillActiveTweens();
-
             currentMultiplier = multiplier;
             if (multiplierText != null)
             {
@@ -137,7 +126,7 @@ namespace SweetBonanza.View
         internal void ResetCell()
         {
             KillActiveTweens();
-            rectTransform.localScale = Vector3.one;
+            if (rectTransform != null) rectTransform.localScale = Vector3.one;
             if (canvasGroup != null) canvasGroup.alpha = 1f;
             if (symbolImage != null)
             {
@@ -149,16 +138,10 @@ namespace SweetBonanza.View
 
         private void KillActiveTweens()
         {
-            if (activeSequence != null && activeSequence.IsActive())
-            {
-                activeSequence.Kill();
-            }
+            if (activeSequence != null && activeSequence.IsActive()) activeSequence.Kill();
             activeSequence = null;
 
-            if (activeTweener != null && activeTweener.IsActive())
-            {
-                activeTweener.Kill();
-            }
+            if (activeTweener != null && activeTweener.IsActive()) activeTweener.Kill();
             activeTweener = null;
         }
 

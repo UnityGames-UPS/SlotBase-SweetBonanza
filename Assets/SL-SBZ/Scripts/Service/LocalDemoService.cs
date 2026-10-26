@@ -1,126 +1,52 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using SweetBonanza.Core;
+using SweetBonanza.Model;
 
 namespace SweetBonanza.Service
 {
-    internal class LocalDemoService : BackendService
+    public class LocalDemoService : BackendService
     {
-        [Header("Starting Balance")]
-        [SerializeField] private double startingBalance = 1000.00;
+        private static readonly int[] MultiplierValues = { 2, 3, 5, 8, 10, 15, 20, 25, 50, 100 };
 
-        [Header("Network Simulation")]
-        [SerializeField] private float networkSimulationDelay = 0.15f;
-
-        private double currentBalance;
-        private int currentBetIndex = 2;
-
-        private bool isInFreeSpins;
-        private int remainingFreeSpins;
-        private double totalFreeSpinsWin;
-        private double activeFreeSpinBet;
-
-        private static readonly int[] MultiplierValues = { 2, 3, 4, 5, 6, 8, 10, 12, 15, 20, 25, 50, 100 };
-
-        private void Awake()
-        {
-            currentBalance = startingBalance;
-        }
+        private bool isInFreeSpins = false;
+        private int remainingFreeSpins = 0;
+        private double playerBalance = 11645.27;
 
         internal override void Initialize()
         {
-            StartCoroutine(SimulateInit());
-        }
-
-        private IEnumerator SimulateInit()
-        {
-            yield return new WaitForSeconds(networkSimulationDelay);
-
-            var initPayload = new InitPayload
+            var payload = new InitPayload
             {
-                Balance = currentBalance,
-                DefaultBetIndex = currentBetIndex,
+                Balance = playerBalance,
+                DefaultBetIndex = 9,
                 AvailableBets = GameConfig.DefaultAvailableBets,
-                MatrixColumns = GameConfig.COLUMNS,
-                MatrixRows = GameConfig.ROWS,
-                AnteBetMultiplier = 1.25,
-                BuyFeatureCostMultiplier = 100.0,
-                MaxWinMultiplier = 21100.0
+                AnteBetMultiplier = 1.25f,
+                BuyFeatureCostMultiplier = 100f,
+                MaxWinMultiplier = 21100f
             };
-
-            RaiseInitDataReceived(initPayload);
+            RaiseInitDataReceived(payload);
         }
 
         internal override void RequestSpin(double betAmount, bool isAnteBet, bool isBonusBuy)
         {
-            StartCoroutine(SimulateSpinRoutine(betAmount, isAnteBet, isBonusBuy));
-        }
-
-        private IEnumerator SimulateSpinRoutine(double betAmount, bool isAnteBet, bool isBonusBuy)
-        {
-            yield return new WaitForSeconds(networkSimulationDelay);
-
-            double effectiveCost = 0;
+            double cost = isBonusBuy ? betAmount * 100.0 : (isAnteBet ? betAmount * 1.25 : betAmount);
             if (!isInFreeSpins)
             {
-                if (isBonusBuy)
-                {
-                    effectiveCost = betAmount * 100.0;
-                }
-                else if (isAnteBet)
-                {
-                    effectiveCost = betAmount * 1.25;
-                }
-                else
-                {
-                    effectiveCost = betAmount;
-                }
-
-                if (currentBalance < effectiveCost)
-                {
-                    RaiseErrorOccurred("Insufficient balance for spin.");
-                    yield break;
-                }
-
-                currentBalance -= effectiveCost;
+                playerBalance -= cost;
             }
 
-            var result = GenerateRoundResult(betAmount, isAnteBet, isBonusBuy);
-
-            currentBalance += result.FinalWinAmount;
-
-            if (isInFreeSpins)
-            {
-                totalFreeSpinsWin += result.FinalWinAmount;
-                remainingFreeSpins--;
-                result.RemainingFreeSpins = remainingFreeSpins;
-
-                if (remainingFreeSpins <= 0)
-                {
-                    isInFreeSpins = false;
-                }
-            }
-            else if (result.TriggeredFreeSpins)
-            {
-                isInFreeSpins = true;
-                remainingFreeSpins = result.FreeSpinsAwarded;
-                totalFreeSpinsWin = 0;
-                activeFreeSpinBet = betAmount;
-                result.RemainingFreeSpins = remainingFreeSpins;
-            }
+            var result = SimulateSweetBonanzaRound(betAmount, isAnteBet, isBonusBuy);
+            playerBalance += result.FinalWinAmount;
 
             RaiseRoundResultReceived(result);
         }
 
-        private RoundResult GenerateRoundResult(double betAmount, bool isAnteBet, bool isBonusBuy)
+        private RoundResult SimulateSweetBonanzaRound(double betAmount, bool isAnteBet, bool isBonusBuy)
         {
             var result = new RoundResult();
             result.IsFreeSpin = isInFreeSpins;
 
             int[,] currentMatrix = new int[GameConfig.COLUMNS, GameConfig.ROWS];
-
             FillRandomMatrix(currentMatrix, isAnteBet, isBonusBuy, isInFreeSpins);
             result.InitialMatrix = (int[,])currentMatrix.Clone();
 
@@ -129,10 +55,7 @@ namespace SweetBonanza.Service
             {
                 for (int r = 0; r < GameConfig.ROWS; r++)
                 {
-                    if (currentMatrix[c, r] == (int)SymbolType.Scatter)
-                    {
-                        scatterCount++;
-                    }
+                    if (currentMatrix[c, r] == (int)SymbolType.Lollipop) scatterCount++;
                 }
             }
             result.ScatterCount = scatterCount;
@@ -140,37 +63,43 @@ namespace SweetBonanza.Service
             double scatterWin = 0;
             if (scatterCount >= 4)
             {
-                scatterWin = betAmount * GameConfig.GetPayoutMultiplier(SymbolType.Scatter, scatterCount);
-                result.TriggeredFreeSpins = true;
-                result.FreeSpinsAwarded = 10;
+                scatterWin = betAmount * GameConfig.GetPayoutMultiplier(SymbolType.Lollipop, scatterCount);
+                if (!isInFreeSpins)
+                {
+                    result.TriggeredFreeSpins = true;
+                    result.FreeSpinsAwarded = 10;
+                    isInFreeSpins = true;
+                    remainingFreeSpins = 10;
+                }
+                else
+                {
+                    remainingFreeSpins += 5;
+                    result.FreeSpinsAwarded = 5;
+                }
             }
-            else if (isInFreeSpins && scatterCount >= 3)
+
+            if (isInFreeSpins && !result.TriggeredFreeSpins)
             {
-                result.TriggeredFreeSpins = true;
-                result.FreeSpinsAwarded = 5;
+                remainingFreeSpins--;
+                if (remainingFreeSpins <= 0) isInFreeSpins = false;
             }
+            result.RemainingFreeSpins = remainingFreeSpins;
 
-            double accumulatedTumbleWin = 0;
-            List<BombMultiplierInfo> bombsInRound = new List<BombMultiplierInfo>();
-
+            var bombsInRound = new List<BombMultiplierInfo>();
             CollectMultiplierBombs(currentMatrix, bombsInRound);
 
+            double accumulatedTumbleWin = 0;
             bool hasWins = true;
-            int maxSafetyIterations = 20;
             int iteration = 0;
 
-            while (hasWins && iteration < maxSafetyIterations)
+            while (hasWins && iteration < 20)
             {
                 iteration++;
                 var step = new TumbleStep();
                 step.MatrixBefore = (int[,])currentMatrix.Clone();
 
                 var wins = FindStepWins(currentMatrix, betAmount);
-                if (wins.Count == 0)
-                {
-                    hasWins = false;
-                    break;
-                }
+                if (wins.Count == 0) break;
 
                 double stepWin = 0;
                 var explodedPositionsSet = new HashSet<GridPosition>();
@@ -179,10 +108,7 @@ namespace SweetBonanza.Service
                 {
                     step.Wins.Add(win);
                     stepWin += win.WinAmount;
-                    foreach (var pos in win.Positions)
-                    {
-                        explodedPositionsSet.Add(pos);
-                    }
+                    foreach (var pos in win.Positions) explodedPositionsSet.Add(pos);
                 }
 
                 step.StepWinAmount = stepWin;
@@ -197,18 +123,15 @@ namespace SweetBonanza.Service
             }
 
             result.TotalBaseWin = accumulatedTumbleWin + scatterWin;
-
             result.MultiplierBombs = bombsInRound;
+
             int combinedMultiplier = 1;
             if (isInFreeSpins && bombsInRound.Count > 0)
             {
                 combinedMultiplier = 0;
-                foreach (var bomb in bombsInRound)
-                {
-                    combinedMultiplier += bomb.MultiplierValue;
-                }
+                foreach (var bomb in bombsInRound) combinedMultiplier += bomb.MultiplierValue;
             }
-            result.TotalMultiplier = combinedMultiplier;
+            result.TotalMultiplier = combinedMultiplier > 0 ? combinedMultiplier : 1;
 
             if (isInFreeSpins && bombsInRound.Count > 0 && accumulatedTumbleWin > 0)
             {
@@ -229,8 +152,7 @@ namespace SweetBonanza.Service
 
             while (placedScatterIndices.Count < guaranteedScatters)
             {
-                int idx = UnityEngine.Random.Range(0, GameConfig.TOTAL_CELLS);
-                placedScatterIndices.Add(idx);
+                placedScatterIndices.Add(UnityEngine.Random.Range(0, GameConfig.TOTAL_CELLS));
             }
 
             for (int c = 0; c < GameConfig.COLUMNS; c++)
@@ -238,14 +160,8 @@ namespace SweetBonanza.Service
                 for (int r = 0; r < GameConfig.ROWS; r++)
                 {
                     int flatIndex = c * GameConfig.ROWS + r;
-                    if (placedScatterIndices.Contains(flatIndex))
-                    {
-                        matrix[c, r] = (int)SymbolType.Scatter;
-                    }
-                    else
-                    {
-                        matrix[c, r] = (int)GetRandomSymbol(isAnteBet, isFreeSpins);
-                    }
+                    if (placedScatterIndices.Contains(flatIndex)) matrix[c, r] = (int)SymbolType.Lollipop;
+                    else matrix[c, r] = (int)GetRandomSymbol(isAnteBet, isFreeSpins);
                 }
             }
         }
@@ -254,10 +170,9 @@ namespace SweetBonanza.Service
         {
             int scatterWeight = isAnteBet ? 4 : 2;
             int bombWeight = isFreeSpins ? 5 : 0;
-
             int roll = UnityEngine.Random.Range(0, 100 + scatterWeight + bombWeight);
 
-            if (roll < scatterWeight) return SymbolType.Scatter;
+            if (roll < scatterWeight) return SymbolType.Lollipop;
             roll -= scatterWeight;
 
             if (isFreeSpins && roll < bombWeight) return SymbolType.MultiplierBomb;
@@ -268,30 +183,22 @@ namespace SweetBonanza.Service
             if (roll < 44) return SymbolType.Watermelon;
             if (roll < 55) return SymbolType.Plum;
             if (roll < 65) return SymbolType.Apple;
-            if (roll < 76) return SymbolType.BlueCandy;
-            if (roll < 85) return SymbolType.GreenCandy;
-            if (roll < 93) return SymbolType.PurpleCandy;
+            if (roll < 76) return SymbolType.BlueOval;
+            if (roll < 85) return SymbolType.GreenPentagon;
+            if (roll < 93) return SymbolType.PurpleSquare;
             return SymbolType.RedHeart;
         }
 
         private List<SymbolWin> FindStepWins(int[,] matrix, double betAmount)
         {
             var symbolCounts = new Dictionary<SymbolType, List<GridPosition>>();
-
             for (int c = 0; c < GameConfig.COLUMNS; c++)
             {
                 for (int r = 0; r < GameConfig.ROWS; r++)
                 {
                     SymbolType symbol = (SymbolType)matrix[c, r];
-                    if (symbol == SymbolType.Scatter || symbol == SymbolType.MultiplierBomb)
-                    {
-                        continue;
-                    }
-
-                    if (!symbolCounts.ContainsKey(symbol))
-                    {
-                        symbolCounts[symbol] = new List<GridPosition>();
-                    }
+                    if (symbol == SymbolType.Lollipop || symbol == SymbolType.MultiplierBomb) continue;
+                    if (!symbolCounts.ContainsKey(symbol)) symbolCounts[symbol] = new List<GridPosition>();
                     symbolCounts[symbol].Add(new GridPosition(c, r));
                 }
             }
@@ -302,20 +209,16 @@ namespace SweetBonanza.Service
                 if (kvp.Value.Count >= 8)
                 {
                     double multiplier = GameConfig.GetPayoutMultiplier(kvp.Key, kvp.Value.Count);
-                    double winAmount = betAmount * multiplier;
-
-                    var win = new SymbolWin
+                    wins.Add(new SymbolWin
                     {
                         Symbol = kvp.Key,
                         Count = kvp.Value.Count,
                         Multiplier = multiplier,
-                        WinAmount = winAmount,
+                        WinAmount = betAmount * multiplier,
                         Positions = kvp.Value
-                    };
-                    wins.Add(win);
+                    });
                 }
             }
-
             return wins;
         }
 
@@ -356,17 +259,12 @@ namespace SweetBonanza.Service
                     if (matrix[c, r] == (int)SymbolType.MultiplierBomb)
                     {
                         var pos = new GridPosition(c, r);
-                        bool alreadyRecorded = false;
+                        bool exists = false;
                         foreach (var b in bombs)
                         {
-                            if (b.Position.Equals(pos))
-                            {
-                                alreadyRecorded = true;
-                                break;
-                            }
+                            if (b.Position.Equals(pos)) { exists = true; break; }
                         }
-
-                        if (!alreadyRecorded)
+                        if (!exists)
                         {
                             int val = MultiplierValues[UnityEngine.Random.Range(0, MultiplierValues.Length)];
                             bombs.Add(new BombMultiplierInfo(pos, val));

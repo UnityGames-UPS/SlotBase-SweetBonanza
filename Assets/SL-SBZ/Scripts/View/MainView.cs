@@ -6,37 +6,29 @@ using DG.Tweening;
 
 namespace SweetBonanza.View
 {
-    internal class MainView : MonoBehaviour
+    public class MainView : MonoBehaviour
     {
         internal event Action OnSpinClicked;
         internal event Action OnBetIncreaseClicked;
         internal event Action OnBetDecreaseClicked;
         internal event Action OnBuyBonusClicked;
         internal event Action OnAnteBetToggled;
-        internal event Action OnSettingClicked;
-        internal event Action OnAudioClicked;
-        internal event Action OnOptionClicked;
 
-        [Header("Gameplay Action Buttons")]
+        [Header("Buttons")]
         [SerializeField] private Button spinButton;
         [SerializeField] private Button betPlusButton;
         [SerializeField] private Button betMinusButton;
         [SerializeField] private Button buyBonusButton;
         [SerializeField] private Button anteBetToggleButton;
 
-        [Header("HUD Menu Navigation Buttons")]
-        [SerializeField] private Button settingPanelButton;
-        [SerializeField] private Button audioPanelButton;
-        [SerializeField] private Button optionButton;
-
-        [Header("Main Gameplay Display Texts")]
+        [Header("Texts")]
         [SerializeField] private TMP_Text balanceText;
         [SerializeField] private TMP_Text currentBetText;
         [SerializeField] private TMP_Text totalWinText;
         [SerializeField] private TMP_Text freeSpinsCountText;
         [SerializeField] private TMP_Text statusBannerText;
 
-        [Header("Feature Indicators And Overlays")]
+        [Header("Indicators & Overlays")]
         [SerializeField] private GameObject anteBetActiveIndicator;
         [SerializeField] private GameObject freeSpinsBadge;
 
@@ -50,17 +42,11 @@ namespace SweetBonanza.View
             if (betMinusButton != null) betMinusButton.onClick.AddListener(() => OnBetDecreaseClicked?.Invoke());
             if (buyBonusButton != null) buyBonusButton.onClick.AddListener(() => OnBuyBonusClicked?.Invoke());
             if (anteBetToggleButton != null) anteBetToggleButton.onClick.AddListener(() => OnAnteBetToggled?.Invoke());
-            if (settingPanelButton != null) settingPanelButton.onClick.AddListener(() => OnSettingClicked?.Invoke());
-            if (audioPanelButton != null) audioPanelButton.onClick.AddListener(() => OnAudioClicked?.Invoke());
-            if (optionButton != null) optionButton.onClick.AddListener(() => OnOptionClicked?.Invoke());
         }
 
         internal void SetBalance(double balance)
         {
-            if (balanceText != null)
-            {
-                balanceText.text = $"${balance:F2}";
-            }
+            if (balanceText != null) balanceText.text = $"${balance:F2}";
         }
 
         internal void SetBet(double baseBet, bool isAnteBet)
@@ -74,18 +60,12 @@ namespace SweetBonanza.View
 
         internal void SetWin(double targetWin, bool animate = false)
         {
-            if (winCountTweener != null && winCountTweener.IsActive())
-            {
-                winCountTweener.Kill();
-            }
+            if (winCountTweener != null && winCountTweener.IsActive()) winCountTweener.Kill();
 
             if (!animate || totalWinText == null)
             {
                 displayedWin = targetWin;
-                if (totalWinText != null)
-                {
-                    totalWinText.text = targetWin > 0 ? $"${targetWin:F2}" : "$0.00";
-                }
+                if (totalWinText != null) totalWinText.text = targetWin > 0 ? $"${targetWin:F2}" : "$0.00";
                 return;
             }
 
@@ -108,48 +88,25 @@ namespace SweetBonanza.View
 
         internal void SetAnteBetState(bool isActive)
         {
-            if (anteBetActiveIndicator != null)
-            {
-                anteBetActiveIndicator.SetActive(isActive);
-            }
-            if (buyBonusButton != null)
-            {
-                buyBonusButton.interactable = !isActive;
-            }
+            if (anteBetActiveIndicator != null) anteBetActiveIndicator.SetActive(isActive);
+            if (buyBonusButton != null) buyBonusButton.interactable = !isActive;
         }
 
         internal void SetFreeSpinsDisplay(bool isInFreeSpins, int remainingSpins)
         {
-            if (freeSpinsBadge != null)
-            {
-                freeSpinsBadge.SetActive(isInFreeSpins);
-            }
-
-            if (freeSpinsCountText != null)
-            {
-                freeSpinsCountText.text = isInFreeSpins ? $"{remainingSpins}" : "";
-            }
-
-            if (buyBonusButton != null && isInFreeSpins)
-            {
-                buyBonusButton.interactable = false;
-            }
+            if (freeSpinsBadge != null) freeSpinsBadge.SetActive(isInFreeSpins);
+            if (freeSpinsCountText != null) freeSpinsCountText.text = isInFreeSpins ? $"{remainingSpins}" : "";
+            if (buyBonusButton != null && isInFreeSpins) buyBonusButton.interactable = false;
         }
 
         internal void SetStatusMessage(string message)
         {
-            if (statusBannerText != null)
-            {
-                statusBannerText.text = message;
-            }
+            if (statusBannerText != null) statusBannerText.text = message;
         }
 
         private void OnDestroy()
         {
-            if (winCountTweener != null && winCountTweener.IsActive())
-            {
-                winCountTweener.Kill();
-            }
+            if (winCountTweener != null && winCountTweener.IsActive()) winCountTweener.Kill();
         }
     }
 }

@@ -1,10 +1,10 @@
 using System;
 using UnityEngine;
-using SweetBonanza.Core;
+using SweetBonanza.Model;
 
 namespace SweetBonanza.Service
 {
-    internal abstract class BackendService : MonoBehaviour
+    public abstract class BackendService : MonoBehaviour
     {
         internal event Action<InitPayload> OnInitDataReceived;
         internal event Action<RoundResult> OnRoundResultReceived;

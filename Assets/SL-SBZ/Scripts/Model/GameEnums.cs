@@ -1,4 +1,4 @@
-namespace SweetBonanza.Core
+namespace SweetBonanza.Model
 {
     public enum SymbolType
     {
@@ -7,11 +7,11 @@ namespace SweetBonanza.Core
         Watermelon = 2,
         Plum = 3,
         Apple = 4,
-        BlueCandy = 5,
-        GreenCandy = 6,
-        PurpleCandy = 7,
+        BlueOval = 5,
+        GreenPentagon = 6,
+        PurpleSquare = 7,
         RedHeart = 8,
-        Scatter = 9,
+        Lollipop = 9,
         MultiplierBomb = 10
     }
 
