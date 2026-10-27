@@ -37,6 +37,26 @@ namespace SweetBonanza.View
         [SerializeField] private Sprite lollipopSprite;
         [SerializeField] private Sprite multiplierBombSprite;
 
+        internal void SetQuickSpinMode(bool isQuick)
+        {
+            if (isQuick)
+            {
+                initialDropDuration = 0.20f;
+                columnStaggerDelay = 0.03f;
+                winPulseDuration = 0.18f;
+                explodeDuration = 0.12f;
+                tumbleFallDuration = 0.16f;
+            }
+            else
+            {
+                initialDropDuration = 0.55f;
+                columnStaggerDelay = 0.08f;
+                winPulseDuration = 0.42f;
+                explodeDuration = 0.25f;
+                tumbleFallDuration = 0.35f;
+            }
+        }
+
         private CellView[,] activeCells = new CellView[GameConfig.COLUMNS, GameConfig.ROWS];
         private readonly List<CellView> cellPool = new List<CellView>();
         private Dictionary<SymbolType, Sprite> spriteLookup;

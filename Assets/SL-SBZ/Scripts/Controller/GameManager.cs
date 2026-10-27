@@ -46,8 +46,19 @@ namespace SweetBonanza.Controller
         {
             InitializeServices();
             HookViewEvents();
+            ApplyInitialSettings();
             UpdateHUD(false);
             currentState = GameState.Idle;
+        }
+
+        private void ApplyInitialSettings()
+        {
+            bool quickSpin = PlayerPrefs.GetInt("settings_quick_spin", 0) == 1;
+            if (gridView != null) gridView.SetQuickSpinMode(quickSpin);
+
+            bool batterySaver = PlayerPrefs.GetInt("settings_battery_saver", 0) == 1;
+            Application.targetFrameRate = batterySaver ? 30 : 60;
+            QualitySettings.vSyncCount = batterySaver ? 0 : 1;
         }
 
         private void InitializeServices()
@@ -81,6 +92,11 @@ namespace SweetBonanza.Controller
                 uiManager.OnBuyFeatureConfirmed += HandleBuyBonusConfirmed;
                 uiManager.OnAutoplayStarted += HandleAutoplayStarted;
                 uiManager.OnAutoplayStopped += HandleAutoplayStopped;
+                uiManager.OnQuickSpinChanged += HandleQuickSpinChanged;
+                uiManager.OnBatterySaverChanged += HandleBatterySaverChanged;
+                uiManager.OnAmbientMusicChanged += HandleAmbientMusicChanged;
+                uiManager.OnSoundFxChanged += HandleSoundFxChanged;
+                uiManager.OnIntroScreenChanged += HandleIntroScreenChanged;
             }
             else if (mainView != null)
             {
@@ -310,6 +326,34 @@ namespace SweetBonanza.Controller
             SetStatusMessage(error);
         }
 
+        #region System Settings Handlers
+        private void HandleQuickSpinChanged(bool isOn)
+        {
+            if (gridView != null) gridView.SetQuickSpinMode(isOn);
+        }
+
+        private void HandleBatterySaverChanged(bool isOn)
+        {
+            Application.targetFrameRate = isOn ? 30 : 60;
+            QualitySettings.vSyncCount = isOn ? 0 : 1;
+        }
+
+        private void HandleAmbientMusicChanged(bool isOn)
+        {
+            AudioManager.Instance?.SetMusicEnabled(isOn);
+        }
+
+        private void HandleSoundFxChanged(bool isOn)
+        {
+            AudioManager.Instance?.SetSfxEnabled(isOn);
+        }
+
+        private void HandleIntroScreenChanged(bool isOn)
+        {
+            PlayerPrefs.SetInt("settings_intro_screen", isOn ? 1 : 0);
+        }
+        #endregion
+
         private void OnDestroy()
         {
             if (backendService != null)
@@ -330,6 +374,11 @@ namespace SweetBonanza.Controller
                 uiManager.OnBuyFeatureConfirmed -= HandleBuyBonusConfirmed;
                 uiManager.OnAutoplayStarted -= HandleAutoplayStarted;
                 uiManager.OnAutoplayStopped -= HandleAutoplayStopped;
+                uiManager.OnQuickSpinChanged -= HandleQuickSpinChanged;
+                uiManager.OnBatterySaverChanged -= HandleBatterySaverChanged;
+                uiManager.OnAmbientMusicChanged -= HandleAmbientMusicChanged;
+                uiManager.OnSoundFxChanged -= HandleSoundFxChanged;
+                uiManager.OnIntroScreenChanged -= HandleIntroScreenChanged;
             }
             else if (mainView != null)
             {

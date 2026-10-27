@@ -19,6 +19,11 @@ namespace SweetBonanza.View
         internal event Action OnBuyFeatureConfirmed;
         internal event Action<int> OnAutoplayStarted;
         internal event Action OnAutoplayStopped;
+        internal event Action<bool> OnQuickSpinChanged;
+        internal event Action<bool> OnBatterySaverChanged;
+        internal event Action<bool> OnAmbientMusicChanged;
+        internal event Action<bool> OnSoundFxChanged;
+        internal event Action<bool> OnIntroScreenChanged;
 
         [Header("Main HUD View Binding")]
         [SerializeField] private MainView mainView;
@@ -111,9 +116,73 @@ namespace SweetBonanza.View
             if (buttonOpenSettings != null) buttonOpenSettings.onClick.AddListener(OpenSystemSettings);
             if (buttonCloseSettings != null) buttonCloseSettings.onClick.AddListener(() => CloseModal(systemSettingsPanel));
 
+            // System Settings: 5 Toggles
+            if (toggleQuickSpin != null)
+            {
+                toggleQuickSpin.isOn = PlayerPrefs.GetInt("settings_quick_spin", 0) == 1;
+                toggleQuickSpin.onValueChanged.AddListener(isOn =>
+                {
+                    PlayerPrefs.SetInt("settings_quick_spin", isOn ? 1 : 0);
+                    OnQuickSpinChanged?.Invoke(isOn);
+                });
+            }
+
+            if (toggleBatterySaver != null)
+            {
+                toggleBatterySaver.isOn = PlayerPrefs.GetInt("settings_battery_saver", 0) == 1;
+                toggleBatterySaver.onValueChanged.AddListener(isOn =>
+                {
+                    PlayerPrefs.SetInt("settings_battery_saver", isOn ? 1 : 0);
+                    OnBatterySaverChanged?.Invoke(isOn);
+                });
+            }
+
+            if (toggleAmbientMusic != null)
+            {
+                toggleAmbientMusic.isOn = AudioManager.Instance != null ? AudioManager.Instance.MusicEnabled : true;
+                toggleAmbientMusic.onValueChanged.AddListener(isOn =>
+                {
+                    OnAmbientMusicChanged?.Invoke(isOn);
+                });
+            }
+
+            if (toggleSoundFx != null)
+            {
+                toggleSoundFx.isOn = AudioManager.Instance != null ? AudioManager.Instance.SfxEnabled : true;
+                toggleSoundFx.onValueChanged.AddListener(isOn =>
+                {
+                    OnSoundFxChanged?.Invoke(isOn);
+                });
+            }
+
+            if (toggleIntroScreen != null)
+            {
+                toggleIntroScreen.isOn = PlayerPrefs.GetInt("settings_intro_screen", 1) == 1;
+                toggleIntroScreen.onValueChanged.AddListener(isOn =>
+                {
+                    PlayerPrefs.SetInt("settings_intro_screen", isOn ? 1 : 0);
+                    OnIntroScreenChanged?.Invoke(isOn);
+                });
+            }
+
+            // Sound Settings: Master, Music, SFX Sliders
             if (buttonOpenSound != null) buttonOpenSound.onClick.AddListener(OpenSoundSettings);
             if (buttonCloseSound != null) buttonCloseSound.onClick.AddListener(() => CloseModal(soundSettingsPanel));
-            if (masterVolumeSlider != null) masterVolumeSlider.onValueChanged.AddListener(v => AudioListener.volume = v);
+            if (masterVolumeSlider != null)
+            {
+                masterVolumeSlider.value = AudioListener.volume;
+                masterVolumeSlider.onValueChanged.AddListener(v => AudioListener.volume = v);
+            }
+            if (musicVolumeSlider != null)
+            {
+                musicVolumeSlider.value = AudioManager.Instance != null ? AudioManager.Instance.MusicVolume : 0.5f;
+                musicVolumeSlider.onValueChanged.AddListener(v => AudioManager.Instance?.SetMusicVolume(v));
+            }
+            if (sfxVolumeSlider != null)
+            {
+                sfxVolumeSlider.value = AudioManager.Instance != null ? AudioManager.Instance.SfxVolume : 1.0f;
+                sfxVolumeSlider.onValueChanged.AddListener(v => AudioManager.Instance?.SetSfxVolume(v));
+            }
 
             if (buttonConfirmBuyFeature != null) buttonConfirmBuyFeature.onClick.AddListener(() =>
             {
