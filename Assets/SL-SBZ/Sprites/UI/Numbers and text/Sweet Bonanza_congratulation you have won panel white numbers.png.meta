@@ -1,0 +1,455 @@
+fileFormatVersion: 2
+guid: 3f9c2f4f6fae00c42a097052a004ff0c
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 8683325286172503704
+    second: Sweet Bonanza_congratulation you have won panel white numbers_0
+  - first:
+      213: -2164180401307255937
+    second: Sweet Bonanza_congratulation you have won panel white numbers_1
+  - first:
+      213: 207704438402784220
+    second: Sweet Bonanza_congratulation you have won panel white numbers_2
+  - first:
+      213: 1882871376745755185
+    second: Sweet Bonanza_congratulation you have won panel white numbers_3
+  - first:
+      213: 4749098137912272037
+    second: Sweet Bonanza_congratulation you have won panel white numbers_4
+  - first:
+      213: 3915200628224257274
+    second: Sweet Bonanza_congratulation you have won panel white numbers_5
+  - first:
+      213: -1941355382685384765
+    second: Sweet Bonanza_congratulation you have won panel white numbers_6
+  - first:
+      213: -1468461768174409765
+    second: Sweet Bonanza_congratulation you have won panel white numbers_7
+  - first:
+      213: 8044435816318172150
+    second: Sweet Bonanza_congratulation you have won panel white numbers_8
+  - first:
+      213: -2408221810458698730
+    second: Sweet Bonanza_congratulation you have won panel white numbers_9
+  - first:
+      213: 6806878438010445274
+    second: Sweet Bonanza_congratulation you have won panel white numbers_10
+  - first:
+      213: 533875335767793018
+    second: Sweet Bonanza_congratulation you have won panel white numbers_11
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Sweet Bonanza_congratulation you have won panel white numbers_0
+      rect:
+        serializedVersion: 2
+        x: 90
+        y: 773
+        width: 58
+        height: 100
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 89eaa7f675e518870800000000000000
+      internalID: 8683325286172503704
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_congratulation you have won panel white numbers_1
+      rect:
+        serializedVersion: 2
+        x: 344
+        y: 774
+        width: 74
+        height: 99
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f7bf73e246947f1e0800000000000000
+      internalID: -2164180401307255937
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_congratulation you have won panel white numbers_2
+      rect:
+        serializedVersion: 2
+        x: 587
+        y: 774
+        width: 74
+        height: 100
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cdb1545161ae1e200800000000000000
+      internalID: 207704438402784220
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_congratulation you have won panel white numbers_3
+      rect:
+        serializedVersion: 2
+        x: 827
+        y: 775
+        width: 82
+        height: 100
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1327ea09a8d412a10800000000000000
+      internalID: 1882871376745755185
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_congratulation you have won panel white numbers_4
+      rect:
+        serializedVersion: 2
+        x: 91
+        y: 457
+        width: 74
+        height: 98
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5a4eab9389f28e140800000000000000
+      internalID: 4749098137912272037
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_congratulation you have won panel white numbers_5
+      rect:
+        serializedVersion: 2
+        x: 343
+        y: 458
+        width: 75
+        height: 100
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: afc61bd4a36955630800000000000000
+      internalID: 3915200628224257274
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_congratulation you have won panel white numbers_6
+      rect:
+        serializedVersion: 2
+        x: 586
+        y: 456
+        width: 75
+        height: 98
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3cfbe30b09bee05e0800000000000000
+      internalID: -1941355382685384765
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_congratulation you have won panel white numbers_7
+      rect:
+        serializedVersion: 2
+        x: 830
+        y: 454
+        width: 74
+        height: 100
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bd7e8b55dc9fe9be0800000000000000
+      internalID: -1468461768174409765
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_congratulation you have won panel white numbers_8
+      rect:
+        serializedVersion: 2
+        x: 93
+        y: 119
+        width: 75
+        height: 100
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6fbf212f0c393af60800000000000000
+      internalID: 8044435816318172150
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_congratulation you have won panel white numbers_9
+      rect:
+        serializedVersion: 2
+        x: 347
+        y: 118
+        width: 73
+        height: 100
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 61cd24fc507449ed0800000000000000
+      internalID: -2408221810458698730
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_congratulation you have won panel white numbers_10
+      rect:
+        serializedVersion: 2
+        x: 610
+        y: 120
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: addd0eeffd3e67e50800000000000000
+      internalID: 6806878438010445274
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_congratulation you have won panel white numbers_11
+      rect:
+        serializedVersion: 2
+        x: 831
+        y: 109
+        width: 76
+        height: 121
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a7d18ce0ac4b86700800000000000000
+      internalID: 533875335767793018
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Sweet Bonanza_congratulation you have won panel white numbers_0: 8683325286172503704
+      Sweet Bonanza_congratulation you have won panel white numbers_1: -2164180401307255937
+      Sweet Bonanza_congratulation you have won panel white numbers_10: 6806878438010445274
+      Sweet Bonanza_congratulation you have won panel white numbers_11: 533875335767793018
+      Sweet Bonanza_congratulation you have won panel white numbers_2: 207704438402784220
+      Sweet Bonanza_congratulation you have won panel white numbers_3: 1882871376745755185
+      Sweet Bonanza_congratulation you have won panel white numbers_4: 4749098137912272037
+      Sweet Bonanza_congratulation you have won panel white numbers_5: 3915200628224257274
+      Sweet Bonanza_congratulation you have won panel white numbers_6: -1941355382685384765
+      Sweet Bonanza_congratulation you have won panel white numbers_7: -1468461768174409765
+      Sweet Bonanza_congratulation you have won panel white numbers_8: 8044435816318172150
+      Sweet Bonanza_congratulation you have won panel white numbers_9: -2408221810458698730
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

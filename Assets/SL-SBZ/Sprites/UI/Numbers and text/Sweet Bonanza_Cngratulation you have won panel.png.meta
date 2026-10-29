@@ -1,0 +1,949 @@
+fileFormatVersion: 2
+guid: 0555f7745a2b1bf47addc6bcbdd3cba1
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -1951830484851958800
+    second: Sweet Bonanza_Cngratulation you have won panel_0
+  - first:
+      213: -5118218715583309700
+    second: Sweet Bonanza_Cngratulation you have won panel_1
+  - first:
+      213: 8543289833253692432
+    second: Sweet Bonanza_Cngratulation you have won panel_2
+  - first:
+      213: -736866908622785888
+    second: Sweet Bonanza_Cngratulation you have won panel_3
+  - first:
+      213: 5752977981804329831
+    second: Sweet Bonanza_Cngratulation you have won panel_4
+  - first:
+      213: 4734985624525779821
+    second: Sweet Bonanza_Cngratulation you have won panel_5
+  - first:
+      213: 8152017589021475353
+    second: Sweet Bonanza_Cngratulation you have won panel_6
+  - first:
+      213: 1196320122760792845
+    second: Sweet Bonanza_Cngratulation you have won panel_7
+  - first:
+      213: -7831143453574767685
+    second: Sweet Bonanza_Cngratulation you have won panel_8
+  - first:
+      213: -3142466511831961417
+    second: Sweet Bonanza_Cngratulation you have won panel_9
+  - first:
+      213: 5923700964556157275
+    second: Sweet Bonanza_Cngratulation you have won panel_10
+  - first:
+      213: -2919765214170386905
+    second: Sweet Bonanza_Cngratulation you have won panel_11
+  - first:
+      213: 4361434077451177074
+    second: Sweet Bonanza_Cngratulation you have won panel_12
+  - first:
+      213: 597360236015709242
+    second: Sweet Bonanza_Cngratulation you have won panel_13
+  - first:
+      213: 7827674060142627116
+    second: Sweet Bonanza_Cngratulation you have won panel_14
+  - first:
+      213: -6618737237920506472
+    second: Sweet Bonanza_Cngratulation you have won panel_15
+  - first:
+      213: 4554836638857090908
+    second: Sweet Bonanza_Cngratulation you have won panel_16
+  - first:
+      213: -7165993735810182685
+    second: Sweet Bonanza_Cngratulation you have won panel_17
+  - first:
+      213: 3469852232244912172
+    second: Sweet Bonanza_Cngratulation you have won panel_18
+  - first:
+      213: -5627047209877068074
+    second: Sweet Bonanza_Cngratulation you have won panel_19
+  - first:
+      213: 4546154659871712597
+    second: Sweet Bonanza_Cngratulation you have won panel_20
+  - first:
+      213: -7871364673751530875
+    second: Sweet Bonanza_Cngratulation you have won panel_21
+  - first:
+      213: 6895195094140265568
+    second: Sweet Bonanza_Cngratulation you have won panel_22
+  - first:
+      213: -8338277495292207375
+    second: Sweet Bonanza_Cngratulation you have won panel_23
+  - first:
+      213: -7503601268494235307
+    second: Sweet Bonanza_Cngratulation you have won panel_24
+  - first:
+      213: 5832019004378870952
+    second: Sweet Bonanza_Cngratulation you have won panel_25
+  - first:
+      213: 3348892818634139867
+    second: Sweet Bonanza_Cngratulation you have won panel_26
+  - first:
+      213: 8456454253153017776
+    second: Sweet Bonanza_Cngratulation you have won panel_27
+  - first:
+      213: -4506742639151014846
+    second: Sweet Bonanza_Cngratulation you have won panel_28
+  - first:
+      213: -1062081098378793084
+    second: Sweet Bonanza_Cngratulation you have won panel_29
+  - first:
+      213: -8290983083016703984
+    second: Sweet Bonanza_Cngratulation you have won panel_30
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Sweet Bonanza_Cngratulation you have won panel_0
+      rect:
+        serializedVersion: 2
+        x: 534
+        y: 745
+        width: 368
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0fbde98e384b9e4e0800000000000000
+      internalID: -1951830484851958800
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_Cngratulation you have won panel_1
+      rect:
+        serializedVersion: 2
+        x: 889
+        y: 746
+        width: 232
+        height: 71
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c7896e6123f68f8b0800000000000000
+      internalID: -5118218715583309700
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_Cngratulation you have won panel_2
+      rect:
+        serializedVersion: 2
+        x: 1108
+        y: 746
+        width: 265
+        height: 71
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 014ea4cc6dcdf8670800000000000000
+      internalID: 8543289833253692432
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_Cngratulation you have won panel_3
+      rect:
+        serializedVersion: 2
+        x: 687
+        y: 643
+        width: 46
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0a27cc0637f16c5f0800000000000000
+      internalID: -736866908622785888
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_Cngratulation you have won panel_4
+      rect:
+        serializedVersion: 2
+        x: 729
+        y: 643
+        width: 55
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 76b371e6efea6df40800000000000000
+      internalID: 5752977981804329831
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_Cngratulation you have won panel_5
+      rect:
+        serializedVersion: 2
+        x: 784
+        y: 643
+        width: 48
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d63b076a65c06b140800000000000000
+      internalID: 4734985624525779821
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_Cngratulation you have won panel_6
+      rect:
+        serializedVersion: 2
+        x: 854
+        y: 643
+        width: 48
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9128c545ec8c12170800000000000000
+      internalID: 8152017589021475353
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_Cngratulation you have won panel_7
+      rect:
+        serializedVersion: 2
+        x: 901
+        y: 643
+        width: 51
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d0b0fc230de2a9010800000000000000
+      internalID: 1196320122760792845
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_Cngratulation you have won panel_8
+      rect:
+        serializedVersion: 2
+        x: 950
+        y: 643
+        width: 50
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bbbdc882580325390800000000000000
+      internalID: -7831143453574767685
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_Cngratulation you have won panel_9
+      rect:
+        serializedVersion: 2
+        x: 999
+        y: 644
+        width: 45
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7b0f1b36b57b364d0800000000000000
+      internalID: -3142466511831961417
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_Cngratulation you have won panel_10
+      rect:
+        serializedVersion: 2
+        x: 1059
+        y: 643
+        width: 119
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b51320464a6353250800000000000000
+      internalID: 5923700964556157275
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_Cngratulation you have won panel_11
+      rect:
+        serializedVersion: 2
+        x: 1178
+        y: 643
+        width: 48
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 72ee4ddd109ea77d0800000000000000
+      internalID: -2919765214170386905
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_Cngratulation you have won panel_12
+      rect:
+        serializedVersion: 2
+        x: 658
+        y: 384
+        width: 19
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 27cc2c18f2de68c30800000000000000
+      internalID: 4361434077451177074
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_Cngratulation you have won panel_13
+      rect:
+        serializedVersion: 2
+        x: 679
+        y: 384
+        width: 48
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a3ce8ae38ff3a4800800000000000000
+      internalID: 597360236015709242
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_Cngratulation you have won panel_14
+      rect:
+        serializedVersion: 2
+        x: 843
+        y: 384
+        width: 42
+        height: 53
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c29475cb51c71ac60800000000000000
+      internalID: 7827674060142627116
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_Cngratulation you have won panel_15
+      rect:
+        serializedVersion: 2
+        x: 885
+        y: 383
+        width: 48
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 89d1918bc858524a0800000000000000
+      internalID: -6618737237920506472
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_Cngratulation you have won panel_16
+      rect:
+        serializedVersion: 2
+        x: 934
+        y: 385
+        width: 45
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c57d20d5ac7063f30800000000000000
+      internalID: 4554836638857090908
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_Cngratulation you have won panel_17
+      rect:
+        serializedVersion: 2
+        x: 979
+        y: 385
+        width: 45
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3e11c521aa64d8c90800000000000000
+      internalID: -7165993735810182685
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_Cngratulation you have won panel_18
+      rect:
+        serializedVersion: 2
+        x: 1041
+        y: 384
+        width: 47
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c20ed0e9834672030800000000000000
+      internalID: 3469852232244912172
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_Cngratulation you have won panel_19
+      rect:
+        serializedVersion: 2
+        x: 1088
+        y: 384
+        width: 45
+        height: 53
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6d6ace04066b8e1b0800000000000000
+      internalID: -5627047209877068074
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_Cngratulation you have won panel_20
+      rect:
+        serializedVersion: 2
+        x: 1133
+        y: 384
+        width: 19
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 555e3ab939f271f30800000000000000
+      internalID: 4546154659871712597
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_Cngratulation you have won panel_21
+      rect:
+        serializedVersion: 2
+        x: 1154
+        y: 384
+        width: 48
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5824b73988b43c290800000000000000
+      internalID: -7871364673751530875
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_Cngratulation you have won panel_22
+      rect:
+        serializedVersion: 2
+        x: 1202
+        y: 384
+        width: 47
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0642f33e767a0bf50800000000000000
+      internalID: 6895195094140265568
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_Cngratulation you have won panel_23
+      rect:
+        serializedVersion: 2
+        x: 607
+        y: 269
+        width: 58
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1fe597ecbcc784c80800000000000000
+      internalID: -8338277495292207375
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_Cngratulation you have won panel_24
+      rect:
+        serializedVersion: 2
+        x: 664
+        y: 270
+        width: 85
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5590b3fe66addd790800000000000000
+      internalID: -7503601268494235307
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_Cngratulation you have won panel_25
+      rect:
+        serializedVersion: 2
+        x: 756
+        y: 269
+        width: 243
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8a47457926e7fe050800000000000000
+      internalID: 5832019004378870952
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_Cngratulation you have won panel_26
+      rect:
+        serializedVersion: 2
+        x: 1006
+        y: 270
+        width: 63
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bd86b8d7648a97e20800000000000000
+      internalID: 3348892818634139867
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_Cngratulation you have won panel_27
+      rect:
+        serializedVersion: 2
+        x: 1077
+        y: 270
+        width: 133
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0bfd68ac65c5b5570800000000000000
+      internalID: 8456454253153017776
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_Cngratulation you have won panel_28
+      rect:
+        serializedVersion: 2
+        x: 1209
+        y: 270
+        width: 31
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 24c1c4b8275d471c0800000000000000
+      internalID: -4506742639151014846
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_Cngratulation you have won panel_29
+      rect:
+        serializedVersion: 2
+        x: 1240
+        y: 270
+        width: 32
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 48fa9704edab241f0800000000000000
+      internalID: -1062081098378793084
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_Cngratulation you have won panel_30
+      rect:
+        serializedVersion: 2
+        x: 1271
+        y: 270
+        width: 30
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 010340240d280fc80800000000000000
+      internalID: -8290983083016703984
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Sweet Bonanza_Cngratulation you have won panel_0: -1951830484851958800
+      Sweet Bonanza_Cngratulation you have won panel_1: -5118218715583309700
+      Sweet Bonanza_Cngratulation you have won panel_10: 5923700964556157275
+      Sweet Bonanza_Cngratulation you have won panel_11: -2919765214170386905
+      Sweet Bonanza_Cngratulation you have won panel_12: 4361434077451177074
+      Sweet Bonanza_Cngratulation you have won panel_13: 597360236015709242
+      Sweet Bonanza_Cngratulation you have won panel_14: 7827674060142627116
+      Sweet Bonanza_Cngratulation you have won panel_15: -6618737237920506472
+      Sweet Bonanza_Cngratulation you have won panel_16: 4554836638857090908
+      Sweet Bonanza_Cngratulation you have won panel_17: -7165993735810182685
+      Sweet Bonanza_Cngratulation you have won panel_18: 3469852232244912172
+      Sweet Bonanza_Cngratulation you have won panel_19: -5627047209877068074
+      Sweet Bonanza_Cngratulation you have won panel_2: 8543289833253692432
+      Sweet Bonanza_Cngratulation you have won panel_20: 4546154659871712597
+      Sweet Bonanza_Cngratulation you have won panel_21: -7871364673751530875
+      Sweet Bonanza_Cngratulation you have won panel_22: 6895195094140265568
+      Sweet Bonanza_Cngratulation you have won panel_23: -8338277495292207375
+      Sweet Bonanza_Cngratulation you have won panel_24: -7503601268494235307
+      Sweet Bonanza_Cngratulation you have won panel_25: 5832019004378870952
+      Sweet Bonanza_Cngratulation you have won panel_26: 3348892818634139867
+      Sweet Bonanza_Cngratulation you have won panel_27: 8456454253153017776
+      Sweet Bonanza_Cngratulation you have won panel_28: -4506742639151014846
+      Sweet Bonanza_Cngratulation you have won panel_29: -1062081098378793084
+      Sweet Bonanza_Cngratulation you have won panel_3: -736866908622785888
+      Sweet Bonanza_Cngratulation you have won panel_30: -8290983083016703984
+      Sweet Bonanza_Cngratulation you have won panel_4: 5752977981804329831
+      Sweet Bonanza_Cngratulation you have won panel_5: 4734985624525779821
+      Sweet Bonanza_Cngratulation you have won panel_6: 8152017589021475353
+      Sweet Bonanza_Cngratulation you have won panel_7: 1196320122760792845
+      Sweet Bonanza_Cngratulation you have won panel_8: -7831143453574767685
+      Sweet Bonanza_Cngratulation you have won panel_9: -3142466511831961417
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

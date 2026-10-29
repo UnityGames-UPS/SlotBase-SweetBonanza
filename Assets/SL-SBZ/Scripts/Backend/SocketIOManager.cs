@@ -16,8 +16,10 @@ public class SocketIOManager : MonoBehaviour
 
     [Header("References")]
     [SerializeField] internal JSFunctCalls JSManager;
+    [SerializeField] private PopupManager popupManager;
     [SerializeField] private GameObject RaycastBlocker;
     [SerializeField] private List<Button> buttons;
+    private Coroutine initTimeoutRoutine;
 
     [Header("Debug Settings")]
     [SerializeField] private bool enablePingDebug = false;
@@ -90,13 +92,42 @@ public class SocketIOManager : MonoBehaviour
 #if UNITY_WEBGL && !UNITY_EDITOR
         if (JSManager != null)
         {
+            JSManager.RegisterVisibilityListener(gameObject.name);
             JSManager.SendCustomMessage("authToken");
         }
+        StartCoroutine(FallbackAuthRoutine());
 #else
         authToken = testToken;
         socketURL = testSocketURL;
         InitializeSocket();
 #endif
+    }
+
+    private IEnumerator FallbackAuthRoutine()
+    {
+        yield return new WaitForSeconds(3.0f);
+        if (!socketSetupStarted)
+        {
+            Debug.LogWarning("[SocketIO] No external auth token received within 3s. Falling back to testToken for standalone WebGL.");
+            authToken = testToken;
+            socketURL = testSocketURL;
+            InitializeSocket();
+        }
+    }
+
+    private IEnumerator InitTimeoutCheck()
+    {
+        yield return new WaitForSeconds(15.0f);
+        if (!isInitialized && !isDestroyed && !isExiting)
+        {
+            Debug.LogWarning("[SocketIO] Connection/Init timed out after 15s");
+            if (RaycastBlocker != null) RaycastBlocker.SetActive(false);
+            if (popupManager != null)
+            {
+                popupManager.ShowErrorPopup("Connection Error", "Failed to connect to game server. Please check your network connection.", true);
+            }
+            OnSocketErrorEvent?.Invoke("Connection timed out");
+        }
     }
 
     private void ReceiveAuthToken(string jsonData)
@@ -146,6 +177,12 @@ public class SocketIOManager : MonoBehaviour
 
         if (RaycastBlocker != null) RaycastBlocker.SetActive(true);
 
+        if (initTimeoutRoutine != null)
+        {
+            StopCoroutine(initTimeoutRoutine);
+        }
+        initTimeoutRoutine = StartCoroutine(InitTimeoutCheck());
+
         SocketOptions options = new SocketOptions
         {
             AutoConnect = false,
@@ -194,6 +231,11 @@ public class SocketIOManager : MonoBehaviour
         missedPongs = 0;
         pingSendTime = Time.realtimeSinceStartup;
 
+        if (popupManager != null)
+        {
+            popupManager.CloseReconnectionPopup();
+        }
+
         StartPingRoutine();
         SendPing();
 
@@ -209,6 +251,21 @@ public class SocketIOManager : MonoBehaviour
 
         if (isDestroyed) return;
 
+        if (isExiting)
+        {
+            if (popupManager != null)
+            {
+                popupManager.ShowLoadingPopup(0f);
+            }
+        }
+        else
+        {
+            if (popupManager != null)
+            {
+                popupManager.ShowDisconnectionPopup("Disconnected from server. Please check your network connection.");
+            }
+        }
+
         OnSocketDisconnectedEvent?.Invoke();
     }
 
@@ -216,16 +273,29 @@ public class SocketIOManager : MonoBehaviour
     {
         Debug.LogError($"[SocketIO] Error: {err.message}");
 
+        if (!isInitialized && RaycastBlocker != null)
+        {
+            RaycastBlocker.SetActive(false);
+        }
+
         if (!string.IsNullOrEmpty(err.message) && err.message.Contains("Session expired"))
         {
             Debug.LogWarning("Session expired detected");
             OnSocketDisconnected();
+            if (popupManager != null)
+            {
+                popupManager.ShowErrorPopup("Session Expired", "Your session has expired. Please reload the game.", true);
+            }
 #if UNITY_WEBGL && !UNITY_EDITOR
             JSManager?.SendCustomMessage("session_expired");
 #endif
         }
         else
         {
+            if (popupManager != null)
+            {
+                popupManager.ShowServerError(err.message);
+            }
             OnSocketErrorEvent?.Invoke(err.message);
 #if UNITY_WEBGL && !UNITY_EDITOR
             JSManager?.SendCustomMessage("error");
@@ -240,6 +310,12 @@ public class SocketIOManager : MonoBehaviour
         try
         {
             isInitialized = true;
+            if (initTimeoutRoutine != null)
+            {
+                StopCoroutine(initTimeoutRoutine);
+                initTimeoutRoutine = null;
+            }
+
             if (RaycastBlocker != null) RaycastBlocker.SetActive(false);
 
             OnInitDataReceived?.Invoke(jsonData);
@@ -251,6 +327,11 @@ public class SocketIOManager : MonoBehaviour
         catch (Exception e)
         {
             Debug.LogError($"[SocketIO] Init parse failed: {e.Message}");
+            if (RaycastBlocker != null) RaycastBlocker.SetActive(false);
+            if (popupManager != null)
+            {
+                popupManager.ShowServerError("Failed to parse game initialization data.");
+            }
             OnSocketErrorEvent?.Invoke("Failed to parse game initialization data.");
         }
     }
@@ -269,6 +350,10 @@ public class SocketIOManager : MonoBehaviour
     private void OnAnotherDevice(string data)
     {
         Debug.Log("[SocketIO] Another device login");
+        if (popupManager != null)
+        {
+            popupManager.ShowAnotherDeviceError();
+        }
         OnAnotherDeviceLogin?.Invoke();
     }
 
@@ -408,6 +493,11 @@ public class SocketIOManager : MonoBehaviour
                     catch (Exception e) { Debug.LogWarning($"[SOCKET] Focus close error: {e.Message}"); }
                 }
 
+                if (popupManager != null)
+                {
+                    popupManager.ShowDisconnectionPopup("Session timed out due to inactivity.");
+                }
+
                 OnSocketDisconnectedEvent?.Invoke();
 
                 focusCheckRoutine = null;
@@ -457,6 +547,11 @@ public class SocketIOManager : MonoBehaviour
                     OnSocketDisconnected();
                     yield break;
                 }
+
+                if (missedPongs >= 2 && popupManager != null)
+                {
+                    popupManager.ShowReconnectionPopup(missedPongs, MAX_MISSED_PONGS);
+                }
             }
 
             SendPing();
@@ -502,6 +597,10 @@ public class SocketIOManager : MonoBehaviour
         if (missedPongs > 0)
         {
             missedPongs = 0;
+            if (popupManager != null)
+            {
+                popupManager.CloseReconnectionPopup();
+            }
         }
     }
 
@@ -516,6 +615,17 @@ public class SocketIOManager : MonoBehaviour
         isExiting = true;
 
         if (RaycastBlocker != null) RaycastBlocker.SetActive(true);
+
+        if (popupManager != null && !popupManager.IsLoadingPopupActive())
+        {
+            popupManager.ShowLoadingPopup(0f);
+        }
+
+        if (initTimeoutRoutine != null)
+        {
+            StopCoroutine(initTimeoutRoutine);
+        }
+        initTimeoutRoutine = StartCoroutine(InitTimeoutCheck());
 
         StopPingRoutine();
 

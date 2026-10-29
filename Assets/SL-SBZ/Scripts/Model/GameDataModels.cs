@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 
 namespace SweetBonanza.Model
@@ -115,6 +115,7 @@ namespace SweetBonanza.Model
         public List<BombMultiplierInfo> MultiplierBombs = new List<BombMultiplierInfo>();
         public int TotalMultiplier = 1;
         public double FinalWinAmount;
+        public double PlayerBalance;
         public int ScatterCount;
         public bool TriggeredFreeSpins;
         public int FreeSpinsAwarded;
@@ -195,20 +196,20 @@ namespace SweetBonanza.Model
     }
     #endregion
 
-    public static class GameConfig
+    internal static class GameConfig
     {
-        public const int COLUMNS = 6;
-        public const int ROWS = 5;
-        public const int TOTAL_CELLS = COLUMNS * ROWS;
+        internal const int COLUMNS = 6;
+        internal const int ROWS = 5;
+        internal const int TOTAL_CELLS = COLUMNS * ROWS;
 
-        public static readonly float[] DefaultAvailableBets = new float[]
+        internal static readonly float[] DefaultAvailableBets = new float[]
         {
             0.2f, 0.4f, 0.6f, 0.8f, 1.0f, 1.2f, 1.4f, 1.6f, 1.8f, 2.0f,
             2.4f, 3.0f, 4.0f, 5.0f, 10.0f, 15.0f, 20.0f, 25.0f, 50.0f,
             75.0f, 100.0f, 125.0f, 150.0f, 200.0f, 250.0f, 300.0f
         };
 
-        public static double GetPayoutMultiplier(SymbolType symbol, int count)
+        internal static double GetPayoutMultiplier(SymbolType symbol, int count)
         {
             if (count < 8 && symbol != SymbolType.Lollipop) return 0.0;
 

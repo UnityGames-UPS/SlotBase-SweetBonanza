@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
 using System;
@@ -30,8 +30,8 @@ public class OrientationChange : MonoBehaviour
     [SerializeField] private string mobileKeyword = "mobile";
     [SerializeField] private string currentDevice = "";
 
-    public static event Action<OrientationMode, int, int> OnOrientationChanged;
-    public event Action<OrientationMode, int, int> OnOrientationChangedInstance;
+    internal static event Action<OrientationMode, int, int> OnOrientationChanged;
+    internal event Action<OrientationMode, int, int> OnOrientationChangedInstance;
 
     private Vector2 ReferenceAspect;
     private Tween matchTween;
@@ -43,11 +43,11 @@ public class OrientationChange : MonoBehaviour
     private int lastWidth = 0;
     private int lastHeight = 0;
 
-    public string CurrentDevice => currentDevice;
-    public OrientationMode CurrentMode => currentMode;
-    public bool IsLandscape => isLandscape;
-    public bool IsMobile => IsMobileDevice();
-    public bool EnablePortrait
+    internal string CurrentDevice => currentDevice;
+    internal OrientationMode CurrentMode => currentMode;
+    internal bool IsLandscape => isLandscape;
+    internal bool IsMobile => IsMobileDevice();
+    internal bool EnablePortrait
     {
         get => enablePortrait;
         set
@@ -96,7 +96,7 @@ public class OrientationChange : MonoBehaviour
         ApplyMatch(w, h);
     }
 
-    public bool IsMobileDevice()
+    internal bool IsMobileDevice()
     {
         if (!string.IsNullOrEmpty(currentDevice))
         {

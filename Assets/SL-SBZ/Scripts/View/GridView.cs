@@ -9,20 +9,23 @@ namespace SweetBonanza.View
 {
     public class GridView : MonoBehaviour
     {
+        internal event Action<int> OnScatterAnticipationTriggered;
+
         [Header("Hierarchy Bindings")]
         [SerializeField] private RectTransform gridContainer;
         [SerializeField] private CellView cellPrefab;
+        [SerializeField] private Transform slotFrameTransform;
 
         [Header("Grid Geometry")]
         [SerializeField] private Vector2 cellSize = new Vector2(110f, 110f);
         [SerializeField] private Vector2 cellSpacing = new Vector2(8f, 8f);
 
         [Header("Animation Timings")]
-        [SerializeField] private float initialDropDuration = 0.55f;
-        [SerializeField] private float columnStaggerDelay = 0.08f;
-        [SerializeField] private float winPulseDuration = 0.42f;
-        [SerializeField] private float explodeDuration = 0.25f;
-        [SerializeField] private float tumbleFallDuration = 0.35f;
+        [SerializeField] private float initialDropDuration = 0.50f;
+        [SerializeField] private float columnStaggerDelay = 0.07f;
+        [SerializeField] private float winPulseDuration = 0.38f;
+        [SerializeField] private float explodeDuration = 0.22f;
+        [SerializeField] private float tumbleFallDuration = 0.32f;
 
         [Header("Symbol Sprites Configuration")]
         [SerializeField] private Sprite bananaSprite;
@@ -36,12 +39,20 @@ namespace SweetBonanza.View
         [SerializeField] private Sprite redHeartSprite;
         [SerializeField] private Sprite lollipopSprite;
         [SerializeField] private Sprite multiplierBombSprite;
+        [SerializeField] private Sprite multiplierBombSprite2;
+        [SerializeField] private Sprite multiplierBombSprite3;
+
+        private bool isQuickSpinMode = false;
+        private CellView[,] activeCells = new CellView[GameConfig.COLUMNS, GameConfig.ROWS];
+        private readonly List<CellView> cellPool = new List<CellView>();
+        private Dictionary<SymbolType, Sprite> spriteLookup;
 
         internal void SetQuickSpinMode(bool isQuick)
         {
+            isQuickSpinMode = isQuick;
             if (isQuick)
             {
-                initialDropDuration = 0.20f;
+                initialDropDuration = 0.22f;
                 columnStaggerDelay = 0.03f;
                 winPulseDuration = 0.18f;
                 explodeDuration = 0.12f;
@@ -49,21 +60,22 @@ namespace SweetBonanza.View
             }
             else
             {
-                initialDropDuration = 0.55f;
-                columnStaggerDelay = 0.08f;
-                winPulseDuration = 0.42f;
-                explodeDuration = 0.25f;
-                tumbleFallDuration = 0.35f;
+                initialDropDuration = 0.50f;
+                columnStaggerDelay = 0.07f;
+                winPulseDuration = 0.38f;
+                explodeDuration = 0.22f;
+                tumbleFallDuration = 0.32f;
             }
         }
-
-        private CellView[,] activeCells = new CellView[GameConfig.COLUMNS, GameConfig.ROWS];
-        private readonly List<CellView> cellPool = new List<CellView>();
-        private Dictionary<SymbolType, Sprite> spriteLookup;
 
         private void Awake()
         {
             InitializeSpriteLookup();
+            if (slotFrameTransform == null)
+            {
+                var sf = GameObject.Find("MainCanvas/BG/MainGamePlay/slot frame");
+                if (sf != null) slotFrameTransform = sf.transform;
+            }
         }
 
         private void InitializeSpriteLookup()
@@ -90,6 +102,13 @@ namespace SweetBonanza.View
             return spriteLookup.TryGetValue(symbol, out var sprite) ? sprite : null;
         }
 
+        internal Sprite GetMultiplierBombSprite(int multiplier)
+        {
+            if (multiplier >= 50 && multiplierBombSprite3 != null) return multiplierBombSprite3;
+            if (multiplier >= 10 && multiplierBombSprite2 != null) return multiplierBombSprite2;
+            return multiplierBombSprite != null ? multiplierBombSprite : GetSymbolSprite(SymbolType.MultiplierBomb);
+        }
+
         internal Vector2 GetCellPosition(int column, int row)
         {
             float totalWidth = (GameConfig.COLUMNS - 1) * (cellSize.x + cellSpacing.x);
@@ -108,13 +127,92 @@ namespace SweetBonanza.View
 
         internal IEnumerator PlayInitialDropSequence(int[,] matrix)
         {
-            ClearGrid();
+            // 1. Wipe previous spin symbols downwards if any exist
+            int clearedCount = 0;
+            int totalToClear = 0;
+            for (int c = 0; c < GameConfig.COLUMNS; c++)
+            {
+                for (int r = 0; r < GameConfig.ROWS; r++)
+                {
+                    if (activeCells[c, r] != null) totalToClear++;
+                }
+            }
+
+            if (totalToClear > 0)
+            {
+                for (int c = 0; c < GameConfig.COLUMNS; c++)
+                {
+                    float colWipeDelay = c * (isQuickSpinMode ? 0.015f : 0.03f);
+                    for (int r = 0; r < GameConfig.ROWS; r++)
+                    {
+                        var oldCell = activeCells[c, r];
+                        if (oldCell != null)
+                        {
+                            oldCell.PlayClearDropAnimation(colWipeDelay, () =>
+                            {
+                                RecycleCell(oldCell);
+                                clearedCount++;
+                            });
+                            activeCells[c, r] = null;
+                        }
+                    }
+                }
+                while (clearedCount < totalToClear) yield return null;
+            }
+
+            // 2. Count scatters per column to calculate anticipation delays
+            int[] scattersPerCol = new int[GameConfig.COLUMNS];
+            for (int c = 0; c < GameConfig.COLUMNS; c++)
+            {
+                for (int r = 0; r < GameConfig.ROWS; r++)
+                {
+                    if (matrix[c, r] == (int)SymbolType.Lollipop) scattersPerCol[c]++;
+                }
+            }
+
+            int cumulativeScatters = 0;
+            float currentCumulativeDelay = 0f;
+            bool anticipationTriggered = false;
+            float[] columnDelays = new float[GameConfig.COLUMNS];
+            float[] columnDurations = new float[GameConfig.COLUMNS];
+
+            for (int c = 0; c < GameConfig.COLUMNS; c++)
+            {
+                columnDelays[c] = currentCumulativeDelay;
+                if (anticipationTriggered && !isQuickSpinMode)
+                {
+                    columnDurations[c] = initialDropDuration * 1.5f;
+                    currentCumulativeDelay += columnStaggerDelay + 0.60f;
+                }
+                else
+                {
+                    columnDurations[c] = initialDropDuration;
+                    currentCumulativeDelay += columnStaggerDelay;
+                }
+
+                cumulativeScatters += scattersPerCol[c];
+                if (cumulativeScatters >= 3 && !anticipationTriggered && c < GameConfig.COLUMNS - 1 && !isQuickSpinMode)
+                {
+                    anticipationTriggered = true;
+                    currentCumulativeDelay += 0.45f;
+                    OnScatterAnticipationTriggered?.Invoke(c + 1);
+                    if (slotFrameTransform != null)
+                    {
+                        slotFrameTransform.DOKill();
+                        slotFrameTransform.DOPunchScale(Vector3.one * 0.02f, 0.45f, 4, 0.5f);
+                    }
+                }
+            }
+
+            // 3. Drop in new columns sequentially
             int completedDrops = 0;
             int totalDrops = GameConfig.TOTAL_CELLS;
 
             for (int c = 0; c < GameConfig.COLUMNS; c++)
             {
-                float columnDelay = c * columnStaggerDelay;
+                float delay = columnDelays[c];
+                float duration = columnDurations[c];
+
                 for (int r = 0; r < GameConfig.ROWS; r++)
                 {
                     SymbolType symbol = (SymbolType)matrix[c, r];
@@ -127,16 +225,17 @@ namespace SweetBonanza.View
                     cell.RectTransform.anchoredPosition = spawnPos;
                     cell.Setup(symbol, GetSymbolSprite(symbol));
 
-                    cell.PlayDropInAnimation(targetPos, columnDelay, initialDropDuration, () => completedDrops++);
+                    cell.PlayDropInAnimation(targetPos, delay, duration, () => completedDrops++);
                 }
             }
 
             while (completedDrops < totalDrops) yield return null;
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(0.08f);
         }
 
         internal IEnumerator PlayTumbleStepSequence(TumbleStep step)
         {
+            // 1. Win pulse
             foreach (var pos in step.ExplodedPositions)
             {
                 var cell = activeCells[pos.Column, pos.Row];
@@ -144,6 +243,7 @@ namespace SweetBonanza.View
             }
             yield return new WaitForSeconds(winPulseDuration);
 
+            // 2. Explode and pop with burst particle effect
             foreach (var pos in step.ExplodedPositions)
             {
                 var cell = activeCells[pos.Column, pos.Row];
@@ -155,6 +255,7 @@ namespace SweetBonanza.View
             }
             yield return new WaitForSeconds(explodeDuration);
 
+            // 3. Gravity drop for surviving symbols
             var newGrid = new CellView[GameConfig.COLUMNS, GameConfig.ROWS];
             int fallingCount = 0;
             int totalFalling = step.FallingSymbols.Count;
@@ -180,6 +281,7 @@ namespace SweetBonanza.View
                 }
             }
 
+            // 4. Spawn new symbols from top
             int spawnCount = 0;
             int totalSpawns = step.NewSpawns.Count;
             var colSpawnCounters = new Dictionary<int, int>();
@@ -197,12 +299,12 @@ namespace SweetBonanza.View
 
                 cell.RectTransform.anchoredPosition = spawnPos;
                 cell.Setup(spawn.Symbol, GetSymbolSprite(spawn.Symbol));
-                cell.PlayFallAnimation(targetPos, tumbleFallDuration + (spawnIndex * 0.05f), () => spawnCount++);
+                cell.PlayFallAnimation(targetPos, tumbleFallDuration + (spawnIndex * 0.04f), () => spawnCount++);
             }
 
             activeCells = newGrid;
             while (fallingCount < totalFalling || spawnCount < totalSpawns) yield return null;
-            yield return new WaitForSeconds(0.12f);
+            yield return new WaitForSeconds(0.10f);
         }
 
         internal IEnumerator PlayMultiplierBombRevealSequence(List<BombMultiplierInfo> bombs)
@@ -210,15 +312,22 @@ namespace SweetBonanza.View
             if (bombs == null || bombs.Count == 0) yield break;
 
             int completed = 0;
-            foreach (var bomb in bombs)
+            for (int i = 0; i < bombs.Count; i++)
             {
+                var bomb = bombs[i];
                 var cell = activeCells[bomb.Position.Column, bomb.Position.Row];
-                if (cell != null) cell.PlayMultiplierBombRevealAnimation(bomb.MultiplierValue, () => completed++);
+                if (cell != null)
+                {
+                    cell.transform.SetAsLastSibling();
+                    Sprite bombSprite = GetMultiplierBombSprite(bomb.MultiplierValue);
+                    cell.Setup(SymbolType.MultiplierBomb, bombSprite, bomb.MultiplierValue);
+                    cell.PlayMultiplierBombRevealAnimation(bomb.MultiplierValue, () => completed++);
+                }
                 else completed++;
             }
 
             while (completed < bombs.Count) yield return null;
-            yield return new WaitForSeconds(0.3f);
+            yield return new WaitForSeconds(0.35f);
         }
 
         internal void ClearGrid()

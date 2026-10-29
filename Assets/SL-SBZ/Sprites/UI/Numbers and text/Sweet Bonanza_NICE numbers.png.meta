@@ -1,0 +1,455 @@
+fileFormatVersion: 2
+guid: 180552095205e2641b45d974cda12f76
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 7377292896945626950
+    second: Sweet Bonanza_NICE numbers_0
+  - first:
+      213: 1562310389613681459
+    second: Sweet Bonanza_NICE numbers_1
+  - first:
+      213: -4335302207592602917
+    second: Sweet Bonanza_NICE numbers_2
+  - first:
+      213: 907059635702485929
+    second: Sweet Bonanza_NICE numbers_3
+  - first:
+      213: 8923516018549485851
+    second: Sweet Bonanza_NICE numbers_4
+  - first:
+      213: 5196674465927919880
+    second: Sweet Bonanza_NICE numbers_5
+  - first:
+      213: -3003369437303810028
+    second: Sweet Bonanza_NICE numbers_6
+  - first:
+      213: 6997358780113593289
+    second: Sweet Bonanza_NICE numbers_7
+  - first:
+      213: 1673404208802942681
+    second: Sweet Bonanza_NICE numbers_8
+  - first:
+      213: 2735759286645925077
+    second: Sweet Bonanza_NICE numbers_9
+  - first:
+      213: 5946354716838085058
+    second: Sweet Bonanza_NICE numbers_10
+  - first:
+      213: 8556137397904340166
+    second: Sweet Bonanza_NICE numbers_11
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Sweet Bonanza_NICE numbers_0
+      rect:
+        serializedVersion: 2
+        x: 93
+        y: 750
+        width: 66
+        height: 144
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 64fd47e9dc8616660800000000000000
+      internalID: 7377292896945626950
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_NICE numbers_1
+      rect:
+        serializedVersion: 2
+        x: 327
+        y: 749
+        width: 99
+        height: 145
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 33b53d995017ea510800000000000000
+      internalID: 1562310389613681459
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_NICE numbers_2
+      rect:
+        serializedVersion: 2
+        x: 578
+        y: 763
+        width: 102
+        height: 144
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bd2e9729c99e5d3c0800000000000000
+      internalID: -4335302207592602917
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_NICE numbers_3
+      rect:
+        serializedVersion: 2
+        x: 819
+        y: 749
+        width: 105
+        height: 150
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9a35420dee5869c00800000000000000
+      internalID: 907059635702485929
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_NICE numbers_4
+      rect:
+        serializedVersion: 2
+        x: 77
+        y: 429
+        width: 99
+        height: 157
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b1176214a82b6db70800000000000000
+      internalID: 8923516018549485851
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_NICE numbers_5
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 416
+        width: 107
+        height: 162
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 809f9f2c4eb4e1840800000000000000
+      internalID: 5196674465927919880
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_NICE numbers_6
+      rect:
+        serializedVersion: 2
+        x: 577
+        y: 416
+        width: 109
+        height: 156
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 418dd38c863e156d0800000000000000
+      internalID: -3003369437303810028
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_NICE numbers_7
+      rect:
+        serializedVersion: 2
+        x: 831
+        y: 416
+        width: 100
+        height: 152
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9c3a1a6acbc9b1160800000000000000
+      internalID: 6997358780113593289
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_NICE numbers_8
+      rect:
+        serializedVersion: 2
+        x: 78
+        y: 76
+        width: 102
+        height: 148
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9dec7570340293710800000000000000
+      internalID: 1673404208802942681
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_NICE numbers_9
+      rect:
+        serializedVersion: 2
+        x: 327
+        y: 77
+        width: 103
+        height: 145
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5d4a187939e57f520800000000000000
+      internalID: 2735759286645925077
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_NICE numbers_10
+      rect:
+        serializedVersion: 2
+        x: 574
+        y: 66
+        width: 100
+        height: 167
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2c14a9d1c12b58250800000000000000
+      internalID: 5946354716838085058
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_NICE numbers_11
+      rect:
+        serializedVersion: 2
+        x: 842
+        y: 76
+        width: 47
+        height: 59
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6c4f58b81a18db670800000000000000
+      internalID: 8556137397904340166
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Sweet Bonanza_NICE numbers_0: 7377292896945626950
+      Sweet Bonanza_NICE numbers_1: 1562310389613681459
+      Sweet Bonanza_NICE numbers_10: 5946354716838085058
+      Sweet Bonanza_NICE numbers_11: 8556137397904340166
+      Sweet Bonanza_NICE numbers_2: -4335302207592602917
+      Sweet Bonanza_NICE numbers_3: 907059635702485929
+      Sweet Bonanza_NICE numbers_4: 8923516018549485851
+      Sweet Bonanza_NICE numbers_5: 5196674465927919880
+      Sweet Bonanza_NICE numbers_6: -3003369437303810028
+      Sweet Bonanza_NICE numbers_7: 6997358780113593289
+      Sweet Bonanza_NICE numbers_8: 1673404208802942681
+      Sweet Bonanza_NICE numbers_9: 2735759286645925077
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

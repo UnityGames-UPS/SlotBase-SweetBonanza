@@ -24,8 +24,6 @@ namespace SweetBonanza.Controller
         [SerializeField] private float anteBetMultiplier = 1.25f;
         [SerializeField] private float buyFeatureCostMultiplier = 100f;
         [SerializeField] private float maxWinMultiplier = 21100f;
-        [SerializeField] private int matrixColumns = 6;
-        [SerializeField] private int matrixRows = 5;
         [SerializeField] private float[] availableBets = new float[]
         {
             0.2f, 0.4f, 0.6f, 0.8f, 1.0f, 1.2f, 1.4f, 1.6f, 1.8f, 2.0f,
@@ -40,6 +38,9 @@ namespace SweetBonanza.Controller
         private bool isAutoplaying = false;
         private int remainingAutoplaySpins = 0;
 
+        [Header("Debug")]
+        [SerializeField] private bool enableSpinDebugLogs = true;
+
         internal double CurrentBetAmount => isAnteBetActive ? currentBetAmount * anteBetMultiplier : currentBetAmount;
 
         private void Start()
@@ -48,6 +49,10 @@ namespace SweetBonanza.Controller
             HookViewEvents();
             ApplyInitialSettings();
             UpdateHUD(false);
+            if (uiManager != null && availableBets != null && availableBets.Length > 0)
+            {
+                uiManager.UpdateBetLimits(availableBets[0], availableBets[availableBets.Length - 1]);
+            }
             currentState = GameState.Idle;
         }
 
@@ -87,6 +92,7 @@ namespace SweetBonanza.Controller
                 uiManager.OnBetIncreaseClicked += HandleBetIncreaseClicked;
                 uiManager.OnBetDecreaseClicked += HandleBetDecreaseClicked;
                 uiManager.OnBetMaxClicked += HandleBetMaxClicked;
+                uiManager.OnBetAmountSelected += HandleBetAmountSelected;
                 uiManager.OnAnteBetToggled += HandleAnteBetToggled;
                 uiManager.OnBuyFeatureRequested += HandleBuyBonusRequested;
                 uiManager.OnBuyFeatureConfirmed += HandleBuyBonusConfirmed;
@@ -106,6 +112,11 @@ namespace SweetBonanza.Controller
                 mainView.OnAnteBetToggled += HandleAnteBetToggled;
                 mainView.OnBuyBonusClicked += HandleBuyBonusConfirmed;
             }
+
+            if (gridView != null)
+            {
+                gridView.OnScatterAnticipationTriggered += HandleScatterAnticipation;
+            }
         }
 
         private void HandleInitDataReceived(InitPayload payload)
@@ -117,6 +128,10 @@ namespace SweetBonanza.Controller
             buyFeatureCostMultiplier = payload.BuyFeatureCostMultiplier;
             maxWinMultiplier = payload.MaxWinMultiplier;
 
+            if (uiManager != null && availableBets != null && availableBets.Length > 0)
+            {
+                uiManager.UpdateBetLimits(availableBets[0], availableBets[availableBets.Length - 1]);
+            }
             UpdateHUD(false);
         }
 
@@ -145,8 +160,7 @@ namespace SweetBonanza.Controller
             }
 
             currentState = GameState.Spinning;
-            UpdateHUD(true);
-            backendService.RequestSpin(currentBetAmount, isAnteBetActive, false);
+            SendSpinRequest(currentBetAmount, isAnteBetActive, false);
         }
 
         private void HandleBuyBonusRequested()
@@ -166,8 +180,32 @@ namespace SweetBonanza.Controller
             }
 
             currentState = GameState.Spinning;
+            SendSpinRequest(currentBetAmount, false, true);
+        }
+
+        private void SendSpinRequest(double betAmount, bool isAnteBet, bool isBonusBuy)
+        {
+            double cost = isBonusBuy ? betAmount * buyFeatureCostMultiplier : (isAnteBet ? betAmount * anteBetMultiplier : betAmount);
+            if (!isInFreeSpins)
+            {
+                currentBalance -= cost;
+            }
             UpdateHUD(true);
-            backendService.RequestSpin(currentBetAmount, false, true);
+
+            if (enableSpinDebugLogs)
+            {
+                string anteStr = isAnteBet ? "<color=#2ecc71>ACTIVE (1.25x)</color>" : "OFF";
+                string bonusStr = isBonusBuy ? $"<color=#f1c40f>YES ({buyFeatureCostMultiplier}x)</color>" : "NO";
+                string fsStr = isInFreeSpins ? $"<color=#e056fd>ACTIVE ({remainingFreeSpins} remaining)</color>" : "NO";
+                double effectiveCost = isInFreeSpins ? 0.0 : cost;
+
+                Debug.Log($"<color=#3498db><b>[SPIN REQUEST 📤]</b></color> Base Bet: <b>${betAmount:F2}</b> | Cost: <b>${effectiveCost:F2}</b> | Ante Bet: {anteStr} | Bonus Buy: {bonusStr} | Free Spins: {fsStr} | Balance: <b>${currentBalance:F2}</b>");
+            }
+
+            if (backendService != null)
+            {
+                backendService.RequestSpin(betAmount, isAnteBet, isBonusBuy);
+            }
         }
 
         private void HandleBetIncreaseClicked()
@@ -192,6 +230,28 @@ namespace SweetBonanza.Controller
             if (currentState != GameState.Idle || availableBets == null || availableBets.Length == 0) return;
             currentBetIndex = availableBets.Length - 1;
             currentBetAmount = availableBets[currentBetIndex];
+            UpdateHUD(false);
+        }
+
+        private void HandleBetAmountSelected(double newBet)
+        {
+            if (currentState != GameState.Idle) return;
+            currentBetAmount = (float)newBet;
+            if (availableBets != null && availableBets.Length > 0)
+            {
+                int closestIdx = 0;
+                float closestDiff = float.MaxValue;
+                for (int i = 0; i < availableBets.Length; i++)
+                {
+                    float diff = Mathf.Abs(availableBets[i] - currentBetAmount);
+                    if (diff < closestDiff)
+                    {
+                        closestDiff = diff;
+                        closestIdx = i;
+                    }
+                }
+                currentBetIndex = closestIdx;
+            }
             UpdateHUD(false);
         }
 
@@ -221,7 +281,55 @@ namespace SweetBonanza.Controller
 
         private void HandleRoundResultReceived(RoundResult result)
         {
+            if (result.PlayerBalance > 0)
+            {
+                currentBalance = result.PlayerBalance;
+            }
+            else
+            {
+                currentBalance += result.FinalWinAmount;
+            }
+
+            if (enableSpinDebugLogs && result != null)
+            {
+                LogSpinResultDebug(result);
+            }
+
             StartCoroutine(PlayRoundSequence(result));
+        }
+
+        private void LogSpinResultDebug(RoundResult result)
+        {
+            var sb = new System.Text.StringBuilder();
+            sb.AppendLine($"<color=#2ecc71><b>[SPIN RESULT 📥]</b></color> Final Win: <color=#f1c40f><b>${result.FinalWinAmount:F2}</b></color> | New Balance: <b>${currentBalance:F2}</b>");
+            sb.AppendLine($"  • Mode: {(result.IsFreeSpin ? $"<color=#e056fd>FREE SPIN ({result.RemainingFreeSpins} left)</color>" : "BASE GAME")} | Scatters: <b>{result.ScatterCount}</b> {(result.TriggeredFreeSpins ? $"<color=#e056fd><b>-> TRIGGERED {result.FreeSpinsAwarded} FREE SPINS!</b></color>" : "")}");
+            sb.AppendLine($"  • Tumbles: <b>{result.TumbleSteps.Count}</b> | Total Multipliers: <b>{result.TotalMultiplier}X</b> (Bombs: {result.MultiplierBombs.Count})");
+
+            for (int i = 0; i < result.TumbleSteps.Count; i++)
+            {
+                var step = result.TumbleSteps[i];
+                sb.Append($"    ┌─ Tumble #{i + 1}: Win = ${step.StepWinAmount:F2} (");
+                for (int w = 0; w < step.Wins.Count; w++)
+                {
+                    var win = step.Wins[w];
+                    sb.Append($"{win.Count}x {win.Symbol} [${win.WinAmount:F2}]");
+                    if (w < step.Wins.Count - 1) sb.Append(", ");
+                }
+                sb.AppendLine(")");
+            }
+
+            if (result.MultiplierBombs != null && result.MultiplierBombs.Count > 0)
+            {
+                sb.Append("    └─ Multiplier Bombs: ");
+                for (int b = 0; b < result.MultiplierBombs.Count; b++)
+                {
+                    sb.Append($"{result.MultiplierBombs[b].MultiplierValue}X at Col:{result.MultiplierBombs[b].Position.Column},Row:{result.MultiplierBombs[b].Position.Row}");
+                    if (b < result.MultiplierBombs.Count - 1) sb.Append(", ");
+                }
+                sb.AppendLine();
+            }
+
+            Debug.Log(sb.ToString());
         }
 
         private IEnumerator PlayRoundSequence(RoundResult result)
@@ -275,7 +383,7 @@ namespace SweetBonanza.Controller
                 remainingFreeSpins = result.RemainingFreeSpins;
                 if (mainView != null) mainView.SetFreeSpinsDisplay(true, remainingFreeSpins);
                 if (uiManager != null) uiManager.ShowFreeSpinsIntro(result.FreeSpinsAwarded);
-                yield return new WaitForSeconds(1.2f);
+                yield return new WaitForSeconds(2.0f);
             }
             else if (isInFreeSpins)
             {
@@ -285,7 +393,7 @@ namespace SweetBonanza.Controller
                 {
                     isInFreeSpins = false;
                     if (uiManager != null) uiManager.ShowFreeSpinsOutro(result.FinalWinAmount);
-                    yield return new WaitForSeconds(1.0f);
+                    yield return new WaitForSeconds(2.0f);
                 }
             }
 
@@ -295,7 +403,8 @@ namespace SweetBonanza.Controller
             if (isInFreeSpins && remainingFreeSpins > 0)
             {
                 yield return new WaitForSeconds(0.6f);
-                backendService.RequestSpin(currentBetAmount, false, false);
+                if (uiManager != null) uiManager.CloseCurrentPanel();
+                SendSpinRequest(currentBetAmount, false, false);
             }
             else if (isAutoplaying)
             {
@@ -311,6 +420,11 @@ namespace SweetBonanza.Controller
                     HandleAutoplayStopped();
                 }
             }
+        }
+
+        private void HandleScatterAnticipation(int targetColumn)
+        {
+            SetStatusMessage("🍭 3 SCATTERS! LOOKING FOR 4TH... 🍭");
         }
 
         private void SetStatusMessage(string message)
@@ -369,6 +483,7 @@ namespace SweetBonanza.Controller
                 uiManager.OnBetIncreaseClicked -= HandleBetIncreaseClicked;
                 uiManager.OnBetDecreaseClicked -= HandleBetDecreaseClicked;
                 uiManager.OnBetMaxClicked -= HandleBetMaxClicked;
+                uiManager.OnBetAmountSelected -= HandleBetAmountSelected;
                 uiManager.OnAnteBetToggled -= HandleAnteBetToggled;
                 uiManager.OnBuyFeatureRequested -= HandleBuyBonusRequested;
                 uiManager.OnBuyFeatureConfirmed -= HandleBuyBonusConfirmed;
@@ -387,6 +502,11 @@ namespace SweetBonanza.Controller
                 mainView.OnBetDecreaseClicked -= HandleBetDecreaseClicked;
                 mainView.OnAnteBetToggled -= HandleAnteBetToggled;
                 mainView.OnBuyBonusClicked -= HandleBuyBonusConfirmed;
+            }
+
+            if (gridView != null)
+            {
+                gridView.OnScatterAnticipationTriggered -= HandleScatterAnticipation;
             }
         }
     }

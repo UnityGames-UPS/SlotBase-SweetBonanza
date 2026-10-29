@@ -1,0 +1,819 @@
+fileFormatVersion: 2
+guid: cc4f3f9cf13b28e4c99322018d2a29fe
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -8272056573411644555
+    second: AUTOPLAY SETTINGS BUTTON TEXT_0
+  - first:
+      213: -6341454987529320763
+    second: AUTOPLAY SETTINGS BUTTON TEXT_1
+  - first:
+      213: 7362481062989328647
+    second: AUTOPLAY SETTINGS BUTTON TEXT_2
+  - first:
+      213: 7258983805330918018
+    second: AUTOPLAY SETTINGS BUTTON TEXT_3
+  - first:
+      213: 9120546795691798311
+    second: AUTOPLAY SETTINGS BUTTON TEXT_4
+  - first:
+      213: -8988068047901937935
+    second: AUTOPLAY SETTINGS BUTTON TEXT_5
+  - first:
+      213: -4436136310685524270
+    second: AUTOPLAY SETTINGS BUTTON TEXT_6
+  - first:
+      213: 2169694526683391235
+    second: AUTOPLAY SETTINGS BUTTON TEXT_7
+  - first:
+      213: 4576919757662562791
+    second: AUTOPLAY SETTINGS BUTTON TEXT_8
+  - first:
+      213: -5973403224301008482
+    second: AUTOPLAY SETTINGS BUTTON TEXT_9
+  - first:
+      213: -8285534565195967732
+    second: AUTOPLAY SETTINGS BUTTON TEXT_10
+  - first:
+      213: 2437089437559649577
+    second: AUTOPLAY SETTINGS BUTTON TEXT_11
+  - first:
+      213: 2140499379251902747
+    second: AUTOPLAY SETTINGS BUTTON TEXT_12
+  - first:
+      213: -4602279202714946902
+    second: AUTOPLAY SETTINGS BUTTON TEXT_13
+  - first:
+      213: 7056718054014063073
+    second: AUTOPLAY SETTINGS BUTTON TEXT_14
+  - first:
+      213: 2955186946816529492
+    second: AUTOPLAY SETTINGS BUTTON TEXT_15
+  - first:
+      213: 3629868598649628679
+    second: AUTOPLAY SETTINGS BUTTON TEXT_16
+  - first:
+      213: -472833705154913286
+    second: AUTOPLAY SETTINGS BUTTON TEXT_17
+  - first:
+      213: -9032226388334905672
+    second: AUTOPLAY SETTINGS BUTTON TEXT_18
+  - first:
+      213: -3215531680802654259
+    second: AUTOPLAY SETTINGS BUTTON TEXT_19
+  - first:
+      213: -5596117101945547017
+    second: AUTOPLAY SETTINGS BUTTON TEXT_20
+  - first:
+      213: 6887302910170834431
+    second: AUTOPLAY SETTINGS BUTTON TEXT_21
+  - first:
+      213: 4788638417412948702
+    second: AUTOPLAY SETTINGS BUTTON TEXT_22
+  - first:
+      213: -2062264356576568692
+    second: AUTOPLAY SETTINGS BUTTON TEXT_23
+  - first:
+      213: -8650086467747906431
+    second: AUTOPLAY SETTINGS BUTTON TEXT_24
+  - first:
+      213: -1640943651643381503
+    second: AUTOPLAY SETTINGS BUTTON TEXT_25
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: AUTOPLAY SETTINGS BUTTON TEXT_0
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 311
+        width: 39
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 57b2ddbaf50c33d80800000000000000
+      internalID: -8272056573411644555
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AUTOPLAY SETTINGS BUTTON TEXT_1
+      rect:
+        serializedVersion: 2
+        x: 41
+        y: 312
+        width: 39
+        height: 51
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5c68f2d8940aef7a0800000000000000
+      internalID: -6341454987529320763
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AUTOPLAY SETTINGS BUTTON TEXT_2
+      rect:
+        serializedVersion: 2
+        x: 75
+        y: 312
+        width: 50
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 701f409c489cc2660800000000000000
+      internalID: 7362481062989328647
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AUTOPLAY SETTINGS BUTTON TEXT_3
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 312
+        width: 42
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 28a001baf471db460800000000000000
+      internalID: 7258983805330918018
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AUTOPLAY SETTINGS BUTTON TEXT_4
+      rect:
+        serializedVersion: 2
+        x: 166
+        y: 312
+        width: 39
+        height: 51
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 72f698aecf0b29e70800000000000000
+      internalID: 9120546795691798311
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AUTOPLAY SETTINGS BUTTON TEXT_5
+      rect:
+        serializedVersion: 2
+        x: 221
+        y: 312
+        width: 50
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1fe24c33bb7f34380800000000000000
+      internalID: -8988068047901937935
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AUTOPLAY SETTINGS BUTTON TEXT_6
+      rect:
+        serializedVersion: 2
+        x: 271
+        y: 311
+        width: 43
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2de9062778daf62c0800000000000000
+      internalID: -4436136310685524270
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AUTOPLAY SETTINGS BUTTON TEXT_7
+      rect:
+        serializedVersion: 2
+        x: 317
+        y: 312
+        width: 39
+        height: 51
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 305a21e2dad4c1e10800000000000000
+      internalID: 2169694526683391235
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AUTOPLAY SETTINGS BUTTON TEXT_8
+      rect:
+        serializedVersion: 2
+        x: 355
+        y: 311
+        width: 50
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7e9a1f0254c748f30800000000000000
+      internalID: 4576919757662562791
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AUTOPLAY SETTINGS BUTTON TEXT_9
+      rect:
+        serializedVersion: 2
+        x: 410
+        y: 312
+        width: 38
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e998d5b7a653a1da0800000000000000
+      internalID: -5973403224301008482
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AUTOPLAY SETTINGS BUTTON TEXT_10
+      rect:
+        serializedVersion: 2
+        x: 452
+        y: 312
+        width: 31
+        height: 51
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c03164b263ed30d80800000000000000
+      internalID: -8285534565195967732
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AUTOPLAY SETTINGS BUTTON TEXT_11
+      rect:
+        serializedVersion: 2
+        x: 483
+        y: 312
+        width: 50
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 92579936ee742d120800000000000000
+      internalID: 2437089437559649577
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AUTOPLAY SETTINGS BUTTON TEXT_12
+      rect:
+        serializedVersion: 2
+        x: 527
+        y: 312
+        width: 44
+        height: 51
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b19f04638d494bd10800000000000000
+      internalID: 2140499379251902747
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AUTOPLAY SETTINGS BUTTON TEXT_13
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 19
+        width: 39
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aa2f105f27b6120c0800000000000000
+      internalID: -4602279202714946902
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AUTOPLAY SETTINGS BUTTON TEXT_14
+      rect:
+        serializedVersion: 2
+        x: 41
+        y: 20
+        width: 39
+        height: 51
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1e118999eaf7ee160800000000000000
+      internalID: 7056718054014063073
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AUTOPLAY SETTINGS BUTTON TEXT_15
+      rect:
+        serializedVersion: 2
+        x: 75
+        y: 20
+        width: 50
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 454ded1fedee20920800000000000000
+      internalID: 2955186946816529492
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AUTOPLAY SETTINGS BUTTON TEXT_16
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 20
+        width: 42
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7082bd33242ef5230800000000000000
+      internalID: 3629868598649628679
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AUTOPLAY SETTINGS BUTTON TEXT_17
+      rect:
+        serializedVersion: 2
+        x: 166
+        y: 20
+        width: 39
+        height: 51
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: afbd86610482079f0800000000000000
+      internalID: -472833705154913286
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AUTOPLAY SETTINGS BUTTON TEXT_18
+      rect:
+        serializedVersion: 2
+        x: 221
+        y: 20
+        width: 50
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8b6736064f517a280800000000000000
+      internalID: -9032226388334905672
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AUTOPLAY SETTINGS BUTTON TEXT_19
+      rect:
+        serializedVersion: 2
+        x: 271
+        y: 19
+        width: 43
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dc73eb119f22063d0800000000000000
+      internalID: -3215531680802654259
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AUTOPLAY SETTINGS BUTTON TEXT_20
+      rect:
+        serializedVersion: 2
+        x: 317
+        y: 20
+        width: 39
+        height: 51
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7f61c0135299652b0800000000000000
+      internalID: -5596117101945547017
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AUTOPLAY SETTINGS BUTTON TEXT_21
+      rect:
+        serializedVersion: 2
+        x: 355
+        y: 19
+        width: 50
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ff52f3d918d949f50800000000000000
+      internalID: 6887302910170834431
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AUTOPLAY SETTINGS BUTTON TEXT_22
+      rect:
+        serializedVersion: 2
+        x: 410
+        y: 20
+        width: 38
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ed200b3f449a47240800000000000000
+      internalID: 4788638417412948702
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AUTOPLAY SETTINGS BUTTON TEXT_23
+      rect:
+        serializedVersion: 2
+        x: 452
+        y: 20
+        width: 31
+        height: 51
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c8add497e7d5163e0800000000000000
+      internalID: -2062264356576568692
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AUTOPLAY SETTINGS BUTTON TEXT_24
+      rect:
+        serializedVersion: 2
+        x: 483
+        y: 20
+        width: 50
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 18cf87d0038b4f780800000000000000
+      internalID: -8650086467747906431
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AUTOPLAY SETTINGS BUTTON TEXT_25
+      rect:
+        serializedVersion: 2
+        x: 527
+        y: 20
+        width: 44
+        height: 51
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1092d5361723a39e0800000000000000
+      internalID: -1640943651643381503
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      AUTOPLAY SETTINGS BUTTON TEXT_0: -8272056573411644555
+      AUTOPLAY SETTINGS BUTTON TEXT_1: -6341454987529320763
+      AUTOPLAY SETTINGS BUTTON TEXT_10: -8285534565195967732
+      AUTOPLAY SETTINGS BUTTON TEXT_11: 2437089437559649577
+      AUTOPLAY SETTINGS BUTTON TEXT_12: 2140499379251902747
+      AUTOPLAY SETTINGS BUTTON TEXT_13: -4602279202714946902
+      AUTOPLAY SETTINGS BUTTON TEXT_14: 7056718054014063073
+      AUTOPLAY SETTINGS BUTTON TEXT_15: 2955186946816529492
+      AUTOPLAY SETTINGS BUTTON TEXT_16: 3629868598649628679
+      AUTOPLAY SETTINGS BUTTON TEXT_17: -472833705154913286
+      AUTOPLAY SETTINGS BUTTON TEXT_18: -9032226388334905672
+      AUTOPLAY SETTINGS BUTTON TEXT_19: -3215531680802654259
+      AUTOPLAY SETTINGS BUTTON TEXT_2: 7362481062989328647
+      AUTOPLAY SETTINGS BUTTON TEXT_20: -5596117101945547017
+      AUTOPLAY SETTINGS BUTTON TEXT_21: 6887302910170834431
+      AUTOPLAY SETTINGS BUTTON TEXT_22: 4788638417412948702
+      AUTOPLAY SETTINGS BUTTON TEXT_23: -2062264356576568692
+      AUTOPLAY SETTINGS BUTTON TEXT_24: -8650086467747906431
+      AUTOPLAY SETTINGS BUTTON TEXT_25: -1640943651643381503
+      AUTOPLAY SETTINGS BUTTON TEXT_3: 7258983805330918018
+      AUTOPLAY SETTINGS BUTTON TEXT_4: 9120546795691798311
+      AUTOPLAY SETTINGS BUTTON TEXT_5: -8988068047901937935
+      AUTOPLAY SETTINGS BUTTON TEXT_6: -4436136310685524270
+      AUTOPLAY SETTINGS BUTTON TEXT_7: 2169694526683391235
+      AUTOPLAY SETTINGS BUTTON TEXT_8: 4576919757662562791
+      AUTOPLAY SETTINGS BUTTON TEXT_9: -5973403224301008482
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

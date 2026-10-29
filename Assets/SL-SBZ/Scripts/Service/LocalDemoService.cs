@@ -37,6 +37,7 @@ namespace SweetBonanza.Service
 
             var result = SimulateSweetBonanzaRound(betAmount, isAnteBet, isBonusBuy);
             playerBalance += result.FinalWinAmount;
+            result.PlayerBalance = playerBalance;
 
             RaiseRoundResultReceived(result);
         }

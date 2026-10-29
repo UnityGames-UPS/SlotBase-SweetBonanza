@@ -1,0 +1,1339 @@
+fileFormatVersion: 2
+guid: 0a20a254c0bce32428fc36d0c727f16b
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -9057776118703810630
+    second: Sweet Bonanza_are you sure you want to purchase_0
+  - first:
+      213: 8262145686523951154
+    second: Sweet Bonanza_are you sure you want to purchase_1
+  - first:
+      213: -8273643360959588120
+    second: Sweet Bonanza_are you sure you want to purchase_2
+  - first:
+      213: -2914002507336404119
+    second: Sweet Bonanza_are you sure you want to purchase_3
+  - first:
+      213: 1818071906570600757
+    second: Sweet Bonanza_are you sure you want to purchase_4
+  - first:
+      213: 1338019999686897346
+    second: Sweet Bonanza_are you sure you want to purchase_5
+  - first:
+      213: -7580554388497130576
+    second: Sweet Bonanza_are you sure you want to purchase_6
+  - first:
+      213: -3942661045334032240
+    second: Sweet Bonanza_are you sure you want to purchase_7
+  - first:
+      213: 4442462681825755783
+    second: Sweet Bonanza_are you sure you want to purchase_8
+  - first:
+      213: -769355188400998412
+    second: Sweet Bonanza_are you sure you want to purchase_9
+  - first:
+      213: -4824242371347066914
+    second: Sweet Bonanza_are you sure you want to purchase_10
+  - first:
+      213: 3193868979196871149
+    second: Sweet Bonanza_are you sure you want to purchase_11
+  - first:
+      213: 7819429681187962086
+    second: Sweet Bonanza_are you sure you want to purchase_12
+  - first:
+      213: 3048852484688602565
+    second: Sweet Bonanza_are you sure you want to purchase_13
+  - first:
+      213: -5082446007138818612
+    second: Sweet Bonanza_are you sure you want to purchase_14
+  - first:
+      213: -5876368273198729167
+    second: Sweet Bonanza_are you sure you want to purchase_15
+  - first:
+      213: 435000386996719094
+    second: Sweet Bonanza_are you sure you want to purchase_16
+  - first:
+      213: -1031230174829923011
+    second: Sweet Bonanza_are you sure you want to purchase_17
+  - first:
+      213: -461525862918184278
+    second: Sweet Bonanza_are you sure you want to purchase_18
+  - first:
+      213: 3648673571221868747
+    second: Sweet Bonanza_are you sure you want to purchase_19
+  - first:
+      213: -6857910212842783604
+    second: Sweet Bonanza_are you sure you want to purchase_20
+  - first:
+      213: -1917278013135744488
+    second: Sweet Bonanza_are you sure you want to purchase_21
+  - first:
+      213: 8161458772876548459
+    second: Sweet Bonanza_are you sure you want to purchase_22
+  - first:
+      213: -6305476460867797296
+    second: Sweet Bonanza_are you sure you want to purchase_23
+  - first:
+      213: 1887704312501012576
+    second: Sweet Bonanza_are you sure you want to purchase_24
+  - first:
+      213: -7522173650111633374
+    second: Sweet Bonanza_are you sure you want to purchase_25
+  - first:
+      213: 4314348626515044645
+    second: Sweet Bonanza_are you sure you want to purchase_26
+  - first:
+      213: -2767933415635132833
+    second: Sweet Bonanza_are you sure you want to purchase_27
+  - first:
+      213: 8038229584273470951
+    second: Sweet Bonanza_are you sure you want to purchase_28
+  - first:
+      213: 4572262187675074060
+    second: Sweet Bonanza_are you sure you want to purchase_29
+  - first:
+      213: 4410547741034399101
+    second: Sweet Bonanza_are you sure you want to purchase_30
+  - first:
+      213: 7068106063726493825
+    second: Sweet Bonanza_are you sure you want to purchase_31
+  - first:
+      213: 7575126299177714960
+    second: Sweet Bonanza_are you sure you want to purchase_32
+  - first:
+      213: 7129987321656069648
+    second: Sweet Bonanza_are you sure you want to purchase_33
+  - first:
+      213: 5369172345641826346
+    second: Sweet Bonanza_are you sure you want to purchase_34
+  - first:
+      213: 2174526476586730071
+    second: Sweet Bonanza_are you sure you want to purchase_35
+  - first:
+      213: -2159787990204357163
+    second: Sweet Bonanza_are you sure you want to purchase_36
+  - first:
+      213: -246075249000161518
+    second: Sweet Bonanza_are you sure you want to purchase_37
+  - first:
+      213: -4910287783834842768
+    second: Sweet Bonanza_are you sure you want to purchase_38
+  - first:
+      213: 2114248664305630716
+    second: Sweet Bonanza_are you sure you want to purchase_39
+  - first:
+      213: 2564797058870064794
+    second: Sweet Bonanza_are you sure you want to purchase_40
+  - first:
+      213: -4349247239279445828
+    second: Sweet Bonanza_are you sure you want to purchase_41
+  - first:
+      213: 4847153050755270130
+    second: Sweet Bonanza_are you sure you want to purchase_42
+  - first:
+      213: 8255736523536279593
+    second: Sweet Bonanza_are you sure you want to purchase_43
+  - first:
+      213: -4815012898078517174
+    second: Sweet Bonanza_are you sure you want to purchase_44
+  - first:
+      213: -6861400618182874259
+    second: Sweet Bonanza_are you sure you want to purchase_45
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Sweet Bonanza_are you sure you want to purchase_0
+      rect:
+        serializedVersion: 2
+        x: 606
+        y: 625
+        width: 49
+        height: 51
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ab794a53c905c4280800000000000000
+      internalID: -9057776118703810630
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_are you sure you want to purchase_1
+      rect:
+        serializedVersion: 2
+        x: 658
+        y: 624
+        width: 46
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 23839c72ab909a270800000000000000
+      internalID: 8262145686523951154
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_are you sure you want to purchase_2
+      rect:
+        serializedVersion: 2
+        x: 708
+        y: 626
+        width: 44
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8e81cb7e23d1e2d80800000000000000
+      internalID: -8273643360959588120
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_are you sure you want to purchase_3
+      rect:
+        serializedVersion: 2
+        x: 773
+        y: 625
+        width: 44
+        height: 51
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 963bd9b98226f87d0800000000000000
+      internalID: -2914002507336404119
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_are you sure you want to purchase_4
+      rect:
+        serializedVersion: 2
+        x: 817
+        y: 625
+        width: 52
+        height: 51
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 531024734c61b3910800000000000000
+      internalID: 1818071906570600757
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_are you sure you want to purchase_5
+      rect:
+        serializedVersion: 2
+        x: 872
+        y: 625
+        width: 47
+        height: 51
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2cea4bfb91a919210800000000000000
+      internalID: 1338019999686897346
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_are you sure you want to purchase_6
+      rect:
+        serializedVersion: 2
+        x: 945
+        y: 625
+        width: 44
+        height: 51
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0bb991972f57cc690800000000000000
+      internalID: -7580554388497130576
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_are you sure you want to purchase_7
+      rect:
+        serializedVersion: 2
+        x: 992
+        y: 625
+        width: 47
+        height: 51
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 090481b1baad849c0800000000000000
+      internalID: -3942661045334032240
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_are you sure you want to purchase_8
+      rect:
+        serializedVersion: 2
+        x: 1044
+        y: 624
+        width: 46
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 782472e954cc6ad30800000000000000
+      internalID: 4442462681825755783
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_are you sure you want to purchase_9
+      rect:
+        serializedVersion: 2
+        x: 1094
+        y: 626
+        width: 44
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4f731494883b255f0800000000000000
+      internalID: -769355188400998412
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_are you sure you want to purchase_10
+      rect:
+        serializedVersion: 2
+        x: 1159
+        y: 625
+        width: 44
+        height: 51
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: edf48798f19dc0db0800000000000000
+      internalID: -4824242371347066914
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_are you sure you want to purchase_11
+      rect:
+        serializedVersion: 2
+        x: 1203
+        y: 625
+        width: 52
+        height: 51
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: de14b2c2ae6e25c20800000000000000
+      internalID: 3193868979196871149
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_are you sure you want to purchase_12
+      rect:
+        serializedVersion: 2
+        x: 1258
+        y: 625
+        width: 47
+        height: 51
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6ecba5dadd1348c60800000000000000
+      internalID: 7819429681187962086
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_are you sure you want to purchase_13
+      rect:
+        serializedVersion: 2
+        x: 605
+        y: 559
+        width: 65
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5c56e6a6e23bf4a20800000000000000
+      internalID: 3048852484688602565
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_are you sure you want to purchase_14
+      rect:
+        serializedVersion: 2
+        x: 666
+        y: 559
+        width: 49
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cc56362d8468779b0800000000000000
+      internalID: -5082446007138818612
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_are you sure you want to purchase_15
+      rect:
+        serializedVersion: 2
+        x: 715
+        y: 559
+        width: 90
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1383d9a9032f27ea0800000000000000
+      internalID: -5876368273198729167
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_are you sure you want to purchase_16
+      rect:
+        serializedVersion: 2
+        x: 817
+        y: 559
+        width: 47
+        height: 51
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6fdc8181c8e690600800000000000000
+      internalID: 435000386996719094
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_are you sure you want to purchase_17
+      rect:
+        serializedVersion: 2
+        x: 860
+        y: 559
+        width: 52
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d353993ae9550b1f0800000000000000
+      internalID: -1031230174829923011
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_are you sure you want to purchase_18
+      rect:
+        serializedVersion: 2
+        x: 929
+        y: 559
+        width: 43
+        height: 51
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aa22b164ca45899f0800000000000000
+      internalID: -461525862918184278
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_are you sure you want to purchase_19
+      rect:
+        serializedVersion: 2
+        x: 972
+        y: 559
+        width: 47
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bc019021841b2a230800000000000000
+      internalID: 3648673571221868747
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_are you sure you want to purchase_20
+      rect:
+        serializedVersion: 2
+        x: 1020
+        y: 558
+        width: 46
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c8c7bf50ffec3d0a0800000000000000
+      internalID: -6857910212842783604
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_are you sure you want to purchase_21
+      rect:
+        serializedVersion: 2
+        x: 1065
+        y: 559
+        width: 47
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 81290632ec57465e0800000000000000
+      internalID: -1917278013135744488
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_are you sure you want to purchase_22
+      rect:
+        serializedVersion: 2
+        x: 1113
+        y: 559
+        width: 46
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b695d4e3383534170800000000000000
+      internalID: 8161458772876548459
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_are you sure you want to purchase_23
+      rect:
+        serializedVersion: 2
+        x: 1158
+        y: 559
+        width: 91
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0de336211927e78a0800000000000000
+      internalID: -6305476460867797296
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_are you sure you want to purchase_24
+      rect:
+        serializedVersion: 2
+        x: 1249
+        y: 560
+        width: 44
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 068889b1219723a10800000000000000
+      internalID: 1887704312501012576
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_are you sure you want to purchase_25
+      rect:
+        serializedVersion: 2
+        x: 806
+        y: 475
+        width: 40
+        height: 51
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 228ea4e5beedb9790800000000000000
+      internalID: -7522173650111633374
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_are you sure you want to purchase_26
+      rect:
+        serializedVersion: 2
+        x: 848
+        y: 474
+        width: 46
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 529af98a735afdb30800000000000000
+      internalID: 4314348626515044645
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_are you sure you want to purchase_27
+      rect:
+        serializedVersion: 2
+        x: 898
+        y: 476
+        width: 44
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f5e522f39335699d0800000000000000
+      internalID: -2767933415635132833
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_are you sure you want to purchase_28
+      rect:
+        serializedVersion: 2
+        x: 945
+        y: 476
+        width: 44
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7e5f7a1f7378d8f60800000000000000
+      internalID: 8038229584273470951
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_are you sure you want to purchase_29
+      rect:
+        serializedVersion: 2
+        x: 1012
+        y: 475
+        width: 44
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c0eb25c1c30f37f30800000000000000
+      internalID: 4572262187675074060
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_are you sure you want to purchase_30
+      rect:
+        serializedVersion: 2
+        x: 1060
+        y: 475
+        width: 43
+        height: 51
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d75c1496dc9653d30800000000000000
+      internalID: 4410547741034399101
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_are you sure you want to purchase_31
+      rect:
+        serializedVersion: 2
+        x: 1106
+        y: 475
+        width: 18
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 180c33b3405f61260800000000000000
+      internalID: 7068106063726493825
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_are you sure you want to purchase_32
+      rect:
+        serializedVersion: 2
+        x: 1131
+        y: 475
+        width: 45
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 015053ffb31402960800000000000000
+      internalID: 7575126299177714960
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_are you sure you want to purchase_33
+      rect:
+        serializedVersion: 2
+        x: 1180
+        y: 475
+        width: 44
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 01e495851bdc2f260800000000000000
+      internalID: 7129987321656069648
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_are you sure you want to purchase_34
+      rect:
+        serializedVersion: 2
+        x: 521
+        y: 410
+        width: 48
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a28f4df1dc1238a40800000000000000
+      internalID: 5369172345641826346
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_are you sure you want to purchase_35
+      rect:
+        serializedVersion: 2
+        x: 568
+        y: 410
+        width: 47
+        height: 51
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 75242af2f487d2e10800000000000000
+      internalID: 2174526476586730071
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_are you sure you want to purchase_36
+      rect:
+        serializedVersion: 2
+        x: 635
+        y: 410
+        width: 47
+        height: 51
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5d5e6b51444e602e0800000000000000
+      internalID: -2159787990204357163
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_are you sure you want to purchase_37
+      rect:
+        serializedVersion: 2
+        x: 684
+        y: 410
+        width: 46
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 21f54536dd3c59cf0800000000000000
+      internalID: -246075249000161518
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_are you sure you want to purchase_38
+      rect:
+        serializedVersion: 2
+        x: 735
+        y: 411
+        width: 44
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0798593c6472bdbb0800000000000000
+      internalID: -4910287783834842768
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_are you sure you want to purchase_39
+      rect:
+        serializedVersion: 2
+        x: 802
+        y: 410
+        width: 47
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cfdf7ca55f1575d10800000000000000
+      internalID: 2114248664305630716
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_are you sure you want to purchase_40
+      rect:
+        serializedVersion: 2
+        x: 851
+        y: 410
+        width: 52
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a96baee065df79320800000000000000
+      internalID: 2564797058870064794
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_are you sure you want to purchase_41
+      rect:
+        serializedVersion: 2
+        x: 905
+        y: 410
+        width: 44
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cb8766eddae54a3c0800000000000000
+      internalID: -4349247239279445828
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_are you sure you want to purchase_42
+      rect:
+        serializedVersion: 2
+        x: 949
+        y: 410
+        width: 47
+        height: 51
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2f50832b40c844340800000000000000
+      internalID: 4847153050755270130
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_are you sure you want to purchase_43
+      rect:
+        serializedVersion: 2
+        x: 1017
+        y: 410
+        width: 52
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 928299c90a4429270800000000000000
+      internalID: 8255736523536279593
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_are you sure you want to purchase_44
+      rect:
+        serializedVersion: 2
+        x: 1072
+        y: 410
+        width: 40
+        height: 51
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a481b1db743ad2db0800000000000000
+      internalID: -4815012898078517174
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_are you sure you want to purchase_45
+      rect:
+        serializedVersion: 2
+        x: 1351
+        y: 403
+        width: 48
+        height: 63
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d6b6093bd7867c0a0800000000000000
+      internalID: -6861400618182874259
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Sweet Bonanza_are you sure you want to purchase_0: -9057776118703810630
+      Sweet Bonanza_are you sure you want to purchase_1: 8262145686523951154
+      Sweet Bonanza_are you sure you want to purchase_10: -4824242371347066914
+      Sweet Bonanza_are you sure you want to purchase_11: 3193868979196871149
+      Sweet Bonanza_are you sure you want to purchase_12: 7819429681187962086
+      Sweet Bonanza_are you sure you want to purchase_13: 3048852484688602565
+      Sweet Bonanza_are you sure you want to purchase_14: -5082446007138818612
+      Sweet Bonanza_are you sure you want to purchase_15: -5876368273198729167
+      Sweet Bonanza_are you sure you want to purchase_16: 435000386996719094
+      Sweet Bonanza_are you sure you want to purchase_17: -1031230174829923011
+      Sweet Bonanza_are you sure you want to purchase_18: -461525862918184278
+      Sweet Bonanza_are you sure you want to purchase_19: 3648673571221868747
+      Sweet Bonanza_are you sure you want to purchase_2: -8273643360959588120
+      Sweet Bonanza_are you sure you want to purchase_20: -6857910212842783604
+      Sweet Bonanza_are you sure you want to purchase_21: -1917278013135744488
+      Sweet Bonanza_are you sure you want to purchase_22: 8161458772876548459
+      Sweet Bonanza_are you sure you want to purchase_23: -6305476460867797296
+      Sweet Bonanza_are you sure you want to purchase_24: 1887704312501012576
+      Sweet Bonanza_are you sure you want to purchase_25: -7522173650111633374
+      Sweet Bonanza_are you sure you want to purchase_26: 4314348626515044645
+      Sweet Bonanza_are you sure you want to purchase_27: -2767933415635132833
+      Sweet Bonanza_are you sure you want to purchase_28: 8038229584273470951
+      Sweet Bonanza_are you sure you want to purchase_29: 4572262187675074060
+      Sweet Bonanza_are you sure you want to purchase_3: -2914002507336404119
+      Sweet Bonanza_are you sure you want to purchase_30: 4410547741034399101
+      Sweet Bonanza_are you sure you want to purchase_31: 7068106063726493825
+      Sweet Bonanza_are you sure you want to purchase_32: 7575126299177714960
+      Sweet Bonanza_are you sure you want to purchase_33: 7129987321656069648
+      Sweet Bonanza_are you sure you want to purchase_34: 5369172345641826346
+      Sweet Bonanza_are you sure you want to purchase_35: 2174526476586730071
+      Sweet Bonanza_are you sure you want to purchase_36: -2159787990204357163
+      Sweet Bonanza_are you sure you want to purchase_37: -246075249000161518
+      Sweet Bonanza_are you sure you want to purchase_38: -4910287783834842768
+      Sweet Bonanza_are you sure you want to purchase_39: 2114248664305630716
+      Sweet Bonanza_are you sure you want to purchase_4: 1818071906570600757
+      Sweet Bonanza_are you sure you want to purchase_40: 2564797058870064794
+      Sweet Bonanza_are you sure you want to purchase_41: -4349247239279445828
+      Sweet Bonanza_are you sure you want to purchase_42: 4847153050755270130
+      Sweet Bonanza_are you sure you want to purchase_43: 8255736523536279593
+      Sweet Bonanza_are you sure you want to purchase_44: -4815012898078517174
+      Sweet Bonanza_are you sure you want to purchase_45: -6861400618182874259
+      Sweet Bonanza_are you sure you want to purchase_5: 1338019999686897346
+      Sweet Bonanza_are you sure you want to purchase_6: -7580554388497130576
+      Sweet Bonanza_are you sure you want to purchase_7: -3942661045334032240
+      Sweet Bonanza_are you sure you want to purchase_8: 4442462681825755783
+      Sweet Bonanza_are you sure you want to purchase_9: -769355188400998412
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

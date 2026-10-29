@@ -1,0 +1,455 @@
+fileFormatVersion: 2
+guid: 672c1b2a5a071034f9a8c95cc1e85a16
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -7309276465160383282
+    second: Sweet Bonanza_bet double change to win feature panel numbers_0
+  - first:
+      213: 7103341243264227166
+    second: Sweet Bonanza_bet double change to win feature panel numbers_1
+  - first:
+      213: 1795167555458989305
+    second: Sweet Bonanza_bet double change to win feature panel numbers_2
+  - first:
+      213: -8576472283044311333
+    second: Sweet Bonanza_bet double change to win feature panel numbers_3
+  - first:
+      213: 1565831300245724574
+    second: Sweet Bonanza_bet double change to win feature panel numbers_4
+  - first:
+      213: -5452524560686474894
+    second: Sweet Bonanza_bet double change to win feature panel numbers_5
+  - first:
+      213: -966593465167387501
+    second: Sweet Bonanza_bet double change to win feature panel numbers_6
+  - first:
+      213: -8566992669964113313
+    second: Sweet Bonanza_bet double change to win feature panel numbers_7
+  - first:
+      213: -922387121999204140
+    second: Sweet Bonanza_bet double change to win feature panel numbers_8
+  - first:
+      213: -3950962050891324208
+    second: Sweet Bonanza_bet double change to win feature panel numbers_9
+  - first:
+      213: -6529471468665378
+    second: Sweet Bonanza_bet double change to win feature panel numbers_10
+  - first:
+      213: 2748436107781102196
+    second: Sweet Bonanza_bet double change to win feature panel numbers_11
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Sweet Bonanza_bet double change to win feature panel numbers_0
+      rect:
+        serializedVersion: 2
+        x: 74
+        y: 759
+        width: 93
+        height: 144
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ec41ef8f7cb309a90800000000000000
+      internalID: -7309276465160383282
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_bet double change to win feature panel numbers_1
+      rect:
+        serializedVersion: 2
+        x: 323
+        y: 761
+        width: 114
+        height: 142
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e575523c933249260800000000000000
+      internalID: 7103341243264227166
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_bet double change to win feature panel numbers_2
+      rect:
+        serializedVersion: 2
+        x: 571
+        y: 760
+        width: 114
+        height: 144
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9fc70776167b9e810800000000000000
+      internalID: 1795167555458989305
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_bet double change to win feature panel numbers_3
+      rect:
+        serializedVersion: 2
+        x: 808
+        y: 760
+        width: 125
+        height: 144
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bde092f06ef3af880800000000000000
+      internalID: -8576472283044311333
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_bet double change to win feature panel numbers_4
+      rect:
+        serializedVersion: 2
+        x: 74
+        y: 421
+        width: 115
+        height: 142
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e9d955d7543fab510800000000000000
+      internalID: 1565831300245724574
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_bet double change to win feature panel numbers_5
+      rect:
+        serializedVersion: 2
+        x: 321
+        y: 428
+        width: 116
+        height: 144
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 279903ffccdb454b0800000000000000
+      internalID: -5452524560686474894
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_bet double change to win feature panel numbers_6
+      rect:
+        serializedVersion: 2
+        x: 569
+        y: 429
+        width: 116
+        height: 142
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 394eb7a5d58f592f0800000000000000
+      internalID: -966593465167387501
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_bet double change to win feature panel numbers_7
+      rect:
+        serializedVersion: 2
+        x: 814
+        y: 430
+        width: 114
+        height: 144
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f5ae9697e8deb1980800000000000000
+      internalID: -8566992669964113313
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_bet double change to win feature panel numbers_8
+      rect:
+        serializedVersion: 2
+        x: 74
+        y: 81
+        width: 115
+        height: 144
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4d0b7dfacc50333f0800000000000000
+      internalID: -922387121999204140
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_bet double change to win feature panel numbers_9
+      rect:
+        serializedVersion: 2
+        x: 323
+        y: 81
+        width: 114
+        height: 144
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0d4e293a2fc5b29c0800000000000000
+      internalID: -3950962050891324208
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_bet double change to win feature panel numbers_10
+      rect:
+        serializedVersion: 2
+        x: 601
+        y: 82
+        width: 54
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ed50a84fa7dc8eff0800000000000000
+      internalID: -6529471468665378
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_bet double change to win feature panel numbers_11
+      rect:
+        serializedVersion: 2
+        x: 808
+        y: 82
+        width: 116
+        height: 175
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 47a56240418642620800000000000000
+      internalID: 2748436107781102196
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Sweet Bonanza_bet double change to win feature panel numbers_0: -7309276465160383282
+      Sweet Bonanza_bet double change to win feature panel numbers_1: 7103341243264227166
+      Sweet Bonanza_bet double change to win feature panel numbers_10: -6529471468665378
+      Sweet Bonanza_bet double change to win feature panel numbers_11: 2748436107781102196
+      Sweet Bonanza_bet double change to win feature panel numbers_2: 1795167555458989305
+      Sweet Bonanza_bet double change to win feature panel numbers_3: -8576472283044311333
+      Sweet Bonanza_bet double change to win feature panel numbers_4: 1565831300245724574
+      Sweet Bonanza_bet double change to win feature panel numbers_5: -5452524560686474894
+      Sweet Bonanza_bet double change to win feature panel numbers_6: -966593465167387501
+      Sweet Bonanza_bet double change to win feature panel numbers_7: -8566992669964113313
+      Sweet Bonanza_bet double change to win feature panel numbers_8: -922387121999204140
+      Sweet Bonanza_bet double change to win feature panel numbers_9: -3950962050891324208
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

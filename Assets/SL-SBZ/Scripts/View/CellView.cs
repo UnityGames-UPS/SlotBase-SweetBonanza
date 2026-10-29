@@ -17,6 +17,11 @@ namespace SweetBonanza.View
         [SerializeField] private CanvasGroup canvasGroup;
         [SerializeField] private RectTransform rectTransform;
 
+        [Header("Visual Effects")]
+        [SerializeField] private Image burstEffectImage;
+        [SerializeField] private Sprite candyBurstSprite;
+        [SerializeField] private Sprite bombBurstSprite;
+
         private SymbolType currentSymbol;
         private int currentMultiplier;
         private Sequence activeSequence;
@@ -58,16 +63,26 @@ namespace SweetBonanza.View
                 }
             }
 
+            if (burstEffectImage != null)
+            {
+                burstEffectImage.enabled = false;
+                burstEffectImage.transform.localScale = Vector3.one;
+            }
+
             if (canvasGroup != null) canvasGroup.alpha = 1f;
-            if (rectTransform != null) rectTransform.localScale = Vector3.one;
+            if (rectTransform != null)
+            {
+                rectTransform.localScale = Vector3.one;
+                rectTransform.localRotation = Quaternion.identity;
+            }
         }
 
         internal void PlayWinPulseAnimation(Action onComplete)
         {
             KillActiveTweens();
             activeSequence = DOTween.Sequence();
-            activeSequence.Append(rectTransform.DOScale(1.25f, 0.18f).SetEase(Ease.OutQuad));
-            activeSequence.Append(rectTransform.DOScale(0.95f, 0.12f).SetEase(Ease.InQuad));
+            activeSequence.Append(rectTransform.DOScale(1.28f, 0.18f).SetEase(Ease.OutQuad));
+            activeSequence.Append(rectTransform.DOScale(0.92f, 0.12f).SetEase(Ease.InQuad));
             activeSequence.Append(rectTransform.DOScale(1.15f, 0.12f).SetEase(Ease.OutQuad));
             activeSequence.OnComplete(() => onComplete?.Invoke());
         }
@@ -76,12 +91,24 @@ namespace SweetBonanza.View
         {
             KillActiveTweens();
             activeSequence = DOTween.Sequence();
+
+            if (burstEffectImage != null && candyBurstSprite != null)
+            {
+                burstEffectImage.sprite = candyBurstSprite;
+                burstEffectImage.enabled = true;
+                burstEffectImage.color = new Color(1f, 1f, 1f, 0.95f);
+                burstEffectImage.transform.localScale = Vector3.zero;
+                activeSequence.Join(burstEffectImage.transform.DOScale(1.4f, 0.2f).SetEase(Ease.OutBack));
+                activeSequence.Join(burstEffectImage.DOFade(0f, 0.22f).SetEase(Ease.InQuad));
+            }
+
             activeSequence.Append(rectTransform.DOScale(1.3f, 0.1f).SetEase(Ease.OutQuad));
-            if (canvasGroup != null) activeSequence.Join(canvasGroup.DOFade(0.3f, 0.15f));
+            if (canvasGroup != null) activeSequence.Join(canvasGroup.DOFade(0.2f, 0.15f));
             activeSequence.Append(rectTransform.DOScale(0.0f, 0.15f).SetEase(Ease.InBack));
             activeSequence.OnComplete(() =>
             {
                 if (symbolImage != null) symbolImage.enabled = false;
+                if (burstEffectImage != null) burstEffectImage.enabled = false;
                 onComplete?.Invoke();
             });
         }
@@ -90,7 +117,7 @@ namespace SweetBonanza.View
         {
             KillActiveTweens();
             activeTweener = rectTransform.DOAnchorPos(targetAnchoredPos, duration)
-                .SetEase(Ease.OutBounce, 1.2f)
+                .SetEase(Ease.OutBounce, 1.25f)
                 .OnComplete(() => onComplete?.Invoke());
         }
 
@@ -98,12 +125,33 @@ namespace SweetBonanza.View
         {
             KillActiveTweens();
             rectTransform.localScale = Vector3.one;
+            rectTransform.localRotation = Quaternion.identity;
             if (canvasGroup != null) canvasGroup.alpha = 1f;
             if (symbolImage != null) symbolImage.enabled = true;
+            if (burstEffectImage != null) burstEffectImage.enabled = false;
 
             activeSequence = DOTween.Sequence();
             if (delay > 0) activeSequence.AppendInterval(delay);
-            activeSequence.Append(rectTransform.DOAnchorPos(targetAnchoredPos, duration).SetEase(Ease.OutBack, 1.1f));
+            activeSequence.Append(rectTransform.DOAnchorPos(targetAnchoredPos, duration).SetEase(Ease.OutBounce, 1.2f));
+
+            // Juicy Scatter Lollipop landing wobble
+            if (currentSymbol == SymbolType.Lollipop)
+            {
+                activeSequence.Append(rectTransform.DORotate(new Vector3(0, 0, 14f), 0.09f).SetEase(Ease.OutQuad));
+                activeSequence.Append(rectTransform.DORotate(new Vector3(0, 0, -14f), 0.09f).SetEase(Ease.InOutQuad));
+                activeSequence.Append(rectTransform.DORotate(Vector3.zero, 0.08f).SetEase(Ease.OutQuad));
+                activeSequence.Join(rectTransform.DOPunchScale(Vector3.one * 0.18f, 0.24f, 4, 0.4f));
+            }
+
+            activeSequence.OnComplete(() => onComplete?.Invoke());
+        }
+
+        internal void PlayClearDropAnimation(float delay, Action onComplete)
+        {
+            KillActiveTweens();
+            activeSequence = DOTween.Sequence();
+            if (delay > 0) activeSequence.AppendInterval(delay);
+            activeSequence.Append(rectTransform.DOAnchorPosY(rectTransform.anchoredPosition.y - 400f, 0.16f).SetEase(Ease.InQuad));
             activeSequence.OnComplete(() => onComplete?.Invoke());
         }
 
@@ -118,15 +166,38 @@ namespace SweetBonanza.View
             }
 
             activeSequence = DOTween.Sequence();
-            activeSequence.Append(rectTransform.DOScale(1.4f, 0.25f).SetEase(Ease.OutElastic));
-            activeSequence.Append(rectTransform.DOScale(1.0f, 0.15f).SetEase(Ease.InOutQuad));
-            activeSequence.OnComplete(() => onComplete?.Invoke());
+
+            if (burstEffectImage != null && bombBurstSprite != null)
+            {
+                burstEffectImage.sprite = bombBurstSprite;
+                burstEffectImage.enabled = true;
+                burstEffectImage.color = new Color(1f, 1f, 1f, 0.95f);
+                burstEffectImage.transform.localScale = Vector3.zero;
+                activeSequence.Join(burstEffectImage.transform.DOScale(2.0f, 0.35f).SetEase(Ease.OutBack));
+                activeSequence.Join(burstEffectImage.DOFade(0f, 0.35f).SetEase(Ease.InQuad));
+            }
+
+            // Punch bounce, wiggle, and pop up
+            activeSequence.Append(rectTransform.DOScale(1.4f, 0.18f).SetEase(Ease.OutElastic));
+            activeSequence.Append(rectTransform.DORotate(new Vector3(0, 0, 15f), 0.08f).SetEase(Ease.OutQuad));
+            activeSequence.Append(rectTransform.DORotate(new Vector3(0, 0, -15f), 0.08f).SetEase(Ease.InOutQuad));
+            activeSequence.Append(rectTransform.DORotate(Vector3.zero, 0.08f).SetEase(Ease.OutQuad));
+            activeSequence.Append(rectTransform.DOScale(1.0f, 0.12f).SetEase(Ease.InOutQuad));
+            activeSequence.OnComplete(() =>
+            {
+                if (burstEffectImage != null) burstEffectImage.enabled = false;
+                onComplete?.Invoke();
+            });
         }
 
         internal void ResetCell()
         {
             KillActiveTweens();
-            if (rectTransform != null) rectTransform.localScale = Vector3.one;
+            if (rectTransform != null)
+            {
+                rectTransform.localScale = Vector3.one;
+                rectTransform.localRotation = Quaternion.identity;
+            }
             if (canvasGroup != null) canvasGroup.alpha = 1f;
             if (symbolImage != null)
             {
@@ -134,6 +205,7 @@ namespace SweetBonanza.View
                 symbolImage.enabled = false;
             }
             if (multiplierText != null) multiplierText.gameObject.SetActive(false);
+            if (burstEffectImage != null) burstEffectImage.enabled = false;
         }
 
         private void KillActiveTweens()

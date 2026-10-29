@@ -1,0 +1,455 @@
+fileFormatVersion: 2
+guid: 840f5f1d08d68ed4b93f1deff73cc9e9
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -7215103224050743320
+    second: Sweet Bonanza_buy feature panel numbers_0
+  - first:
+      213: 3852728613934834975
+    second: Sweet Bonanza_buy feature panel numbers_1
+  - first:
+      213: 2161238125537258426
+    second: Sweet Bonanza_buy feature panel numbers_2
+  - first:
+      213: 7176316772870631077
+    second: Sweet Bonanza_buy feature panel numbers_3
+  - first:
+      213: 5120554288492568605
+    second: Sweet Bonanza_buy feature panel numbers_4
+  - first:
+      213: -5709884796458508267
+    second: Sweet Bonanza_buy feature panel numbers_5
+  - first:
+      213: 7123292502214755986
+    second: Sweet Bonanza_buy feature panel numbers_6
+  - first:
+      213: 8385401954033012440
+    second: Sweet Bonanza_buy feature panel numbers_7
+  - first:
+      213: -2371538132094442541
+    second: Sweet Bonanza_buy feature panel numbers_8
+  - first:
+      213: -5458311003340114063
+    second: Sweet Bonanza_buy feature panel numbers_9
+  - first:
+      213: -8223165214368165291
+    second: Sweet Bonanza_buy feature panel numbers_10
+  - first:
+      213: -8371594389470502756
+    second: Sweet Bonanza_buy feature panel numbers_11
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Sweet Bonanza_buy feature panel numbers_0
+      rect:
+        serializedVersion: 2
+        x: 81
+        y: 775
+        width: 71
+        height: 109
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8e70ea058ddcedb90800000000000000
+      internalID: -7215103224050743320
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_buy feature panel numbers_1
+      rect:
+        serializedVersion: 2
+        x: 333
+        y: 776
+        width: 88
+        height: 108
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f15a1910344a77530800000000000000
+      internalID: 3852728613934834975
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_buy feature panel numbers_2
+      rect:
+        serializedVersion: 2
+        x: 578
+        y: 776
+        width: 87
+        height: 109
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: abbedabdf924efd10800000000000000
+      internalID: 2161238125537258426
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_buy feature panel numbers_3
+      rect:
+        serializedVersion: 2
+        x: 825
+        y: 777
+        width: 97
+        height: 109
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5aea1aa4516679360800000000000000
+      internalID: 7176316772870631077
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_buy feature panel numbers_4
+      rect:
+        serializedVersion: 2
+        x: 82
+        y: 446
+        width: 89
+        height: 107
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d10e3badefcdf0740800000000000000
+      internalID: 5120554288492568605
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_buy feature panel numbers_5
+      rect:
+        serializedVersion: 2
+        x: 334
+        y: 447
+        width: 89
+        height: 109
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 510efa6a70a62c0b0800000000000000
+      internalID: -5709884796458508267
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_buy feature panel numbers_6
+      rect:
+        serializedVersion: 2
+        x: 578
+        y: 445
+        width: 89
+        height: 107
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 296c6b93ac40bd260800000000000000
+      internalID: 7123292502214755986
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_buy feature panel numbers_7
+      rect:
+        serializedVersion: 2
+        x: 828
+        y: 447
+        width: 89
+        height: 109
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8de010146aeee5470800000000000000
+      internalID: 8385401954033012440
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_buy feature panel numbers_8
+      rect:
+        serializedVersion: 2
+        x: 86
+        y: 115
+        width: 89
+        height: 109
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3d3a73142aa961fd0800000000000000
+      internalID: -2371538132094442541
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_buy feature panel numbers_9
+      rect:
+        serializedVersion: 2
+        x: 329
+        y: 115
+        width: 89
+        height: 109
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1777e44df0f2044b0800000000000000
+      internalID: -5458311003340114063
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_buy feature panel numbers_10
+      rect:
+        serializedVersion: 2
+        x: 603
+        y: 118
+        width: 40
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5529c344ec271ed80800000000000000
+      internalID: -8223165214368165291
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_buy feature panel numbers_11
+      rect:
+        serializedVersion: 2
+        x: 827
+        y: 116
+        width: 91
+        height: 143
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c9025f3e14f12db80800000000000000
+      internalID: -8371594389470502756
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Sweet Bonanza_buy feature panel numbers_0: -7215103224050743320
+      Sweet Bonanza_buy feature panel numbers_1: 3852728613934834975
+      Sweet Bonanza_buy feature panel numbers_10: -8223165214368165291
+      Sweet Bonanza_buy feature panel numbers_11: -8371594389470502756
+      Sweet Bonanza_buy feature panel numbers_2: 2161238125537258426
+      Sweet Bonanza_buy feature panel numbers_3: 7176316772870631077
+      Sweet Bonanza_buy feature panel numbers_4: 5120554288492568605
+      Sweet Bonanza_buy feature panel numbers_5: -5709884796458508267
+      Sweet Bonanza_buy feature panel numbers_6: 7123292502214755986
+      Sweet Bonanza_buy feature panel numbers_7: 8385401954033012440
+      Sweet Bonanza_buy feature panel numbers_8: -2371538132094442541
+      Sweet Bonanza_buy feature panel numbers_9: -5458311003340114063
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
