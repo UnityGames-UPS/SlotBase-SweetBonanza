@@ -47,6 +47,9 @@ namespace SweetBonanza.View
         [SerializeField] private Image slotFrameImage;
         [SerializeField] private Sprite slotFrameDaySprite;
         [SerializeField] private Sprite slotFrameNightSprite;
+        [SerializeField] private Image cloudsImage;
+        [SerializeField] private Sprite cloudsDaySprite;
+        [SerializeField] private Sprite cloudsNightSprite;
         [SerializeField] private Image candyTransitionImage;
 
         [Header("Spin Button Visuals")]
@@ -58,8 +61,59 @@ namespace SweetBonanza.View
         private double displayedWin = 0;
         private bool isCurrentlyNightMode = false;
 
+        private bool isSpinning = false;
+        private bool isAutoplaying = false;
+        private bool isInFreeSpins = false;
+        private bool isAnteBetActive = false;
+        private int remainingAutoplayCount = 0;
+
+        private CanvasGroup buyBonusCanvasGroup;
+        private CanvasGroup anteBetCanvasGroup;
+
+        private void EnsureFeatureCanvasGroups()
+        {
+            if (buyBonusButton != null && buyBonusCanvasGroup == null)
+            {
+                buyBonusCanvasGroup = buyBonusButton.GetComponent<CanvasGroup>();
+                if (buyBonusCanvasGroup == null) buyBonusCanvasGroup = buyBonusButton.gameObject.AddComponent<CanvasGroup>();
+            }
+            if (anteBetToggleButton != null && anteBetCanvasGroup == null)
+            {
+                anteBetCanvasGroup = anteBetToggleButton.GetComponent<CanvasGroup>();
+                if (anteBetCanvasGroup == null) anteBetCanvasGroup = anteBetToggleButton.gameObject.AddComponent<CanvasGroup>();
+            }
+        }
+
+        internal void UpdateFeatureButtonsVisualState()
+        {
+            EnsureFeatureCanvasGroups();
+            bool featuresLocked = isSpinning || isAutoplaying || isInFreeSpins;
+
+            // Ante Bet Button (BetFeaturebuttton): interactive only when fully idle
+            bool anteInteractive = !featuresLocked;
+            if (anteBetToggleButton != null) anteBetToggleButton.interactable = anteInteractive;
+            if (anteBetCanvasGroup != null)
+            {
+                anteBetCanvasGroup.alpha = anteInteractive ? 1.0f : 0.42f;
+                anteBetCanvasGroup.interactable = anteInteractive;
+                anteBetCanvasGroup.blocksRaycasts = anteInteractive;
+            }
+
+            // Buy Feature Button (BuyFeaturebuttton): interactive only when idle AND Ante Bet is OFF
+            bool buyInteractive = !featuresLocked && !isAnteBetActive;
+            if (buyBonusButton != null) buyBonusButton.interactable = buyInteractive;
+            if (buyBonusCanvasGroup != null)
+            {
+                buyBonusCanvasGroup.alpha = buyInteractive ? 1.0f : 0.42f;
+                buyBonusCanvasGroup.interactable = buyInteractive;
+                buyBonusCanvasGroup.blocksRaycasts = buyInteractive;
+            }
+        }
+
         private void Awake()
         {
+            EnsureFeatureCanvasGroups();
+            UpdateFeatureButtonsVisualState();
             if (spinButton != null)
             {
                 spinButton.onClick.AddListener(() =>
@@ -78,6 +132,10 @@ namespace SweetBonanza.View
             if (candyTransitionImage != null)
             {
                 candyTransitionImage.gameObject.SetActive(false);
+            }
+            if (freeSpinsBadge != null)
+            {
+                freeSpinsBadge.SetActive(false);
             }
         }
 
@@ -121,7 +179,12 @@ namespace SweetBonanza.View
             if (!animate || totalWinText == null)
             {
                 displayedWin = targetWin;
-                if (totalWinText != null) totalWinText.text = targetWin > 0 ? $"${targetWin:F2}" : "$0.00";
+                if (totalWinText != null)
+                {
+                    if (targetWin > 0) totalWinText.text = $"${targetWin:F2}";
+                    else if (isAutoplaying && remainingAutoplayCount > 0) totalWinText.text = $"AUTO SPINS LEFT: {remainingAutoplayCount}";
+                    else totalWinText.text = "$0.00";
+                }
                 return;
             }
 
@@ -135,11 +198,14 @@ namespace SweetBonanza.View
 
         internal void SetSpinButtonInteractable(bool interactable)
         {
-            if (spinButton != null) spinButton.interactable = interactable;
-            if (betPlusButton != null) betPlusButton.interactable = interactable;
-            if (betMinusButton != null) betMinusButton.interactable = interactable;
-            if (buyBonusButton != null) buyBonusButton.interactable = interactable;
-            if (anteBetToggleButton != null) anteBetToggleButton.interactable = interactable;
+            this.isSpinning = !interactable;
+
+            bool canInteract = interactable && !isAutoplaying && !isInFreeSpins;
+            if (spinButton != null) spinButton.interactable = canInteract;
+            if (betPlusButton != null) betPlusButton.interactable = canInteract;
+            if (betMinusButton != null) betMinusButton.interactable = canInteract;
+
+            UpdateFeatureButtonsVisualState();
 
             if (spinButtonArrows != null)
             {
@@ -165,19 +231,91 @@ namespace SweetBonanza.View
 
         internal void SetAnteBetState(bool isActive)
         {
+            this.isAnteBetActive = isActive;
             if (anteBetActiveIndicator != null) anteBetActiveIndicator.SetActive(isActive);
-            if (buyBonusButton != null) buyBonusButton.interactable = !isActive;
             if (anteBetButtonImage != null)
             {
                 anteBetButtonImage.sprite = isActive && anteBetGlowSprite != null ? anteBetGlowSprite : anteBetNormalSprite;
+            }
+            UpdateFeatureButtonsVisualState();
+        }
+
+        internal void SetAutoplayState(bool isAutoplay, int remainingSpins)
+        {
+            this.isAutoplaying = isAutoplay;
+            this.remainingAutoplayCount = remainingSpins;
+            UpdateFeatureButtonsVisualState();
+
+            bool canInteract = !isAutoplay && !isSpinning && !isInFreeSpins;
+            if (spinButton != null) spinButton.interactable = canInteract;
+            if (betPlusButton != null) betPlusButton.interactable = canInteract;
+            if (betMinusButton != null) betMinusButton.interactable = canInteract;
+
+            if (isAutoplay && remainingSpins > 0)
+            {
+                SetStatusMessage($"AUTO SPINS LEFT: {remainingSpins}");
+            }
+            else if (!isAutoplay)
+            {
+                SetStatusMessage(string.Empty);
             }
         }
 
         internal void SetFreeSpinsDisplay(bool isInFreeSpins, int remainingSpins)
         {
-            if (freeSpinsBadge != null) freeSpinsBadge.SetActive(isInFreeSpins);
+            this.isInFreeSpins = isInFreeSpins;
+            UpdateFeatureButtonsVisualState();
+
+            if (freeSpinsBadge != null)
+            {
+                if (isInFreeSpins)
+                {
+                    if (!freeSpinsBadge.activeSelf)
+                    {
+                        freeSpinsBadge.SetActive(true);
+                        freeSpinsBadge.transform.DOKill();
+                        freeSpinsBadge.transform.localScale = Vector3.zero;
+                        freeSpinsBadge.transform.DOScale(1f, 0.35f).SetEase(Ease.OutBack);
+                    }
+                    else
+                    {
+                        freeSpinsBadge.transform.DOKill();
+                        freeSpinsBadge.transform.DOPunchScale(Vector3.one * 0.15f, 0.2f);
+                    }
+                }
+                else
+                {
+                    freeSpinsBadge.transform.DOKill();
+                    freeSpinsBadge.transform.DOScale(0f, 0.25f).SetEase(Ease.InBack).OnComplete(() =>
+                    {
+                        freeSpinsBadge.SetActive(false);
+                    });
+                }
+            }
+
             if (freeSpinsCountText != null) freeSpinsCountText.text = isInFreeSpins ? $"{remainingSpins}" : "";
             if (buyBonusButton != null && isInFreeSpins) buyBonusButton.interactable = false;
+
+            // Pause banner cycle during free spins to lock on free spins banner
+            if (isInFreeSpins)
+            {
+                if (bannerCycleCoroutine != null)
+                {
+                    StopCoroutine(bannerCycleCoroutine);
+                    bannerCycleCoroutine = null;
+                }
+                if (topDisplayBannerImage != null && bannerFreeSpinsSprite != null)
+                {
+                    topDisplayBannerImage.sprite = bannerFreeSpinsSprite;
+                }
+            }
+            else
+            {
+                if (bannerCycleCoroutine == null && topDisplayBannerImage != null && bannerFreeSpinsSprite != null)
+                {
+                    bannerCycleCoroutine = StartCoroutine(CycleTopDisplayBanners());
+                }
+            }
 
             ApplyThemeMode(isInFreeSpins);
         }
@@ -205,7 +343,7 @@ namespace SweetBonanza.View
                 });
             }
 
-            // Swap Background & Frame Sprites with smooth fade
+            // Swap Background & Frame & Clouds Sprites with smooth fade
             if (backgroundImage != null)
             {
                 Sprite targetBg = nightMode ? (backgroundNightSprite != null ? backgroundNightSprite : backgroundDaySprite) : backgroundDaySprite;
@@ -230,6 +368,20 @@ namespace SweetBonanza.View
                     {
                         slotFrameImage.sprite = targetFrame;
                         slotFrameImage.DOFade(1f, 0.22f);
+                    });
+                }
+            }
+
+            if (cloudsImage != null)
+            {
+                Sprite targetClouds = nightMode ? (cloudsNightSprite != null ? cloudsNightSprite : cloudsDaySprite) : cloudsDaySprite;
+                if (targetClouds != null)
+                {
+                    cloudsImage.DOKill();
+                    cloudsImage.DOFade(0.2f, 0.18f).OnComplete(() =>
+                    {
+                        cloudsImage.sprite = targetClouds;
+                        cloudsImage.DOFade(1f, 0.22f);
                     });
                 }
             }

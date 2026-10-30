@@ -631,8 +631,20 @@ namespace SweetBonanza.View
             this.isAutoplaying = isAutoplay;
             if (autoplayRemainingText != null)
             {
-                autoplayRemainingText.text = isAutoplay ? $"{remainingSpins} SPINS" : "AUTOPLAY";
+                autoplayRemainingText.text = isAutoplay ? $"STOP ({remainingSpins})" : "AUTOPLAY";
                 autoplayRemainingText.gameObject.SetActive(true);
+            }
+            if (buttonOpenAutoplay != null)
+            {
+                var img = buttonOpenAutoplay.GetComponent<Image>();
+                if (img != null)
+                {
+                    img.color = isAutoplay ? new Color(0.85f, 0.22f, 0.22f, 0.95f) : Color.white;
+                }
+            }
+            if (mainView != null)
+            {
+                mainView.SetAutoplayState(isAutoplay, remainingSpins);
             }
         }
 

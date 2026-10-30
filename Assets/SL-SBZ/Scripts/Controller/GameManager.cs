@@ -381,6 +381,12 @@ namespace SweetBonanza.Controller
             {
                 isInFreeSpins = true;
                 remainingFreeSpins = result.RemainingFreeSpins;
+
+                if (gridView != null)
+                {
+                    yield return StartCoroutine(gridView.PlayScatterCelebrationSequence());
+                }
+
                 if (mainView != null) mainView.SetFreeSpinsDisplay(true, remainingFreeSpins);
                 if (uiManager != null) uiManager.ShowFreeSpinsIntro(result.FreeSpinsAwarded);
                 yield return new WaitForSeconds(2.0f);
@@ -509,5 +515,16 @@ namespace SweetBonanza.Controller
                 gridView.OnScatterAnticipationTriggered -= HandleScatterAnticipation;
             }
         }
+
+#if UNITY_EDITOR
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.B) && currentState == GameState.Idle)
+            {
+                Debug.Log("[DEV TEST] Key B pressed -> Triggering Free Spins Bonus Buy...");
+                HandleBuyBonusConfirmed();
+            }
+        }
+#endif
     }
 }

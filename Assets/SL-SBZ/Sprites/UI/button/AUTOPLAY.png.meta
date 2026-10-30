@@ -14,6 +14,9 @@ TextureImporter:
   - first:
       213: -6472070789372119722
     second: AUTOPLAY_3
+  - first:
+      213: 1606930108285209451
+    second: AUTOPLAY_Pill
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -139,9 +142,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 482
+        y: 577
         width: 400
-        height: 415
+        height: 320
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -161,9 +164,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 0
+        y: 95
         width: 400
-        height: 415
+        height: 320
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -174,6 +177,28 @@ TextureImporter:
       bones: []
       spriteID: 655fa4658e59e26a0800000000000000
       internalID: -6472070789372119722
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AUTOPLAY_Pill
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 482
+        width: 400
+        height: 95
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b6b483b6b66fc4610800000000000000
+      internalID: 1606930108285209451
       vertices: []
       indices: 
       edges: []
@@ -196,6 +221,7 @@ TextureImporter:
       AUTOPLAY_1: 1253752204596690751
       AUTOPLAY_2: -7349841773003514499
       AUTOPLAY_3: -6472070789372119722
+      AUTOPLAY_Pill: 1606930108285209451
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

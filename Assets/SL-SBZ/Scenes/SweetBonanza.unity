@@ -218,6 +218,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SweetBonanza.View.CellView
   symbolImage: {fileID: 757978158}
   multiplierText: {fileID: 263232548}
+  winAmountText: {fileID: 0}
   canvasGroup: {fileID: 2305412}
   rectTransform: {fileID: 2305410}
   burstEffectImage: {fileID: 0}
@@ -414,7 +415,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f521a04de7f494272a617b2719edd271, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SocketIOManager
-  testToken: d92e59b40371493ca644e01665eb5ee8
+  testToken: 8bed8f160f5f46259946c17de1d28a4a
   JSManager: {fileID: 1638706357}
   popupManager: {fileID: 2052821069}
   RaycastBlocker: {fileID: 717923689}
@@ -513,7 +514,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 0
+  m_Interactable: 1
   m_TargetGraphic: {fileID: 16570948}
   m_OnClick:
     m_PersistentCalls:
@@ -568,6 +569,7 @@ GameObject:
   - component: {fileID: 21864640}
   - component: {fileID: 21864639}
   - component: {fileID: 21864641}
+  - component: {fileID: 21864642}
   m_Layer: 5
   m_Name: 'BetFeaturebuttton '
   m_TagString: Untagged
@@ -592,7 +594,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -250.79, y: -23.25}
+  m_AnchoredPosition: {x: -282, y: -23.25}
   m_SizeDelta: {x: 163.24, y: 187.87}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &21864639
@@ -609,7 +611,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 0
+  m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -672,11 +674,23 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 0
+  m_Interactable: 1
   m_TargetGraphic: {fileID: 21864639}
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!225 &21864642
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 21864637}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &28632777
 GameObject:
   m_ObjectHideFlags: 0
@@ -1969,6 +1983,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SweetBonanza.View.CellView
   symbolImage: {fileID: 624050022}
   multiplierText: {fileID: 67427617}
+  winAmountText: {fileID: 0}
   canvasGroup: {fileID: 56318395}
   rectTransform: {fileID: 56318393}
   burstEffectImage: {fileID: 2028155427}
@@ -4067,6 +4082,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SweetBonanza.View.CellView
   symbolImage: {fileID: 2043923409}
   multiplierText: {fileID: 332094185}
+  winAmountText: {fileID: 0}
   canvasGroup: {fileID: 138277510}
   rectTransform: {fileID: 138277508}
   burstEffectImage: {fileID: 1340785761}
@@ -4187,6 +4203,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SweetBonanza.View.CellView
   symbolImage: {fileID: 508905955}
   multiplierText: {fileID: 214451481}
+  winAmountText: {fileID: 0}
   canvasGroup: {fileID: 143017281}
   rectTransform: {fileID: 143017279}
   burstEffectImage: {fileID: 0}
@@ -5027,6 +5044,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SweetBonanza.View.CellView
   symbolImage: {fileID: 1804641607}
   multiplierText: {fileID: 1487667274}
+  winAmountText: {fileID: 0}
   canvasGroup: {fileID: 201714687}
   rectTransform: {fileID: 201714685}
   burstEffectImage: {fileID: 0}
@@ -5594,6 +5612,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SweetBonanza.View.CellView
   symbolImage: {fileID: 1853432887}
   multiplierText: {fileID: 430727638}
+  winAmountText: {fileID: 0}
   canvasGroup: {fileID: 216248965}
   rectTransform: {fileID: 216248963}
   burstEffectImage: {fileID: 1668485644}
@@ -5939,6 +5958,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SweetBonanza.View.CellView
   symbolImage: {fileID: 1567314596}
   multiplierText: {fileID: 927759189}
+  winAmountText: {fileID: 0}
   canvasGroup: {fileID: 224884278}
   rectTransform: {fileID: 224884276}
   burstEffectImage: {fileID: 0}
@@ -7045,6 +7065,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SweetBonanza.View.CellView
   symbolImage: {fileID: 7582022}
   multiplierText: {fileID: 1477229190}
+  winAmountText: {fileID: 0}
   canvasGroup: {fileID: 270847076}
   rectTransform: {fileID: 270847074}
   burstEffectImage: {fileID: 0}
@@ -7413,6 +7434,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SweetBonanza.View.CellView
   symbolImage: {fileID: 156447379}
   multiplierText: {fileID: 412620776}
+  winAmountText: {fileID: 0}
   canvasGroup: {fileID: 289612373}
   rectTransform: {fileID: 289612371}
   burstEffectImage: {fileID: 0}
@@ -7603,6 +7625,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SweetBonanza.View.CellView
   symbolImage: {fileID: 198419153}
   multiplierText: {fileID: 1364753151}
+  winAmountText: {fileID: 0}
   canvasGroup: {fileID: 327365467}
   rectTransform: {fileID: 327365465}
   burstEffectImage: {fileID: 0}
@@ -8099,6 +8122,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SweetBonanza.View.CellView
   symbolImage: {fileID: 1610689845}
   multiplierText: {fileID: 1007810406}
+  winAmountText: {fileID: 0}
   canvasGroup: {fileID: 334584096}
   rectTransform: {fileID: 334584094}
   burstEffectImage: {fileID: 0}
@@ -9072,7 +9096,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &367926464
 RectTransform:
   m_ObjectHideFlags: 0
@@ -9823,6 +9847,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SweetBonanza.View.CellView
   symbolImage: {fileID: 1903930584}
   multiplierText: {fileID: 1113774379}
+  winAmountText: {fileID: 0}
   canvasGroup: {fileID: 410677122}
   rectTransform: {fileID: 410677120}
   burstEffectImage: {fileID: 0}
@@ -10069,6 +10094,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SweetBonanza.View.CellView
   symbolImage: {fileID: 522797773}
   multiplierText: {fileID: 1265319448}
+  winAmountText: {fileID: 0}
   canvasGroup: {fileID: 416345553}
   rectTransform: {fileID: 416345551}
   burstEffectImage: {fileID: 0}
@@ -10482,7 +10508,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0.35, y: -45}
-  m_SizeDelta: {x: 78, y: 18}
+  m_SizeDelta: {x: 84, y: 22}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &427161477
 MonoBehaviour:
@@ -10541,14 +10567,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0.1, g: 0.1, b: 0.1, a: 0.95}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: 1606930108285209451, guid: 71683cba74b4de24d954ef331c2f27ab, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -10619,6 +10645,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SweetBonanza.View.CellView
   symbolImage: {fileID: 2137882907}
   multiplierText: {fileID: 244155482}
+  winAmountText: {fileID: 0}
   canvasGroup: {fileID: 427245103}
   rectTransform: {fileID: 427245101}
   burstEffectImage: {fileID: 0}
@@ -10977,6 +11004,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SweetBonanza.View.CellView
   symbolImage: {fileID: 1913664786}
   multiplierText: {fileID: 60453308}
+  winAmountText: {fileID: 0}
   canvasGroup: {fileID: 445926923}
   rectTransform: {fileID: 445926921}
   burstEffectImage: {fileID: 1400312081}
@@ -11653,7 +11681,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -10, y: -10.1}
-  m_SizeDelta: {x: 13, y: 13}
+  m_SizeDelta: {x: 22, y: 22}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &463586827
 MonoBehaviour:
@@ -12357,6 +12385,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SweetBonanza.View.CellView
   symbolImage: {fileID: 1942839463}
   multiplierText: {fileID: 281625356}
+  winAmountText: {fileID: 0}
   canvasGroup: {fileID: 487610530}
   rectTransform: {fileID: 487610528}
   burstEffectImage: {fileID: 0}
@@ -12465,6 +12494,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SweetBonanza.View.CellView
   symbolImage: {fileID: 996628373}
   multiplierText: {fileID: 1215019908}
+  winAmountText: {fileID: 0}
   canvasGroup: {fileID: 490502903}
   rectTransform: {fileID: 490502901}
   burstEffectImage: {fileID: 35150800}
@@ -12611,6 +12641,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SweetBonanza.View.CellView
   symbolImage: {fileID: 444388904}
   multiplierText: {fileID: 453702500}
+  winAmountText: {fileID: 0}
   canvasGroup: {fileID: 506265961}
   rectTransform: {fileID: 506265959}
   burstEffectImage: {fileID: 1816087368}
@@ -12952,6 +12983,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SweetBonanza.View.CellView
   symbolImage: {fileID: 1132367934}
   multiplierText: {fileID: 1770303798}
+  winAmountText: {fileID: 0}
   canvasGroup: {fileID: 530640437}
   rectTransform: {fileID: 530640435}
   burstEffectImage: {fileID: 908071853}
@@ -13145,6 +13177,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SweetBonanza.View.CellView
   symbolImage: {fileID: 1693725306}
   multiplierText: {fileID: 845044989}
+  winAmountText: {fileID: 0}
   canvasGroup: {fileID: 534269842}
   rectTransform: {fileID: 534269840}
   burstEffectImage: {fileID: 0}
@@ -13292,6 +13325,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SweetBonanza.View.CellView
   symbolImage: {fileID: 583315898}
   multiplierText: {fileID: 1124052334}
+  winAmountText: {fileID: 0}
   canvasGroup: {fileID: 539371299}
   rectTransform: {fileID: 539371297}
   burstEffectImage: {fileID: 1324819355}
@@ -14482,6 +14516,81 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 569349279}
   m_CullTransparentMesh: 1
+--- !u!1 &570049783
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 570049786}
+  - component: {fileID: 570049785}
+  - component: {fileID: 570049784}
+  m_Layer: 0
+  m_Name: CloudsLayer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &570049784
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 570049783}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 0
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 8287873616420496286, guid: 2d5125abfbd478c42ab805221c4641af, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &570049785
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 570049783}
+  m_CullTransparentMesh: 1
+--- !u!224 &570049786
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 570049783}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 969227123}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0.72}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 1}
 --- !u!1 &578830645
 GameObject:
   m_ObjectHideFlags: 0
@@ -14845,10 +14954,10 @@ MonoBehaviour:
   balanceText: {fileID: 98819058}
   currentBetText: {fileID: 449303579}
   totalWinText: {fileID: 1553478207}
-  freeSpinsCountText: {fileID: 0}
+  freeSpinsCountText: {fileID: 1022459445}
   statusBannerText: {fileID: 1553478207}
   anteBetActiveIndicator: {fileID: 59119600}
-  freeSpinsBadge: {fileID: 0}
+  freeSpinsBadge: {fileID: 1790478923}
   topDisplayBannerImage: {fileID: 2034896633}
   bannerFreeSpinsSprite: {fileID: 21300000, guid: b43acd3784707c8479bc6b25bd6f303f, type: 3}
   bannerPayAnywhereSprite: {fileID: 21300000, guid: af203b1ef79904e48993fb0cdc04aaed, type: 3}
@@ -14861,6 +14970,9 @@ MonoBehaviour:
   slotFrameImage: {fileID: 1744756699}
   slotFrameDaySprite: {fileID: -3664181889113843173, guid: 05e8753054e4a284c9d469c1bea047ac, type: 3}
   slotFrameNightSprite: {fileID: 1601321143220784375, guid: 775d2758cb5453849b24bfbd82759656, type: 3}
+  cloudsImage: {fileID: 570049784}
+  cloudsDaySprite: {fileID: 8287873616420496286, guid: 2d5125abfbd478c42ab805221c4641af, type: 3}
+  cloudsNightSprite: {fileID: 8573760704222537235, guid: 51041d04b2553da4d93707a70976c254, type: 3}
   candyTransitionImage: {fileID: 1863903420}
   spinButtonArrows: {fileID: 1023577694}
 --- !u!4 &598504723
@@ -15203,6 +15315,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SweetBonanza.View.CellView
   symbolImage: {fileID: 1299340834}
   multiplierText: {fileID: 45376999}
+  winAmountText: {fileID: 0}
   canvasGroup: {fileID: 628527617}
   rectTransform: {fileID: 628527615}
   burstEffectImage: {fileID: 352073291}
@@ -16341,6 +16454,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SweetBonanza.View.CellView
   symbolImage: {fileID: 1771069192}
   multiplierText: {fileID: 1649053411}
+  winAmountText: {fileID: 0}
   canvasGroup: {fileID: 719289007}
   rectTransform: {fileID: 719289005}
   burstEffectImage: {fileID: 0}
@@ -16548,6 +16662,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SweetBonanza.View.CellView
   symbolImage: {fileID: 1972258152}
   multiplierText: {fileID: 1682512722}
+  winAmountText: {fileID: 0}
   canvasGroup: {fileID: 730562919}
   rectTransform: {fileID: 730562917}
   burstEffectImage: {fileID: 0}
@@ -17078,6 +17193,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SweetBonanza.View.CellView
   symbolImage: {fileID: 1583012403}
   multiplierText: {fileID: 1987234426}
+  winAmountText: {fileID: 0}
   canvasGroup: {fileID: 740537430}
   rectTransform: {fileID: 740537428}
   burstEffectImage: {fileID: 0}
@@ -17148,6 +17264,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SweetBonanza.View.CellView
   symbolImage: {fileID: 1117648841}
   multiplierText: {fileID: 2047542928}
+  winAmountText: {fileID: 0}
   canvasGroup: {fileID: 743037023}
   rectTransform: {fileID: 743037021}
   burstEffectImage: {fileID: 0}
@@ -17626,6 +17743,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SweetBonanza.View.CellView
   symbolImage: {fileID: 1954224834}
   multiplierText: {fileID: 1074189501}
+  winAmountText: {fileID: 0}
   canvasGroup: {fileID: 758389617}
   rectTransform: {fileID: 758389615}
   burstEffectImage: {fileID: 1648890314}
@@ -17720,7 +17838,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 0
+  m_Interactable: 1
   m_TargetGraphic: {fileID: 758762864}
   m_OnClick:
     m_PersistentCalls:
@@ -18002,6 +18120,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SweetBonanza.View.CellView
   symbolImage: {fileID: 1260744646}
   multiplierText: {fileID: 1108984746}
+  winAmountText: {fileID: 0}
   canvasGroup: {fileID: 771089077}
   rectTransform: {fileID: 771089075}
   burstEffectImage: {fileID: 38548898}
@@ -18284,6 +18403,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SweetBonanza.View.CellView
   symbolImage: {fileID: 679080300}
   multiplierText: {fileID: 80144699}
+  winAmountText: {fileID: 0}
   canvasGroup: {fileID: 802894969}
   rectTransform: {fileID: 802894967}
   burstEffectImage: {fileID: 0}
@@ -18660,6 +18780,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SweetBonanza.View.CellView
   symbolImage: {fileID: 588883288}
   multiplierText: {fileID: 1104430706}
+  winAmountText: {fileID: 0}
   canvasGroup: {fileID: 821005672}
   rectTransform: {fileID: 821005670}
   burstEffectImage: {fileID: 0}
@@ -19182,6 +19303,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SweetBonanza.View.CellView
   symbolImage: {fileID: 979869326}
   multiplierText: {fileID: 1512484540}
+  winAmountText: {fileID: 0}
   canvasGroup: {fileID: 845435046}
   rectTransform: {fileID: 845435044}
   burstEffectImage: {fileID: 0}
@@ -21303,6 +21425,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SweetBonanza.View.CellView
   symbolImage: {fileID: 1229098617}
   multiplierText: {fileID: 1217958714}
+  winAmountText: {fileID: 0}
   canvasGroup: {fileID: 936883828}
   rectTransform: {fileID: 936883826}
   burstEffectImage: {fileID: 1564116152}
@@ -21538,6 +21661,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SweetBonanza.View.CellView
   symbolImage: {fileID: 622361734}
   multiplierText: {fileID: 419249543}
+  winAmountText: {fileID: 0}
   canvasGroup: {fileID: 947654901}
   rectTransform: {fileID: 947654899}
   burstEffectImage: {fileID: 0}
@@ -21797,6 +21921,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 570049786}
   - {fileID: 1957182756}
   - {fileID: 1493865236}
   - {fileID: 481768559}
@@ -22472,6 +22597,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SweetBonanza.View.CellView
   symbolImage: {fileID: 710716083}
   multiplierText: {fileID: 228814782}
+  winAmountText: {fileID: 0}
   canvasGroup: {fileID: 1002076893}
   rectTransform: {fileID: 1002076891}
   burstEffectImage: {fileID: 2012938840}
@@ -22913,6 +23039,143 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1010423367}
   m_CullTransparentMesh: 1
+--- !u!1 &1022459442
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1022459443}
+  - component: {fileID: 1022459444}
+  - component: {fileID: 1022459445}
+  m_Layer: 0
+  m_Name: CountText
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1022459443
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1022459442}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1790478924}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 1, y: 0.5}
+  m_AnchorMax: {x: 1, y: 0.5}
+  m_AnchoredPosition: {x: -45, y: 0}
+  m_SizeDelta: {x: 90, y: 70}
+  m_Pivot: {x: 1, y: 0.5}
+--- !u!222 &1022459444
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1022459442}
+  m_CullTransparentMesh: 1
+--- !u!114 &1022459445
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1022459442}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 0
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: 10
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 0.92, b: 0.05, a: 1}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_StyleSheet: {fileID: 0}
+  m_TextStyleHashCode: 0
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontSize: 46
+  m_fontSizeBase: 46
+  m_fontWeight: 400
+  m_enableAutoSizing: 0
+  m_fontSizeMin: 18
+  m_fontSizeMax: 72
+  m_fontStyle: 1
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 512
+  m_textAlignment: 65535
+  m_characterSpacing: 0
+  m_characterHorizontalScale: 1
+  m_wordSpacing: 0
+  m_lineSpacing: 0
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_TextWrappingMode: 1
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_linkedTextComponent: {fileID: 0}
+  parentLinkedComponent: {fileID: 0}
+  m_enableKerning: 0
+  m_ActiveFontFeatures: 6e72656b
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_EmojiFallbackSupport: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 1
+  m_isCullingEnabled: 0
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_IsTextObjectScaleStatic: 0
+  m_VertexBufferAutoSizeReduction: 0
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_hasFontAssetChanged: 0
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &1023577693
 GameObject:
   m_ObjectHideFlags: 0
@@ -23723,7 +23986,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -9.8, y: 11}
-  m_SizeDelta: {x: 15, y: 15}
+  m_SizeDelta: {x: 22, y: 22}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1059561422
 MonoBehaviour:
@@ -23861,6 +24124,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SweetBonanza.View.CellView
   symbolImage: {fileID: 774613640}
   multiplierText: {fileID: 1903651288}
+  winAmountText: {fileID: 0}
   canvasGroup: {fileID: 1061369823}
   rectTransform: {fileID: 1061369821}
   burstEffectImage: {fileID: 1355654505}
@@ -25829,6 +26093,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SweetBonanza.View.CellView
   symbolImage: {fileID: 1283945634}
   multiplierText: {fileID: 1785858796}
+  winAmountText: {fileID: 0}
   canvasGroup: {fileID: 1134836638}
   rectTransform: {fileID: 1134836636}
   burstEffectImage: {fileID: 847404709}
@@ -26276,6 +26541,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SweetBonanza.View.CellView
   symbolImage: {fileID: 4397426}
   multiplierText: {fileID: 1077554186}
+  winAmountText: {fileID: 0}
   canvasGroup: {fileID: 1164025077}
   rectTransform: {fileID: 1164025075}
   burstEffectImage: {fileID: 0}
@@ -27525,6 +27791,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SweetBonanza.View.CellView
   symbolImage: {fileID: 1386381769}
   multiplierText: {fileID: 1701446184}
+  winAmountText: {fileID: 0}
   canvasGroup: {fileID: 1248535778}
   rectTransform: {fileID: 1248535776}
   burstEffectImage: {fileID: 690690856}
@@ -27928,6 +28195,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SweetBonanza.View.CellView
   symbolImage: {fileID: 458065754}
   multiplierText: {fileID: 1756110332}
+  winAmountText: {fileID: 0}
   canvasGroup: {fileID: 1279802516}
   rectTransform: {fileID: 1279802514}
   burstEffectImage: {fileID: 1225200046}
@@ -28824,6 +29092,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SweetBonanza.View.CellView
   symbolImage: {fileID: 951213126}
   multiplierText: {fileID: 1141079814}
+  winAmountText: {fileID: 0}
   canvasGroup: {fileID: 1315064840}
   rectTransform: {fileID: 1315064838}
   burstEffectImage: {fileID: 148769952}
@@ -29045,6 +29314,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SweetBonanza.View.CellView
   symbolImage: {fileID: 1115189750}
   multiplierText: {fileID: 905467734}
+  winAmountText: {fileID: 0}
   canvasGroup: {fileID: 1331257761}
   rectTransform: {fileID: 1331257759}
   burstEffectImage: {fileID: 1026809543}
@@ -29718,7 +29988,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1369876788}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 36ff3beb5fc764d3ab2a0b7369907ce5, type: 3}
   m_Name: 
@@ -30724,6 +30994,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SweetBonanza.View.CellView
   symbolImage: {fileID: 1149406161}
   multiplierText: {fileID: 1071293164}
+  winAmountText: {fileID: 0}
   canvasGroup: {fileID: 1423065885}
   rectTransform: {fileID: 1423065883}
   burstEffectImage: {fileID: 0}
@@ -30945,6 +31216,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SweetBonanza.View.CellView
   symbolImage: {fileID: 197068196}
   multiplierText: {fileID: 255186923}
+  winAmountText: {fileID: 0}
   canvasGroup: {fileID: 1442851421}
   rectTransform: {fileID: 1442851419}
   burstEffectImage: {fileID: 1024741793}
@@ -31774,6 +32046,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SweetBonanza.View.CellView
   symbolImage: {fileID: 1434755064}
   multiplierText: {fileID: 2038769438}
+  winAmountText: {fileID: 0}
   canvasGroup: {fileID: 1483080006}
   rectTransform: {fileID: 1483080004}
   burstEffectImage: {fileID: 265328979}
@@ -31845,6 +32118,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SweetBonanza.View.CellView
   symbolImage: {fileID: 1070816806}
   multiplierText: {fileID: 1488546641}
+  winAmountText: {fileID: 0}
   canvasGroup: {fileID: 1486686906}
   rectTransform: {fileID: 1486686904}
   burstEffectImage: {fileID: 292292585}
@@ -32190,6 +32464,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SweetBonanza.View.CellView
   symbolImage: {fileID: 911343654}
   multiplierText: {fileID: 129757813}
+  winAmountText: {fileID: 0}
   canvasGroup: {fileID: 1488646868}
   rectTransform: {fileID: 1488646866}
   burstEffectImage: {fileID: 494855554}
@@ -32720,6 +32995,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SweetBonanza.View.CellView
   symbolImage: {fileID: 1212984926}
   multiplierText: {fileID: 245807864}
+  winAmountText: {fileID: 0}
   canvasGroup: {fileID: 1527920217}
   rectTransform: {fileID: 1527920215}
   burstEffectImage: {fileID: 1005122721}
@@ -33229,7 +33505,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: $0.00
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -34321,7 +34597,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -34354,12 +34630,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 10
-  m_fontSizeBase: 10
+  m_fontSize: 12
+  m_fontSizeBase: 11
   m_fontWeight: 400
-  m_enableAutoSizing: 0
-  m_fontSizeMin: 18
-  m_fontSizeMax: 72
+  m_enableAutoSizing: 1
+  m_fontSizeMin: 8
+  m_fontSizeMax: 12
   m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
@@ -36188,6 +36464,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SweetBonanza.View.CellView
   symbolImage: {fileID: 1872814004}
   multiplierText: {fileID: 852287148}
+  winAmountText: {fileID: 0}
   canvasGroup: {fileID: 1699645452}
   rectTransform: {fileID: 1699645450}
   burstEffectImage: {fileID: 1044486923}
@@ -36568,6 +36845,7 @@ RectTransform:
   - {fileID: 1956890499}
   - {fileID: 2034896632}
   - {fileID: 367926464}
+  - {fileID: 1790478924}
   m_Father: {fileID: 1957182756}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -37287,7 +37565,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -37426,6 +37704,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SweetBonanza.View.CellView
   symbolImage: {fileID: 1010423369}
   multiplierText: {fileID: 783336971}
+  winAmountText: {fileID: 0}
   canvasGroup: {fileID: 1775498260}
   rectTransform: {fileID: 1775498258}
   burstEffectImage: {fileID: 0}
@@ -37655,6 +37934,82 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1785858794}
   m_CullTransparentMesh: 1
+--- !u!1 &1790478923
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1790478924}
+  - component: {fileID: 1790478926}
+  - component: {fileID: 1790478925}
+  m_Layer: 0
+  m_Name: FreeSpinsBadge
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &1790478924
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1790478923}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1022459443}
+  m_Father: {fileID: 1744756698}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: 0, y: -8}
+  m_SizeDelta: {x: 480, y: 85}
+  m_Pivot: {x: 0.5, y: 1}
+--- !u!114 &1790478925
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1790478923}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 0
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: -4888747071841090489, guid: 8b22c254989a3fd4f9b84ccb92facbc7, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1790478926
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1790478923}
+  m_CullTransparentMesh: 1
 --- !u!1 &1792056013
 GameObject:
   m_ObjectHideFlags: 0
@@ -37709,6 +38064,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SweetBonanza.View.CellView
   symbolImage: {fileID: 1376549516}
   multiplierText: {fileID: 558326537}
+  winAmountText: {fileID: 0}
   canvasGroup: {fileID: 1792056016}
   rectTransform: {fileID: 1792056014}
   burstEffectImage: {fileID: 1895877438}
@@ -37858,6 +38214,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SweetBonanza.View.CellView
   symbolImage: {fileID: 1827194432}
   multiplierText: {fileID: 55901074}
+  winAmountText: {fileID: 0}
   canvasGroup: {fileID: 1795008212}
   rectTransform: {fileID: 1795008210}
   burstEffectImage: {fileID: 0}
@@ -38349,7 +38706,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 0
+  m_Interactable: 1
   m_TargetGraphic: {fileID: 1806390768}
   m_OnClick:
     m_PersistentCalls:
@@ -38958,6 +39315,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SweetBonanza.View.CellView
   symbolImage: {fileID: 84064343}
   multiplierText: {fileID: 856233301}
+  winAmountText: {fileID: 0}
   canvasGroup: {fileID: 1845604255}
   rectTransform: {fileID: 1845604253}
   burstEffectImage: {fileID: 0}
@@ -40982,6 +41340,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SweetBonanza.View.CellView
   symbolImage: {fileID: 1859518884}
   multiplierText: {fileID: 725048381}
+  winAmountText: {fileID: 0}
   canvasGroup: {fileID: 1935378230}
   rectTransform: {fileID: 1935378228}
   burstEffectImage: {fileID: 0}
@@ -41476,11 +41835,11 @@ MonoBehaviour:
   slotFrameTransform: {fileID: 1744756698}
   cellSize: {x: 72, y: 62}
   cellSpacing: {x: 6, y: 6}
-  initialDropDuration: 0.55
-  columnStaggerDelay: 0.08
-  winPulseDuration: 0.42
-  explodeDuration: 0.25
-  tumbleFallDuration: 0.35
+  initialDropDuration: 0.8
+  columnStaggerDelay: 0.11
+  winPulseDuration: 0.95
+  explodeDuration: 0.28
+  tumbleFallDuration: 0.44
   bananaSprite: {fileID: 384475725462754497, guid: ac73214421a5bf74e92483e2a9993fbd, type: 3}
   grapesSprite: {fileID: -298744012374568522, guid: 09a64c34f6f19eb4d8a7a25b7fc348b5, type: 3}
   watermelonSprite: {fileID: 7470110585195762007, guid: 5f075f7271828694bb8ef1e6ff32d9e5, type: 3}
@@ -41494,6 +41853,334 @@ MonoBehaviour:
   multiplierBombSprite: {fileID: -1921004359503145164, guid: dd74334c5e4a7da4197ebd055fc0d17d, type: 3}
   multiplierBombSprite2: {fileID: -2082629253201127139, guid: 1fe031f3607bc854ba9484c828443891, type: 3}
   multiplierBombSprite3: {fileID: -5304928666439008111, guid: 7e29f9c3071c303408f1c90881c06c3e, type: 3}
+  bananaFrames:
+  - {fileID: 8032542234658641897, guid: e9e0b4e479b2a0749bee585476657e19, type: 3}
+  - {fileID: -6968293890971751773, guid: 169f803de2095df41859589344d4843c, type: 3}
+  - {fileID: -8985483625655403677, guid: 67c335d59efbfb641bd6ac4fe1418ff6, type: 3}
+  - {fileID: 5166280659255017177, guid: 87f833bf6659ce34fadbe3e5ab025c71, type: 3}
+  - {fileID: -8911629214767312382, guid: d661d49487306f346bb0860d3568d1d9, type: 3}
+  - {fileID: 7638046256938618699, guid: 67fee7df447784f41b20278451d86024, type: 3}
+  - {fileID: 6527101263206570859, guid: 7b18f5488f5fde3428afe4b26168237b, type: 3}
+  - {fileID: -2664996104129598629, guid: e675a88c48a83d74e8535e59b0ccbdb4, type: 3}
+  - {fileID: -7347045044775758995, guid: 2ca0e1fb9389e794295e664502179b81, type: 3}
+  - {fileID: 6101067275049888613, guid: 07a78d4ad8a62b849bd1bb59eb5649fa, type: 3}
+  - {fileID: -8058384739866477497, guid: 949c4caeff7bf604288266cfe12344a7, type: 3}
+  - {fileID: 3118348986983232979, guid: cc509eb64574b09418d8bf261901a3bc, type: 3}
+  - {fileID: -1124772474963821882, guid: 2d4678410c935e14cab5c24828e6856a, type: 3}
+  - {fileID: -3750270325596430693, guid: 81b24e499c8427243939a7e68d2d0dd7, type: 3}
+  - {fileID: -3581843371461573786, guid: a85dcc3f9ab32c94ebacfdcd5fba33a5, type: 3}
+  - {fileID: -710051642417180131, guid: 137b74d766623494594316d6ed747e4b, type: 3}
+  - {fileID: 4275650077006293459, guid: b15af70fa5cf71748b5600dc0c964b86, type: 3}
+  - {fileID: 8293536987344073732, guid: d2fcce4ac0370d4489b37340ee0a4311, type: 3}
+  - {fileID: -2225110322027403062, guid: 64e210dc118834c41bf0a62b4aa6174d, type: 3}
+  - {fileID: 3860191572181358829, guid: 434682c81c0d1974a8302c4241164014, type: 3}
+  - {fileID: 9201131974111454212, guid: 9e0edcdf99625774091cea9e0eb01b34, type: 3}
+  - {fileID: -8509062779165724457, guid: f3bdf5cea0ede5848baa86a517bcfdab, type: 3}
+  - {fileID: -6611295416899375397, guid: 2cb35a0fb2479c545b4921a33a1d3132, type: 3}
+  - {fileID: -1827665287100595525, guid: d42a234570bdc4c498b4603a92a274a5, type: 3}
+  - {fileID: -195924284645094880, guid: 7ccba7bc98e25a84a81d882c097465c2, type: 3}
+  - {fileID: 3721640105840502284, guid: fc79fda7d74fe93428800d3e83fe0533, type: 3}
+  - {fileID: 615107953504230294, guid: 96ac418c7e78f564faa85b30b34a607a, type: 3}
+  - {fileID: 7139046767822255795, guid: 3e74787def5986643bd15d8544810120, type: 3}
+  - {fileID: -825587115690817120, guid: 51974bfa2497bef42921e808dd48fc3a, type: 3}
+  - {fileID: -6897271842537553905, guid: fee5622d37f101f46aea8a80d6353d84, type: 3}
+  - {fileID: -3192664790262535502, guid: 3741c047c405fdd4985211640bc77d3d, type: 3}
+  grapesFrames:
+  - {fileID: 3821312096467712895, guid: 4b1139fc6ddc55b459ef5e4baae7b498, type: 3}
+  - {fileID: 8185161662195230858, guid: 3cc34947425e0584abd6d7a2aeace160, type: 3}
+  - {fileID: 1999865285886641618, guid: 5f4c4a34737487241b7743a80fb8fa40, type: 3}
+  - {fileID: 111891165457425286, guid: 79ce31e3a4b38824895ad948274a677d, type: 3}
+  - {fileID: 7354825218784848016, guid: 8e4fd5eb72b5bf844b558ea74ccb0e90, type: 3}
+  - {fileID: 9030515661828800986, guid: b7a761b541e0d6d45b30f5e02ec15bf3, type: 3}
+  - {fileID: 1073325983675884337, guid: d127a42d08ef8a44db3f3b82442ce529, type: 3}
+  - {fileID: 2240003623382707972, guid: a37799a5f9b90ed4db0c11e59be3911f, type: 3}
+  - {fileID: 7864226521489876333, guid: a215d292f83fe314daee48153dcafe4b, type: 3}
+  - {fileID: -7773539757655396441, guid: 73ba6de5de1ca0343b48600fd43c6738, type: 3}
+  - {fileID: 5585856618569133389, guid: 57334d492e123444791bd5e7bd8d19de, type: 3}
+  - {fileID: 6089495523817737808, guid: 56836d58a70ef9c41997ada36cc3aa7a, type: 3}
+  - {fileID: -6709028065480910621, guid: af8332671edff67478b47ee63429f33a, type: 3}
+  - {fileID: 8531510522653280789, guid: 98e988e18d9be8b4c923f2783b0aa10f, type: 3}
+  - {fileID: 331759759872748498, guid: c0ace9fdfcff8584aacf5175076a04a7, type: 3}
+  - {fileID: 5372376833635315334, guid: bf8ea27dd65dfcf41aa60eb07b3c7710, type: 3}
+  - {fileID: 7322870924188528009, guid: 5887283cc63f15b499852c4058e32f26, type: 3}
+  - {fileID: 1062808152600992554, guid: 9b26a90e6df1ffb41967279610bb991e, type: 3}
+  - {fileID: -3994275946722721225, guid: c226fa40aca55f945814ae8eb0898973, type: 3}
+  - {fileID: 7875303655992958114, guid: 25849826d4122554bad2c758ede79644, type: 3}
+  - {fileID: 4643236769039615500, guid: 3c09dd8f630e5134eb599b94697718e5, type: 3}
+  - {fileID: -1681417484011211350, guid: eb69b0c744114354bb3dcf84977e2cfd, type: 3}
+  - {fileID: -5881481990764900630, guid: 3b9c76b6dd5a97943bf6c71ea36554c8, type: 3}
+  - {fileID: -8741840420793161509, guid: 13310608dc9acf342ae023e1a44dae65, type: 3}
+  - {fileID: 301186577174644639, guid: 3a0f61e37aafcb84595c96a542293a4f, type: 3}
+  - {fileID: 7374083495048980129, guid: baaf3fdfbb75459479751734bb36c44e, type: 3}
+  - {fileID: 5763439826686434601, guid: 2dded876a6320034c82eac4b3423f27e, type: 3}
+  - {fileID: 5533220637917114908, guid: b31f134a61e91f34d8e4fb037b95ea00, type: 3}
+  - {fileID: -2842812973482832575, guid: 06ec3d849ebd2cd4dbbefd5b6df1984d, type: 3}
+  - {fileID: 1505923118810196375, guid: 035c1dc7e68e32c43a2ecd4da504fce5, type: 3}
+  - {fileID: 6878169044439193692, guid: 01ed27357ec5fd84c828e1da13024c7d, type: 3}
+  watermelonFrames:
+  - {fileID: 4899311459769901929, guid: 8dd5d5a2a9e8a1e4bb6ef7de789ee25e, type: 3}
+  - {fileID: 8725677447638216782, guid: e807debda02ed994e939b9c3fedae83d, type: 3}
+  - {fileID: 1600954103329300953, guid: c8f911b6cea19c749a5d12a35e79ea10, type: 3}
+  - {fileID: 3348147240914551434, guid: 74bf6a7e77f64fa448e937e803868487, type: 3}
+  - {fileID: 206660267991434056, guid: 658b890d3e8d6c54485561e2cb3aaf99, type: 3}
+  - {fileID: -6870184025356034632, guid: 4547bf09860108848ae3da2178b8f9e6, type: 3}
+  - {fileID: -3537737865821802243, guid: bc84b00690207564585796a98bf9f8cb, type: 3}
+  - {fileID: -3214473799069242541, guid: ccb110aa07f2a5842a96a1672a2cfe89, type: 3}
+  - {fileID: -685069128002726894, guid: 8fa50165c3fe62848a2f41fa0086652b, type: 3}
+  - {fileID: 548984248717328906, guid: e273efe72699f6a43b3dbbcd1267f79f, type: 3}
+  - {fileID: -3312669623071773573, guid: 365973b0890277541b5bf0c1d111db27, type: 3}
+  - {fileID: 4003149590529837896, guid: b29402481ec554e4e86d5d2632fdb358, type: 3}
+  - {fileID: 3543474597355347911, guid: 27315872e3ba567428a071463d904eaa, type: 3}
+  - {fileID: -639246031994114615, guid: 18d3eb05bb1df66448d37b943e8bf6c9, type: 3}
+  - {fileID: -78245131109361461, guid: f16b01c5f0fda8642ae8c3b9801b9f2b, type: 3}
+  - {fileID: -7851486527864740004, guid: 6410faa349a9e9944a9daabf25cd183c, type: 3}
+  - {fileID: 588279044057270822, guid: be70f414ba76baf4da1fcec7e19b22c0, type: 3}
+  - {fileID: 3903547825583898956, guid: e83548cd8e563184bb691ce864eac0f3, type: 3}
+  - {fileID: 8729257254342351760, guid: c13fd6c45ee27cf43a594a75e8507c28, type: 3}
+  - {fileID: -1658285177868063683, guid: a847030eabe1f064fbeb401adef1be60, type: 3}
+  - {fileID: 7468766802806053159, guid: 3bcd9695ec17eaf479c438e9801e9976, type: 3}
+  - {fileID: 402072897192260332, guid: d95908eaaca2834469109e9770a303f6, type: 3}
+  - {fileID: 3427358669935549262, guid: b20403ab9a660d047bc1937e4aec3713, type: 3}
+  - {fileID: 5268076524823527669, guid: 77e19226eb1ac58418ab691ecdbb5247, type: 3}
+  - {fileID: 9032609263129433498, guid: 3a072ff813a92784ba26075c8a1aeb9a, type: 3}
+  - {fileID: -7949456502701646966, guid: 653eba21757470247886f29ae34ee149, type: 3}
+  - {fileID: 830473297873008689, guid: 0c5c4d21e2570ac419f6ab6f15553702, type: 3}
+  - {fileID: -1503787664353243782, guid: ee2a9bfe5d9b27f419844ac02a755a58, type: 3}
+  - {fileID: -474082515542083352, guid: 5908736ad1ec5e94ba7089397d607017, type: 3}
+  - {fileID: 7325994779859319978, guid: a3b9af53457a1d742a18c5445341fa9e, type: 3}
+  - {fileID: -86228954264329344, guid: 6c406cca5d5f588468dad15f982097e2, type: 3}
+  plumFrames:
+  - {fileID: -5759967956304765626, guid: a71ae7eeb8b4b9046b65117822c89cbe, type: 3}
+  - {fileID: 8745088115296861183, guid: 9c2cd1b0e683d66479398e5ea173d649, type: 3}
+  - {fileID: -7961038240087430610, guid: c86ddb27e1e5eaf4abf6f56ce561f8a1, type: 3}
+  - {fileID: 7809509014447347782, guid: d4e68b76bffc1c14f8ea935370627320, type: 3}
+  - {fileID: -6893923083614107034, guid: c21d64300fa38d0449fe8eb7f82cc66a, type: 3}
+  - {fileID: 5607108895295534588, guid: 85cfa927110d75943920e7380d0d0121, type: 3}
+  - {fileID: 5680445720468714837, guid: 87986ebb054c72b4180d0da9ffcae6b5, type: 3}
+  - {fileID: 8684371664328022516, guid: f32495ccd39a42646b859666f2a0787c, type: 3}
+  - {fileID: 3181169215509245743, guid: bdd91500fb394604280b2b2ddb099267, type: 3}
+  - {fileID: 5204066003186190814, guid: cb7ec49062dd12240b02b6d24d295fa8, type: 3}
+  - {fileID: 5684785119818653558, guid: 8cafa36af8e738840ac55099a67b00cd, type: 3}
+  - {fileID: 2917909042769992258, guid: 6703da1d243d1ea4b87eb2595dea7bba, type: 3}
+  - {fileID: 1574890677660447195, guid: e2e54eef725f8f0498e7d47ca282d6db, type: 3}
+  - {fileID: -1487896845470191231, guid: e4a62f80e95bafa4f8ec552e5206c668, type: 3}
+  - {fileID: 6462734221156997269, guid: 8d9f3281629aa6f4ab8d16df6f77ca09, type: 3}
+  - {fileID: 7634515233310782932, guid: 74aba3831c47f7d43b1117f878df4c44, type: 3}
+  - {fileID: 8332918884044666208, guid: 60dc5684053bb4f40980e639e2998cb0, type: 3}
+  - {fileID: -2531106159532620610, guid: cb6e207892612a2459a015d6d7c86428, type: 3}
+  - {fileID: 5982561968911044074, guid: 7551b0a9807080f4ea5e21c7bcc210ed, type: 3}
+  - {fileID: -1491157620560607822, guid: 69a7279746b0d114e800dd020303a1ec, type: 3}
+  - {fileID: 5119254628517160302, guid: 0ee1449568ff602449fc252772548dd2, type: 3}
+  - {fileID: 7569117446850048787, guid: de5a0d6321d95864d812661c5df8b546, type: 3}
+  - {fileID: 6567147807943015977, guid: 856e12c4b8e6ee14f9b95336fdaa186f, type: 3}
+  - {fileID: -1277347132221512163, guid: 61b896469d0a2f24fb12d43d71c36a25, type: 3}
+  - {fileID: 2950536746789335072, guid: 52f0f7525f7f4cd4fab3433e72a3ca66, type: 3}
+  - {fileID: 1552721292737894339, guid: 21fdb182aa8641345bbf7c9a32ff5e44, type: 3}
+  appleFrames:
+  - {fileID: -4372624254609052858, guid: 9dd423b118bb62049ad7e66a203a23ea, type: 3}
+  - {fileID: 7997432699191109575, guid: 8dd03e3a2cf59f64bae8526f42b17267, type: 3}
+  - {fileID: -8343616523384197460, guid: 46bdb503150ceab46ba6089a62079a50, type: 3}
+  - {fileID: -2995514145059268212, guid: edbece2111d76d343a74da649be6d9c5, type: 3}
+  - {fileID: 1208877888485038435, guid: 55bdde6e6f7d243438c1a634aa841eb1, type: 3}
+  - {fileID: -1477540220161492024, guid: a370bf2392e9a604abd75897198d68dc, type: 3}
+  - {fileID: -1182675271135664273, guid: 750b1eac3adbd7b43acb5630c8145243, type: 3}
+  - {fileID: -4122754169383246658, guid: f2c2f3ff65a38e045893464a92e34513, type: 3}
+  - {fileID: -7489378106739732005, guid: 90fb09f319445cc46853e4f6f3011bc3, type: 3}
+  - {fileID: -555395039616143064, guid: 39a4189dd94f65a45a08b22030d7a954, type: 3}
+  - {fileID: -8738184947433634826, guid: 07f4e409acc45fb4a838dddb09d2bc08, type: 3}
+  - {fileID: 2054704907923882413, guid: f8343ef1a94010f4a90cc89e6825ab20, type: 3}
+  - {fileID: -9179486092265926860, guid: 5e8cf982ea23f6b44b682f387cf67a32, type: 3}
+  - {fileID: 8265923339843346863, guid: d2f71ac26eb8f9647bd6b1c508810110, type: 3}
+  - {fileID: -5164047278286698229, guid: 2bcfbb6a642023e44988b46d82ea6b31, type: 3}
+  - {fileID: 5312494437057803393, guid: b4157504d94c4ea48b8e24c80685ff73, type: 3}
+  - {fileID: -892511308697627950, guid: 66cb57b95d054af458c85dcdd8e5dbdc, type: 3}
+  - {fileID: -2142623269315767668, guid: 5747face6f387f344925faf377f6fde6, type: 3}
+  - {fileID: 1654735971490548744, guid: 4ebc53a8b7caadd4c970f5a7f131263e, type: 3}
+  - {fileID: -7090261854097043058, guid: 01cc04d4f1ed185419102bde78f09b73, type: 3}
+  - {fileID: 4252008019115461645, guid: 6ca10f696438136439ac79431f5bc5db, type: 3}
+  - {fileID: -4570698600611320690, guid: 32f7d292e8eb0a74fbb494b517a9bb00, type: 3}
+  - {fileID: 5740295803374261178, guid: 4996b0220bbde204db279f3d867c81b4, type: 3}
+  - {fileID: -5529756633599317283, guid: 19403d5766895624c85111ec92cdd841, type: 3}
+  - {fileID: 7621696602323916792, guid: 59e3e932e31a5b246be30d16402f278d, type: 3}
+  - {fileID: 8620009346379958107, guid: f01fdbb164728094aa489da1ea45ea59, type: 3}
+  - {fileID: -5015754452363712296, guid: 8fb0bed48fe59824197479e5e135d6a3, type: 3}
+  - {fileID: -6215381738628483737, guid: 745db34b00eecff44ac6d5b6bb6b7f7a, type: 3}
+  - {fileID: 1469825918871832374, guid: dcffb9c0bb550a549b2fd0a8290df92a, type: 3}
+  - {fileID: -585797787566148186, guid: 594ccedb942272541a1ce9ef35e136f9, type: 3}
+  - {fileID: -5779473170833635948, guid: 7cecee030bf17724085308824cb1c417, type: 3}
+  - {fileID: -4745700778245448934, guid: b9f49b9878d598742ad6515c06fc80c8, type: 3}
+  - {fileID: -8593082347987581889, guid: c0f537e2b2a5de14d9c0578e29dca514, type: 3}
+  - {fileID: 7279034064796797987, guid: eda6b775203256f42a112daad034ef1c, type: 3}
+  - {fileID: 5109937931348126703, guid: 29017c4e3c24e684786d086a45f884ea, type: 3}
+  - {fileID: -7693309525131005777, guid: 0ccdd3307b089aa4fa2d8bba910bebda, type: 3}
+  - {fileID: -5413589639616378229, guid: beec5c5fe79099644802b2f1d46f88ea, type: 3}
+  - {fileID: 1473039980365184977, guid: 28fad4ef4a80c1f4c8614c2836111bdc, type: 3}
+  - {fileID: 4282749860291239915, guid: 54840c3e86e02a34f94a5a761e65d2ab, type: 3}
+  - {fileID: -5659375702289444712, guid: c4dcb1bb456b38c46860ca227ce13cd4, type: 3}
+  - {fileID: -1582647685629418111, guid: 20b6248f3650aaa478ebf57a8a50baa3, type: 3}
+  - {fileID: -3141341007684609229, guid: fa4af65da458d644e8f8386a486e1441, type: 3}
+  - {fileID: -5541731246806109416, guid: dd00e6178a5986549a6a09c868be894c, type: 3}
+  - {fileID: 66155548325089173, guid: 920f6e3fc16dc84478b334ffe102678e, type: 3}
+  - {fileID: -4175569928217236743, guid: 8b3bf492e267ec244bd9de569c3d6955, type: 3}
+  blueCandyFrames:
+  - {fileID: -6161943126343765988, guid: 0bb9ea5c0280d43469bad5ae852adedd, type: 3}
+  - {fileID: -3303014548218030716, guid: 7ef01f630fb80af41912b4cf8d4f37b9, type: 3}
+  - {fileID: -4579468389039811356, guid: 9d5098f63ec3dd84581a8548a0b5e961, type: 3}
+  - {fileID: -4800380716337952309, guid: ec0398b7085a68645afc6599dce3a85c, type: 3}
+  - {fileID: -3507786148155230416, guid: 26f5eccc0b461c7418f45ea53d46f2e5, type: 3}
+  - {fileID: 6229297535036543609, guid: da6259e3bfecd3a40bb2c802fbc3dc6d, type: 3}
+  - {fileID: 4322019647870415079, guid: 2da93f4b075763b479e860f52370c2f4, type: 3}
+  - {fileID: -1360329787849368353, guid: 4aecbe41d6cc8034db54269cada91294, type: 3}
+  - {fileID: -3740482968205518738, guid: 85a9ea9d37329444d847f6cc443040e5, type: 3}
+  - {fileID: 8222636183833571806, guid: d621979a86152c743b5747f3274c2760, type: 3}
+  - {fileID: 1430964694350670818, guid: 8dd948fa0778be247ac93bc0a2ab3f3d, type: 3}
+  - {fileID: -8605649270625436301, guid: 0fcc4a2e6d9c33a459f39194608dda4e, type: 3}
+  - {fileID: 7315857320729673597, guid: b1734f3ffc6d2ca4db36e36ad7d755c8, type: 3}
+  - {fileID: 1021777136962206929, guid: 9a1be16c7edf0b847b4d8467dfac8639, type: 3}
+  - {fileID: 2187928766118163166, guid: 19f5cee5c031e6e409b80ca1c9a1298e, type: 3}
+  - {fileID: 4407299011786921336, guid: 97fac53c73da8ec4aa2fe44d1c58bc51, type: 3}
+  - {fileID: 1977549716538386465, guid: 6c06a503cf168604c8d173b4d9229904, type: 3}
+  - {fileID: 6402747754420035884, guid: a79b986014f705642b0399d2a8e85b7e, type: 3}
+  - {fileID: 3281900484249521860, guid: 4c0beca9c9cf08943bddea0b12de3e29, type: 3}
+  - {fileID: -3289772931907640534, guid: 77e6ac6c52234c247a5831911cd5dee0, type: 3}
+  - {fileID: -1064148495708206018, guid: 86ab15a2c35c5bc43af53285c179f726, type: 3}
+  - {fileID: -6864185490363080063, guid: 7621f7f767bd05d40a4ec2f9939526e5, type: 3}
+  - {fileID: 6917366119711197275, guid: 5c05891ac17dd604182f49d16d4b927c, type: 3}
+  - {fileID: -6333327565544204974, guid: bd99557afa73cb24aacbc53f52ea5454, type: 3}
+  - {fileID: -3386743445706700767, guid: 438ceb33d926b1c4aa82ab6ff423b9bc, type: 3}
+  - {fileID: -2366124253431674896, guid: 531058f6a98b29043bb1d6e9f0b57037, type: 3}
+  - {fileID: 3098807991817668884, guid: f7633b410738d3746b0ad50d340425c3, type: 3}
+  - {fileID: 8340201156823926341, guid: d16f3dd5bf0b09b43b97c8a944177dee, type: 3}
+  - {fileID: 7104432172333885460, guid: 3db69ff5beb18f345a803b5d7044cd2f, type: 3}
+  greenCandyFrames:
+  - {fileID: 7212074626625876747, guid: ab493063421af7a4ea9fe11a1d1dc17a, type: 3}
+  - {fileID: -4421134964666413274, guid: 8519121978088874281ead7db79b60f5, type: 3}
+  - {fileID: -4043858714129373719, guid: 7f511487de55bc74c8b924488c301b23, type: 3}
+  - {fileID: -7365057417471816855, guid: 630f20d476963734f9ce81c7234792cb, type: 3}
+  - {fileID: -4078282210567456832, guid: b0269ccabbf298e419c37aa18ff2e609, type: 3}
+  - {fileID: -7447013828127734848, guid: bfdd5e9ddf3084a45a9e6e517614c82d, type: 3}
+  - {fileID: 2130898564735412807, guid: f456dc462139e454ba8e2cfc10bbffbd, type: 3}
+  - {fileID: 3390296153403971271, guid: f6e16664569d45f489045d49a0884557, type: 3}
+  - {fileID: 887238241246775294, guid: b66ce74cf554f9a46b31c77812c1c29d, type: 3}
+  - {fileID: 2924552515967466464, guid: d916ca91019b1d74ab01a3d81b67fef4, type: 3}
+  - {fileID: -666125679289920188, guid: d5a53415260c4ff4786370fd8dab7a5f, type: 3}
+  - {fileID: -3725164129111871891, guid: 2edb2199beb900d489e1a98ec0618f37, type: 3}
+  - {fileID: 5191728560447967880, guid: a8fcfd23cf444714d8604ccdc1cda947, type: 3}
+  - {fileID: 9032099443688117257, guid: 21dc6588da8034c4c9b6fb876197a205, type: 3}
+  - {fileID: -140886911893379781, guid: 8b79f963c8bb15b4f85ee8093c5cf6d8, type: 3}
+  - {fileID: 7955356461406543408, guid: acf1aafdf30791549865f778fd71175f, type: 3}
+  - {fileID: 1217385405487075630, guid: 8d727e04a41258f4b8265427a6700a3e, type: 3}
+  - {fileID: -7146641032110462306, guid: 92680de7be895db41a3493fba14a203f, type: 3}
+  - {fileID: 1672813809110737980, guid: 76c1111b766f29041934a839206b20c8, type: 3}
+  - {fileID: -3681105268427132194, guid: 1240422f37f6e324aabdb9ede71bea8c, type: 3}
+  - {fileID: -6407224025003892360, guid: 6df7f65de00d8b645ab03492140d90f6, type: 3}
+  - {fileID: -7721075107457557573, guid: df526918ddc122e43ac8b6571318e116, type: 3}
+  - {fileID: -2034165397517297918, guid: 86d927075bcaf51459c2fac5172efa88, type: 3}
+  - {fileID: 200021870329502512, guid: 493c01958fa7d95498dbabded41698c7, type: 3}
+  - {fileID: 5097657332148353400, guid: 6a98fea92b373864b92035c20be4ac83, type: 3}
+  - {fileID: 396148282073062801, guid: 4655a4c939383d048a385a0b5a88add1, type: 3}
+  - {fileID: -1947472350217641429, guid: 1d374f7f2d15f3c42bc1e9b84ca9e4c5, type: 3}
+  - {fileID: -8891056155344940122, guid: 2cb485da7500b0d43a4f912743c619c8, type: 3}
+  - {fileID: -2297470342847649743, guid: 2227a8a7284631e48a2a8f187870b657, type: 3}
+  purpleCandyFrames:
+  - {fileID: -4715088812913340378, guid: 5a01cd69d8a78954f8fb8c2c30de974a, type: 3}
+  - {fileID: -6075538990398516698, guid: ebdfd26a55315d94a9974bd626ff03e3, type: 3}
+  - {fileID: -3164798641942321912, guid: 3b6fe8b509fba6043a8ecc3c2ddda097, type: 3}
+  - {fileID: -5858686451919853636, guid: 53209961c5f617b4fa1abecd2df4613d, type: 3}
+  - {fileID: -3026745664004728820, guid: 4b57542cd749cb748b61d9507a3f9966, type: 3}
+  - {fileID: 8310502183651507315, guid: 5e6e010a6c18aad4a9565f23e9182f1c, type: 3}
+  - {fileID: -9209839086651678302, guid: b1d139aa3a1ed4d4fbde6c1f92b20096, type: 3}
+  - {fileID: 3875416912001666209, guid: a47977e084b3d1d489000ebff2b8384b, type: 3}
+  - {fileID: -5284740053698614939, guid: 89024721e9497474abdaa1e08a7a810c, type: 3}
+  - {fileID: 931255465138374327, guid: 63996f818e47ec2438a55f3c569e085d, type: 3}
+  - {fileID: -6367296494703813117, guid: 87d5edab18ee9d8428d9e482bb18d37e, type: 3}
+  - {fileID: 276175822301557709, guid: 38fbdebc9bba26246ac460156de14bdb, type: 3}
+  - {fileID: 2280069814222653369, guid: 0c34403a1d0cd7b4ea36d85c2fbf6aba, type: 3}
+  - {fileID: 5250516426172363021, guid: f94f6762206a8eb48b5adb2be408a54c, type: 3}
+  - {fileID: 3936341593756680989, guid: a8de9aba75bfe2346be40d6eae35cfb8, type: 3}
+  - {fileID: 5418050340677752010, guid: f92c3251a70d30548bdc8825a523d4de, type: 3}
+  - {fileID: -8145115110945219025, guid: f256f1d59d6393b4a8c6b98be9b1fa20, type: 3}
+  - {fileID: -544418136827922282, guid: 593f59a0b041f7e4d9e25beb3c7b0b38, type: 3}
+  - {fileID: -798357727059277329, guid: f174d850a4b3f1d48837ed5867fa5382, type: 3}
+  - {fileID: 2689742218029422753, guid: 98ebcf2ebdc98764e8df98d33206e0b0, type: 3}
+  - {fileID: -6878036482668168350, guid: 6211343fe1757804681c51dd23969a9d, type: 3}
+  - {fileID: -6960393888690368403, guid: 403c19ef81e6e4646ac66b5fc8aa1144, type: 3}
+  - {fileID: 2297076407653628369, guid: 26666603ca1b9484a8490a9b24acebfd, type: 3}
+  - {fileID: -8129328826411298153, guid: 9ed2806d11b561444a9fc2e1355916d1, type: 3}
+  - {fileID: 747430129953658671, guid: 2b13d9aa50f539a4a8a2823c93e3f4d8, type: 3}
+  - {fileID: 8199819007881617913, guid: 4c4dadce9bc05884abaecb8a8dc9e0b8, type: 3}
+  - {fileID: -8283799625333658475, guid: 79d01fef4e1669a4eb9f60cd78e82985, type: 3}
+  - {fileID: 696955087135794302, guid: 9ce7f02d109bd67469ca2688107ca24a, type: 3}
+  - {fileID: 6753578704126950155, guid: 2f7880ae20812934db190283d17971d7, type: 3}
+  redHeartFrames:
+  - {fileID: 6744506105814955112, guid: 28ffed005edc2834e9d276a18406e197, type: 3}
+  - {fileID: -4702669320454178866, guid: 78f92ec0d47379242889d69f3a781ba5, type: 3}
+  - {fileID: 6077284716292747561, guid: a06f3fbdd91bb00448aff02ff98693b1, type: 3}
+  - {fileID: -5973355393568982542, guid: 6fdbf6c294092cb4585bf1b6ac0a5f51, type: 3}
+  - {fileID: -3814696101485590839, guid: 593811cc91ad54644acc219d2aae4820, type: 3}
+  - {fileID: -4703301666083553971, guid: 81081c2776c975741af88c253a519a8a, type: 3}
+  - {fileID: 5132719448390141728, guid: 3d7c0be3109c92f4189c0aec375aae58, type: 3}
+  - {fileID: 1370876492186821528, guid: 1ee883ddec8f144419200fd80f30cfe2, type: 3}
+  - {fileID: -6715806793807975577, guid: abd72967708b20840b0e36f8dbb0b4c6, type: 3}
+  - {fileID: 5875447278299388059, guid: 34ad4bcd4abfeef4799c5ace88e6bb53, type: 3}
+  - {fileID: 2697383690205218474, guid: b85c1dd7510f8c24fb22af1bb0b596c3, type: 3}
+  - {fileID: -8012977689868816458, guid: dd17ac0f11ed62444bab3156fd4c70ce, type: 3}
+  - {fileID: -7505098303335016259, guid: d2a2bd9be5b6d7a4095fe5604796f2d5, type: 3}
+  - {fileID: 6668879810487313333, guid: fffa60f6fdcb1d548bf6e973226c8616, type: 3}
+  - {fileID: 7835907546212266089, guid: 5f1eb468990bff746b302a14d3fde060, type: 3}
+  - {fileID: -8145483199519856718, guid: 1a88e1e2b304dcc428845e5d1f5cddbf, type: 3}
+  - {fileID: -8676239154022799683, guid: 9456ccab211694747ab40125fe59ce8c, type: 3}
+  - {fileID: 7943827243999725856, guid: dd9ba018b1f9b4249aa0d23e52f0f24f, type: 3}
+  - {fileID: 1486159050452975276, guid: 1a4b0ba467eacb34a9e9a736b03179cc, type: 3}
+  - {fileID: 8036283243206113666, guid: 9761a4a3ff3e9c141a02e0d1310532d3, type: 3}
+  - {fileID: 3268548160814779619, guid: fa5e17dfbacc7454993333d1eb970cf3, type: 3}
+  - {fileID: -2598463290382372546, guid: 2d45b53238aa2be408fea49e141b6e17, type: 3}
+  - {fileID: 1738337627501867750, guid: c4d4fdcbe84a56e429123019eb623173, type: 3}
+  - {fileID: 4723503598838276187, guid: f917f08400efe174fb6a9e8dd643932b, type: 3}
+  - {fileID: -6918328854662785757, guid: e1620cbd271515d479e434ba3dcad9a8, type: 3}
+  - {fileID: 7293268967163109546, guid: 3ae851ddcdc6418499334118558895c2, type: 3}
+  - {fileID: 204024610550058694, guid: 7e38a2615abd76245b549f0bfb72e8d2, type: 3}
+  - {fileID: -7523838480378981375, guid: 9fe1e7076dd8b5e4ab1b300dc56c3bb1, type: 3}
+  - {fileID: 4695515400003455416, guid: ce396b72952ea4f4bb17522b48f0fa7d, type: 3}
+  - {fileID: -6643183115668668523, guid: 7613b40145183ac47b72d14446cbe474, type: 3}
+  spiralCandyFrames:
+  - {fileID: 5100336647858186945, guid: 0da3e079c8da548488f7b72ae8883924, type: 3}
+  - {fileID: -76805474117074603, guid: 16d5c0a21657c904a97558122a33e520, type: 3}
+  - {fileID: -6553297187775305022, guid: 667d5dd6a4408404bacda9c35a92ec63, type: 3}
+  - {fileID: -9055411023132048483, guid: 4eeffdadc1ccc3f42b62e4c0c36074a0, type: 3}
+  - {fileID: -9204041887714852536, guid: c3de73e8f41985145acb84eeb1d9ba3c, type: 3}
+  - {fileID: -2660703185147063991, guid: 199d015baa91d794d87486bb3e5b180f, type: 3}
+  - {fileID: -7410173039058331564, guid: 002fb85a1aa60a746a50cb884db34d4b, type: 3}
+  - {fileID: -8153611635076158788, guid: 1d8174b8bdd82484d9ab29b82b0dbc03, type: 3}
+  - {fileID: 3904216602579292600, guid: d61ef9301446c02438d35d319b079f59, type: 3}
+  - {fileID: 4797760804417720737, guid: ece71aec92a34fb46a92bee8a92a1a98, type: 3}
+  - {fileID: 4699960314795937737, guid: 29995e374e253334d92268c454145156, type: 3}
+  - {fileID: 2496829831685687837, guid: 7cba6ac86d60f974983a07fe3bf31774, type: 3}
+  - {fileID: -5988351922578803177, guid: 99870108799c93e4783286848f45f168, type: 3}
+  - {fileID: 3159163537023241681, guid: bb6c92382f89d5344b3f1f39283a9506, type: 3}
+  - {fileID: -7232297487148395075, guid: bc20548dc6005294c92f59a0897a8a87, type: 3}
+  - {fileID: 7593944242439794836, guid: 177053b0ad51e754d9457cea17759b6b, type: 3}
+  - {fileID: -742739736336000367, guid: 366d16da32402614dabca442daa4425b, type: 3}
+  - {fileID: 4432290592364128580, guid: b4989b71bebe2b14db416dd60ee56f52, type: 3}
+  - {fileID: -8467455527184818274, guid: 795b641da524c5646867421c3ed56b1f, type: 3}
+  - {fileID: -2317403586660924446, guid: 9249d2cd29902c94d93d0bf7973c509b, type: 3}
+  - {fileID: -5683624232408871746, guid: d5330b27afca13846a84c7a4780cc7a4, type: 3}
+  - {fileID: 8051297263546098988, guid: 198e0ccd786ff184880cf8ae77a00bfd, type: 3}
+  - {fileID: 5475745274423562886, guid: a5949258632ae6f4f901b13aa75837c1, type: 3}
+  glassEffectFrames:
+  - {fileID: -4842693350887368108, guid: 2a75a2e0a44af8f44b7283ee72208163, type: 3}
+  - {fileID: -6541715338774415656, guid: c6ea9d0c9788e5143859d0b5094facd2, type: 3}
+  - {fileID: 1883092412928566930, guid: 244bda4fbb44412479a7ef44948fdd22, type: 3}
+  - {fileID: 5154578625731631339, guid: 87cbb75198a9c8e4fbfecbf65fcb2d16, type: 3}
+  - {fileID: 3022835782146133899, guid: 4f7f37ec3f672334ca6be3f5221699bb, type: 3}
+  - {fileID: 3195215064217597578, guid: 9754a55256b6b584f9c4008704dc447f, type: 3}
+  - {fileID: 9097138866480057506, guid: 0b39a7356e57bb547b5ab55c1260c233, type: 3}
+  - {fileID: -1587604320114899521, guid: c6ff295453f145e47b5556e7a842090d, type: 3}
+  - {fileID: -8729946845001686172, guid: e936dc09b3ab0524cab8652ccf00bb13, type: 3}
+  - {fileID: 2043509441374974675, guid: bab3df7ba8998f24b81dbcc073d16210, type: 3}
+  - {fileID: 8477880063241134038, guid: 259cb32e42890224994abe249e46b7f3, type: 3}
+  - {fileID: -8941319906099797206, guid: 9a1477499e97b8e459450941192e2fb2, type: 3}
+  - {fileID: -3479352898063167651, guid: f59962e5daaf87245b1bbec0bb6385a2, type: 3}
 --- !u!114 &1956890501
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -41824,6 +42511,7 @@ GameObject:
   - component: {fileID: 1968008438}
   - component: {fileID: 1968008437}
   - component: {fileID: 1968008439}
+  - component: {fileID: 1968008440}
   m_Layer: 5
   m_Name: BuyFeaturebuttton
   m_TagString: Untagged
@@ -41848,7 +42536,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -249.03, y: 98.34}
+  m_AnchoredPosition: {x: -282, y: 98.34}
   m_SizeDelta: {x: 201.25, y: 139.83}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1968008437
@@ -41928,11 +42616,23 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 0
+  m_Interactable: 1
   m_TargetGraphic: {fileID: 1968008437}
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!225 &1968008440
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1968008435}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &1972258150
 GameObject:
   m_ObjectHideFlags: 0
@@ -42837,6 +43537,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SweetBonanza.View.CellView
   symbolImage: {fileID: 1287369535}
   multiplierText: {fileID: 43368071}
+  winAmountText: {fileID: 0}
   canvasGroup: {fileID: 2023088397}
   rectTransform: {fileID: 2023088395}
   burstEffectImage: {fileID: 0}
@@ -43136,6 +43837,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SweetBonanza.View.CellView
   symbolImage: {fileID: 1428541025}
   multiplierText: {fileID: 31126750}
+  winAmountText: {fileID: 0}
   canvasGroup: {fileID: 2031404340}
   rectTransform: {fileID: 2031404338}
   burstEffectImage: {fileID: 0}
@@ -43821,6 +44523,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SweetBonanza.View.CellView
   symbolImage: {fileID: 830173474}
   multiplierText: {fileID: 476578497}
+  winAmountText: {fileID: 0}
   canvasGroup: {fileID: 2064732642}
   rectTransform: {fileID: 2064732640}
   burstEffectImage: {fileID: 656571817}
@@ -43892,6 +44595,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SweetBonanza.View.CellView
   symbolImage: {fileID: 249646562}
   multiplierText: {fileID: 461710024}
+  winAmountText: {fileID: 0}
   canvasGroup: {fileID: 2068104406}
   rectTransform: {fileID: 2068104404}
   burstEffectImage: {fileID: 2021121082}
@@ -43963,6 +44667,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SweetBonanza.View.CellView
   symbolImage: {fileID: 1782346032}
   multiplierText: {fileID: 50881460}
+  winAmountText: {fileID: 0}
   canvasGroup: {fileID: 2074325667}
   rectTransform: {fileID: 2074325665}
   burstEffectImage: {fileID: 1466293884}
@@ -44033,6 +44738,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SweetBonanza.View.CellView
   symbolImage: {fileID: 1842224082}
   multiplierText: {fileID: 1115747477}
+  winAmountText: {fileID: 0}
   canvasGroup: {fileID: 2088599314}
   rectTransform: {fileID: 2088599312}
   burstEffectImage: {fileID: 0}
@@ -44187,6 +44893,143 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2091159834}
   m_CullTransparentMesh: 1
+--- !u!1 &2098652410
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2098652413}
+  - component: {fileID: 2098652412}
+  - component: {fileID: 2098652411}
+  m_Layer: 0
+  m_Name: WinAmountText
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!114 &2098652411
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2098652410}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 0
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: +$0.00
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 0.92, b: 0.15, a: 1}
+  m_enableVertexGradient: 1
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 0.6, a: 1}
+    topRight: {r: 1, g: 1, b: 0.6, a: 1}
+    bottomLeft: {r: 1, g: 0.82, b: 0.05, a: 1}
+    bottomRight: {r: 1, g: 0.82, b: 0.05, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_StyleSheet: {fileID: 0}
+  m_TextStyleHashCode: 0
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontSize: 32
+  m_fontSizeBase: 32
+  m_fontWeight: 400
+  m_enableAutoSizing: 0
+  m_fontSizeMin: 18
+  m_fontSizeMax: 72
+  m_fontStyle: 1
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 512
+  m_textAlignment: 65535
+  m_characterSpacing: 0
+  m_characterHorizontalScale: 1
+  m_wordSpacing: 0
+  m_lineSpacing: 0
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_TextWrappingMode: 1
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_linkedTextComponent: {fileID: 0}
+  parentLinkedComponent: {fileID: 0}
+  m_enableKerning: 0
+  m_ActiveFontFeatures: 6e72656b
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_EmojiFallbackSupport: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 1
+  m_isCullingEnabled: 0
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_IsTextObjectScaleStatic: 0
+  m_VertexBufferAutoSizeReduction: 0
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_hasFontAssetChanged: 0
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!222 &2098652412
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2098652410}
+  m_CullTransparentMesh: 1
+--- !u!224 &2098652413
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2098652410}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 160, y: 50}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &2104378231
 GameObject:
   m_ObjectHideFlags: 0
@@ -44593,6 +45436,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SweetBonanza.View.CellView
   symbolImage: {fileID: 1868518877}
   multiplierText: {fileID: 1745969170}
+  winAmountText: {fileID: 0}
   canvasGroup: {fileID: 2119262266}
   rectTransform: {fileID: 2119262264}
   burstEffectImage: {fileID: 1463427928}
@@ -45077,3 +45921,4 @@ SceneRoots:
   - {fileID: 1132763429}
   - {fileID: 598504723}
   - {fileID: 2052821070}
+  - {fileID: 2098652413}
