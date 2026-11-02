@@ -48,6 +48,7 @@ namespace SweetBonanza.Controller
             InitializeServices();
             HookViewEvents();
             ApplyInitialSettings();
+            if (gridView != null) gridView.InitializeInitialGrid();
             UpdateHUD(false);
             if (uiManager != null && availableBets != null && availableBets.Length > 0)
             {

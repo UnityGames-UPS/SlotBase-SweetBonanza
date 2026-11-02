@@ -1,0 +1,337 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84a92b25f83d49b9bc132d206b370281, type: 3}
+  m_Name: Sweet Bonanza_NICE numbers
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TMP_SpriteAsset
+  m_Version: 1.1.0
+  m_FaceInfo:
+    m_FaceIndex: 0
+    m_FamilyName: 
+    m_StyleName: 
+    m_PointSize: 0
+    m_Scale: 0
+    m_UnitsPerEM: 0
+    m_LineHeight: 0
+    m_AscentLine: 0
+    m_CapLine: 0
+    m_MeanLine: 0
+    m_Baseline: 0
+    m_DescentLine: 0
+    m_SuperscriptOffset: 0
+    m_SuperscriptSize: 0
+    m_SubscriptOffset: 0
+    m_SubscriptSize: 0
+    m_UnderlineOffset: 0
+    m_UnderlineThickness: 0
+    m_StrikethroughOffset: 0
+    m_StrikethroughThickness: 0
+    m_TabWidth: 0
+  m_Material: {fileID: 2516277073019442666}
+  spriteSheet: {fileID: 2800000, guid: 180552095205e2641b45d974cda12f76, type: 3}
+  m_SpriteCharacterTable:
+  - m_ElementType: 2
+    m_Unicode: 65534
+    m_GlyphIndex: 0
+    m_Scale: 1
+    m_Name: Sweet Bonanza_NICE numbers_2
+  - m_ElementType: 2
+    m_Unicode: 65534
+    m_GlyphIndex: 1
+    m_Scale: 1
+    m_Name: Sweet Bonanza_NICE numbers_0
+  - m_ElementType: 2
+    m_Unicode: 65534
+    m_GlyphIndex: 2
+    m_Scale: 1
+    m_Name: Sweet Bonanza_NICE numbers_1
+  - m_ElementType: 2
+    m_Unicode: 65534
+    m_GlyphIndex: 3
+    m_Scale: 1
+    m_Name: Sweet Bonanza_NICE numbers_3
+  - m_ElementType: 2
+    m_Unicode: 65534
+    m_GlyphIndex: 4
+    m_Scale: 1
+    m_Name: Sweet Bonanza_NICE numbers_4
+  - m_ElementType: 2
+    m_Unicode: 65534
+    m_GlyphIndex: 5
+    m_Scale: 1
+    m_Name: Sweet Bonanza_NICE numbers_5
+  - m_ElementType: 2
+    m_Unicode: 65534
+    m_GlyphIndex: 6
+    m_Scale: 1
+    m_Name: Sweet Bonanza_NICE numbers_6
+  - m_ElementType: 2
+    m_Unicode: 65534
+    m_GlyphIndex: 7
+    m_Scale: 1
+    m_Name: Sweet Bonanza_NICE numbers_7
+  - m_ElementType: 2
+    m_Unicode: 65534
+    m_GlyphIndex: 8
+    m_Scale: 1
+    m_Name: Sweet Bonanza_NICE numbers_9
+  - m_ElementType: 2
+    m_Unicode: 65534
+    m_GlyphIndex: 9
+    m_Scale: 1
+    m_Name: Sweet Bonanza_NICE numbers_8
+  - m_ElementType: 2
+    m_Unicode: 65534
+    m_GlyphIndex: 10
+    m_Scale: 1
+    m_Name: Sweet Bonanza_NICE numbers_11
+  - m_ElementType: 2
+    m_Unicode: 65534
+    m_GlyphIndex: 11
+    m_Scale: 1
+    m_Name: Sweet Bonanza_NICE numbers_10
+  m_GlyphTable:
+  - m_Index: 0
+    m_Metrics:
+      m_Width: 102
+      m_Height: 144
+      m_HorizontalBearingX: -51
+      m_HorizontalBearingY: 72
+      m_HorizontalAdvance: 102
+    m_GlyphRect:
+      m_X: 578
+      m_Y: 763
+      m_Width: 102
+      m_Height: 144
+    m_Scale: 1
+    m_AtlasIndex: 0
+    m_ClassDefinitionType: 0
+    sprite: {fileID: -4335302207592602917, guid: 180552095205e2641b45d974cda12f76, type: 3}
+  - m_Index: 1
+    m_Metrics:
+      m_Width: 66
+      m_Height: 144
+      m_HorizontalBearingX: -33
+      m_HorizontalBearingY: 72
+      m_HorizontalAdvance: 66
+    m_GlyphRect:
+      m_X: 93
+      m_Y: 750
+      m_Width: 66
+      m_Height: 144
+    m_Scale: 1
+    m_AtlasIndex: 0
+    m_ClassDefinitionType: 0
+    sprite: {fileID: 7377292896945626950, guid: 180552095205e2641b45d974cda12f76, type: 3}
+  - m_Index: 2
+    m_Metrics:
+      m_Width: 99
+      m_Height: 145
+      m_HorizontalBearingX: -49.5
+      m_HorizontalBearingY: 72.5
+      m_HorizontalAdvance: 99
+    m_GlyphRect:
+      m_X: 327
+      m_Y: 749
+      m_Width: 99
+      m_Height: 145
+    m_Scale: 1
+    m_AtlasIndex: 0
+    m_ClassDefinitionType: 0
+    sprite: {fileID: 1562310389613681459, guid: 180552095205e2641b45d974cda12f76, type: 3}
+  - m_Index: 3
+    m_Metrics:
+      m_Width: 105
+      m_Height: 150
+      m_HorizontalBearingX: -52.5
+      m_HorizontalBearingY: 75
+      m_HorizontalAdvance: 105
+    m_GlyphRect:
+      m_X: 819
+      m_Y: 749
+      m_Width: 105
+      m_Height: 150
+    m_Scale: 1
+    m_AtlasIndex: 0
+    m_ClassDefinitionType: 0
+    sprite: {fileID: 907059635702485929, guid: 180552095205e2641b45d974cda12f76, type: 3}
+  - m_Index: 4
+    m_Metrics:
+      m_Width: 99
+      m_Height: 157
+      m_HorizontalBearingX: -49.5
+      m_HorizontalBearingY: 78.5
+      m_HorizontalAdvance: 99
+    m_GlyphRect:
+      m_X: 77
+      m_Y: 429
+      m_Width: 99
+      m_Height: 157
+    m_Scale: 1
+    m_AtlasIndex: 0
+    m_ClassDefinitionType: 0
+    sprite: {fileID: 8923516018549485851, guid: 180552095205e2641b45d974cda12f76, type: 3}
+  - m_Index: 5
+    m_Metrics:
+      m_Width: 107
+      m_Height: 162
+      m_HorizontalBearingX: -53.5
+      m_HorizontalBearingY: 81
+      m_HorizontalAdvance: 107
+    m_GlyphRect:
+      m_X: 320
+      m_Y: 416
+      m_Width: 107
+      m_Height: 162
+    m_Scale: 1
+    m_AtlasIndex: 0
+    m_ClassDefinitionType: 0
+    sprite: {fileID: 5196674465927919880, guid: 180552095205e2641b45d974cda12f76, type: 3}
+  - m_Index: 6
+    m_Metrics:
+      m_Width: 109
+      m_Height: 156
+      m_HorizontalBearingX: -54.5
+      m_HorizontalBearingY: 78
+      m_HorizontalAdvance: 109
+    m_GlyphRect:
+      m_X: 577
+      m_Y: 416
+      m_Width: 109
+      m_Height: 156
+    m_Scale: 1
+    m_AtlasIndex: 0
+    m_ClassDefinitionType: 0
+    sprite: {fileID: -3003369437303810028, guid: 180552095205e2641b45d974cda12f76, type: 3}
+  - m_Index: 7
+    m_Metrics:
+      m_Width: 100
+      m_Height: 152
+      m_HorizontalBearingX: -50
+      m_HorizontalBearingY: 76
+      m_HorizontalAdvance: 100
+    m_GlyphRect:
+      m_X: 831
+      m_Y: 416
+      m_Width: 100
+      m_Height: 152
+    m_Scale: 1
+    m_AtlasIndex: 0
+    m_ClassDefinitionType: 0
+    sprite: {fileID: 6997358780113593289, guid: 180552095205e2641b45d974cda12f76, type: 3}
+  - m_Index: 8
+    m_Metrics:
+      m_Width: 103
+      m_Height: 145
+      m_HorizontalBearingX: -51.5
+      m_HorizontalBearingY: 72.5
+      m_HorizontalAdvance: 103
+    m_GlyphRect:
+      m_X: 327
+      m_Y: 77
+      m_Width: 103
+      m_Height: 145
+    m_Scale: 1
+    m_AtlasIndex: 0
+    m_ClassDefinitionType: 0
+    sprite: {fileID: 2735759286645925077, guid: 180552095205e2641b45d974cda12f76, type: 3}
+  - m_Index: 9
+    m_Metrics:
+      m_Width: 102
+      m_Height: 148
+      m_HorizontalBearingX: -51
+      m_HorizontalBearingY: 74
+      m_HorizontalAdvance: 102
+    m_GlyphRect:
+      m_X: 78
+      m_Y: 76
+      m_Width: 102
+      m_Height: 148
+    m_Scale: 1
+    m_AtlasIndex: 0
+    m_ClassDefinitionType: 0
+    sprite: {fileID: 1673404208802942681, guid: 180552095205e2641b45d974cda12f76, type: 3}
+  - m_Index: 10
+    m_Metrics:
+      m_Width: 47
+      m_Height: 59
+      m_HorizontalBearingX: -23.5
+      m_HorizontalBearingY: 29.5
+      m_HorizontalAdvance: 47
+    m_GlyphRect:
+      m_X: 842
+      m_Y: 76
+      m_Width: 47
+      m_Height: 59
+    m_Scale: 1
+    m_AtlasIndex: 0
+    m_ClassDefinitionType: 0
+    sprite: {fileID: 8556137397904340166, guid: 180552095205e2641b45d974cda12f76, type: 3}
+  - m_Index: 11
+    m_Metrics:
+      m_Width: 100
+      m_Height: 167
+      m_HorizontalBearingX: -50
+      m_HorizontalBearingY: 83.5
+      m_HorizontalAdvance: 100
+    m_GlyphRect:
+      m_X: 574
+      m_Y: 66
+      m_Width: 100
+      m_Height: 167
+    m_Scale: 1
+    m_AtlasIndex: 0
+    m_ClassDefinitionType: 0
+    sprite: {fileID: 5946354716838085058, guid: 180552095205e2641b45d974cda12f76, type: 3}
+  spriteInfoList: []
+  fallbackSpriteAssets: []
+--- !u!21 &2516277073019442666
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Sweet Bonanza_NICE numbers Material
+  m_Shader: {fileID: 4800000, guid: cf81c85f95fe47e1a27f6ae460cf182c, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: 180552095205e2641b45d974cda12f76, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _ColorMask: 15
+    - _CullMode: 0
+    - _Stencil: 0
+    - _StencilComp: 8
+    - _StencilOp: 0
+    - _StencilReadMask: 255
+    - _StencilWriteMask: 255
+    - _UseUIAlphaClip: 0
+    m_Colors:
+    - _ClipRect: {r: -32767, g: -32767, b: 32767, a: 32767}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
+  m_BuildTextureStacks: []
+  m_AllowLocking: 1

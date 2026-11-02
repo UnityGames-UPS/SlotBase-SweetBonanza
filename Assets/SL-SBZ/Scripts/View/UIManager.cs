@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -73,6 +73,16 @@ namespace SweetBonanza.View
         [SerializeField] private Sprite speakerAudibleSprite;
         [SerializeField] private Sprite speakerMutedSprite;
 
+        [Header("Sound Slider Sprites (Green Active / Red Muted)")]
+        [SerializeField] private Image soundTrackLineImage;
+        [SerializeField] private Image soundHandleImage;
+        [SerializeField] private Sprite volumeLineGreenSprite;
+        [SerializeField] private Sprite volumeLineRedSprite;
+        [SerializeField] private Sprite volumeButtonGreenNormal;
+        [SerializeField] private Sprite volumeButtonGreenPressed;
+        [SerializeField] private Sprite volumeButtonRedNormal;
+        [SerializeField] private Sprite volumeButtonRedPressed;
+
         [Header("4. Buy Feature Modal")]
         [SerializeField] private GameObject buyFeatureConfirmPanel;
         [SerializeField] private Button buttonConfirmBuyFeature;
@@ -133,6 +143,15 @@ namespace SweetBonanza.View
         [SerializeField] private TMP_Text winCelebrationAmountText;
         [SerializeField] private ParticleSystem winCelebrationParticles;
 
+        [Header("7. Navigation & Fullscreen Controls")]
+        [SerializeField] private Button homeButton;
+        [SerializeField] private Button fullScreenButton;
+        [SerializeField] private Button shrinkButton;
+
+        [Header("External Managers")]
+        [SerializeField] private PopupManager popupManager;
+        [SerializeField] private JSFunctCalls jsFunctCalls;
+
         private readonly int[] betLevels = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
         private readonly float[] coinValues = new float[]
         {
@@ -145,29 +164,35 @@ namespace SweetBonanza.View
         private int currentCoinValueIndex = 9;
         private bool isAnteBet = false;
         private bool isAutoplaying = false;
+        private bool isExpanded = false;
         private int currentRulesPageIndex = 0;
         private GameObject currentOpenPanel;
         private Tweener winCelebrationTweener;
         private double currentBetAmount = 2.0;
         private float lastNonZeroVolume = 0.5f;
 
-        #region Initialization & Button Bindings
+        #region Lifecycle & Event Registrations
 
         private void Awake()
         {
+            if (popupManager == null) popupManager = UnityEngine.Object.FindFirstObjectByType<PopupManager>();
+            if (jsFunctCalls == null) jsFunctCalls = UnityEngine.Object.FindFirstObjectByType<JSFunctCalls>();
+            if (jsFunctCalls != null) jsFunctCalls.RegisterFullscreenListener(gameObject.name);
+
             RegisterButtonCallbacks();
             CloseAllModalsImmediate();
+            SetExpandShrinkButtons(false);
         }
 
         private void RegisterButtonCallbacks()
         {
-            // Game Rules navigation
+            // Rules
             BindClick(buttonOpenGameRules, OpenGameRules);
             BindClick(buttonCloseGameRules, CloseCurrentPanel);
             BindClick(buttonNextRulesPage, NextRulesPage);
             BindClick(buttonPrevRulesPage, PrevRulesPage);
 
-            // System Settings
+            // System Settings Toggles
             BindClick(buttonOpenSettings, OpenSystemSettings);
             BindClick(buttonCloseSettings, CloseCurrentPanel);
             BindToggle(toggleQuickSpin, "settings_quick_spin", 0, v => OnQuickSpinChanged?.Invoke(v));
@@ -176,7 +201,7 @@ namespace SweetBonanza.View
             BindToggle(toggleSoundFx, "settings_sound_fx", 1, v => OnSoundFxChanged?.Invoke(v));
             BindToggle(toggleIntroScreen, "settings_intro_screen", 1, v => OnIntroScreenChanged?.Invoke(v));
 
-            // Sound Settings
+            // Sound
             BindClick(buttonOpenSound, ToggleSoundSettings);
             if (masterVolumeSlider != null)
             {
@@ -210,7 +235,7 @@ namespace SweetBonanza.View
             BindClick(buttonConfirmBuyFeature, () => { CloseCurrentPanel(); OnBuyFeatureConfirmed?.Invoke(); });
             BindClick(buttonCancelBuyFeature, CloseCurrentPanel);
 
-            // Bet Adjustment Modal & Steppers
+            // Bet Adjustment Modal Steppers
             BindClick(buttonOpenBetAdjustment, OpenBetAdjustmentModal);
             BindClick(buttonCloseBetAdjustment, CloseCurrentPanel);
             BindClick(buttonIncreaseBetLevel, () => StepIndex(ref currentBetLevelIndex, betLevels.Length - 1, 1));
@@ -227,7 +252,7 @@ namespace SweetBonanza.View
                 OnBetMaxClicked?.Invoke();
             });
 
-            // Settings Bet Controls
+            // Settings Modal Bet Buttons
             BindClick(buttonSystemSettingIncreaseBet, () => OnBetIncreaseClicked?.Invoke());
             BindClick(buttonSystemSettingDecreaseBet, () => OnBetDecreaseClicked?.Invoke());
 
@@ -253,7 +278,7 @@ namespace SweetBonanza.View
             });
             BindToggle(toggleSkipScreens, "settings_skip_screens", 0);
 
-            // MainView Events
+            // MainView Forwarding
             if (mainView != null)
             {
                 mainView.OnSpinClicked += () => OnSpinClicked?.Invoke();
@@ -263,10 +288,22 @@ namespace SweetBonanza.View
                 mainView.OnBuyBonusClicked += () => OnBuyFeatureRequested?.Invoke();
             }
 
-            // Tap anywhere to dismiss overlays
+            // Tap anywhere to dismiss modal overlays
             if (winCelebrationPanel != null) BindClick(winCelebrationPanel.GetComponent<Button>(), CloseCurrentPanel);
             if (freeSpinsIntroPanel != null) BindClick(freeSpinsIntroPanel.GetComponent<Button>(), CloseCurrentPanel);
             if (freeSpinsOutroPanel != null) BindClick(freeSpinsOutroPanel.GetComponent<Button>(), CloseCurrentPanel);
+
+            // Home & Fullscreen Controls
+            BindClick(homeButton, OnHomeButtonPressed);
+            if (fullScreenButton != null && shrinkButton != null)
+            {
+                BindClick(fullScreenButton, () => SetFullscreen(true));
+                BindClick(shrinkButton, () => SetFullscreen(false));
+            }
+            else if (fullScreenButton != null)
+            {
+                BindClick(fullScreenButton, () => SetFullscreen(!isExpanded));
+            }
         }
 
         private void BindClick(Button btn, UnityAction action)
@@ -297,7 +334,40 @@ namespace SweetBonanza.View
 
         #endregion
 
-        #region Modal Management
+        #region Home & Fullscreen Navigation
+
+        private void OnHomeButtonPressed()
+        {
+            if (popupManager != null) popupManager.ShowExitGamePopup();
+            else Application.Quit();
+        }
+
+        private void SetFullscreen(bool expand)
+        {
+            isExpanded = expand;
+            if (jsFunctCalls != null)
+            {
+                if (expand) jsFunctCalls.RequestExpandGame();
+                else jsFunctCalls.RequestShrinkGame();
+            }
+            SetExpandShrinkButtons(expand);
+        }
+
+        private void SetExpandShrinkButtons(bool expanded)
+        {
+            if (fullScreenButton != null) fullScreenButton.gameObject.SetActive(!expanded);
+            if (shrinkButton != null) shrinkButton.gameObject.SetActive(expanded);
+        }
+
+        internal void OnFullscreenChanged(string isFullscreen)
+        {
+            isExpanded = isFullscreen == "1";
+            SetExpandShrinkButtons(isExpanded);
+        }
+
+        #endregion
+
+        #region Modal Dialog Management
 
         private void Update()
         {
@@ -309,34 +379,26 @@ namespace SweetBonanza.View
 
         internal void CloseCurrentPanel()
         {
-            if (currentOpenPanel != null)
-            {
-                CloseModal(currentOpenPanel);
-            }
+            if (currentOpenPanel != null) CloseModal(currentOpenPanel);
         }
 
         private void OpenModal(GameObject panel)
         {
             if (panel == null) return;
-            if (currentOpenPanel != null && currentOpenPanel != panel)
-            {
-                currentOpenPanel.SetActive(false);
-            }
+            if (currentOpenPanel != null && currentOpenPanel != panel) currentOpenPanel.SetActive(false);
             currentOpenPanel = panel;
             currentOpenPanel.SetActive(true);
         }
 
         private void CloseModal(GameObject panel)
         {
-            if (panel != null)
+            if (panel == null) return;
+            if (panel == winCelebrationPanel)
             {
-                if (panel == winCelebrationPanel)
-                {
-                    var sunburst = winCelebrationPanel.transform.Find("EffectSunburst");
-                    if (sunburst != null) sunburst.DOKill();
-                }
-                panel.SetActive(false);
+                var sunburst = winCelebrationPanel.transform.Find("EffectSunburst");
+                if (sunburst != null) sunburst.DOKill();
             }
+            panel.SetActive(false);
             if (currentOpenPanel == panel) currentOpenPanel = null;
         }
 
@@ -359,121 +421,50 @@ namespace SweetBonanza.View
             currentRulesPageIndex = 0;
             UpdateRulesPageDisplay();
             UpdatePaytableDisplay(currentBetAmount);
-            UpdateBetLimits(0.20, 300.00);
             OpenModal(gameRulesPanel);
         }
 
         internal void UpdateBetLimits(double minBet, double maxBet)
         {
-            if (minBetText != null) minBetText.text = string.Format(": ${0:F2}", minBet);
-            if (maxBetText != null) maxBetText.text = string.Format(" ${0:F2}", maxBet);
-        }
-
-        private void InitializePaytableHolders()
-        {
-            if (paytableSymbols != null && paytableSymbols.Count >= 10) return;
-            if (gameRulesPanel == null) return;
-
-            var page1 = gameRulesPanel.transform.Find("page  (1)");
-            if (page1 == null) return;
-
-            var tp1 = page1.Find("Textplace 1");
-            var tp2 = page1.Find("Textplace 1 (1)");
-            var tp3 = page1.Find("Textplace 1 (2)");
-            if (tp1 == null || tp2 == null || tp3 == null) return;
-
-            if (paytableSymbols == null) paytableSymbols = new List<PaytableSymbolEntry>();
-            paytableSymbols.Clear();
-
-            // 4 Candies
-            AddHolder(tp1.GetChild(0), SymbolType.RedHeart);
-            AddHolder(tp1.GetChild(1), SymbolType.PurpleSquare);
-            AddHolder(tp1.GetChild(2), SymbolType.GreenPentagon);
-            AddHolder(tp1.GetChild(3), SymbolType.BlueOval);
-
-            // 5 Fruits
-            AddHolder(tp2.GetChild(0), SymbolType.Apple);
-            AddHolder(tp2.GetChild(1), SymbolType.Plum);
-            AddHolder(tp2.GetChild(2), SymbolType.Watermelon);
-            AddHolder(tp2.GetChild(3), SymbolType.Grapes);
-            AddHolder(tp2.GetChild(4), SymbolType.Banana);
-
-            // Scatter
-            AddHolder(tp3.GetChild(0), SymbolType.Lollipop);
-        }
-
-        private void AddHolder(Transform parent, SymbolType symbol)
-        {
-            if (parent == null) return;
-            var t1 = parent.Find("Text  (1)")?.GetComponent<TMP_Text>();
-            var t2 = parent.Find("Text  (2)")?.GetComponent<TMP_Text>();
-            var t3 = parent.Find("Text  (3)")?.GetComponent<TMP_Text>();
-
-            paytableSymbols.Add(new PaytableSymbolEntry
-            {
-                symbol = symbol,
-                textTier1 = t1,
-                textTier2 = t2,
-                textTier3 = t3
-            });
+            if (minBetText != null) minBetText.text = $": ${minBet:F2}";
+            if (maxBetText != null) maxBetText.text = $" ${maxBet:F2}";
         }
 
         internal void UpdatePaytableDisplay(double bet)
         {
             if (bet <= 0) bet = 0.20;
             currentBetAmount = bet;
-            InitializePaytableHolders();
+            if (paytableSymbols == null) return;
 
             for (int i = 0; i < paytableSymbols.Count; i++)
             {
                 var h = paytableSymbols[i];
-                if (h.symbol == SymbolType.Lollipop)
-                {
-                    double s1 = bet * GameConfig.GetPayoutMultiplier(h.symbol, 6);
-                    double s2 = bet * GameConfig.GetPayoutMultiplier(h.symbol, 5);
-                    double s3 = bet * GameConfig.GetPayoutMultiplier(h.symbol, 4);
+                if (h == null) continue;
+                bool isScatter = h.symbol == SymbolType.Lollipop;
 
-                    if (h.textTier1 != null) h.textTier1.text = string.Format("6+  ${0:F2}", s1);
-                    if (h.textTier2 != null) h.textTier2.text = string.Format("5  ${0:F2}", s2);
-                    if (h.textTier3 != null) h.textTier3.text = string.Format("4  ${0:F2}", s3);
-                }
-                else
-                {
-                    double m1 = bet * GameConfig.GetPayoutMultiplier(h.symbol, 12);
-                    double m2 = bet * GameConfig.GetPayoutMultiplier(h.symbol, 10);
-                    double m3 = bet * GameConfig.GetPayoutMultiplier(h.symbol, 8);
+                int t1 = isScatter ? 6 : 12;
+                int t2 = isScatter ? 5 : 10;
+                int t3 = isScatter ? 4 : 8;
 
-                    if (h.textTier1 != null) h.textTier1.text = string.Format("12+  ${0:F2}", m1);
-                    if (h.textTier2 != null) h.textTier2.text = string.Format("10 -11  ${0:F2}", m2);
-                    if (h.textTier3 != null) h.textTier3.text = string.Format("8-9  ${0:F2}", m3);
-                }
+                if (h.textTier1 != null) h.textTier1.text = $"{(isScatter ? "6+" : "12+")}  ${bet * GameConfig.GetPayoutMultiplier(h.symbol, t1):F2}";
+                if (h.textTier2 != null) h.textTier2.text = $"{(isScatter ? "5" : "10 -11")}  ${bet * GameConfig.GetPayoutMultiplier(h.symbol, t2):F2}";
+                if (h.textTier3 != null) h.textTier3.text = $"{(isScatter ? "4" : "8-9")}  ${bet * GameConfig.GetPayoutMultiplier(h.symbol, t3):F2}";
             }
         }
 
-        internal void NextRulesPage()
-        {
-            int total = GetTotalRulesPages();
-            if (total <= 0) return;
-            currentRulesPageIndex = (currentRulesPageIndex + 1) % total;
-            UpdateRulesPageDisplay();
-        }
+        internal void NextRulesPage() => ChangeRulesPage(1);
+        internal void PrevRulesPage() => ChangeRulesPage(-1);
 
-        internal void PrevRulesPage()
+        private void ChangeRulesPage(int delta)
         {
-            int total = GetTotalRulesPages();
-            if (total <= 0) return;
-            currentRulesPageIndex = (currentRulesPageIndex - 1 + total) % total;
+            int total = (rulesPageObjects != null && rulesPageObjects.Count > 0) ? rulesPageObjects.Count : 7;
+            currentRulesPageIndex = (currentRulesPageIndex + delta + total) % total;
             UpdateRulesPageDisplay();
-        }
-
-        private int GetTotalRulesPages()
-        {
-            return (rulesPageObjects != null && rulesPageObjects.Count > 0) ? rulesPageObjects.Count : 7;
         }
 
         private void UpdateRulesPageDisplay()
         {
-            int total = GetTotalRulesPages();
+            int total = (rulesPageObjects != null && rulesPageObjects.Count > 0) ? rulesPageObjects.Count : 7;
             if (rulesPageObjects != null)
             {
                 for (int i = 0; i < rulesPageObjects.Count; i++)
@@ -508,18 +499,44 @@ namespace SweetBonanza.View
             if (soundVolumeText != null) soundVolumeText.text = percentage.ToString();
 
             bool isMuted = percentage <= 0;
-            if (soundFillImage != null)
-            {
-                soundFillImage.color = isMuted ? new Color(0.95f, 0.15f, 0.15f, 1f) : new Color(0.1f, 0.85f, 0.3f, 1f);
-            }
+
+            // Speaker Icon
             if (buttonSoundMute != null)
             {
                 var img = buttonSoundMute.GetComponent<Image>();
-                if (img != null)
-                {
-                    if (isMuted && speakerMutedSprite != null) img.sprite = speakerMutedSprite;
-                    else if (!isMuted && speakerAudibleSprite != null) img.sprite = speakerAudibleSprite;
-                }
+                if (img != null) img.sprite = isMuted ? speakerMutedSprite : speakerAudibleSprite;
+            }
+
+            // Track Line Sprite
+            Sprite targetLine = isMuted ? volumeLineRedSprite : volumeLineGreenSprite;
+            if (targetLine != null)
+            {
+                if (soundTrackLineImage != null) { soundTrackLineImage.sprite = targetLine; soundTrackLineImage.color = Color.white; }
+                if (soundFillImage != null) { soundFillImage.sprite = targetLine; soundFillImage.color = Color.white; }
+            }
+            else if (soundFillImage != null)
+            {
+                soundFillImage.color = isMuted ? new Color(0.95f, 0.15f, 0.15f, 1f) : new Color(0.1f, 0.85f, 0.3f, 1f);
+            }
+
+            // Handle Sprites
+            Sprite targetHandleNormal = isMuted ? volumeButtonRedNormal : volumeButtonGreenNormal;
+            Sprite targetHandlePressed = isMuted ? volumeButtonRedPressed : volumeButtonGreenPressed;
+
+            if (soundHandleImage != null && targetHandleNormal != null)
+            {
+                soundHandleImage.sprite = targetHandleNormal;
+                soundHandleImage.color = Color.white;
+            }
+
+            if (masterVolumeSlider != null && targetHandleNormal != null)
+            {
+                masterVolumeSlider.transition = Selectable.Transition.SpriteSwap;
+                var ss = masterVolumeSlider.spriteState;
+                ss.highlightedSprite = targetHandleNormal;
+                ss.pressedSprite = targetHandlePressed != null ? targetHandlePressed : targetHandleNormal;
+                ss.selectedSprite = targetHandleNormal;
+                masterVolumeSlider.spriteState = ss;
             }
         }
 
@@ -564,28 +581,19 @@ namespace SweetBonanza.View
 
         private void SyncIndicesFromBet(double baseBet)
         {
-            double targetProduct = baseBet / 20.0;
-            double bestDiff = double.MaxValue;
-            int bestBetIdx = currentBetLevelIndex;
-            int bestCoinIdx = currentCoinValueIndex;
-
+            double target = baseBet / 20.0;
             for (int b = 0; b < betLevels.Length; b++)
             {
                 for (int c = 0; c < coinValues.Length; c++)
                 {
-                    double diff = Math.Abs((betLevels[b] * (double)coinValues[c]) - targetProduct);
-                    if (diff < bestDiff)
+                    if (Math.Abs((betLevels[b] * (double)coinValues[c]) - target) < 0.001)
                     {
-                        bestDiff = diff;
-                        bestBetIdx = b;
-                        bestCoinIdx = c;
-                        if (diff < 0.0001) break;
+                        currentBetLevelIndex = b;
+                        currentCoinValueIndex = c;
+                        return;
                     }
                 }
-                if (bestDiff < 0.0001) break;
             }
-            currentBetLevelIndex = bestBetIdx;
-            currentCoinValueIndex = bestCoinIdx;
         }
 
         private void RefreshBetAdjustmentTexts(double baseBet)
@@ -595,9 +603,9 @@ namespace SweetBonanza.View
             double effectiveTotalBet = isAnteBet ? baseBet * 1.25 : baseBet;
 
             if (betCoinsText != null) betCoinsText.text = betLevel.ToString();
-            if (coinValueText != null) coinValueText.text = string.Format("${0:F2}", coinVal);
-            if (totalBetAmountText != null) totalBetAmountText.text = string.Format("${0:F2}", effectiveTotalBet);
-            if (settingsBetAmountText != null) settingsBetAmountText.text = string.Format("${0:F2}", effectiveTotalBet);
+            if (coinValueText != null) coinValueText.text = $"${coinVal:F2}";
+            if (totalBetAmountText != null) totalBetAmountText.text = $"${effectiveTotalBet:F2}";
+            if (settingsBetAmountText != null) settingsBetAmountText.text = $"${effectiveTotalBet:F2}";
         }
 
         private void ApplyBetAdjustment()
@@ -605,7 +613,6 @@ namespace SweetBonanza.View
             int betLevel = betLevels[currentBetLevelIndex];
             float coinVal = coinValues[currentCoinValueIndex];
             double baseBet = Math.Round(betLevel * (double)coinVal * 20.0, 2);
-
             RefreshBetAdjustmentTexts(baseBet);
             OnBetAmountSelected?.Invoke(baseBet);
         }
@@ -637,15 +644,9 @@ namespace SweetBonanza.View
             if (buttonOpenAutoplay != null)
             {
                 var img = buttonOpenAutoplay.GetComponent<Image>();
-                if (img != null)
-                {
-                    img.color = isAutoplay ? new Color(0.85f, 0.22f, 0.22f, 0.95f) : Color.white;
-                }
+                if (img != null) img.color = isAutoplay ? new Color(0.85f, 0.22f, 0.22f, 0.95f) : Color.white;
             }
-            if (mainView != null)
-            {
-                mainView.SetAutoplayState(isAutoplay, remainingSpins);
-            }
+            if (mainView != null) mainView.SetAutoplayState(isAutoplay, remainingSpins);
         }
 
         #endregion
@@ -706,8 +707,6 @@ namespace SweetBonanza.View
         internal void UpdateHUD(double balance, double bet, double win, bool isAnteBet, bool isSpinning)
         {
             currentBetAmount = bet;
-            UpdatePaytableDisplay(bet);
-            UpdateBetAdjustmentDisplay(bet, isAnteBet);
             if (buyFeatureButtonCostText != null) buyFeatureButtonCostText.text = $"${(bet * 100.0):F2}";
 
             if (mainView != null)

@@ -138,10 +138,10 @@ TextureImporter:
       name: AUTOPLAY 2_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 3026
-        width: 379
-        height: 380
+        x: 83
+        y: 1831
+        width: 1436
+        height: 348
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -156,77 +156,11 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
-    - serializedVersion: 2
-      name: AUTOPLAY 2_1
-      rect:
-        serializedVersion: 2
-        x: 82
-        y: 1833
-        width: 1437
-        height: 1462
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: ec6a634460ba03fa0800000000000000
-      internalID: -5822966274787465522
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: AUTOPLAY 2_2
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 1192
-        width: 379
-        height: 382
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 17bf1f5fc2c161ad0800000000000000
-      internalID: -2731965144523211919
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: AUTOPLAY 2_3
-      rect:
-        serializedVersion: 2
-        x: 82
-        y: 0
-        width: 1437
-        height: 1462
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 0165085c67f8ace70800000000000000
-      internalID: 9136272534356907536
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
     outline: []
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 538162d1c4380544a90a1ee8ded66321
     internalID: 0
     vertices: []
     indices: 

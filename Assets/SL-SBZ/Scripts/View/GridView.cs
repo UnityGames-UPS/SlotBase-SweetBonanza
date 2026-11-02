@@ -93,6 +93,65 @@ namespace SweetBonanza.View
             }
         }
 
+        private void Start()
+        {
+            InitializeInitialGrid();
+        }
+
+        internal void InitializeInitialGrid(int[,] matrix = null)
+        {
+            if (matrix == null && activeCells[0, 0] != null) return;
+
+            ClearGrid();
+
+            // Adopt pre-existing scene cells into pool to reuse them cleanly
+            Transform parent = gridContainer != null ? gridContainer : transform;
+            var existing = parent.GetComponentsInChildren<CellView>(true);
+            foreach (var cell in existing)
+            {
+                if (cell != null && !cellPool.Contains(cell))
+                {
+                    cell.ResetCell();
+                    cell.gameObject.SetActive(false);
+                    cellPool.Add(cell);
+                }
+            }
+
+            if (matrix == null)
+            {
+                matrix = GenerateDefaultStartingMatrix();
+            }
+
+            for (int c = 0; c < GameConfig.COLUMNS; c++)
+            {
+                for (int r = 0; r < GameConfig.ROWS; r++)
+                {
+                    SymbolType symbol = (SymbolType)matrix[c, r];
+                    var cell = GetOrCreateCell();
+                    activeCells[c, r] = cell;
+
+                    Vector2 targetPos = GetCellPosition(c, r);
+                    cell.RectTransform.anchoredPosition = targetPos;
+                    cell.RectTransform.localScale = Vector3.one;
+                    cell.Setup(symbol, GetSymbolSprite(symbol));
+                    cell.gameObject.SetActive(true);
+                }
+            }
+        }
+
+        private int[,] GenerateDefaultStartingMatrix()
+        {
+            return new int[GameConfig.COLUMNS, GameConfig.ROWS]
+            {
+                { (int)SymbolType.Banana, (int)SymbolType.Apple, (int)SymbolType.BlueOval, (int)SymbolType.Plum, (int)SymbolType.Watermelon },
+                { (int)SymbolType.Grapes, (int)SymbolType.GreenPentagon, (int)SymbolType.Banana, (int)SymbolType.RedHeart, (int)SymbolType.Apple },
+                { (int)SymbolType.PurpleSquare, (int)SymbolType.Watermelon, (int)SymbolType.Lollipop, (int)SymbolType.Grapes, (int)SymbolType.BlueOval },
+                { (int)SymbolType.Apple, (int)SymbolType.Banana, (int)SymbolType.PurpleSquare, (int)SymbolType.GreenPentagon, (int)SymbolType.Plum },
+                { (int)SymbolType.RedHeart, (int)SymbolType.Plum, (int)SymbolType.Watermelon, (int)SymbolType.Banana, (int)SymbolType.PurpleSquare },
+                { (int)SymbolType.GreenPentagon, (int)SymbolType.Grapes, (int)SymbolType.Apple, (int)SymbolType.BlueOval, (int)SymbolType.Watermelon }
+            };
+        }
+
         private void InitializeSpriteLookup()
         {
             spriteLookup = new Dictionary<SymbolType, Sprite>

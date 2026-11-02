@@ -162,12 +162,12 @@ TextureImporter:
       name: Sweet Bonanza_bet double change to win feature panel numbers_0
       rect:
         serializedVersion: 2
-        x: 74
-        y: 759
+        x: 75
+        y: 761
         width: 93
-        height: 144
+        height: 142
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -184,12 +184,12 @@ TextureImporter:
       name: Sweet Bonanza_bet double change to win feature panel numbers_1
       rect:
         serializedVersion: 2
-        x: 323
-        y: 761
-        width: 114
-        height: 142
+        x: 324
+        y: 762
+        width: 112
+        height: 140
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -206,12 +206,12 @@ TextureImporter:
       name: Sweet Bonanza_bet double change to win feature panel numbers_2
       rect:
         serializedVersion: 2
-        x: 571
-        y: 760
-        width: 114
-        height: 144
+        x: 572
+        y: 761
+        width: 111
+        height: 142
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -225,37 +225,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Sweet Bonanza_bet double change to win feature panel numbers_3
-      rect:
-        serializedVersion: 2
-        x: 808
-        y: 760
-        width: 125
-        height: 144
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: bde092f06ef3af880800000000000000
-      internalID: -8576472283044311333
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
       name: Sweet Bonanza_bet double change to win feature panel numbers_4
       rect:
         serializedVersion: 2
-        x: 74
-        y: 421
-        width: 115
-        height: 142
+        x: 809
+        y: 761
+        width: 123
+        height: 141
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -272,12 +250,12 @@ TextureImporter:
       name: Sweet Bonanza_bet double change to win feature panel numbers_5
       rect:
         serializedVersion: 2
-        x: 321
-        y: 428
-        width: 116
-        height: 144
+        x: 75
+        y: 423
+        width: 112
+        height: 141
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -294,19 +272,19 @@ TextureImporter:
       name: Sweet Bonanza_bet double change to win feature panel numbers_6
       rect:
         serializedVersion: 2
-        x: 569
-        y: 429
-        width: 116
-        height: 142
+        x: 322
+        y: 430
+        width: 114
+        height: 141
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 394eb7a5d58f592f0800000000000000
+      spriteID: dad6b5b38052dfd44b602d7f3259e65b
       internalID: -966593465167387501
       vertices: []
       indices: 
@@ -316,19 +294,19 @@ TextureImporter:
       name: Sweet Bonanza_bet double change to win feature panel numbers_7
       rect:
         serializedVersion: 2
-        x: 814
-        y: 430
-        width: 114
-        height: 144
+        x: 571
+        y: 431
+        width: 113
+        height: 139
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: f5ae9697e8deb1980800000000000000
+      spriteID: 6086301b35e97af40974dadf8e6f5ff1
       internalID: -8566992669964113313
       vertices: []
       indices: 
@@ -338,19 +316,19 @@ TextureImporter:
       name: Sweet Bonanza_bet double change to win feature panel numbers_8
       rect:
         serializedVersion: 2
-        x: 74
-        y: 81
+        x: 815
+        y: 426
         width: 115
-        height: 144
+        height: 147
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 4d0b7dfacc50333f0800000000000000
+      spriteID: 295e379932837644c903dfac09218fa8
       internalID: -922387121999204140
       vertices: []
       indices: 
@@ -360,19 +338,19 @@ TextureImporter:
       name: Sweet Bonanza_bet double change to win feature panel numbers_9
       rect:
         serializedVersion: 2
-        x: 323
-        y: 81
-        width: 114
-        height: 144
+        x: 75
+        y: 82
+        width: 113
+        height: 141
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 0d4e293a2fc5b29c0800000000000000
+      spriteID: 6fd3caa82f0c01948b3c364bcb8db860
       internalID: -3950962050891324208
       vertices: []
       indices: 
@@ -382,19 +360,19 @@ TextureImporter:
       name: Sweet Bonanza_bet double change to win feature panel numbers_10
       rect:
         serializedVersion: 2
-        x: 601
+        x: 324
         y: 82
-        width: 54
-        height: 52
+        width: 112
+        height: 141
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: ed50a84fa7dc8eff0800000000000000
+      spriteID: dff8e3afaf54c1642a35d2c1beee4881
       internalID: -6529471468665378
       vertices: []
       indices: 
@@ -404,20 +382,42 @@ TextureImporter:
       name: Sweet Bonanza_bet double change to win feature panel numbers_11
       rect:
         serializedVersion: 2
-        x: 808
-        y: 82
-        width: 116
-        height: 175
+        x: 603
+        y: 83
+        width: 51
+        height: 50
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 47a56240418642620800000000000000
+      spriteID: dcfe12bc8453a6d49b96b80cc5a6a1be
       internalID: 2748436107781102196
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_bet double change to win feature panel numbers_12
+      rect:
+        serializedVersion: 2
+        x: 809
+        y: 82
+        width: 114
+        height: 174
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4879b5e40cb6cb047a2cdc701ba39764
+      internalID: -1322076819
       vertices: []
       indices: 
       edges: []
@@ -426,7 +426,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 321ffedefe98ce149be3809c18b64f7e
     internalID: 0
     vertices: []
     indices: 
@@ -434,12 +434,15 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries: []
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
       Sweet Bonanza_bet double change to win feature panel numbers_0: -7309276465160383282
       Sweet Bonanza_bet double change to win feature panel numbers_1: 7103341243264227166
       Sweet Bonanza_bet double change to win feature panel numbers_10: -6529471468665378
       Sweet Bonanza_bet double change to win feature panel numbers_11: 2748436107781102196
+      Sweet Bonanza_bet double change to win feature panel numbers_12: -1322076819
       Sweet Bonanza_bet double change to win feature panel numbers_2: 1795167555458989305
       Sweet Bonanza_bet double change to win feature panel numbers_3: -8576472283044311333
       Sweet Bonanza_bet double change to win feature panel numbers_4: 1565831300245724574

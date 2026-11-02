@@ -1,0 +1,337 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84a92b25f83d49b9bc132d206b370281, type: 3}
+  m_Name: Sweet Bonanza_buy feature panel numbers
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TMP_SpriteAsset
+  m_Version: 1.1.0
+  m_FaceInfo:
+    m_FaceIndex: 0
+    m_FamilyName: 
+    m_StyleName: 
+    m_PointSize: 0
+    m_Scale: 0
+    m_UnitsPerEM: 0
+    m_LineHeight: 0
+    m_AscentLine: 0
+    m_CapLine: 0
+    m_MeanLine: 0
+    m_Baseline: 0
+    m_DescentLine: 0
+    m_SuperscriptOffset: 0
+    m_SuperscriptSize: 0
+    m_SubscriptOffset: 0
+    m_SubscriptSize: 0
+    m_UnderlineOffset: 0
+    m_UnderlineThickness: 0
+    m_StrikethroughOffset: 0
+    m_StrikethroughThickness: 0
+    m_TabWidth: 0
+  m_Material: {fileID: 8361572707893503664}
+  spriteSheet: {fileID: 2800000, guid: 840f5f1d08d68ed4b93f1deff73cc9e9, type: 3}
+  m_SpriteCharacterTable:
+  - m_ElementType: 2
+    m_Unicode: 65534
+    m_GlyphIndex: 0
+    m_Scale: 1
+    m_Name: Sweet Bonanza_buy feature panel numbers_3
+  - m_ElementType: 2
+    m_Unicode: 65534
+    m_GlyphIndex: 1
+    m_Scale: 1
+    m_Name: Sweet Bonanza_buy feature panel numbers_1
+  - m_ElementType: 2
+    m_Unicode: 65534
+    m_GlyphIndex: 2
+    m_Scale: 1
+    m_Name: Sweet Bonanza_buy feature panel numbers_2
+  - m_ElementType: 2
+    m_Unicode: 65534
+    m_GlyphIndex: 3
+    m_Scale: 1
+    m_Name: Sweet Bonanza_buy feature panel numbers_0
+  - m_ElementType: 2
+    m_Unicode: 65534
+    m_GlyphIndex: 4
+    m_Scale: 1
+    m_Name: Sweet Bonanza_buy feature panel numbers_5
+  - m_ElementType: 2
+    m_Unicode: 65534
+    m_GlyphIndex: 5
+    m_Scale: 1
+    m_Name: Sweet Bonanza_buy feature panel numbers_7
+  - m_ElementType: 2
+    m_Unicode: 65534
+    m_GlyphIndex: 6
+    m_Scale: 1
+    m_Name: Sweet Bonanza_buy feature panel numbers_4
+  - m_ElementType: 2
+    m_Unicode: 65534
+    m_GlyphIndex: 7
+    m_Scale: 1
+    m_Name: Sweet Bonanza_buy feature panel numbers_6
+  - m_ElementType: 2
+    m_Unicode: 65534
+    m_GlyphIndex: 8
+    m_Scale: 1
+    m_Name: Sweet Bonanza_buy feature panel numbers_10
+  - m_ElementType: 2
+    m_Unicode: 65534
+    m_GlyphIndex: 9
+    m_Scale: 1
+    m_Name: Sweet Bonanza_buy feature panel numbers_11
+  - m_ElementType: 2
+    m_Unicode: 65534
+    m_GlyphIndex: 10
+    m_Scale: 1
+    m_Name: Sweet Bonanza_buy feature panel numbers_8
+  - m_ElementType: 2
+    m_Unicode: 65534
+    m_GlyphIndex: 11
+    m_Scale: 1
+    m_Name: Sweet Bonanza_buy feature panel numbers_9
+  m_GlyphTable:
+  - m_Index: 0
+    m_Metrics:
+      m_Width: 97
+      m_Height: 109
+      m_HorizontalBearingX: -48.5
+      m_HorizontalBearingY: 54.5
+      m_HorizontalAdvance: 97
+    m_GlyphRect:
+      m_X: 825
+      m_Y: 777
+      m_Width: 97
+      m_Height: 109
+    m_Scale: 1
+    m_AtlasIndex: 0
+    m_ClassDefinitionType: 0
+    sprite: {fileID: 7176316772870631077, guid: 840f5f1d08d68ed4b93f1deff73cc9e9, type: 3}
+  - m_Index: 1
+    m_Metrics:
+      m_Width: 88
+      m_Height: 108
+      m_HorizontalBearingX: -44
+      m_HorizontalBearingY: 54
+      m_HorizontalAdvance: 88
+    m_GlyphRect:
+      m_X: 333
+      m_Y: 776
+      m_Width: 88
+      m_Height: 108
+    m_Scale: 1
+    m_AtlasIndex: 0
+    m_ClassDefinitionType: 0
+    sprite: {fileID: 3852728613934834975, guid: 840f5f1d08d68ed4b93f1deff73cc9e9, type: 3}
+  - m_Index: 2
+    m_Metrics:
+      m_Width: 87
+      m_Height: 109
+      m_HorizontalBearingX: -43.5
+      m_HorizontalBearingY: 54.5
+      m_HorizontalAdvance: 87
+    m_GlyphRect:
+      m_X: 578
+      m_Y: 776
+      m_Width: 87
+      m_Height: 109
+    m_Scale: 1
+    m_AtlasIndex: 0
+    m_ClassDefinitionType: 0
+    sprite: {fileID: 2161238125537258426, guid: 840f5f1d08d68ed4b93f1deff73cc9e9, type: 3}
+  - m_Index: 3
+    m_Metrics:
+      m_Width: 71
+      m_Height: 109
+      m_HorizontalBearingX: -35.5
+      m_HorizontalBearingY: 54.5
+      m_HorizontalAdvance: 71
+    m_GlyphRect:
+      m_X: 81
+      m_Y: 775
+      m_Width: 71
+      m_Height: 109
+    m_Scale: 1
+    m_AtlasIndex: 0
+    m_ClassDefinitionType: 0
+    sprite: {fileID: -7215103224050743320, guid: 840f5f1d08d68ed4b93f1deff73cc9e9, type: 3}
+  - m_Index: 4
+    m_Metrics:
+      m_Width: 89
+      m_Height: 109
+      m_HorizontalBearingX: -44.5
+      m_HorizontalBearingY: 54.5
+      m_HorizontalAdvance: 89
+    m_GlyphRect:
+      m_X: 334
+      m_Y: 447
+      m_Width: 89
+      m_Height: 109
+    m_Scale: 1
+    m_AtlasIndex: 0
+    m_ClassDefinitionType: 0
+    sprite: {fileID: -5709884796458508267, guid: 840f5f1d08d68ed4b93f1deff73cc9e9, type: 3}
+  - m_Index: 5
+    m_Metrics:
+      m_Width: 89
+      m_Height: 109
+      m_HorizontalBearingX: -44.5
+      m_HorizontalBearingY: 54.5
+      m_HorizontalAdvance: 89
+    m_GlyphRect:
+      m_X: 828
+      m_Y: 447
+      m_Width: 89
+      m_Height: 109
+    m_Scale: 1
+    m_AtlasIndex: 0
+    m_ClassDefinitionType: 0
+    sprite: {fileID: 8385401954033012440, guid: 840f5f1d08d68ed4b93f1deff73cc9e9, type: 3}
+  - m_Index: 6
+    m_Metrics:
+      m_Width: 89
+      m_Height: 107
+      m_HorizontalBearingX: -44.5
+      m_HorizontalBearingY: 53.5
+      m_HorizontalAdvance: 89
+    m_GlyphRect:
+      m_X: 82
+      m_Y: 446
+      m_Width: 89
+      m_Height: 107
+    m_Scale: 1
+    m_AtlasIndex: 0
+    m_ClassDefinitionType: 0
+    sprite: {fileID: 5120554288492568605, guid: 840f5f1d08d68ed4b93f1deff73cc9e9, type: 3}
+  - m_Index: 7
+    m_Metrics:
+      m_Width: 89
+      m_Height: 107
+      m_HorizontalBearingX: -44.5
+      m_HorizontalBearingY: 53.5
+      m_HorizontalAdvance: 89
+    m_GlyphRect:
+      m_X: 578
+      m_Y: 445
+      m_Width: 89
+      m_Height: 107
+    m_Scale: 1
+    m_AtlasIndex: 0
+    m_ClassDefinitionType: 0
+    sprite: {fileID: 7123292502214755986, guid: 840f5f1d08d68ed4b93f1deff73cc9e9, type: 3}
+  - m_Index: 8
+    m_Metrics:
+      m_Width: 40
+      m_Height: 38
+      m_HorizontalBearingX: -20
+      m_HorizontalBearingY: 19
+      m_HorizontalAdvance: 40
+    m_GlyphRect:
+      m_X: 603
+      m_Y: 118
+      m_Width: 40
+      m_Height: 38
+    m_Scale: 1
+    m_AtlasIndex: 0
+    m_ClassDefinitionType: 0
+    sprite: {fileID: -8223165214368165291, guid: 840f5f1d08d68ed4b93f1deff73cc9e9, type: 3}
+  - m_Index: 9
+    m_Metrics:
+      m_Width: 91
+      m_Height: 143
+      m_HorizontalBearingX: -45.5
+      m_HorizontalBearingY: 71.5
+      m_HorizontalAdvance: 91
+    m_GlyphRect:
+      m_X: 827
+      m_Y: 116
+      m_Width: 91
+      m_Height: 143
+    m_Scale: 1
+    m_AtlasIndex: 0
+    m_ClassDefinitionType: 0
+    sprite: {fileID: -8371594389470502756, guid: 840f5f1d08d68ed4b93f1deff73cc9e9, type: 3}
+  - m_Index: 10
+    m_Metrics:
+      m_Width: 89
+      m_Height: 109
+      m_HorizontalBearingX: -44.5
+      m_HorizontalBearingY: 54.5
+      m_HorizontalAdvance: 89
+    m_GlyphRect:
+      m_X: 86
+      m_Y: 115
+      m_Width: 89
+      m_Height: 109
+    m_Scale: 1
+    m_AtlasIndex: 0
+    m_ClassDefinitionType: 0
+    sprite: {fileID: -2371538132094442541, guid: 840f5f1d08d68ed4b93f1deff73cc9e9, type: 3}
+  - m_Index: 11
+    m_Metrics:
+      m_Width: 89
+      m_Height: 109
+      m_HorizontalBearingX: -44.5
+      m_HorizontalBearingY: 54.5
+      m_HorizontalAdvance: 89
+    m_GlyphRect:
+      m_X: 329
+      m_Y: 115
+      m_Width: 89
+      m_Height: 109
+    m_Scale: 1
+    m_AtlasIndex: 0
+    m_ClassDefinitionType: 0
+    sprite: {fileID: -5458311003340114063, guid: 840f5f1d08d68ed4b93f1deff73cc9e9, type: 3}
+  spriteInfoList: []
+  fallbackSpriteAssets: []
+--- !u!21 &8361572707893503664
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Sweet Bonanza_buy feature panel numbers Material
+  m_Shader: {fileID: 4800000, guid: cf81c85f95fe47e1a27f6ae460cf182c, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: 840f5f1d08d68ed4b93f1deff73cc9e9, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _ColorMask: 15
+    - _CullMode: 0
+    - _Stencil: 0
+    - _StencilComp: 8
+    - _StencilOp: 0
+    - _StencilReadMask: 255
+    - _StencilWriteMask: 255
+    - _UseUIAlphaClip: 0
+    m_Colors:
+    - _ClipRect: {r: -32767, g: -32767, b: 32767, a: 32767}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
+  m_BuildTextureStacks: []
+  m_AllowLocking: 1
