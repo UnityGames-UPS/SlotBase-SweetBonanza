@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using UnityEngine;
 using SweetBonanza.Model;
@@ -82,6 +82,11 @@ namespace SweetBonanza.Controller
             backendService.OnRoundResultReceived += HandleRoundResultReceived;
             backendService.OnErrorOccurred += HandleErrorOccurred;
 
+            if (SocketIOManager.Instance != null)
+            {
+                SocketIOManager.Instance.OnBalanceSyncReceived += HandleBalanceSync;
+            }
+
             backendService.Initialize();
         }
 
@@ -90,6 +95,7 @@ namespace SweetBonanza.Controller
             if (uiManager != null)
             {
                 uiManager.OnSpinClicked += HandleSpinClicked;
+                uiManager.OnStopClicked += HandleStopClicked;
                 uiManager.OnBetIncreaseClicked += HandleBetIncreaseClicked;
                 uiManager.OnBetDecreaseClicked += HandleBetDecreaseClicked;
                 uiManager.OnBetMaxClicked += HandleBetMaxClicked;
@@ -108,6 +114,8 @@ namespace SweetBonanza.Controller
             else if (mainView != null)
             {
                 mainView.OnSpinClicked += HandleSpinClicked;
+                mainView.OnStopClicked += HandleStopClicked;
+                mainView.OnAutoplayStopClicked += HandleAutoplayStopped;
                 mainView.OnBetIncreaseClicked += HandleBetIncreaseClicked;
                 mainView.OnBetDecreaseClicked += HandleBetDecreaseClicked;
                 mainView.OnAnteBetToggled += HandleAnteBetToggled;
@@ -164,6 +172,24 @@ namespace SweetBonanza.Controller
             SendSpinRequest(currentBetAmount, isAnteBetActive, false);
         }
 
+        private void HandleStopClicked()
+        {
+            if (currentState == GameState.Spinning || currentState == GameState.DroppingInitial || currentState == GameState.TumblingDown)
+            {
+                RequestStop();
+            }
+        }
+
+        public void RequestStop()
+        {
+            AudioManager.Instance?.StopReelSpinLoop();
+            AudioManager.Instance?.StopTensionBuilder();
+            if (gridView != null)
+            {
+                gridView.RequestSlamStop();
+            }
+        }
+
         private void HandleBuyBonusRequested()
         {
             if (currentState != GameState.Idle || isAnteBetActive) return;
@@ -205,6 +231,7 @@ namespace SweetBonanza.Controller
 
             if (backendService != null)
             {
+                AudioManager.Instance?.PlayReelSpinLoop();
                 backendService.RequestSpin(betAmount, isAnteBet, isBonusBuy);
             }
         }
@@ -212,18 +239,29 @@ namespace SweetBonanza.Controller
         private void HandleBetIncreaseClicked()
         {
             if (currentState != GameState.Idle || availableBets == null || availableBets.Length == 0) return;
-            currentBetIndex = (currentBetIndex + 1) % availableBets.Length;
-            currentBetAmount = availableBets[currentBetIndex];
-            UpdateHUD(false);
+            if (currentBetIndex < availableBets.Length - 1)
+            {
+                currentBetIndex++;
+                currentBetAmount = availableBets[currentBetIndex];
+                AudioManager.Instance?.PlayBetPlusMinus();
+                UpdateHUD(false);
+            }
+            else
+            {
+                AudioManager.Instance?.PlayMaxBetReached();
+            }
         }
 
         private void HandleBetDecreaseClicked()
         {
             if (currentState != GameState.Idle || availableBets == null || availableBets.Length == 0) return;
-            currentBetIndex--;
-            if (currentBetIndex < 0) currentBetIndex = availableBets.Length - 1;
-            currentBetAmount = availableBets[currentBetIndex];
-            UpdateHUD(false);
+            if (currentBetIndex > 0)
+            {
+                currentBetIndex--;
+                currentBetAmount = availableBets[currentBetIndex];
+                AudioManager.Instance?.PlayBetPlusMinus();
+                UpdateHUD(false);
+            }
         }
 
         private void HandleBetMaxClicked()
@@ -231,6 +269,7 @@ namespace SweetBonanza.Controller
             if (currentState != GameState.Idle || availableBets == null || availableBets.Length == 0) return;
             currentBetIndex = availableBets.Length - 1;
             currentBetAmount = availableBets[currentBetIndex];
+            AudioManager.Instance?.PlayMaxBetReached();
             UpdateHUD(false);
         }
 
@@ -260,6 +299,7 @@ namespace SweetBonanza.Controller
         {
             if (currentState != GameState.Idle) return;
             isAnteBetActive = !isAnteBetActive;
+            AudioManager.Instance?.PlayButton();
             if (mainView != null) mainView.SetAnteBetState(isAnteBetActive);
             UpdateHUD(false);
         }
@@ -336,7 +376,9 @@ namespace SweetBonanza.Controller
         private IEnumerator PlayRoundSequence(RoundResult result)
         {
             currentState = GameState.DroppingInitial;
+            AudioManager.Instance?.StopTensionBuilder();
             if (gridView != null) yield return gridView.PlayInitialDropSequence(result.InitialMatrix);
+            AudioManager.Instance?.StopReelSpinLoop();
 
             if (result.ScatterCount >= 4)
             {
@@ -377,11 +419,19 @@ namespace SweetBonanza.Controller
                     yield return new WaitForSeconds(2.5f);
                 }
             }
+            else if (result.FinalWinAmount >= CurrentBetAmount * 5)
+            {
+                SetStatusMessage($"⭐ NICE WIN: ${result.FinalWinAmount:F2} ⭐");
+                AudioManager.Instance?.PlayResultPopupOpen();
+            }
 
             if (result.TriggeredFreeSpins && !isInFreeSpins)
             {
                 isInFreeSpins = true;
                 remainingFreeSpins = result.RemainingFreeSpins;
+
+                AudioManager.Instance?.PlayScatterCelebration();
+                AudioManager.Instance?.PlayFeatureBg();
 
                 if (gridView != null)
                 {
@@ -399,6 +449,7 @@ namespace SweetBonanza.Controller
                 if (remainingFreeSpins <= 0)
                 {
                     isInFreeSpins = false;
+                    AudioManager.Instance?.StopFeatureBg();
                     if (uiManager != null) uiManager.ShowFreeSpinsOutro(result.FinalWinAmount);
                     yield return new WaitForSeconds(2.0f);
                 }
@@ -432,6 +483,7 @@ namespace SweetBonanza.Controller
         private void HandleScatterAnticipation(int targetColumn)
         {
             SetStatusMessage("🍭 3 SCATTERS! LOOKING FOR 4TH... 🍭");
+            AudioManager.Instance?.PlayTensionBuilder();
         }
 
         private void SetStatusMessage(string message)
@@ -445,6 +497,12 @@ namespace SweetBonanza.Controller
             currentState = GameState.Idle;
             UpdateHUD(false);
             SetStatusMessage(error);
+        }
+
+        private void HandleBalanceSync(double newBalance)
+        {
+            currentBalance = newBalance;
+            UpdateHUD(false);
         }
 
         #region System Settings Handlers
@@ -477,6 +535,11 @@ namespace SweetBonanza.Controller
 
         private void OnDestroy()
         {
+            if (SocketIOManager.Instance != null)
+            {
+                SocketIOManager.Instance.OnBalanceSyncReceived -= HandleBalanceSync;
+            }
+
             if (backendService != null)
             {
                 backendService.OnInitDataReceived -= HandleInitDataReceived;

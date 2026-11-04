@@ -22,6 +22,7 @@ namespace SweetBonanza.View
     public class UIManager : MonoBehaviour
     {
         internal event Action OnSpinClicked;
+        internal event Action OnStopClicked;
         internal event Action OnBetIncreaseClicked;
         internal event Action OnBetDecreaseClicked;
         internal event Action OnBetMaxClicked;
@@ -282,6 +283,8 @@ namespace SweetBonanza.View
             if (mainView != null)
             {
                 mainView.OnSpinClicked += () => OnSpinClicked?.Invoke();
+                mainView.OnStopClicked += () => OnStopClicked?.Invoke();
+                mainView.OnAutoplayStopClicked += () => OnAutoplayStopped?.Invoke();
                 mainView.OnBetIncreaseClicked += HandleBottomBarBetPlus;
                 mainView.OnBetDecreaseClicked += HandleBottomBarBetMinus;
                 mainView.OnAnteBetToggled += () => OnAnteBetToggled?.Invoke();
@@ -397,6 +400,7 @@ namespace SweetBonanza.View
             {
                 var sunburst = winCelebrationPanel.transform.Find("EffectSunburst");
                 if (sunburst != null) sunburst.DOKill();
+                AudioManager.Instance?.StopWinTypePopupOpen();
             }
             panel.SetActive(false);
             if (currentOpenPanel == panel) currentOpenPanel = null;
@@ -405,6 +409,7 @@ namespace SweetBonanza.View
         private void CloseAllModalsImmediate()
         {
             currentOpenPanel = null;
+            AudioManager.Instance?.StopWinTypePopupOpen();
             GameObject[] modals = { gameRulesPanel, systemSettingsPanel, soundSettingsPanel, buyFeatureConfirmPanel, betAdjustmentPanel, autoplayPanel, freeSpinsIntroPanel, freeSpinsOutroPanel, winCelebrationPanel };
             for (int i = 0; i < modals.Length; i++)
             {
@@ -630,7 +635,19 @@ namespace SweetBonanza.View
         private void UpdateAutoplaySpinsText(int index)
         {
             int idx = Mathf.Clamp(index, 0, autoplaySpinOptions.Length - 1);
-            if (autoplaySpinsCountText != null) autoplaySpinsCountText.text = autoplaySpinOptions[idx].ToString();
+            int count = autoplaySpinOptions[idx];
+            if (autoplaySpinsCountText != null) autoplaySpinsCountText.text = count.ToString();
+
+            if (buttonStartAutoplay != null)
+            {
+                var txt = buttonStartAutoplay.GetComponentInChildren<UnityEngine.UI.Text>();
+                if (txt != null) txt.text = $"START AUTOPLAY ({count})";
+                else
+                {
+                    var tmp = buttonStartAutoplay.GetComponentInChildren<TMP_Text>();
+                    if (tmp != null) tmp.text = $"START AUTOPLAY ({count})";
+                }
+            }
         }
 
         internal void SetAutoplayState(bool isAutoplay, int remainingSpins = 0)
@@ -682,6 +699,7 @@ namespace SweetBonanza.View
                 }
             }
             if (winCelebrationParticles != null) winCelebrationParticles.Play();
+            AudioManager.Instance?.PlayWinTypePopupOpen();
             if (winCelebrationTweener != null && winCelebrationTweener.IsActive()) winCelebrationTweener.Kill();
 
             float startWin = 0;
@@ -725,9 +743,26 @@ namespace SweetBonanza.View
 
         #endregion
 
+        private void OnDisable()
+        {
+            StopAllCoroutines();
+            if (winCelebrationTweener != null && winCelebrationTweener.IsActive()) winCelebrationTweener.Kill();
+            if (winCelebrationPanel != null)
+            {
+                var sunburst = winCelebrationPanel.transform.Find("EffectSunburst");
+                if (sunburst != null) sunburst.DOKill();
+            }
+        }
+
         private void OnDestroy()
         {
+            StopAllCoroutines();
             if (winCelebrationTweener != null && winCelebrationTweener.IsActive()) winCelebrationTweener.Kill();
+            if (winCelebrationPanel != null)
+            {
+                var sunburst = winCelebrationPanel.transform.Find("EffectSunburst");
+                if (sunburst != null) sunburst.DOKill();
+            }
         }
     }
 }

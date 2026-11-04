@@ -76,25 +76,25 @@ public class PopupManager : MonoBehaviour
         if (disconnectionOkButton != null)
         {
             disconnectionOkButton.onClick.RemoveAllListeners();
-            disconnectionOkButton.onClick.AddListener(OnDisconnectionOkClicked);
+            disconnectionOkButton.onClick.AddListener(() => { AudioManager.Instance?.PlayButton(); OnDisconnectionOkClicked(); });
         }
 
         if (errorOkButton != null)
         {
             errorOkButton.onClick.RemoveAllListeners();
-            errorOkButton.onClick.AddListener(OnErrorOkClicked);
+            errorOkButton.onClick.AddListener(() => { AudioManager.Instance?.PlayButton(); OnErrorOkClicked(); });
         }
 
         if (exitGameYesButton != null)
         {
             exitGameYesButton.onClick.RemoveAllListeners();
-            exitGameYesButton.onClick.AddListener(OnExitGameYesClicked);
+            exitGameYesButton.onClick.AddListener(() => { AudioManager.Instance?.PlayButton(); OnExitGameYesClicked(); });
         }
 
         if (exitGameNoButton != null)
         {
             exitGameNoButton.onClick.RemoveAllListeners();
-            exitGameNoButton.onClick.AddListener(OnExitGameNoClicked);
+            exitGameNoButton.onClick.AddListener(() => { AudioManager.Instance?.PlayButton(); OnExitGameNoClicked(); });
         }
     }
 
@@ -408,12 +408,14 @@ public class PopupManager : MonoBehaviour
     {
         if (popupRect == null) return;
 
+        AudioManager.Instance?.PlayPopupOpen();
         popupRect.localScale = Vector3.zero;
         popupRect.DOScale(1f, popupScaleInDuration).SetEase(Ease.OutBack);
     }
 
     private void AnimatePopupClose(RectTransform popupRect, System.Action onComplete)
     {
+        AudioManager.Instance?.PlayPopupClose();
         if (popupRect == null)
         {
             onComplete?.Invoke();

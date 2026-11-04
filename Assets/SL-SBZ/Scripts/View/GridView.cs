@@ -56,6 +56,7 @@ namespace SweetBonanza.View
         [SerializeField] private Sprite[] glassEffectFrames;
 
         private bool isQuickSpinMode = false;
+        private bool isSlamStopRequested = false;
         private CellView[,] activeCells = new CellView[GameConfig.COLUMNS, GameConfig.ROWS];
         private readonly List<CellView> cellPool = new List<CellView>();
         private Dictionary<SymbolType, Sprite> spriteLookup;
@@ -79,6 +80,37 @@ namespace SweetBonanza.View
                 winPulseDuration = 0.95f;
                 explodeDuration = 0.28f;
                 tumbleFallDuration = 0.44f;
+            }
+        }
+
+        internal void RequestSlamStop()
+        {
+            if (isSlamStopRequested) return;
+            isSlamStopRequested = true;
+
+            if (activeCells != null)
+            {
+                for (int c = 0; c < GameConfig.COLUMNS; c++)
+                {
+                    for (int r = 0; r < GameConfig.ROWS; r++)
+                    {
+                        if (activeCells[c, r] != null)
+                        {
+                            activeCells[c, r].CompleteAnimation();
+                        }
+                    }
+                }
+            }
+
+            if (cellPool != null)
+            {
+                foreach (var cell in cellPool)
+                {
+                    if (cell != null && cell.gameObject.activeSelf)
+                    {
+                        cell.CompleteAnimation();
+                    }
+                }
             }
         }
 
@@ -224,6 +256,7 @@ namespace SweetBonanza.View
 
         internal IEnumerator PlayInitialDropSequence(int[,] matrix)
         {
+            isSlamStopRequested = false;
             // 1. Gather active cells by column so exit and entrance can cascade synchronously
             var oldCellsByCol = new List<CellView>[GameConfig.COLUMNS];
             int totalOldCells = 0;
@@ -330,9 +363,25 @@ namespace SweetBonanza.View
                 }
             }
 
-            while (completedDrops < totalDrops) yield return null;
+            while (completedDrops < totalDrops)
+            {
+                if (isSlamStopRequested)
+                {
+                    for (int c = 0; c < GameConfig.COLUMNS; c++)
+                    {
+                        for (int r = 0; r < GameConfig.ROWS; r++)
+                        {
+                            if (activeCells[c, r] != null)
+                            {
+                                activeCells[c, r].CompleteAnimation();
+                            }
+                        }
+                    }
+                }
+                yield return null;
+            }
             AudioManager.Instance?.PlayReelStop();
-            yield return new WaitForSeconds(0.12f);
+            yield return new WaitForSeconds(isSlamStopRequested ? 0.04f : 0.12f);
         }
 
         internal IEnumerator PlayTumbleStepSequence(TumbleStep step)
@@ -377,7 +426,7 @@ namespace SweetBonanza.View
                 }
             }
 
-            yield return new WaitForSeconds(winPulseDuration);
+            yield return new WaitForSeconds(isSlamStopRequested ? 0.08f : winPulseDuration);
 
             // 2. Explode and pop with glass / candy burst effect
             foreach (var pos in step.ExplodedPositions)
@@ -389,7 +438,7 @@ namespace SweetBonanza.View
                     activeCells[pos.Column, pos.Row] = null;
                 }
             }
-            yield return new WaitForSeconds(explodeDuration);
+            yield return new WaitForSeconds(isSlamStopRequested ? 0.05f : explodeDuration);
 
             // 3. Gravity drop for surviving symbols
             var newGrid = new CellView[GameConfig.COLUMNS, GameConfig.ROWS];
@@ -439,9 +488,25 @@ namespace SweetBonanza.View
             }
 
             activeCells = newGrid;
-            while (fallingCount < totalFalling || spawnCount < totalSpawns) yield return null;
+            while (fallingCount < totalFalling || spawnCount < totalSpawns)
+            {
+                if (isSlamStopRequested)
+                {
+                    for (int c = 0; c < GameConfig.COLUMNS; c++)
+                    {
+                        for (int r = 0; r < GameConfig.ROWS; r++)
+                        {
+                            if (activeCells[c, r] != null)
+                            {
+                                activeCells[c, r].CompleteAnimation();
+                            }
+                        }
+                    }
+                }
+                yield return null;
+            }
             AudioManager.Instance?.PlayReelStop();
-            yield return new WaitForSeconds(0.22f);
+            yield return new WaitForSeconds(isSlamStopRequested ? 0.04f : 0.22f);
         }
 
         internal IEnumerator PlayMultiplierBombRevealSequence(List<BombMultiplierInfo> bombs)

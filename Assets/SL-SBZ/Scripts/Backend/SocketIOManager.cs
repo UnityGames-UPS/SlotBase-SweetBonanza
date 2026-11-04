@@ -1,25 +1,23 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Best.SocketIO;
 using Best.SocketIO.Events;
 using Newtonsoft.Json;
-using UnityEngine.UI;
 
 public class SocketIOManager : MonoBehaviour
 {
+    public static SocketIOManager Instance { get; private set; }
+
     [Header("Network Configuration")]
-    [SerializeField] private string testToken = "test-token";
-    protected string testSocketURL = "https://devrealtime.dingdinghouse.com/";
-    protected string nameSpace = "playground";
+    [SerializeField] private string testToken = "e0b9273284d34388bcefa1356074617b";
+    [SerializeField] protected string testSocketURL = "https://devrealtime.dingdinghouse.com/";
+    [SerializeField] protected string nameSpace = "playground";
 
     [Header("References")]
     [SerializeField] internal JSFunctCalls JSManager;
     [SerializeField] private PopupManager popupManager;
-    [SerializeField] private GameObject RaycastBlocker;
-    [SerializeField] private List<Button> buttons;
-    private Coroutine initTimeoutRoutine;
 
     [Header("Debug Settings")]
     [SerializeField] private bool enablePingDebug = false;
@@ -28,7 +26,6 @@ public class SocketIOManager : MonoBehaviour
     internal event Action<string> OnInitDataReceived;
     internal event Action<string> OnSpinResultReceived;
     internal event Action<double> OnBalanceSyncReceived;
-    internal event Action<JackpotSyncData> OnJackpotSyncReceived;
     internal event Action<int> OnPingLatencyUpdated;
     internal event Action OnSocketConnectedEvent;
     internal event Action OnSocketDisconnectedEvent;
@@ -46,40 +43,27 @@ public class SocketIOManager : MonoBehaviour
     internal bool isExiting;
     private bool isDestroyed;
     private bool socketSetupStarted;
-    private bool JackpotOpen;
-
-    private bool hasFocus = true;
-    private float focusLostTime = 0f;
-    private Coroutine focusCheckRoutine;
-    private float maxBackgroundTime = 60f;
 
     private Coroutine pingCoroutine;
     private float pingSendTime;
-    private bool waitingForPong;
-    private int missedPongs;
-    private const int MAX_MISSED_PONGS = 5;
-    private const float PING_INTERVAL = 2f;
-    private const float PONG_TIMEOUT = 5f;
+    private const float PING_INTERVAL = 5f;
 
     #region Initialization
 
     private void Awake()
     {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        Instance = this;
+
         isInitialized = false;
         isConnected = false;
         isExiting = false;
         isDestroyed = false;
         socketSetupStarted = false;
-
-        for (int i = 0; i < buttons.Count; i++)
-        {
-            if (buttons[i] != null)
-            {
-                buttons[i].onClick.RemoveAllListeners();
-                string buttonName = buttons[i].name;
-                buttons[i].onClick.AddListener(() => SendJackpotOpen(buttonName));
-            }
-        }
     }
 
     private void Start()
@@ -95,7 +79,6 @@ public class SocketIOManager : MonoBehaviour
             JSManager.RegisterVisibilityListener(gameObject.name);
             JSManager.SendCustomMessage("authToken");
         }
-        StartCoroutine(FallbackAuthRoutine());
 #else
         authToken = testToken;
         socketURL = testSocketURL;
@@ -103,39 +86,14 @@ public class SocketIOManager : MonoBehaviour
 #endif
     }
 
-    private IEnumerator FallbackAuthRoutine()
-    {
-        yield return new WaitForSeconds(3.0f);
-        if (!socketSetupStarted)
-        {
-            Debug.LogWarning("[SocketIO] No external auth token received within 3s. Falling back to testToken for standalone WebGL.");
-            authToken = testToken;
-            socketURL = testSocketURL;
-            InitializeSocket();
-        }
-    }
-
-    private IEnumerator InitTimeoutCheck()
-    {
-        yield return new WaitForSeconds(15.0f);
-        if (!isInitialized && !isDestroyed && !isExiting)
-        {
-            Debug.LogWarning("[SocketIO] Connection/Init timed out after 15s");
-            if (RaycastBlocker != null) RaycastBlocker.SetActive(false);
-            if (popupManager != null)
-            {
-                popupManager.ShowErrorPopup("Connection Error", "Failed to connect to game server. Please check your network connection.", true);
-            }
-            OnSocketErrorEvent?.Invoke("Connection timed out");
-        }
-    }
-
-    private void ReceiveAuthToken(string jsonData)
+    public void ReceiveAuthToken(string jsonData)
     {
         Debug.Log("[SocketIO] Auth received");
 
         try
         {
+            if (string.IsNullOrEmpty(jsonData)) return;
+
             var authData = JsonUtility.FromJson<AuthTokenData>(jsonData);
             string incomingToken = authData.cookie;
             string incomingSocketURL = authData.socketURL;
@@ -147,7 +105,7 @@ public class SocketIOManager : MonoBehaviour
                 return;
             }
 
-            Debug.Log("[SocketIO] New or updated auth token received. Cleaning up old socket and re-initializing.");
+            Debug.Log("[SocketIO] Connecting with received auth credentials.");
             authToken = incomingToken;
             socketURL = incomingSocketURL;
             nameSpace = incomingNameSpace;
@@ -175,37 +133,50 @@ public class SocketIOManager : MonoBehaviour
         isConnected = false;
         isExiting = false;
 
-        if (RaycastBlocker != null) RaycastBlocker.SetActive(true);
-
-        if (initTimeoutRoutine != null)
-        {
-            StopCoroutine(initTimeoutRoutine);
-        }
-        initTimeoutRoutine = StartCoroutine(InitTimeoutCheck());
-
         SocketOptions options = new SocketOptions
         {
             AutoConnect = false,
             Reconnection = false,
-            Timeout = TimeSpan.FromSeconds(3),
+            Timeout = TimeSpan.FromSeconds(10),
             ConnectWith = Best.SocketIO.Transports.TransportTypes.WebSocket
         };
 
         options.Auth = (SocketManager manager, Socket socket) => new { token = authToken };
 
 #if UNITY_EDITOR
+        try
+        {
+            Uri uri = new Uri(testSocketURL);
+            var hostSettings = Best.HTTP.Shared.HTTPManager.PerHostSettings.Get(uri.Host);
+            hostSettings.TLSSettings.TLSHandler = Best.HTTP.Hosts.Settings.TLSHandlers.Framework;
+        }
+        catch (Exception ex)
+        {
+            Debug.LogWarning($"[SocketIO] Could not configure Framework TLS: {ex.Message}");
+        }
         socketManager = new SocketManager(new Uri(testSocketURL), options);
 #else
         socketManager = new SocketManager(new Uri(socketURL), options);
 #endif
 
-        gameSocket = string.IsNullOrEmpty(nameSpace)
+        string ns = nameSpace;
+        if (!string.IsNullOrEmpty(ns) && !ns.StartsWith("/"))
+        {
+            ns = "/" + ns;
+        }
+
+        gameSocket = string.IsNullOrEmpty(ns)
             ? socketManager.Socket
-            : socketManager.GetSocket("/" + nameSpace);
+            : socketManager.GetSocket(ns);
 
         gameSocket.On<ConnectResponse>(SocketIOEventTypes.Connect, OnSocketConnected);
         gameSocket.On(SocketIOEventTypes.Disconnect, OnSocketDisconnected);
         gameSocket.On<Error>(SocketIOEventTypes.Error, OnSocketError);
+
+        if (socketManager.Socket != gameSocket)
+        {
+            socketManager.Socket.On<Error>(SocketIOEventTypes.Error, OnSocketError);
+        }
 
         gameSocket.On<string>("game:init", OnInitReceived);
         gameSocket.On<string>("result", OnResultReceived);
@@ -213,7 +184,6 @@ public class SocketIOManager : MonoBehaviour
         gameSocket.On("pong", OnPongReceivedNoArgs);
         gameSocket.On<string>("AnotherDevice", OnAnotherDevice);
         gameSocket.On<string>("balance:sync", OnBalanceSyncReceivedInternal);
-        gameSocket.On<string>("jackpot:sync", OnJackpotSyncReceivedInternal);
 
         socketManager.Open();
     }
@@ -224,11 +194,9 @@ public class SocketIOManager : MonoBehaviour
 
     private void OnSocketConnected(ConnectResponse resp)
     {
-        Debug.Log("[SocketIO] Connected");
+        Debug.Log("[SocketIO] Connected successfully");
 
         isConnected = true;
-        waitingForPong = false;
-        missedPongs = 0;
         pingSendTime = Time.realtimeSinceStartup;
 
         if (popupManager != null)
@@ -273,14 +241,9 @@ public class SocketIOManager : MonoBehaviour
     {
         Debug.LogError($"[SocketIO] Error: {err.message}");
 
-        if (!isInitialized && RaycastBlocker != null)
-        {
-            RaycastBlocker.SetActive(false);
-        }
-
         if (!string.IsNullOrEmpty(err.message) && err.message.Contains("Session expired"))
         {
-            Debug.LogWarning("Session expired detected");
+            Debug.LogWarning("[SocketIO] Session expired detected");
             OnSocketDisconnected();
             if (popupManager != null)
             {
@@ -310,14 +273,6 @@ public class SocketIOManager : MonoBehaviour
         try
         {
             isInitialized = true;
-            if (initTimeoutRoutine != null)
-            {
-                StopCoroutine(initTimeoutRoutine);
-                initTimeoutRoutine = null;
-            }
-
-            if (RaycastBlocker != null) RaycastBlocker.SetActive(false);
-
             OnInitDataReceived?.Invoke(jsonData);
 
 #if UNITY_WEBGL && !UNITY_EDITOR
@@ -327,7 +282,6 @@ public class SocketIOManager : MonoBehaviour
         catch (Exception e)
         {
             Debug.LogError($"[SocketIO] Init parse failed: {e.Message}");
-            if (RaycastBlocker != null) RaycastBlocker.SetActive(false);
             if (popupManager != null)
             {
                 popupManager.ShowServerError("Failed to parse game initialization data.");
@@ -375,61 +329,13 @@ public class SocketIOManager : MonoBehaviour
         }
     }
 
-    private void OnJackpotSyncReceivedInternal(string jsonData)
-    {
-        Debug.Log($"[SocketIO] Jackpot Sync received: {jsonData}");
-
-        try
-        {
-            var syncData = JsonConvert.DeserializeObject<JackpotSyncData>(jsonData);
-            if (syncData != null)
-            {
-                OnJackpotSyncReceived?.Invoke(syncData);
-            }
-        }
-        catch (Exception e)
-        {
-            Debug.LogError($"[SocketIO] Jackpot Sync parse failed: {e.Message}");
-        }
-    }
-
     #endregion
 
-    #region Jackpot & Spin Requests
+    #region Spin Requests
 
-    private void SendJackpotOpen(string JackpotType)
+    internal void SendSpinRequest(int betIndex, double betAmount = 0, bool isAnteBet = false, bool isBonusBuy = false, bool isFreeSpin = false)
     {
-        if (JackpotOpen) return;
-
-        JackpotOpen = true;
-
-        var request = new JackpotOpenRequest
-        {
-            type = "JACKPOT_OPEN",
-            payload = new JackpotOpenPayload
-            {
-                tier = JackpotType
-            }
-        };
-
-        string json = JsonConvert.SerializeObject(request);
-        Debug.Log($"[SocketIO] Jackpot Open request: {json}");
-        if (gameSocket != null)
-        {
-            gameSocket.Emit("request", json);
-        }
-
-        Invoke(nameof(ResetJackpotOpen), 1f);
-    }
-
-    private void ResetJackpotOpen()
-    {
-        JackpotOpen = false;
-    }
-
-    internal void SendSpinRequest(int betIndex)
-    {
-        Debug.Log($"[SocketIO] Spin request: betIndex={betIndex}");
+        Debug.Log($"[SocketIO] Spin request: betIndex={betIndex}, betAmount={betAmount}, isAnte={isAnteBet}, isBonusBuy={isBonusBuy}, isFreeSpin={isFreeSpin}");
 
         var request = new SpinRequest
         {
@@ -437,77 +343,22 @@ public class SocketIOManager : MonoBehaviour
             payload = new SpinPayload
             {
                 betIndex = betIndex,
-                isFreeSpin = false
+                betAmount = betAmount,
+                isFreeSpin = isFreeSpin,
+                isAnteBet = isAnteBet,
+                isBonusBuy = isBonusBuy
             }
         };
 
         string json = JsonUtility.ToJson(request);
-        if (gameSocket != null)
+        if (gameSocket != null && isConnected)
         {
             gameSocket.Emit("request", json);
         }
-    }
-
-    #endregion
-
-    #region Focus & Background Timeout
-
-    internal void SetRaycastBlocker(bool active)
-    {
-        if (RaycastBlocker != null) RaycastBlocker.SetActive(active);
-    }
-
-    internal void HandleFocusChange(bool focus)
-    {
-        hasFocus = focus;
-
-        if (!focus)
-        {
-            focusLostTime = Time.time;
-            if (focusCheckRoutine == null && !isExiting && !isDestroyed)
-                focusCheckRoutine = StartCoroutine(FocusTimeoutCheck());
-        }
         else
         {
-            if (focusCheckRoutine != null)
-            {
-                StopCoroutine(focusCheckRoutine);
-                focusCheckRoutine = null;
-            }
+            Debug.LogWarning("[SocketIO] Cannot send spin request: Socket is not connected.");
         }
-    }
-
-    private IEnumerator FocusTimeoutCheck()
-    {
-        while (!hasFocus && !isExiting && !isDestroyed)
-        {
-            if (Time.time - focusLostTime >= maxBackgroundTime)
-            {
-                Debug.LogWarning("[SOCKET] Background timeout — closing connection");
-                isConnected = false;
-                StopPingRoutine();
-
-                if (socketManager != null)
-                {
-                    try { socketManager.Close(); }
-                    catch (Exception e) { Debug.LogWarning($"[SOCKET] Focus close error: {e.Message}"); }
-                }
-
-                if (popupManager != null)
-                {
-                    popupManager.ShowDisconnectionPopup("Session timed out due to inactivity.");
-                }
-
-                OnSocketDisconnectedEvent?.Invoke();
-
-                focusCheckRoutine = null;
-                yield break;
-            }
-
-            yield return new WaitForSecondsRealtime(1f);
-        }
-
-        focusCheckRoutine = null;
     }
 
     #endregion
@@ -536,24 +387,6 @@ public class SocketIOManager : MonoBehaviour
         while (isConnected)
         {
             yield return new WaitForSeconds(PING_INTERVAL);
-
-            if (waitingForPong && isInitialized)
-            {
-                missedPongs++;
-
-                if (missedPongs >= MAX_MISSED_PONGS)
-                {
-                    Debug.LogWarning("[SocketIO] Max pongs missed - disconnecting");
-                    OnSocketDisconnected();
-                    yield break;
-                }
-
-                if (missedPongs >= 2 && popupManager != null)
-                {
-                    popupManager.ShowReconnectionPopup(missedPongs, MAX_MISSED_PONGS);
-                }
-            }
-
             SendPing();
         }
     }
@@ -563,7 +396,6 @@ public class SocketIOManager : MonoBehaviour
         if (gameSocket != null && isConnected)
         {
             pingSendTime = Time.realtimeSinceStartup;
-            waitingForPong = true;
             gameSocket.Emit("ping");
 
             if (enablePingDebug)
@@ -580,8 +412,6 @@ public class SocketIOManager : MonoBehaviour
 
     private void OnPongReceived(string data)
     {
-        waitingForPong = false;
-
         if (pingSendTime > 0f)
         {
             float rtt = Time.realtimeSinceStartup - pingSendTime;
@@ -591,15 +421,6 @@ public class SocketIOManager : MonoBehaviour
             if (enablePingDebug)
             {
                 Debug.Log($"[SocketIO] Pong received | Latency: {pingMs} ms");
-            }
-        }
-
-        if (missedPongs > 0)
-        {
-            missedPongs = 0;
-            if (popupManager != null)
-            {
-                popupManager.CloseReconnectionPopup();
             }
         }
     }
@@ -614,24 +435,16 @@ public class SocketIOManager : MonoBehaviour
 
         isExiting = true;
 
-        if (RaycastBlocker != null) RaycastBlocker.SetActive(true);
-
         if (popupManager != null && !popupManager.IsLoadingPopupActive())
         {
             popupManager.ShowLoadingPopup(0f);
         }
 
-        if (initTimeoutRoutine != null)
-        {
-            StopCoroutine(initTimeoutRoutine);
-        }
-        initTimeoutRoutine = StartCoroutine(InitTimeoutCheck());
-
         StopPingRoutine();
 
         if (socketManager != null)
         {
-            socketManager.Close();
+            try { socketManager.Close(); } catch { }
             socketManager = null;
         }
 
@@ -660,10 +473,15 @@ public class SocketIOManager : MonoBehaviour
 
         if (socketManager != null)
         {
-            socketManager.Close();
+            try { socketManager.Close(); } catch { }
             socketManager = null;
         }
         isConnected = false;
+
+        if (Instance == this)
+        {
+            Instance = null;
+        }
     }
 
     #endregion
@@ -686,25 +504,6 @@ public class BalanceSyncData
 }
 
 [Serializable]
-public class JackpotSyncData
-{
-    public List<double> values;
-}
-
-[Serializable]
-public class JackpotOpenRequest
-{
-    public string type = "JACKPOT_OPEN";
-    public JackpotOpenPayload payload = new JackpotOpenPayload();
-}
-
-[Serializable]
-public class JackpotOpenPayload
-{
-    public string tier;
-}
-
-[Serializable]
 public class SpinRequest
 {
     public string type = "SPIN";
@@ -715,5 +514,8 @@ public class SpinRequest
 public class SpinPayload
 {
     public int betIndex;
+    public double betAmount;
     public bool isFreeSpin;
+    public bool isAnteBet;
+    public bool isBonusBuy;
 }

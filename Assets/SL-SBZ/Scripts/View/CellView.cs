@@ -357,6 +357,18 @@ namespace SweetBonanza.View
             if (burstEffectImage != null) burstEffectImage.enabled = false;
         }
 
+        internal void CompleteAnimation()
+        {
+            if (activeSequence != null && activeSequence.IsActive())
+            {
+                activeSequence.Complete(true);
+            }
+            if (activeTweener != null && activeTweener.IsActive())
+            {
+                activeTweener.Complete(true);
+            }
+        }
+
         private void KillActiveTweens()
         {
             if (activeAnimRoutine != null)

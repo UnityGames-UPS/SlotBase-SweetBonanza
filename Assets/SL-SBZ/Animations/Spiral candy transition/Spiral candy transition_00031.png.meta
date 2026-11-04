@@ -1,0 +1,3289 @@
+fileFormatVersion: 2
+guid: 9c8a1e1a76d89ec4a8bf77a60a2ca7d9
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 8839294997651241649
+    second: Spiral candy transition_00031_0
+  - first:
+      213: -6465002757330354526
+    second: Spiral candy transition_00031_1
+  - first:
+      213: -4608689387202149797
+    second: Spiral candy transition_00031_2
+  - first:
+      213: 4293810918441172102
+    second: Spiral candy transition_00031_3
+  - first:
+      213: -3971668151744531290
+    second: Spiral candy transition_00031_4
+  - first:
+      213: -8277281983077028779
+    second: Spiral candy transition_00031_5
+  - first:
+      213: -2331186075891017635
+    second: Spiral candy transition_00031_6
+  - first:
+      213: -7139557474676259160
+    second: Spiral candy transition_00031_7
+  - first:
+      213: -6472731551402363765
+    second: Spiral candy transition_00031_8
+  - first:
+      213: 3920648349784085813
+    second: Spiral candy transition_00031_9
+  - first:
+      213: 677031519046567046
+    second: Spiral candy transition_00031_10
+  - first:
+      213: 3020425490090312923
+    second: Spiral candy transition_00031_11
+  - first:
+      213: -3298747165147820391
+    second: Spiral candy transition_00031_12
+  - first:
+      213: -3875985516935144775
+    second: Spiral candy transition_00031_13
+  - first:
+      213: 2717811172638092777
+    second: Spiral candy transition_00031_14
+  - first:
+      213: -704369530109332032
+    second: Spiral candy transition_00031_15
+  - first:
+      213: 300008613344128052
+    second: Spiral candy transition_00031_16
+  - first:
+      213: 2814620809136893511
+    second: Spiral candy transition_00031_17
+  - first:
+      213: -8619478871307821898
+    second: Spiral candy transition_00031_18
+  - first:
+      213: -7535852103171770669
+    second: Spiral candy transition_00031_19
+  - first:
+      213: 6459584813070226873
+    second: Spiral candy transition_00031_20
+  - first:
+      213: 7189545270734699048
+    second: Spiral candy transition_00031_21
+  - first:
+      213: -3326859062518662199
+    second: Spiral candy transition_00031_22
+  - first:
+      213: -1583636535145330708
+    second: Spiral candy transition_00031_23
+  - first:
+      213: -3446214313186624296
+    second: Spiral candy transition_00031_24
+  - first:
+      213: 8712858828410235377
+    second: Spiral candy transition_00031_25
+  - first:
+      213: -7321096974334857042
+    second: Spiral candy transition_00031_26
+  - first:
+      213: 5815103360335641670
+    second: Spiral candy transition_00031_27
+  - first:
+      213: -6204583814394044028
+    second: Spiral candy transition_00031_28
+  - first:
+      213: 716122458282257269
+    second: Spiral candy transition_00031_29
+  - first:
+      213: -1341964131355546333
+    second: Spiral candy transition_00031_30
+  - first:
+      213: 8748275015111558760
+    second: Spiral candy transition_00031_31
+  - first:
+      213: -2514066469261617041
+    second: Spiral candy transition_00031_32
+  - first:
+      213: -8179659439414694488
+    second: Spiral candy transition_00031_33
+  - first:
+      213: 2132914251000505227
+    second: Spiral candy transition_00031_34
+  - first:
+      213: 8644652471418963260
+    second: Spiral candy transition_00031_35
+  - first:
+      213: -7546578633984642016
+    second: Spiral candy transition_00031_36
+  - first:
+      213: -4753476276641537970
+    second: Spiral candy transition_00031_37
+  - first:
+      213: -1317667921147167390
+    second: Spiral candy transition_00031_38
+  - first:
+      213: -8354018249928790100
+    second: Spiral candy transition_00031_39
+  - first:
+      213: -5194196723422969052
+    second: Spiral candy transition_00031_40
+  - first:
+      213: 7664427314006840246
+    second: Spiral candy transition_00031_41
+  - first:
+      213: -8541397838980133938
+    second: Spiral candy transition_00031_42
+  - first:
+      213: 8162576235646896316
+    second: Spiral candy transition_00031_43
+  - first:
+      213: 1590216556736272877
+    second: Spiral candy transition_00031_44
+  - first:
+      213: -5590495642099921627
+    second: Spiral candy transition_00031_45
+  - first:
+      213: 8242579184992247519
+    second: Spiral candy transition_00031_46
+  - first:
+      213: -6765505655188500754
+    second: Spiral candy transition_00031_47
+  - first:
+      213: 5258895012669350363
+    second: Spiral candy transition_00031_48
+  - first:
+      213: 1484791777785693835
+    second: Spiral candy transition_00031_49
+  - first:
+      213: -4798745896680627983
+    second: Spiral candy transition_00031_50
+  - first:
+      213: 571183780385064113
+    second: Spiral candy transition_00031_51
+  - first:
+      213: 4731102605005256955
+    second: Spiral candy transition_00031_52
+  - first:
+      213: -5948761730230455534
+    second: Spiral candy transition_00031_53
+  - first:
+      213: -9155524990472230534
+    second: Spiral candy transition_00031_54
+  - first:
+      213: 4567781051351269243
+    second: Spiral candy transition_00031_55
+  - first:
+      213: -4480151896833299400
+    second: Spiral candy transition_00031_56
+  - first:
+      213: 8676807971619899653
+    second: Spiral candy transition_00031_57
+  - first:
+      213: 573512733536269095
+    second: Spiral candy transition_00031_58
+  - first:
+      213: 1323275315115601146
+    second: Spiral candy transition_00031_59
+  - first:
+      213: -6615957774936203256
+    second: Spiral candy transition_00031_60
+  - first:
+      213: -1374278504689303300
+    second: Spiral candy transition_00031_61
+  - first:
+      213: 1573960872248851600
+    second: Spiral candy transition_00031_62
+  - first:
+      213: -2446817440560680142
+    second: Spiral candy transition_00031_63
+  - first:
+      213: 7001877791187915312
+    second: Spiral candy transition_00031_64
+  - first:
+      213: -9054779506423160526
+    second: Spiral candy transition_00031_65
+  - first:
+      213: -7855137960136159282
+    second: Spiral candy transition_00031_66
+  - first:
+      213: -6902599223191011081
+    second: Spiral candy transition_00031_67
+  - first:
+      213: 3030574776724694480
+    second: Spiral candy transition_00031_68
+  - first:
+      213: 5542994235922742738
+    second: Spiral candy transition_00031_69
+  - first:
+      213: -3146467478430204721
+    second: Spiral candy transition_00031_70
+  - first:
+      213: 3303548581963214649
+    second: Spiral candy transition_00031_71
+  - first:
+      213: 5636124116002659544
+    second: Spiral candy transition_00031_72
+  - first:
+      213: 2974738872898336574
+    second: Spiral candy transition_00031_73
+  - first:
+      213: -4134217080010745509
+    second: Spiral candy transition_00031_74
+  - first:
+      213: -8374132373112230197
+    second: Spiral candy transition_00031_75
+  - first:
+      213: 5938449535447814658
+    second: Spiral candy transition_00031_76
+  - first:
+      213: 1228584708566694450
+    second: Spiral candy transition_00031_77
+  - first:
+      213: 4402951669735129488
+    second: Spiral candy transition_00031_78
+  - first:
+      213: 4016452996073393365
+    second: Spiral candy transition_00031_79
+  - first:
+      213: 5542859517505776325
+    second: Spiral candy transition_00031_80
+  - first:
+      213: -3023348003199347972
+    second: Spiral candy transition_00031_81
+  - first:
+      213: -8800956147577249660
+    second: Spiral candy transition_00031_82
+  - first:
+      213: 4933659002921712923
+    second: Spiral candy transition_00031_83
+  - first:
+      213: 4362522096919899154
+    second: Spiral candy transition_00031_84
+  - first:
+      213: -5569419820742585684
+    second: Spiral candy transition_00031_85
+  - first:
+      213: -371778875833217104
+    second: Spiral candy transition_00031_86
+  - first:
+      213: -8047855053667667383
+    second: Spiral candy transition_00031_87
+  - first:
+      213: 6671306065191020551
+    second: Spiral candy transition_00031_88
+  - first:
+      213: 7879577611961810205
+    second: Spiral candy transition_00031_89
+  - first:
+      213: 9195226308772391985
+    second: Spiral candy transition_00031_90
+  - first:
+      213: -7089318538171004413
+    second: Spiral candy transition_00031_91
+  - first:
+      213: -4395567512526697094
+    second: Spiral candy transition_00031_92
+  - first:
+      213: -6448692467788508041
+    second: Spiral candy transition_00031_93
+  - first:
+      213: -2701154887068586789
+    second: Spiral candy transition_00031_94
+  - first:
+      213: -3044045130699567932
+    second: Spiral candy transition_00031_95
+  - first:
+      213: 749255971072099762
+    second: Spiral candy transition_00031_96
+  - first:
+      213: -8808802455856365078
+    second: Spiral candy transition_00031_97
+  - first:
+      213: 5682383933393658283
+    second: Spiral candy transition_00031_98
+  - first:
+      213: 5426360805612153106
+    second: Spiral candy transition_00031_99
+  - first:
+      213: -827928719966091350
+    second: Spiral candy transition_00031_100
+  - first:
+      213: -2906878076647982251
+    second: Spiral candy transition_00031_101
+  - first:
+      213: -1035892492405459572
+    second: Spiral candy transition_00031_102
+  - first:
+      213: 2507865606968655326
+    second: Spiral candy transition_00031_103
+  - first:
+      213: -6118562641343704146
+    second: Spiral candy transition_00031_104
+  - first:
+      213: 8427072796259593387
+    second: Spiral candy transition_00031_105
+  - first:
+      213: -8973139753913597634
+    second: Spiral candy transition_00031_106
+  - first:
+      213: 5626509209632343185
+    second: Spiral candy transition_00031_107
+  - first:
+      213: -819915500924406236
+    second: Spiral candy transition_00031_108
+  - first:
+      213: 1148704867068830234
+    second: Spiral candy transition_00031_109
+  - first:
+      213: 7318753190731231796
+    second: Spiral candy transition_00031_110
+  - first:
+      213: 9215929798956197029
+    second: Spiral candy transition_00031_111
+  - first:
+      213: -7264424717421708282
+    second: Spiral candy transition_00031_112
+  - first:
+      213: -9181390578164078154
+    second: Spiral candy transition_00031_113
+  - first:
+      213: 6009956254451526852
+    second: Spiral candy transition_00031_114
+  - first:
+      213: -4751372672669125521
+    second: Spiral candy transition_00031_115
+  - first:
+      213: 8311359110883000569
+    second: Spiral candy transition_00031_116
+  - first:
+      213: 3988446630723862533
+    second: Spiral candy transition_00031_117
+  - first:
+      213: 7767463806374182531
+    second: Spiral candy transition_00031_118
+  - first:
+      213: -5612799859020222390
+    second: Spiral candy transition_00031_119
+  - first:
+      213: 8479542882821360570
+    second: Spiral candy transition_00031_120
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Spiral candy transition_00031_0
+      rect:
+        serializedVersion: 2
+        x: 127
+        y: 1042
+        width: 63
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1bab3efb7fb7baa70800000000000000
+      internalID: 8839294997651241649
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spiral candy transition_00031_1
+      rect:
+        serializedVersion: 2
+        x: 202
+        y: 1040
+        width: 45
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2ae3769ce32b746a0800000000000000
+      internalID: -6465002757330354526
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spiral candy transition_00031_2
+      rect:
+        serializedVersion: 2
+        x: 353
+        y: 1036
+        width: 23
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b5204b39b65aa00c0800000000000000
+      internalID: -4608689387202149797
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spiral candy transition_00031_3
+      rect:
+        serializedVersion: 2
+        x: 381
+        y: 998
+        width: 141
+        height: 82
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 68c316ed74ea69b30800000000000000
+      internalID: 4293810918441172102
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spiral candy transition_00031_4
+      rect:
+        serializedVersion: 2
+        x: 510
+        y: 951
+        width: 151
+        height: 129
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6a4f889dbdcc1e8c0800000000000000
+      internalID: -3971668151744531290
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spiral candy transition_00031_5
+      rect:
+        serializedVersion: 2
+        x: 670
+        y: 1050
+        width: 35
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 55ce3fc24ef212d80800000000000000
+      internalID: -8277281983077028779
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spiral candy transition_00031_6
+      rect:
+        serializedVersion: 2
+        x: 820
+        y: 940
+        width: 170
+        height: 131
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d58dd297d96f5afd0800000000000000
+      internalID: -2331186075891017635
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spiral candy transition_00031_7
+      rect:
+        serializedVersion: 2
+        x: 1060
+        y: 1011
+        width: 122
+        height: 69
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8a6cf64cd423bec90800000000000000
+      internalID: -7139557474676259160
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spiral candy transition_00031_8
+      rect:
+        serializedVersion: 2
+        x: 1221
+        y: 1049
+        width: 24
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b84f230b2fc3c26a0800000000000000
+      internalID: -6472731551402363765
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spiral candy transition_00031_9
+      rect:
+        serializedVersion: 2
+        x: 1541
+        y: 1019
+        width: 39
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5351a12d6e0f86630800000000000000
+      internalID: 3920648349784085813
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spiral candy transition_00031_10
+      rect:
+        serializedVersion: 2
+        x: 1642
+        y: 1045
+        width: 22
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 684838a549c456900800000000000000
+      internalID: 677031519046567046
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spiral candy transition_00031_11
+      rect:
+        serializedVersion: 2
+        x: 1735
+        y: 1040
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bd44e57faf4bae920800000000000000
+      internalID: 3020425490090312923
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spiral candy transition_00031_12
+      rect:
+        serializedVersion: 2
+        x: 30
+        y: 954
+        width: 50
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 99e89894eee7832d0800000000000000
+      internalID: -3298747165147820391
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spiral candy transition_00031_13
+      rect:
+        serializedVersion: 2
+        x: 239
+        y: 982
+        width: 24
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9ba958c45bbb53ac0800000000000000
+      internalID: -3875985516935144775
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spiral candy transition_00031_14
+      rect:
+        serializedVersion: 2
+        x: 1139
+        y: 887
+        width: 122
+        height: 131
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9ed6ea7acda97b520800000000000000
+      internalID: 2717811172638092777
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spiral candy transition_00031_15
+      rect:
+        serializedVersion: 2
+        x: 1315
+        y: 974
+        width: 32
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0c5793fe4a39936f0800000000000000
+      internalID: -704369530109332032
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spiral candy transition_00031_16
+      rect:
+        serializedVersion: 2
+        x: 1455
+        y: 970
+        width: 39
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 43c2feb8e38d92400800000000000000
+      internalID: 300008613344128052
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spiral candy transition_00031_17
+      rect:
+        serializedVersion: 2
+        x: 1647
+        y: 970
+        width: 25
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 74ee602a6ba8f0720800000000000000
+      internalID: 2814620809136893511
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spiral candy transition_00031_18
+      rect:
+        serializedVersion: 2
+        x: 1850
+        y: 954
+        width: 52
+        height: 53
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6bc56be62a5716880800000000000000
+      internalID: -8619478871307821898
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spiral candy transition_00031_19
+      rect:
+        serializedVersion: 2
+        x: 238
+        y: 906
+        width: 24
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3d6f09650764b6790800000000000000
+      internalID: -7535852103171770669
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spiral candy transition_00031_20
+      rect:
+        serializedVersion: 2
+        x: 279
+        y: 892
+        width: 104
+        height: 87
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9b51f83c92e05a950800000000000000
+      internalID: 6459584813070226873
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spiral candy transition_00031_21
+      rect:
+        serializedVersion: 2
+        x: 641
+        y: 885
+        width: 38
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 82a3bb6f45566c360800000000000000
+      internalID: 7189545270734699048
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spiral candy transition_00031_22
+      rect:
+        serializedVersion: 2
+        x: 739
+        y: 919
+        width: 40
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9cb39c02f4f94d1d0800000000000000
+      internalID: -3326859062518662199
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spiral candy transition_00031_23
+      rect:
+        serializedVersion: 2
+        x: 869
+        y: 911
+        width: 34
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ce7055536fac50ae0800000000000000
+      internalID: -1583636535145330708
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spiral candy transition_00031_24
+      rect:
+        serializedVersion: 2
+        x: 1009
+        y: 890
+        width: 34
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8dcf4aa47569c20d0800000000000000
+      internalID: -3446214313186624296
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spiral candy transition_00031_25
+      rect:
+        serializedVersion: 2
+        x: 1318
+        y: 847
+        width: 91
+        height: 99
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1f9a48511fa4ae870800000000000000
+      internalID: 8712858828410235377
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spiral candy transition_00031_26
+      rect:
+        serializedVersion: 2
+        x: 1681
+        y: 897
+        width: 31
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ea07596371d366a90800000000000000
+      internalID: -7321096974334857042
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spiral candy transition_00031_27
+      rect:
+        serializedVersion: 2
+        x: 111
+        y: 873
+        width: 23
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 64c7cfc42b563b050800000000000000
+      internalID: 5815103360335641670
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spiral candy transition_00031_28
+      rect:
+        serializedVersion: 2
+        x: 728
+        y: 890
+        width: 23
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 481a7e3e4e3e4e9a0800000000000000
+      internalID: -6204583814394044028
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spiral candy transition_00031_29
+      rect:
+        serializedVersion: 2
+        x: 1478
+        y: 876
+        width: 35
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 57be795e49d20f900800000000000000
+      internalID: 716122458282257269
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spiral candy transition_00031_30
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 778
+        width: 104
+        height: 110
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 32dac398bb2606de0800000000000000
+      internalID: -1341964131355546333
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spiral candy transition_00031_31
+      rect:
+        serializedVersion: 2
+        x: 474
+        y: 812
+        width: 50
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8664621a6cd186970800000000000000
+      internalID: 8748275015111558760
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spiral candy transition_00031_32
+      rect:
+        serializedVersion: 2
+        x: 1283
+        y: 850
+        width: 34
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f68d0f5cddd3c1dd0800000000000000
+      internalID: -2514066469261617041
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spiral candy transition_00031_33
+      rect:
+        serializedVersion: 2
+        x: 187
+        y: 800
+        width: 24
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8ad240ad3130c7e80800000000000000
+      internalID: -8179659439414694488
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spiral candy transition_00031_34
+      rect:
+        serializedVersion: 2
+        x: 943
+        y: 796
+        width: 23
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b83e04be532a99d10800000000000000
+      internalID: 2132914251000505227
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spiral candy transition_00031_35
+      rect:
+        serializedVersion: 2
+        x: 1809
+        y: 808
+        width: 34
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c3541a51f99f7f770800000000000000
+      internalID: 8644652471418963260
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spiral candy transition_00031_36
+      rect:
+        serializedVersion: 2
+        x: 584
+        y: 731
+        width: 41
+        height: 37
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 024fac347ba254790800000000000000
+      internalID: -7546578633984642016
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spiral candy transition_00031_37
+      rect:
+        serializedVersion: 2
+        x: 739
+        y: 706
+        width: 83
+        height: 73
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e40e88ae282480eb0800000000000000
+      internalID: -4753476276641537970
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spiral candy transition_00031_38
+      rect:
+        serializedVersion: 2
+        x: 1407
+        y: 746
+        width: 35
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 26d781cc104b6bde0800000000000000
+      internalID: -1317667921147167390
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spiral candy transition_00031_39
+      rect:
+        serializedVersion: 2
+        x: 1585
+        y: 741
+        width: 50
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: caf2dd5c9a0901c80800000000000000
+      internalID: -8354018249928790100
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spiral candy transition_00031_40
+      rect:
+        serializedVersion: 2
+        x: 374
+        y: 716
+        width: 23
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 42340ee99918ae7b0800000000000000
+      internalID: -5194196723422969052
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spiral candy transition_00031_41
+      rect:
+        serializedVersion: 2
+        x: 1057
+        y: 686
+        width: 35
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6b3dd22c8048d5a60800000000000000
+      internalID: 7664427314006840246
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spiral candy transition_00031_42
+      rect:
+        serializedVersion: 2
+        x: 1717
+        y: 676
+        width: 38
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ecbcc427bebd67980800000000000000
+      internalID: -8541397838980133938
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spiral candy transition_00031_43
+      rect:
+        serializedVersion: 2
+        x: 21
+        y: 655
+        width: 40
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cb847c1d6db474170800000000000000
+      internalID: 8162576235646896316
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spiral candy transition_00031_44
+      rect:
+        serializedVersion: 2
+        x: 152
+        y: 650
+        width: 34
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: de9d5347885911610800000000000000
+      internalID: 1590216556736272877
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spiral candy transition_00031_45
+      rect:
+        serializedVersion: 2
+        x: 259
+        y: 643
+        width: 39
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 52dc34e45d19a62b0800000000000000
+      internalID: -5590495642099921627
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spiral candy transition_00031_46
+      rect:
+        serializedVersion: 2
+        x: 460
+        y: 639
+        width: 35
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fdedd720916836270800000000000000
+      internalID: 8242579184992247519
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spiral candy transition_00031_47
+      rect:
+        serializedVersion: 2
+        x: 1248
+        y: 668
+        width: 39
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eeec798a3781c12a0800000000000000
+      internalID: -6765505655188500754
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spiral candy transition_00031_48
+      rect:
+        serializedVersion: 2
+        x: 1905
+        y: 662
+        width: 15
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bd1ea35b6295bf840800000000000000
+      internalID: 5258895012669350363
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spiral candy transition_00031_49
+      rect:
+        serializedVersion: 2
+        x: 399
+        y: 620
+        width: 45
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b864650514a0b9410800000000000000
+      internalID: 1484791777785693835
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spiral candy transition_00031_50
+      rect:
+        serializedVersion: 2
+        x: 745
+        y: 592
+        width: 45
+        height: 44
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1f0ecf4280e676db0800000000000000
+      internalID: -4798745896680627983
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spiral candy transition_00031_51
+      rect:
+        serializedVersion: 2
+        x: 915
+        y: 604
+        width: 39
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1b4015b3f904de700800000000000000
+      internalID: 571183780385064113
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spiral candy transition_00031_52
+      rect:
+        serializedVersion: 2
+        x: 1170
+        y: 624
+        width: 26
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bf87347b0c048a140800000000000000
+      internalID: 4731102605005256955
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spiral candy transition_00031_53
+      rect:
+        serializedVersion: 2
+        x: 1762
+        y: 625
+        width: 40
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 213fc2869b0c17da0800000000000000
+      internalID: -5948761730230455534
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spiral candy transition_00031_54
+      rect:
+        serializedVersion: 2
+        x: 580
+        y: 546
+        width: 39
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a79e0ba778a01f080800000000000000
+      internalID: -9155524990472230534
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spiral candy transition_00031_55
+      rect:
+        serializedVersion: 2
+        x: 1048
+        y: 587
+        width: 26
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b7f7d814aa4046f30800000000000000
+      internalID: 4567781051351269243
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spiral candy transition_00031_56
+      rect:
+        serializedVersion: 2
+        x: 1218
+        y: 575
+        width: 26
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 83c6571369d43d1c0800000000000000
+      internalID: -4480151896833299400
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spiral candy transition_00031_57
+      rect:
+        serializedVersion: 2
+        x: 1367
+        y: 562
+        width: 39
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5098ea4e0e63a6870800000000000000
+      internalID: 8676807971619899653
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spiral candy transition_00031_58
+      rect:
+        serializedVersion: 2
+        x: 1557
+        y: 568
+        width: 40
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 723b794eac685f700800000000000000
+      internalID: 573512733536269095
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spiral candy transition_00031_59
+      rect:
+        serializedVersion: 2
+        x: 1652
+        y: 574
+        width: 49
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: afc228953e73d5210800000000000000
+      internalID: 1323275315115601146
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spiral candy transition_00031_60
+      rect:
+        serializedVersion: 2
+        x: 244
+        y: 510
+        width: 56
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 800a1ffd4756f24a0800000000000000
+      internalID: -6615957774936203256
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spiral candy transition_00031_61
+      rect:
+        serializedVersion: 2
+        x: 463
+        y: 545
+        width: 35
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cf00a813bf49dece0800000000000000
+      internalID: -1374278504689303300
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spiral candy transition_00031_62
+      rect:
+        serializedVersion: 2
+        x: 1710
+        y: 518
+        width: 34
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 09cb1c8f215d7d510800000000000000
+      internalID: 1573960872248851600
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spiral candy transition_00031_63
+      rect:
+        serializedVersion: 2
+        x: 1754
+        y: 504
+        width: 50
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 233762960882b0ed0800000000000000
+      internalID: -2446817440560680142
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spiral candy transition_00031_64
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 486
+        width: 22
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 032d378e0caab2160800000000000000
+      internalID: 7001877791187915312
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spiral candy transition_00031_65
+      rect:
+        serializedVersion: 2
+        x: 105
+        y: 497
+        width: 39
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 23129206306f65280800000000000000
+      internalID: -9054779506423160526
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spiral candy transition_00031_66
+      rect:
+        serializedVersion: 2
+        x: 266
+        y: 473
+        width: 29
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ecfc560c4a1fcf290800000000000000
+      internalID: -7855137960136159282
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spiral candy transition_00031_67
+      rect:
+        serializedVersion: 2
+        x: 1864
+        y: 492
+        width: 40
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7f000daf39a0530a0800000000000000
+      internalID: -6902599223191011081
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spiral candy transition_00031_68
+      rect:
+        serializedVersion: 2
+        x: 612
+        y: 389
+        width: 96
+        height: 101
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0d52fe7e3b3ce0a20800000000000000
+      internalID: 3030574776724694480
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spiral candy transition_00031_69
+      rect:
+        serializedVersion: 2
+        x: 848
+        y: 455
+        width: 41
+        height: 37
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2dd7638b3ebacec40800000000000000
+      internalID: 5542994235922742738
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spiral candy transition_00031_70
+      rect:
+        serializedVersion: 2
+        x: 1318
+        y: 418
+        width: 45
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fcc39d2cf708554d0800000000000000
+      internalID: -3146467478430204721
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spiral candy transition_00031_71
+      rect:
+        serializedVersion: 2
+        x: 481
+        y: 430
+        width: 23
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 93fa92eaeef88dd20800000000000000
+      internalID: 3303548581963214649
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spiral candy transition_00031_72
+      rect:
+        serializedVersion: 2
+        x: 1059
+        y: 411
+        width: 23
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8dcd954a509873e40800000000000000
+      internalID: 5636124116002659544
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spiral candy transition_00031_73
+      rect:
+        serializedVersion: 2
+        x: 1165
+        y: 406
+        width: 45
+        height: 44
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e37b6aa7e35684920800000000000000
+      internalID: 2974738872898336574
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spiral candy transition_00031_74
+      rect:
+        serializedVersion: 2
+        x: 100
+        y: 356
+        width: 48
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b595b91487f40a6c0800000000000000
+      internalID: -4134217080010745509
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spiral candy transition_00031_75
+      rect:
+        serializedVersion: 2
+        x: 1528
+        y: 386
+        width: 34
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bceeb8689fa19cb80800000000000000
+      internalID: -8374132373112230197
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spiral candy transition_00031_76
+      rect:
+        serializedVersion: 2
+        x: 1893
+        y: 351
+        width: 27
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 20253f4a36c996250800000000000000
+      internalID: 5938449535447814658
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spiral candy transition_00031_77
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 290
+        width: 72
+        height: 83
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 23a389a784fcc0110800000000000000
+      internalID: 1228584708566694450
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spiral candy transition_00031_78
+      rect:
+        serializedVersion: 2
+        x: 178
+        y: 340
+        width: 29
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 09186cd373d6a1d30800000000000000
+      internalID: 4402951669735129488
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spiral candy transition_00031_79
+      rect:
+        serializedVersion: 2
+        x: 301
+        y: 335
+        width: 23
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5dc020848be4db730800000000000000
+      internalID: 4016452996073393365
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spiral candy transition_00031_80
+      rect:
+        serializedVersion: 2
+        x: 361
+        y: 322
+        width: 37
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5ca23d42d513cec40800000000000000
+      internalID: 5542859517505776325
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spiral candy transition_00031_81
+      rect:
+        serializedVersion: 2
+        x: 866
+        y: 348
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cf29aec6209ea06d0800000000000000
+      internalID: -3023348003199347972
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spiral candy transition_00031_82
+      rect:
+        serializedVersion: 2
+        x: 1453
+        y: 324
+        width: 39
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4802ed36309bcd580800000000000000
+      internalID: -8800956147577249660
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spiral candy transition_00031_83
+      rect:
+        serializedVersion: 2
+        x: 1741
+        y: 349
+        width: 24
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b1d7e0839b0e77440800000000000000
+      internalID: 4933659002921712923
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spiral candy transition_00031_84
+      rect:
+        serializedVersion: 2
+        x: 287
+        y: 96
+        width: 210
+        height: 191
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 21ce3b7cbbaca8c30800000000000000
+      internalID: 4362522096919899154
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spiral candy transition_00031_85
+      rect:
+        serializedVersion: 2
+        x: 577
+        y: 284
+        width: 40
+        height: 37
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ca25e9b5e2275b2b0800000000000000
+      internalID: -5569419820742585684
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spiral candy transition_00031_86
+      rect:
+        serializedVersion: 2
+        x: 893
+        y: 264
+        width: 35
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0bf87fa051d27daf0800000000000000
+      internalID: -371778875833217104
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spiral candy transition_00031_87
+      rect:
+        serializedVersion: 2
+        x: 933
+        y: 209
+        width: 83
+        height: 77
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9427e42d776405090800000000000000
+      internalID: -8047855053667667383
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spiral candy transition_00031_88
+      rect:
+        serializedVersion: 2
+        x: 1623
+        y: 271
+        width: 23
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 708ae9b258d359c50800000000000000
+      internalID: 6671306065191020551
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spiral candy transition_00031_89
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 165
+        width: 79
+        height: 87
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d1dba1d1712e95d60800000000000000
+      internalID: 7879577611961810205
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spiral candy transition_00031_90
+      rect:
+        serializedVersion: 2
+        x: 149
+        y: 242
+        width: 23
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 13c64b30c910c9f70800000000000000
+      internalID: 9195226308772391985
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spiral candy transition_00031_91
+      rect:
+        serializedVersion: 2
+        x: 228
+        y: 222
+        width: 41
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 30ac9b0b95ead9d90800000000000000
+      internalID: -7089318538171004413
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spiral candy transition_00031_92
+      rect:
+        serializedVersion: 2
+        x: 1210
+        y: 240
+        width: 34
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a7d4995d2aecff2c0800000000000000
+      internalID: -4395567512526697094
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spiral candy transition_00031_93
+      rect:
+        serializedVersion: 2
+        x: 1407
+        y: 229
+        width: 40
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7749abffd54a186a0800000000000000
+      internalID: -6448692467788508041
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spiral candy transition_00031_94
+      rect:
+        serializedVersion: 2
+        x: 1451
+        y: 191
+        width: 80
+        height: 69
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bdc67f801f1938ad0800000000000000
+      internalID: -2701154887068586789
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spiral candy transition_00031_95
+      rect:
+        serializedVersion: 2
+        x: 1864
+        y: 226
+        width: 39
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4cc0568e41161c5d0800000000000000
+      internalID: -3044045130699567932
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spiral candy transition_00031_96
+      rect:
+        serializedVersion: 2
+        x: 162
+        y: 192
+        width: 29
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2b5c7910654e56a00800000000000000
+      internalID: 749255971072099762
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spiral candy transition_00031_97
+      rect:
+        serializedVersion: 2
+        x: 537
+        y: 190
+        width: 23
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ae1c71266d8d0c580800000000000000
+      internalID: -8808802455856365078
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spiral candy transition_00031_98
+      rect:
+        serializedVersion: 2
+        x: 745
+        y: 182
+        width: 35
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ba1e053b412ebde40800000000000000
+      internalID: 5682383933393658283
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spiral candy transition_00031_99
+      rect:
+        serializedVersion: 2
+        x: 892
+        y: 126
+        width: 34
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2196d91176e4e4b40800000000000000
+      internalID: 5426360805612153106
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spiral candy transition_00031_100
+      rect:
+        serializedVersion: 2
+        x: 1002
+        y: 149
+        width: 35
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aa7c31b373b9284f0800000000000000
+      internalID: -827928719966091350
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spiral candy transition_00031_101
+      rect:
+        serializedVersion: 2
+        x: 1713
+        y: 149
+        width: 35
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 55bb6046ac1b8a7d0800000000000000
+      internalID: -2906878076647982251
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spiral candy transition_00031_102
+      rect:
+        serializedVersion: 2
+        x: 161
+        y: 92
+        width: 49
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c85bdac3445cf91f0800000000000000
+      internalID: -1035892492405459572
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spiral candy transition_00031_103
+      rect:
+        serializedVersion: 2
+        x: 809
+        y: 3
+        width: 91
+        height: 135
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: edd39c77b7abdc220800000000000000
+      internalID: 2507865606968655326
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spiral candy transition_00031_104
+      rect:
+        serializedVersion: 2
+        x: 960
+        y: 0
+        width: 141
+        height: 124
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ea39bbaf1bf761ba0800000000000000
+      internalID: -6118562641343704146
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spiral candy transition_00031_105
+      rect:
+        serializedVersion: 2
+        x: 1158
+        y: 99
+        width: 26
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bac29654f0af2f470800000000000000
+      internalID: 8427072796259593387
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spiral candy transition_00031_106
+      rect:
+        serializedVersion: 2
+        x: 1303
+        y: 93
+        width: 44
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e314b008fe0097380800000000000000
+      internalID: -8973139753913597634
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spiral candy transition_00031_107
+      rect:
+        serializedVersion: 2
+        x: 1458
+        y: 46
+        width: 79
+        height: 90
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 194899dc050651e40800000000000000
+      internalID: 5626509209632343185
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spiral candy transition_00031_108
+      rect:
+        serializedVersion: 2
+        x: 1555
+        y: 106
+        width: 27
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 426709d22331f94f0800000000000000
+      internalID: -819915500924406236
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spiral candy transition_00031_109
+      rect:
+        serializedVersion: 2
+        x: 1821
+        y: 64
+        width: 49
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a1266619df401ff00800000000000000
+      internalID: 1148704867068830234
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spiral candy transition_00031_110
+      rect:
+        serializedVersion: 2
+        x: 41
+        y: 28
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 432ba44204f619560800000000000000
+      internalID: 7318753190731231796
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spiral candy transition_00031_111
+      rect:
+        serializedVersion: 2
+        x: 217
+        y: 38
+        width: 38
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5a4a8b5f25f85ef70800000000000000
+      internalID: 9215929798956197029
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spiral candy transition_00031_112
+      rect:
+        serializedVersion: 2
+        x: 394
+        y: 42
+        width: 25
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 60cf28445349f2b90800000000000000
+      internalID: -7264424717421708282
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spiral candy transition_00031_113
+      rect:
+        serializedVersion: 2
+        x: 491
+        y: 0
+        width: 94
+        height: 93
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6b9696c0ae5259080800000000000000
+      internalID: -9181390578164078154
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spiral candy transition_00031_114
+      rect:
+        serializedVersion: 2
+        x: 632
+        y: 50
+        width: 50
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4cc683e0f57a76350800000000000000
+      internalID: 6009956254451526852
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spiral candy transition_00031_115
+      rect:
+        serializedVersion: 2
+        x: 770
+        y: 29
+        width: 34
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f64fe026abbbf0eb0800000000000000
+      internalID: -4751372672669125521
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spiral candy transition_00031_116
+      rect:
+        serializedVersion: 2
+        x: 1153
+        y: 0
+        width: 117
+        height: 68
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9f043ec6311e75370800000000000000
+      internalID: 8311359110883000569
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spiral candy transition_00031_117
+      rect:
+        serializedVersion: 2
+        x: 1665
+        y: 44
+        width: 37
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 50046e5341fc95730800000000000000
+      internalID: 3988446630723862533
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spiral candy transition_00031_118
+      rect:
+        serializedVersion: 2
+        x: 290
+        y: 0
+        width: 46
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 38ef2a89d239bcb60800000000000000
+      internalID: 7767463806374182531
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spiral candy transition_00031_119
+      rect:
+        serializedVersion: 2
+        x: 1403
+        y: 1
+        width: 24
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a40bcbf14445b12b0800000000000000
+      internalID: -5612799859020222390
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spiral candy transition_00031_120
+      rect:
+        serializedVersion: 2
+        x: 1699
+        y: 10
+        width: 35
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: abb424c43536da570800000000000000
+      internalID: 8479542882821360570
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Spiral candy transition_00031_0: 8839294997651241649
+      Spiral candy transition_00031_1: -6465002757330354526
+      Spiral candy transition_00031_10: 677031519046567046
+      Spiral candy transition_00031_100: -827928719966091350
+      Spiral candy transition_00031_101: -2906878076647982251
+      Spiral candy transition_00031_102: -1035892492405459572
+      Spiral candy transition_00031_103: 2507865606968655326
+      Spiral candy transition_00031_104: -6118562641343704146
+      Spiral candy transition_00031_105: 8427072796259593387
+      Spiral candy transition_00031_106: -8973139753913597634
+      Spiral candy transition_00031_107: 5626509209632343185
+      Spiral candy transition_00031_108: -819915500924406236
+      Spiral candy transition_00031_109: 1148704867068830234
+      Spiral candy transition_00031_11: 3020425490090312923
+      Spiral candy transition_00031_110: 7318753190731231796
+      Spiral candy transition_00031_111: 9215929798956197029
+      Spiral candy transition_00031_112: -7264424717421708282
+      Spiral candy transition_00031_113: -9181390578164078154
+      Spiral candy transition_00031_114: 6009956254451526852
+      Spiral candy transition_00031_115: -4751372672669125521
+      Spiral candy transition_00031_116: 8311359110883000569
+      Spiral candy transition_00031_117: 3988446630723862533
+      Spiral candy transition_00031_118: 7767463806374182531
+      Spiral candy transition_00031_119: -5612799859020222390
+      Spiral candy transition_00031_12: -3298747165147820391
+      Spiral candy transition_00031_120: 8479542882821360570
+      Spiral candy transition_00031_13: -3875985516935144775
+      Spiral candy transition_00031_14: 2717811172638092777
+      Spiral candy transition_00031_15: -704369530109332032
+      Spiral candy transition_00031_16: 300008613344128052
+      Spiral candy transition_00031_17: 2814620809136893511
+      Spiral candy transition_00031_18: -8619478871307821898
+      Spiral candy transition_00031_19: -7535852103171770669
+      Spiral candy transition_00031_2: -4608689387202149797
+      Spiral candy transition_00031_20: 6459584813070226873
+      Spiral candy transition_00031_21: 7189545270734699048
+      Spiral candy transition_00031_22: -3326859062518662199
+      Spiral candy transition_00031_23: -1583636535145330708
+      Spiral candy transition_00031_24: -3446214313186624296
+      Spiral candy transition_00031_25: 8712858828410235377
+      Spiral candy transition_00031_26: -7321096974334857042
+      Spiral candy transition_00031_27: 5815103360335641670
+      Spiral candy transition_00031_28: -6204583814394044028
+      Spiral candy transition_00031_29: 716122458282257269
+      Spiral candy transition_00031_3: 4293810918441172102
+      Spiral candy transition_00031_30: -1341964131355546333
+      Spiral candy transition_00031_31: 8748275015111558760
+      Spiral candy transition_00031_32: -2514066469261617041
+      Spiral candy transition_00031_33: -8179659439414694488
+      Spiral candy transition_00031_34: 2132914251000505227
+      Spiral candy transition_00031_35: 8644652471418963260
+      Spiral candy transition_00031_36: -7546578633984642016
+      Spiral candy transition_00031_37: -4753476276641537970
+      Spiral candy transition_00031_38: -1317667921147167390
+      Spiral candy transition_00031_39: -8354018249928790100
+      Spiral candy transition_00031_4: -3971668151744531290
+      Spiral candy transition_00031_40: -5194196723422969052
+      Spiral candy transition_00031_41: 7664427314006840246
+      Spiral candy transition_00031_42: -8541397838980133938
+      Spiral candy transition_00031_43: 8162576235646896316
+      Spiral candy transition_00031_44: 1590216556736272877
+      Spiral candy transition_00031_45: -5590495642099921627
+      Spiral candy transition_00031_46: 8242579184992247519
+      Spiral candy transition_00031_47: -6765505655188500754
+      Spiral candy transition_00031_48: 5258895012669350363
+      Spiral candy transition_00031_49: 1484791777785693835
+      Spiral candy transition_00031_5: -8277281983077028779
+      Spiral candy transition_00031_50: -4798745896680627983
+      Spiral candy transition_00031_51: 571183780385064113
+      Spiral candy transition_00031_52: 4731102605005256955
+      Spiral candy transition_00031_53: -5948761730230455534
+      Spiral candy transition_00031_54: -9155524990472230534
+      Spiral candy transition_00031_55: 4567781051351269243
+      Spiral candy transition_00031_56: -4480151896833299400
+      Spiral candy transition_00031_57: 8676807971619899653
+      Spiral candy transition_00031_58: 573512733536269095
+      Spiral candy transition_00031_59: 1323275315115601146
+      Spiral candy transition_00031_6: -2331186075891017635
+      Spiral candy transition_00031_60: -6615957774936203256
+      Spiral candy transition_00031_61: -1374278504689303300
+      Spiral candy transition_00031_62: 1573960872248851600
+      Spiral candy transition_00031_63: -2446817440560680142
+      Spiral candy transition_00031_64: 7001877791187915312
+      Spiral candy transition_00031_65: -9054779506423160526
+      Spiral candy transition_00031_66: -7855137960136159282
+      Spiral candy transition_00031_67: -6902599223191011081
+      Spiral candy transition_00031_68: 3030574776724694480
+      Spiral candy transition_00031_69: 5542994235922742738
+      Spiral candy transition_00031_7: -7139557474676259160
+      Spiral candy transition_00031_70: -3146467478430204721
+      Spiral candy transition_00031_71: 3303548581963214649
+      Spiral candy transition_00031_72: 5636124116002659544
+      Spiral candy transition_00031_73: 2974738872898336574
+      Spiral candy transition_00031_74: -4134217080010745509
+      Spiral candy transition_00031_75: -8374132373112230197
+      Spiral candy transition_00031_76: 5938449535447814658
+      Spiral candy transition_00031_77: 1228584708566694450
+      Spiral candy transition_00031_78: 4402951669735129488
+      Spiral candy transition_00031_79: 4016452996073393365
+      Spiral candy transition_00031_8: -6472731551402363765
+      Spiral candy transition_00031_80: 5542859517505776325
+      Spiral candy transition_00031_81: -3023348003199347972
+      Spiral candy transition_00031_82: -8800956147577249660
+      Spiral candy transition_00031_83: 4933659002921712923
+      Spiral candy transition_00031_84: 4362522096919899154
+      Spiral candy transition_00031_85: -5569419820742585684
+      Spiral candy transition_00031_86: -371778875833217104
+      Spiral candy transition_00031_87: -8047855053667667383
+      Spiral candy transition_00031_88: 6671306065191020551
+      Spiral candy transition_00031_89: 7879577611961810205
+      Spiral candy transition_00031_9: 3920648349784085813
+      Spiral candy transition_00031_90: 9195226308772391985
+      Spiral candy transition_00031_91: -7089318538171004413
+      Spiral candy transition_00031_92: -4395567512526697094
+      Spiral candy transition_00031_93: -6448692467788508041
+      Spiral candy transition_00031_94: -2701154887068586789
+      Spiral candy transition_00031_95: -3044045130699567932
+      Spiral candy transition_00031_96: 749255971072099762
+      Spiral candy transition_00031_97: -8808802455856365078
+      Spiral candy transition_00031_98: 5682383933393658283
+      Spiral candy transition_00031_99: 5426360805612153106
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

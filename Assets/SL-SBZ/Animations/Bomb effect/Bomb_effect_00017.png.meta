@@ -1,0 +1,3731 @@
+fileFormatVersion: 2
+guid: c2164a2381280bb4bb912023fe370c18
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 5637751565005925475
+    second: Bomb_effect_00017_0
+  - first:
+      213: -7163547073901091463
+    second: Bomb_effect_00017_1
+  - first:
+      213: 1286436787914710280
+    second: Bomb_effect_00017_2
+  - first:
+      213: -8337740236206938940
+    second: Bomb_effect_00017_3
+  - first:
+      213: -3933254115691238680
+    second: Bomb_effect_00017_4
+  - first:
+      213: -298148289375535770
+    second: Bomb_effect_00017_5
+  - first:
+      213: -4279058151952089778
+    second: Bomb_effect_00017_6
+  - first:
+      213: -810334937174727821
+    second: Bomb_effect_00017_7
+  - first:
+      213: 2654384105295055936
+    second: Bomb_effect_00017_8
+  - first:
+      213: 4304372713764653886
+    second: Bomb_effect_00017_9
+  - first:
+      213: -5272871211670530944
+    second: Bomb_effect_00017_10
+  - first:
+      213: 5852821604812490293
+    second: Bomb_effect_00017_11
+  - first:
+      213: 1593805714560655431
+    second: Bomb_effect_00017_12
+  - first:
+      213: -4252656960832081864
+    second: Bomb_effect_00017_13
+  - first:
+      213: -8723880869286724663
+    second: Bomb_effect_00017_14
+  - first:
+      213: 3673654100918382090
+    second: Bomb_effect_00017_15
+  - first:
+      213: -8474899934480886204
+    second: Bomb_effect_00017_16
+  - first:
+      213: -1792197614074320595
+    second: Bomb_effect_00017_17
+  - first:
+      213: 4644660681492015984
+    second: Bomb_effect_00017_18
+  - first:
+      213: 4058252925553840666
+    second: Bomb_effect_00017_19
+  - first:
+      213: 6830512623368683745
+    second: Bomb_effect_00017_20
+  - first:
+      213: -793348067020393478
+    second: Bomb_effect_00017_21
+  - first:
+      213: -2429436668749624245
+    second: Bomb_effect_00017_22
+  - first:
+      213: 4149244605189841868
+    second: Bomb_effect_00017_23
+  - first:
+      213: -1764990891770391383
+    second: Bomb_effect_00017_24
+  - first:
+      213: 8067106938133442861
+    second: Bomb_effect_00017_25
+  - first:
+      213: 6197249637097168479
+    second: Bomb_effect_00017_26
+  - first:
+      213: 4222174123002729690
+    second: Bomb_effect_00017_27
+  - first:
+      213: 8161696719726882650
+    second: Bomb_effect_00017_28
+  - first:
+      213: 5386399984676771208
+    second: Bomb_effect_00017_29
+  - first:
+      213: 8448789588596393886
+    second: Bomb_effect_00017_30
+  - first:
+      213: 8308813322039281356
+    second: Bomb_effect_00017_31
+  - first:
+      213: -5232849938626398721
+    second: Bomb_effect_00017_32
+  - first:
+      213: 1597439141593909233
+    second: Bomb_effect_00017_33
+  - first:
+      213: 3735330897123181229
+    second: Bomb_effect_00017_34
+  - first:
+      213: -7942299507065090205
+    second: Bomb_effect_00017_35
+  - first:
+      213: 2714941357746379873
+    second: Bomb_effect_00017_36
+  - first:
+      213: 3150277463554412487
+    second: Bomb_effect_00017_37
+  - first:
+      213: -4400158538136510323
+    second: Bomb_effect_00017_38
+  - first:
+      213: -134747484639434279
+    second: Bomb_effect_00017_39
+  - first:
+      213: 8466232053518683083
+    second: Bomb_effect_00017_40
+  - first:
+      213: 1168318734246307232
+    second: Bomb_effect_00017_41
+  - first:
+      213: -4266685764794493634
+    second: Bomb_effect_00017_42
+  - first:
+      213: 1292890290812951833
+    second: Bomb_effect_00017_43
+  - first:
+      213: 7106900930653791716
+    second: Bomb_effect_00017_44
+  - first:
+      213: -5128067070603078812
+    second: Bomb_effect_00017_45
+  - first:
+      213: -4433897063479900119
+    second: Bomb_effect_00017_46
+  - first:
+      213: -7723475175060077903
+    second: Bomb_effect_00017_47
+  - first:
+      213: 1564061789331799133
+    second: Bomb_effect_00017_48
+  - first:
+      213: 5251273018395087076
+    second: Bomb_effect_00017_49
+  - first:
+      213: 7206775500224669669
+    second: Bomb_effect_00017_50
+  - first:
+      213: 3689098831708374312
+    second: Bomb_effect_00017_51
+  - first:
+      213: 5343108114795854779
+    second: Bomb_effect_00017_52
+  - first:
+      213: 2162854902883306487
+    second: Bomb_effect_00017_53
+  - first:
+      213: -2838138183706877826
+    second: Bomb_effect_00017_54
+  - first:
+      213: -2277615211301068158
+    second: Bomb_effect_00017_55
+  - first:
+      213: -5966521061797220822
+    second: Bomb_effect_00017_56
+  - first:
+      213: 8845667486693451111
+    second: Bomb_effect_00017_57
+  - first:
+      213: -4681181938109285260
+    second: Bomb_effect_00017_58
+  - first:
+      213: 1787648509423489931
+    second: Bomb_effect_00017_59
+  - first:
+      213: 688212401857562043
+    second: Bomb_effect_00017_60
+  - first:
+      213: 7033765619657135060
+    second: Bomb_effect_00017_61
+  - first:
+      213: 397174993891860098
+    second: Bomb_effect_00017_62
+  - first:
+      213: 6405062289668723008
+    second: Bomb_effect_00017_63
+  - first:
+      213: -4707676765627421253
+    second: Bomb_effect_00017_64
+  - first:
+      213: 399935118575443494
+    second: Bomb_effect_00017_65
+  - first:
+      213: -8238610808674355772
+    second: Bomb_effect_00017_66
+  - first:
+      213: -6890333426231832274
+    second: Bomb_effect_00017_67
+  - first:
+      213: -4749922131312837116
+    second: Bomb_effect_00017_68
+  - first:
+      213: -8178812893924367126
+    second: Bomb_effect_00017_69
+  - first:
+      213: 1142825483045127561
+    second: Bomb_effect_00017_70
+  - first:
+      213: 7733164170275350721
+    second: Bomb_effect_00017_71
+  - first:
+      213: -7497259722306733791
+    second: Bomb_effect_00017_72
+  - first:
+      213: 3900988125545785967
+    second: Bomb_effect_00017_73
+  - first:
+      213: -3660998233616980912
+    second: Bomb_effect_00017_74
+  - first:
+      213: 7252502902300527095
+    second: Bomb_effect_00017_75
+  - first:
+      213: -7901936835179186602
+    second: Bomb_effect_00017_76
+  - first:
+      213: 9095788596754094150
+    second: Bomb_effect_00017_77
+  - first:
+      213: 8119178167387657825
+    second: Bomb_effect_00017_78
+  - first:
+      213: 7510491019116747273
+    second: Bomb_effect_00017_79
+  - first:
+      213: -1720753823698512417
+    second: Bomb_effect_00017_80
+  - first:
+      213: 5081651594679324130
+    second: Bomb_effect_00017_81
+  - first:
+      213: 753955498963512411
+    second: Bomb_effect_00017_82
+  - first:
+      213: 4551853801871772973
+    second: Bomb_effect_00017_83
+  - first:
+      213: 1128572204543340870
+    second: Bomb_effect_00017_84
+  - first:
+      213: 2031621600358789541
+    second: Bomb_effect_00017_85
+  - first:
+      213: 7745545369626866717
+    second: Bomb_effect_00017_86
+  - first:
+      213: 6649093153976756130
+    second: Bomb_effect_00017_87
+  - first:
+      213: -3380594913457588368
+    second: Bomb_effect_00017_88
+  - first:
+      213: 5559388113517533142
+    second: Bomb_effect_00017_89
+  - first:
+      213: 4722563195766134668
+    second: Bomb_effect_00017_90
+  - first:
+      213: -5131771648998182409
+    second: Bomb_effect_00017_91
+  - first:
+      213: -6111066754281628951
+    second: Bomb_effect_00017_92
+  - first:
+      213: 7452271968884746079
+    second: Bomb_effect_00017_93
+  - first:
+      213: 6376158343989107263
+    second: Bomb_effect_00017_94
+  - first:
+      213: 3660050210350158477
+    second: Bomb_effect_00017_95
+  - first:
+      213: -6893625825684445710
+    second: Bomb_effect_00017_96
+  - first:
+      213: -6257266057481025589
+    second: Bomb_effect_00017_97
+  - first:
+      213: 6026546057130921163
+    second: Bomb_effect_00017_98
+  - first:
+      213: -587281227207150361
+    second: Bomb_effect_00017_99
+  - first:
+      213: -6650452786706197198
+    second: Bomb_effect_00017_100
+  - first:
+      213: 5230834144647988128
+    second: Bomb_effect_00017_101
+  - first:
+      213: 8615943238843533151
+    second: Bomb_effect_00017_102
+  - first:
+      213: 45271257887531351
+    second: Bomb_effect_00017_103
+  - first:
+      213: 4553550431393206418
+    second: Bomb_effect_00017_104
+  - first:
+      213: -5821792741945361208
+    second: Bomb_effect_00017_105
+  - first:
+      213: -3189920190532424256
+    second: Bomb_effect_00017_106
+  - first:
+      213: 7113749380513928507
+    second: Bomb_effect_00017_107
+  - first:
+      213: -1098995885321719716
+    second: Bomb_effect_00017_108
+  - first:
+      213: 569656074052447553
+    second: Bomb_effect_00017_109
+  - first:
+      213: 2344414202283066676
+    second: Bomb_effect_00017_110
+  - first:
+      213: -1621080320688668748
+    second: Bomb_effect_00017_111
+  - first:
+      213: -1006285568792470712
+    second: Bomb_effect_00017_112
+  - first:
+      213: -5762580178522942119
+    second: Bomb_effect_00017_113
+  - first:
+      213: 3210997510107181551
+    second: Bomb_effect_00017_114
+  - first:
+      213: -3410748793707088975
+    second: Bomb_effect_00017_115
+  - first:
+      213: -2376498828825086950
+    second: Bomb_effect_00017_116
+  - first:
+      213: 8013960315323276955
+    second: Bomb_effect_00017_117
+  - first:
+      213: -2268642191674709931
+    second: Bomb_effect_00017_118
+  - first:
+      213: -4923894990177886971
+    second: Bomb_effect_00017_119
+  - first:
+      213: 7081536237704871357
+    second: Bomb_effect_00017_120
+  - first:
+      213: 3426973231465892680
+    second: Bomb_effect_00017_121
+  - first:
+      213: 145750148660368675
+    second: Bomb_effect_00017_122
+  - first:
+      213: -8640934378305988182
+    second: Bomb_effect_00017_123
+  - first:
+      213: -7255177674109705752
+    second: Bomb_effect_00017_124
+  - first:
+      213: 1796741343664274133
+    second: Bomb_effect_00017_125
+  - first:
+      213: 2793605454450614314
+    second: Bomb_effect_00017_126
+  - first:
+      213: -8133246401237600921
+    second: Bomb_effect_00017_127
+  - first:
+      213: -5962619734031596125
+    second: Bomb_effect_00017_128
+  - first:
+      213: 2782599326151290433
+    second: Bomb_effect_00017_129
+  - first:
+      213: -8585754408570937581
+    second: Bomb_effect_00017_130
+  - first:
+      213: -7763912252163822261
+    second: Bomb_effect_00017_131
+  - first:
+      213: -9022471376705550217
+    second: Bomb_effect_00017_132
+  - first:
+      213: -5149691106944690356
+    second: Bomb_effect_00017_133
+  - first:
+      213: 7817618137089706961
+    second: Bomb_effect_00017_134
+  - first:
+      213: -7204245968046436263
+    second: Bomb_effect_00017_135
+  - first:
+      213: -6972741127540119752
+    second: Bomb_effect_00017_136
+  - first:
+      213: -4578451652481043452
+    second: Bomb_effect_00017_137
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Bomb_effect_00017_0
+      rect:
+        serializedVersion: 2
+        x: 226
+        y: 460
+        width: 8
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 36ca414ad215d3e40800000000000000
+      internalID: 5637751565005925475
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_effect_00017_1
+      rect:
+        serializedVersion: 2
+        x: 297
+        y: 455
+        width: 10
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9752650f3e7f59c90800000000000000
+      internalID: -7163547073901091463
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_effect_00017_2
+      rect:
+        serializedVersion: 2
+        x: 173
+        y: 446
+        width: 8
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 80d96a951775ad110800000000000000
+      internalID: 1286436787914710280
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_effect_00017_3
+      rect:
+        serializedVersion: 2
+        x: 198
+        y: 427
+        width: 50
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4c4676f2e656a4c80800000000000000
+      internalID: -8337740236206938940
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_effect_00017_4
+      rect:
+        serializedVersion: 2
+        x: 300
+        y: 448
+        width: 10
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8ea61e698364a69c0800000000000000
+      internalID: -3933254115691238680
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_effect_00017_5
+      rect:
+        serializedVersion: 2
+        x: 332
+        y: 443
+        width: 14
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 66d7161e5b3ccdbf0800000000000000
+      internalID: -298148289375535770
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_effect_00017_6
+      rect:
+        serializedVersion: 2
+        x: 188
+        y: 433
+        width: 9
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e4df7af384bbd94c0800000000000000
+      internalID: -4279058151952089778
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_effect_00017_7
+      rect:
+        serializedVersion: 2
+        x: 261
+        y: 439
+        width: 19
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 373ac900bac11c4f0800000000000000
+      internalID: -810334937174727821
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_effect_00017_8
+      rect:
+        serializedVersion: 2
+        x: 298
+        y: 433
+        width: 13
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 04c0e8db74446d420800000000000000
+      internalID: 2654384105295055936
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_effect_00017_9
+      rect:
+        serializedVersion: 2
+        x: 310
+        y: 435
+        width: 13
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e3b83d87d243cbb30800000000000000
+      internalID: 4304372713764653886
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_effect_00017_10
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 431
+        width: 14
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0849ef1e19ff2d6b0800000000000000
+      internalID: -5272871211670530944
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_effect_00017_11
+      rect:
+        serializedVersion: 2
+        x: 175
+        y: 427
+        width: 13
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 53684907d36693150800000000000000
+      internalID: 5852821604812490293
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_effect_00017_12
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 422
+        width: 13
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 74020616ad55e1610800000000000000
+      internalID: 1593805714560655431
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_effect_00017_13
+      rect:
+        serializedVersion: 2
+        x: 241
+        y: 380
+        width: 47
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 830f20296078bf4c0800000000000000
+      internalID: -4252656960832081864
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_effect_00017_14
+      rect:
+        serializedVersion: 2
+        x: 307
+        y: 409
+        width: 20
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9cbb65b029c8ee680800000000000000
+      internalID: -8723880869286724663
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_effect_00017_15
+      rect:
+        serializedVersion: 2
+        x: 156
+        y: 401
+        width: 13
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a0ea5e0e0f07bf230800000000000000
+      internalID: 3673654100918382090
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_effect_00017_16
+      rect:
+        serializedVersion: 2
+        x: 169
+        y: 396
+        width: 26
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 446194a596b136a80800000000000000
+      internalID: -8474899934480886204
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_effect_00017_17
+      rect:
+        serializedVersion: 2
+        x: 213
+        y: 409
+        width: 11
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d292cc5f3c5d027e0800000000000000
+      internalID: -1792197614074320595
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_effect_00017_18
+      rect:
+        serializedVersion: 2
+        x: 229
+        y: 398
+        width: 16
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 07b2e860846257040800000000000000
+      internalID: 4644660681492015984
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_effect_00017_19
+      rect:
+        serializedVersion: 2
+        x: 326
+        y: 407
+        width: 13
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a129354c88fc15830800000000000000
+      internalID: 4058252925553840666
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_effect_00017_20
+      rect:
+        serializedVersion: 2
+        x: 333
+        y: 414
+        width: 14
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1e046b59a0bdace50800000000000000
+      internalID: 6830512623368683745
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_effect_00017_21
+      rect:
+        serializedVersion: 2
+        x: 382
+        y: 381
+        width: 19
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: af3b10ae2267df4f0800000000000000
+      internalID: -793348067020393478
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_effect_00017_22
+      rect:
+        serializedVersion: 2
+        x: 137
+        y: 397
+        width: 8
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b4cced2b838e84ed0800000000000000
+      internalID: -2429436668749624245
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_effect_00017_23
+      rect:
+        serializedVersion: 2
+        x: 164
+        y: 393
+        width: 16
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cc3eb8a1cf3159930800000000000000
+      internalID: 4149244605189841868
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_effect_00017_24
+      rect:
+        serializedVersion: 2
+        x: 184
+        y: 376
+        width: 40
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9a4d930a22e7187e0800000000000000
+      internalID: -1764990891770391383
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_effect_00017_25
+      rect:
+        serializedVersion: 2
+        x: 288
+        y: 403
+        width: 14
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d217884d40f14ff60800000000000000
+      internalID: 8067106938133442861
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_effect_00017_26
+      rect:
+        serializedVersion: 2
+        x: 304
+        y: 394
+        width: 12
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f5e5893e5bd010650800000000000000
+      internalID: 6197249637097168479
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_effect_00017_27
+      rect:
+        serializedVersion: 2
+        x: 371
+        y: 403
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ad49c6daefc289a30800000000000000
+      internalID: 4222174123002729690
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_effect_00017_28
+      rect:
+        serializedVersion: 2
+        x: 393
+        y: 399
+        width: 8
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a5faacf8ceb244170800000000000000
+      internalID: 8161696719726882650
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_effect_00017_29
+      rect:
+        serializedVersion: 2
+        x: 420
+        y: 402
+        width: 9
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 88514d86f3650ca40800000000000000
+      internalID: 5386399984676771208
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_effect_00017_30
+      rect:
+        serializedVersion: 2
+        x: 112
+        y: 387
+        width: 10
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e978e420e51204570800000000000000
+      internalID: 8448789588596393886
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_effect_00017_31
+      rect:
+        serializedVersion: 2
+        x: 176
+        y: 382
+        width: 11
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cc64f25c1b5de4370800000000000000
+      internalID: 8308813322039281356
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_effect_00017_32
+      rect:
+        serializedVersion: 2
+        x: 223
+        y: 391
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ff5bf35a4be2167b0800000000000000
+      internalID: -5232849938626398721
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_effect_00017_33
+      rect:
+        serializedVersion: 2
+        x: 229
+        y: 383
+        width: 13
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1f782098f6e3b2610800000000000000
+      internalID: 1597439141593909233
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_effect_00017_34
+      rect:
+        serializedVersion: 2
+        x: 289
+        y: 383
+        width: 15
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: da2819909af86d330800000000000000
+      internalID: 3735330897123181229
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_effect_00017_35
+      rect:
+        serializedVersion: 2
+        x: 334
+        y: 393
+        width: 11
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 36f00adada847c190800000000000000
+      internalID: -7942299507065090205
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_effect_00017_36
+      rect:
+        serializedVersion: 2
+        x: 370
+        y: 395
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 16c5d7ec7c86da520800000000000000
+      internalID: 2714941357746379873
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_effect_00017_37
+      rect:
+        serializedVersion: 2
+        x: 98
+        y: 111
+        width: 304
+        height: 278
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7cf441789a808bb20800000000000000
+      internalID: 3150277463554412487
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_effect_00017_38
+      rect:
+        serializedVersion: 2
+        x: 152
+        y: 373
+        width: 15
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d80a8f26f1f7fe2c0800000000000000
+      internalID: -4400158538136510323
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_effect_00017_39
+      rect:
+        serializedVersion: 2
+        x: 300
+        y: 371
+        width: 13
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9d960bb60e7412ef0800000000000000
+      internalID: -134747484639434279
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_effect_00017_40
+      rect:
+        serializedVersion: 2
+        x: 332
+        y: 377
+        width: 22
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bcbc10852391e7570800000000000000
+      internalID: 8466232053518683083
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_effect_00017_41
+      rect:
+        serializedVersion: 2
+        x: 392
+        y: 347
+        width: 24
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0a56f23e2b3b63010800000000000000
+      internalID: 1168318734246307232
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_effect_00017_42
+      rect:
+        serializedVersion: 2
+        x: 88
+        y: 363
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e35553d17efa9c4c0800000000000000
+      internalID: -4266685764794493634
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_effect_00017_43
+      rect:
+        serializedVersion: 2
+        x: 416
+        y: 361
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 91d15759ed441f110800000000000000
+      internalID: 1292890290812951833
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_effect_00017_44
+      rect:
+        serializedVersion: 2
+        x: 75
+        y: 328
+        width: 8
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4e523811eb8c0a260800000000000000
+      internalID: 7106900930653791716
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_effect_00017_45
+      rect:
+        serializedVersion: 2
+        x: 82
+        y: 325
+        width: 15
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 46353504b2275d8b0800000000000000
+      internalID: -5128067070603078812
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_effect_00017_46
+      rect:
+        serializedVersion: 2
+        x: 86
+        y: 338
+        width: 9
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 92802a0dc12a772c0800000000000000
+      internalID: -4433897063479900119
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_effect_00017_47
+      rect:
+        serializedVersion: 2
+        x: 97
+        y: 323
+        width: 17
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1b20ffebf34b0d490800000000000000
+      internalID: -7723475175060077903
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_effect_00017_48
+      rect:
+        serializedVersion: 2
+        x: 402
+        y: 332
+        width: 9
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d5c32ef19e9a4b510800000000000000
+      internalID: 1564061789331799133
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_effect_00017_49
+      rect:
+        serializedVersion: 2
+        x: 420
+        y: 333
+        width: 10
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4e05800ecf440e840800000000000000
+      internalID: 5251273018395087076
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_effect_00017_50
+      rect:
+        serializedVersion: 2
+        x: 440
+        y: 331
+        width: 8
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5e721e2622c930460800000000000000
+      internalID: 7206775500224669669
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_effect_00017_51
+      rect:
+        serializedVersion: 2
+        x: 50
+        y: 311
+        width: 6
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 825494d77df423330800000000000000
+      internalID: 3689098831708374312
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_effect_00017_52
+      rect:
+        serializedVersion: 2
+        x: 66
+        y: 319
+        width: 12
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bbbf9ea7588862a40800000000000000
+      internalID: 5343108114795854779
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_effect_00017_53
+      rect:
+        serializedVersion: 2
+        x: 94
+        y: 313
+        width: 9
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7fb421b2311040e10800000000000000
+      internalID: 2162854902883306487
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_effect_00017_54
+      rect:
+        serializedVersion: 2
+        x: 406
+        y: 288
+        width: 39
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e70eda8eb58ec98d0800000000000000
+      internalID: -2838138183706877826
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_effect_00017_55
+      rect:
+        serializedVersion: 2
+        x: 450
+        y: 315
+        width: 16
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 282af5b58094460e0800000000000000
+      internalID: -2277615211301068158
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_effect_00017_56
+      rect:
+        serializedVersion: 2
+        x: 52
+        y: 296
+        width: 8
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a2ea0bec4b8a23da0800000000000000
+      internalID: -5966521061797220822
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_effect_00017_57
+      rect:
+        serializedVersion: 2
+        x: 63
+        y: 301
+        width: 10
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 765e59976bf12ca70800000000000000
+      internalID: 8845667486693451111
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_effect_00017_58
+      rect:
+        serializedVersion: 2
+        x: 73
+        y: 293
+        width: 54
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 47c750a44d9190fb0800000000000000
+      internalID: -4681181938109285260
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_effect_00017_59
+      rect:
+        serializedVersion: 2
+        x: 391
+        y: 305
+        width: 13
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b83917319d00fc810800000000000000
+      internalID: 1787648509423489931
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_effect_00017_60
+      rect:
+        serializedVersion: 2
+        x: 39
+        y: 279
+        width: 16
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bb50dbe78850d8900800000000000000
+      internalID: 688212401857562043
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_effect_00017_61
+      rect:
+        serializedVersion: 2
+        x: 44
+        y: 270
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4d3d4098094fc9160800000000000000
+      internalID: 7033765619657135060
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_effect_00017_62
+      rect:
+        serializedVersion: 2
+        x: 60
+        y: 264
+        width: 15
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 28e97987d8c038500800000000000000
+      internalID: 397174993891860098
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_effect_00017_63
+      rect:
+        serializedVersion: 2
+        x: 75
+        y: 279
+        width: 17
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 04154fb873a53e850800000000000000
+      internalID: 6405062289668723008
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_effect_00017_64
+      rect:
+        serializedVersion: 2
+        x: 77
+        y: 264
+        width: 19
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bbdea6b8ce8faaeb0800000000000000
+      internalID: -4707676765627421253
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_effect_00017_65
+      rect:
+        serializedVersion: 2
+        x: 379
+        y: 276
+        width: 24
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 62e94e31fdadc8500800000000000000
+      internalID: 399935118575443494
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_effect_00017_66
+      rect:
+        serializedVersion: 2
+        x: 397
+        y: 270
+        width: 10
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4c5754a9e139aad80800000000000000
+      internalID: -8238610808674355772
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_effect_00017_67
+      rect:
+        serializedVersion: 2
+        x: 414
+        y: 274
+        width: 10
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e219371614e9060a0800000000000000
+      internalID: -6890333426231832274
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_effect_00017_68
+      rect:
+        serializedVersion: 2
+        x: 425
+        y: 263
+        width: 29
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 40ef45cdcf2e41eb0800000000000000
+      internalID: -4749922131312837116
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_effect_00017_69
+      rect:
+        serializedVersion: 2
+        x: 88
+        y: 247
+        width: 10
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ae4e04591050f7e80800000000000000
+      internalID: -8178812893924367126
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_effect_00017_70
+      rect:
+        serializedVersion: 2
+        x: 97
+        y: 258
+        width: 7
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9854b2dc8b12cdf00800000000000000
+      internalID: 1142825483045127561
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_effect_00017_71
+      rect:
+        serializedVersion: 2
+        x: 414
+        y: 254
+        width: 20
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1c86a0f37d7b15b60800000000000000
+      internalID: 7733164170275350721
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_effect_00017_72
+      rect:
+        serializedVersion: 2
+        x: 66
+        y: 228
+        width: 20
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1293017310264f790800000000000000
+      internalID: -7497259722306733791
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_effect_00017_73
+      rect:
+        serializedVersion: 2
+        x: 396
+        y: 231
+        width: 7
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f6a6c282808132630800000000000000
+      internalID: 3900988125545785967
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_effect_00017_74
+      rect:
+        serializedVersion: 2
+        x: 402
+        y: 242
+        width: 10
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0546de9d085813dc0800000000000000
+      internalID: -3660998233616980912
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_effect_00017_75
+      rect:
+        serializedVersion: 2
+        x: 46
+        y: 217
+        width: 29
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7f9cc18d6f016a460800000000000000
+      internalID: 7252502902300527095
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_effect_00017_76
+      rect:
+        serializedVersion: 2
+        x: 76
+        y: 217
+        width: 10
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 656f19d805ea65290800000000000000
+      internalID: -7901936835179186602
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_effect_00017_77
+      rect:
+        serializedVersion: 2
+        x: 93
+        y: 219
+        width: 10
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6489395898bba3e70800000000000000
+      internalID: 9095788596754094150
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_effect_00017_78
+      rect:
+        serializedVersion: 2
+        x: 97
+        y: 208
+        width: 24
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1669f37a68d1da070800000000000000
+      internalID: 8119178167387657825
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_effect_00017_79
+      rect:
+        serializedVersion: 2
+        x: 404
+        y: 220
+        width: 19
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 90a17332acf9a3860800000000000000
+      internalID: 7510491019116747273
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_effect_00017_80
+      rect:
+        serializedVersion: 2
+        x: 408
+        y: 207
+        width: 17
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fd51e88a387ae18e0800000000000000
+      internalID: -1720753823698512417
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_effect_00017_81
+      rect:
+        serializedVersion: 2
+        x: 425
+        y: 221
+        width: 15
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2ed882d9337a58640800000000000000
+      internalID: 5081651594679324130
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_effect_00017_82
+      rect:
+        serializedVersion: 2
+        x: 444
+        y: 205
+        width: 18
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b5c2c2c1886967a00800000000000000
+      internalID: 753955498963512411
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_effect_00017_83
+      rect:
+        serializedVersion: 2
+        x: 447
+        y: 220
+        width: 9
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d2d04128aee6b2f30800000000000000
+      internalID: 4551853801871772973
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_effect_00017_84
+      rect:
+        serializedVersion: 2
+        x: 56
+        y: 180
+        width: 38
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6417f2bc07e79af00800000000000000
+      internalID: 1128572204543340870
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_effect_00017_85
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 183
+        width: 13
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5a1756fd415c13c10800000000000000
+      internalID: 2031621600358789541
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_effect_00017_86
+      rect:
+        serializedVersion: 2
+        x: 373
+        y: 182
+        width: 54
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d14f74cd974bd7b60800000000000000
+      internalID: 7745545369626866717
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_effect_00017_87
+      rect:
+        serializedVersion: 2
+        x: 427
+        y: 185
+        width: 10
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2a72441cef2564c50800000000000000
+      internalID: 6649093153976756130
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_effect_00017_88
+      rect:
+        serializedVersion: 2
+        x: 439
+        y: 190
+        width: 10
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0773edd56d6b511d0800000000000000
+      internalID: -3380594913457588368
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_effect_00017_89
+      rect:
+        serializedVersion: 2
+        x: 442
+        y: 177
+        width: 12
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6d7ddbac80ae62d40800000000000000
+      internalID: 5559388113517533142
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_effect_00017_90
+      rect:
+        serializedVersion: 2
+        x: 42
+        y: 164
+        width: 18
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c8759f0943ae98140800000000000000
+      internalID: 4722563195766134668
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_effect_00017_91
+      rect:
+        serializedVersion: 2
+        x: 397
+        y: 175
+        width: 9
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7f1fa01efd848c8b0800000000000000
+      internalID: -5131771648998182409
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_effect_00017_92
+      rect:
+        serializedVersion: 2
+        x: 403
+        y: 163
+        width: 14
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9ea18503a21213ba0800000000000000
+      internalID: -6111066754281628951
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_effect_00017_93
+      rect:
+        serializedVersion: 2
+        x: 422
+        y: 172
+        width: 12
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f57e9f23fd9cb6760800000000000000
+      internalID: 7452271968884746079
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_effect_00017_94
+      rect:
+        serializedVersion: 2
+        x: 70
+        y: 155
+        width: 11
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f3a1d154b3aac7850800000000000000
+      internalID: 6376158343989107263
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_effect_00017_95
+      rect:
+        serializedVersion: 2
+        x: 89
+        y: 156
+        width: 9
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d82d308464c1bc230800000000000000
+      internalID: 3660050210350158477
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_effect_00017_96
+      rect:
+        serializedVersion: 2
+        x: 406
+        y: 154
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2f5ae95e5dbe450a0800000000000000
+      internalID: -6893625825684445710
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_effect_00017_97
+      rect:
+        serializedVersion: 2
+        x: 418
+        y: 161
+        width: 7
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bc70cb25ca9b929a0800000000000000
+      internalID: -6257266057481025589
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_effect_00017_98
+      rect:
+        serializedVersion: 2
+        x: 87
+        y: 124
+        width: 19
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bccc1dd75b792a350800000000000000
+      internalID: 6026546057130921163
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_effect_00017_99
+      rect:
+        serializedVersion: 2
+        x: 93
+        y: 137
+        width: 14
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7e4ff0dd5de89d7f0800000000000000
+      internalID: -587281227207150361
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_effect_00017_100
+      rect:
+        serializedVersion: 2
+        x: 187
+        y: 110
+        width: 13
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 235ded41d68d4b3a0800000000000000
+      internalID: -6650452786706197198
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_effect_00017_101
+      rect:
+        serializedVersion: 2
+        x: 333
+        y: 107
+        width: 15
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0a34abeb0f7a79840800000000000000
+      internalID: 5230834144647988128
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_effect_00017_102
+      rect:
+        serializedVersion: 2
+        x: 401
+        y: 126
+        width: 11
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f57823cf9baf19770800000000000000
+      internalID: 8615943238843533151
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_effect_00017_103
+      rect:
+        serializedVersion: 2
+        x: 100
+        y: 94
+        width: 17
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 751ebec18f5d0a000800000000000000
+      internalID: 45271257887531351
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_effect_00017_104
+      rect:
+        serializedVersion: 2
+        x: 106
+        y: 107
+        width: 10
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 290d40addf5713f30800000000000000
+      internalID: 4553550431393206418
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_effect_00017_105
+      rect:
+        serializedVersion: 2
+        x: 146
+        y: 106
+        width: 22
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8cc366ca856d43fa0800000000000000
+      internalID: -5821792741945361208
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_effect_00017_106
+      rect:
+        serializedVersion: 2
+        x: 155
+        y: 99
+        width: 11
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0cde775dc702bb3d0800000000000000
+      internalID: -3189920190532424256
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_effect_00017_107
+      rect:
+        serializedVersion: 2
+        x: 196
+        y: 104
+        width: 15
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b3510be0f5d19b260800000000000000
+      internalID: 7113749380513928507
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_effect_00017_108
+      rect:
+        serializedVersion: 2
+        x: 220
+        y: 69
+        width: 39
+        height: 51
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c5078c5a0159fb0f0800000000000000
+      internalID: -1098995885321719716
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_effect_00017_109
+      rect:
+        serializedVersion: 2
+        x: 258
+        y: 105
+        width: 13
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 14d2a026e23d7e700800000000000000
+      internalID: 569656074052447553
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_effect_00017_110
+      rect:
+        serializedVersion: 2
+        x: 267
+        y: 99
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4358675bb48098020800000000000000
+      internalID: 2344414202283066676
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_effect_00017_111
+      rect:
+        serializedVersion: 2
+        x: 276
+        y: 94
+        width: 40
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4bfb9f48904c089e0800000000000000
+      internalID: -1621080320688668748
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_effect_00017_112
+      rect:
+        serializedVersion: 2
+        x: 313
+        y: 104
+        width: 11
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 84bd5815b94f802f0800000000000000
+      internalID: -1006285568792470712
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_effect_00017_113
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 92
+        width: 17
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 955de6debd33700b0800000000000000
+      internalID: -5762580178522942119
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_effect_00017_114
+      rect:
+        serializedVersion: 2
+        x: 377
+        y: 103
+        width: 11
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fe13a9c0931cf8c20800000000000000
+      internalID: 3210997510107181551
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_effect_00017_115
+      rect:
+        serializedVersion: 2
+        x: 100
+        y: 91
+        width: 6
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1b33ff40b069aa0d0800000000000000
+      internalID: -3410748793707088975
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_effect_00017_116
+      rect:
+        serializedVersion: 2
+        x: 120
+        y: 80
+        width: 23
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a14bfba08eaf40fd0800000000000000
+      internalID: -2376498828825086950
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_effect_00017_117
+      rect:
+        serializedVersion: 2
+        x: 121
+        y: 98
+        width: 10
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b9edbee627e473f60800000000000000
+      internalID: 8013960315323276955
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_effect_00017_118
+      rect:
+        serializedVersion: 2
+        x: 184
+        y: 96
+        width: 12
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 558e3ca42f92480e0800000000000000
+      internalID: -2268642191674709931
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_effect_00017_119
+      rect:
+        serializedVersion: 2
+        x: 255
+        y: 80
+        width: 16
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 50d1f17289fcaabb0800000000000000
+      internalID: -4923894990177886971
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_effect_00017_120
+      rect:
+        serializedVersion: 2
+        x: 306
+        y: 79
+        width: 25
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dbd747840bba64260800000000000000
+      internalID: 7081536237704871357
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_effect_00017_121
+      rect:
+        serializedVersion: 2
+        x: 331
+        y: 83
+        width: 13
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 84b0c444ffd0f8f20800000000000000
+      internalID: 3426973231465892680
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_effect_00017_122
+      rect:
+        serializedVersion: 2
+        x: 353
+        y: 95
+        width: 12
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3259cdcecfec50200800000000000000
+      internalID: 145750148660368675
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_effect_00017_123
+      rect:
+        serializedVersion: 2
+        x: 112
+        y: 79
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aa95c9de6fb351880800000000000000
+      internalID: -8640934378305988182
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_effect_00017_124
+      rect:
+        serializedVersion: 2
+        x: 163
+        y: 81
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8e1a850585e605b90800000000000000
+      internalID: -7255177674109705752
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_effect_00017_125
+      rect:
+        serializedVersion: 2
+        x: 174
+        y: 76
+        width: 8
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5dafd568bbe4fe810800000000000000
+      internalID: 1796741343664274133
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_effect_00017_126
+      rect:
+        serializedVersion: 2
+        x: 198
+        y: 87
+        width: 14
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a206f131c51e4c620800000000000000
+      internalID: 2793605454450614314
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_effect_00017_127
+      rect:
+        serializedVersion: 2
+        x: 276
+        y: 82
+        width: 11
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 76532876d77e02f80800000000000000
+      internalID: -8133246401237600921
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_effect_00017_128
+      rect:
+        serializedVersion: 2
+        x: 350
+        y: 74
+        width: 17
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3a5005671f4804da0800000000000000
+      internalID: -5962619734031596125
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_effect_00017_129
+      rect:
+        serializedVersion: 2
+        x: 371
+        y: 81
+        width: 11
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 14e2d732857cd9620800000000000000
+      internalID: 2782599326151290433
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_effect_00017_130
+      rect:
+        serializedVersion: 2
+        x: 396
+        y: 79
+        width: 9
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 31f926ccad549d880800000000000000
+      internalID: -8585754408570937581
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_effect_00017_131
+      rect:
+        serializedVersion: 2
+        x: 180
+        y: 74
+        width: 12
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b4de87e01fa014490800000000000000
+      internalID: -7763912252163822261
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_effect_00017_132
+      rect:
+        serializedVersion: 2
+        x: 213
+        y: 71
+        width: 9
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7780653061eb9c280800000000000000
+      internalID: -9022471376705550217
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_effect_00017_133
+      rect:
+        serializedVersion: 2
+        x: 296
+        y: 69
+        width: 11
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c47d293f83f9888b0800000000000000
+      internalID: -5149691106944690356
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_effect_00017_134
+      rect:
+        serializedVersion: 2
+        x: 232
+        y: 49
+        width: 10
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1db02e2b642cd7c60800000000000000
+      internalID: 7817618137089706961
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_effect_00017_135
+      rect:
+        serializedVersion: 2
+        x: 252
+        y: 51
+        width: 40
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9505d083670650c90800000000000000
+      internalID: -7204245968046436263
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_effect_00017_136
+      rect:
+        serializedVersion: 2
+        x: 291
+        y: 55
+        width: 8
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 837e63e33e8db3f90800000000000000
+      internalID: -6972741127540119752
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_effect_00017_137
+      rect:
+        serializedVersion: 2
+        x: 247
+        y: 36
+        width: 24
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4043190da721670c0800000000000000
+      internalID: -4578451652481043452
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Bomb_effect_00017_0: 5637751565005925475
+      Bomb_effect_00017_1: -7163547073901091463
+      Bomb_effect_00017_10: -5272871211670530944
+      Bomb_effect_00017_100: -6650452786706197198
+      Bomb_effect_00017_101: 5230834144647988128
+      Bomb_effect_00017_102: 8615943238843533151
+      Bomb_effect_00017_103: 45271257887531351
+      Bomb_effect_00017_104: 4553550431393206418
+      Bomb_effect_00017_105: -5821792741945361208
+      Bomb_effect_00017_106: -3189920190532424256
+      Bomb_effect_00017_107: 7113749380513928507
+      Bomb_effect_00017_108: -1098995885321719716
+      Bomb_effect_00017_109: 569656074052447553
+      Bomb_effect_00017_11: 5852821604812490293
+      Bomb_effect_00017_110: 2344414202283066676
+      Bomb_effect_00017_111: -1621080320688668748
+      Bomb_effect_00017_112: -1006285568792470712
+      Bomb_effect_00017_113: -5762580178522942119
+      Bomb_effect_00017_114: 3210997510107181551
+      Bomb_effect_00017_115: -3410748793707088975
+      Bomb_effect_00017_116: -2376498828825086950
+      Bomb_effect_00017_117: 8013960315323276955
+      Bomb_effect_00017_118: -2268642191674709931
+      Bomb_effect_00017_119: -4923894990177886971
+      Bomb_effect_00017_12: 1593805714560655431
+      Bomb_effect_00017_120: 7081536237704871357
+      Bomb_effect_00017_121: 3426973231465892680
+      Bomb_effect_00017_122: 145750148660368675
+      Bomb_effect_00017_123: -8640934378305988182
+      Bomb_effect_00017_124: -7255177674109705752
+      Bomb_effect_00017_125: 1796741343664274133
+      Bomb_effect_00017_126: 2793605454450614314
+      Bomb_effect_00017_127: -8133246401237600921
+      Bomb_effect_00017_128: -5962619734031596125
+      Bomb_effect_00017_129: 2782599326151290433
+      Bomb_effect_00017_13: -4252656960832081864
+      Bomb_effect_00017_130: -8585754408570937581
+      Bomb_effect_00017_131: -7763912252163822261
+      Bomb_effect_00017_132: -9022471376705550217
+      Bomb_effect_00017_133: -5149691106944690356
+      Bomb_effect_00017_134: 7817618137089706961
+      Bomb_effect_00017_135: -7204245968046436263
+      Bomb_effect_00017_136: -6972741127540119752
+      Bomb_effect_00017_137: -4578451652481043452
+      Bomb_effect_00017_14: -8723880869286724663
+      Bomb_effect_00017_15: 3673654100918382090
+      Bomb_effect_00017_16: -8474899934480886204
+      Bomb_effect_00017_17: -1792197614074320595
+      Bomb_effect_00017_18: 4644660681492015984
+      Bomb_effect_00017_19: 4058252925553840666
+      Bomb_effect_00017_2: 1286436787914710280
+      Bomb_effect_00017_20: 6830512623368683745
+      Bomb_effect_00017_21: -793348067020393478
+      Bomb_effect_00017_22: -2429436668749624245
+      Bomb_effect_00017_23: 4149244605189841868
+      Bomb_effect_00017_24: -1764990891770391383
+      Bomb_effect_00017_25: 8067106938133442861
+      Bomb_effect_00017_26: 6197249637097168479
+      Bomb_effect_00017_27: 4222174123002729690
+      Bomb_effect_00017_28: 8161696719726882650
+      Bomb_effect_00017_29: 5386399984676771208
+      Bomb_effect_00017_3: -8337740236206938940
+      Bomb_effect_00017_30: 8448789588596393886
+      Bomb_effect_00017_31: 8308813322039281356
+      Bomb_effect_00017_32: -5232849938626398721
+      Bomb_effect_00017_33: 1597439141593909233
+      Bomb_effect_00017_34: 3735330897123181229
+      Bomb_effect_00017_35: -7942299507065090205
+      Bomb_effect_00017_36: 2714941357746379873
+      Bomb_effect_00017_37: 3150277463554412487
+      Bomb_effect_00017_38: -4400158538136510323
+      Bomb_effect_00017_39: -134747484639434279
+      Bomb_effect_00017_4: -3933254115691238680
+      Bomb_effect_00017_40: 8466232053518683083
+      Bomb_effect_00017_41: 1168318734246307232
+      Bomb_effect_00017_42: -4266685764794493634
+      Bomb_effect_00017_43: 1292890290812951833
+      Bomb_effect_00017_44: 7106900930653791716
+      Bomb_effect_00017_45: -5128067070603078812
+      Bomb_effect_00017_46: -4433897063479900119
+      Bomb_effect_00017_47: -7723475175060077903
+      Bomb_effect_00017_48: 1564061789331799133
+      Bomb_effect_00017_49: 5251273018395087076
+      Bomb_effect_00017_5: -298148289375535770
+      Bomb_effect_00017_50: 7206775500224669669
+      Bomb_effect_00017_51: 3689098831708374312
+      Bomb_effect_00017_52: 5343108114795854779
+      Bomb_effect_00017_53: 2162854902883306487
+      Bomb_effect_00017_54: -2838138183706877826
+      Bomb_effect_00017_55: -2277615211301068158
+      Bomb_effect_00017_56: -5966521061797220822
+      Bomb_effect_00017_57: 8845667486693451111
+      Bomb_effect_00017_58: -4681181938109285260
+      Bomb_effect_00017_59: 1787648509423489931
+      Bomb_effect_00017_6: -4279058151952089778
+      Bomb_effect_00017_60: 688212401857562043
+      Bomb_effect_00017_61: 7033765619657135060
+      Bomb_effect_00017_62: 397174993891860098
+      Bomb_effect_00017_63: 6405062289668723008
+      Bomb_effect_00017_64: -4707676765627421253
+      Bomb_effect_00017_65: 399935118575443494
+      Bomb_effect_00017_66: -8238610808674355772
+      Bomb_effect_00017_67: -6890333426231832274
+      Bomb_effect_00017_68: -4749922131312837116
+      Bomb_effect_00017_69: -8178812893924367126
+      Bomb_effect_00017_7: -810334937174727821
+      Bomb_effect_00017_70: 1142825483045127561
+      Bomb_effect_00017_71: 7733164170275350721
+      Bomb_effect_00017_72: -7497259722306733791
+      Bomb_effect_00017_73: 3900988125545785967
+      Bomb_effect_00017_74: -3660998233616980912
+      Bomb_effect_00017_75: 7252502902300527095
+      Bomb_effect_00017_76: -7901936835179186602
+      Bomb_effect_00017_77: 9095788596754094150
+      Bomb_effect_00017_78: 8119178167387657825
+      Bomb_effect_00017_79: 7510491019116747273
+      Bomb_effect_00017_8: 2654384105295055936
+      Bomb_effect_00017_80: -1720753823698512417
+      Bomb_effect_00017_81: 5081651594679324130
+      Bomb_effect_00017_82: 753955498963512411
+      Bomb_effect_00017_83: 4551853801871772973
+      Bomb_effect_00017_84: 1128572204543340870
+      Bomb_effect_00017_85: 2031621600358789541
+      Bomb_effect_00017_86: 7745545369626866717
+      Bomb_effect_00017_87: 6649093153976756130
+      Bomb_effect_00017_88: -3380594913457588368
+      Bomb_effect_00017_89: 5559388113517533142
+      Bomb_effect_00017_9: 4304372713764653886
+      Bomb_effect_00017_90: 4722563195766134668
+      Bomb_effect_00017_91: -5131771648998182409
+      Bomb_effect_00017_92: -6111066754281628951
+      Bomb_effect_00017_93: 7452271968884746079
+      Bomb_effect_00017_94: 6376158343989107263
+      Bomb_effect_00017_95: 3660050210350158477
+      Bomb_effect_00017_96: -6893625825684445710
+      Bomb_effect_00017_97: -6257266057481025589
+      Bomb_effect_00017_98: 6026546057130921163
+      Bomb_effect_00017_99: -587281227207150361
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

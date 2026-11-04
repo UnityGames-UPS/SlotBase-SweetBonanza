@@ -40,9 +40,14 @@ MonoBehaviour:
   m_SpriteCharacterTable:
   - m_ElementType: 2
     m_Unicode: 65534
-    m_GlyphIndex: 0
+    m_GlyphIndex: 11
     m_Scale: 1
-    m_Name: Sweet Bonanza_buy feature panel numbers_3
+    m_Name: Sweet Bonanza_buy feature panel numbers_9
+  - m_ElementType: 2
+    m_Unicode: 65534
+    m_GlyphIndex: 3
+    m_Scale: 1
+    m_Name: Sweet Bonanza_buy feature panel numbers_0
   - m_ElementType: 2
     m_Unicode: 65534
     m_GlyphIndex: 1
@@ -55,19 +60,9 @@ MonoBehaviour:
     m_Name: Sweet Bonanza_buy feature panel numbers_2
   - m_ElementType: 2
     m_Unicode: 65534
-    m_GlyphIndex: 3
+    m_GlyphIndex: 0
     m_Scale: 1
-    m_Name: Sweet Bonanza_buy feature panel numbers_0
-  - m_ElementType: 2
-    m_Unicode: 65534
-    m_GlyphIndex: 4
-    m_Scale: 1
-    m_Name: Sweet Bonanza_buy feature panel numbers_5
-  - m_ElementType: 2
-    m_Unicode: 65534
-    m_GlyphIndex: 5
-    m_Scale: 1
-    m_Name: Sweet Bonanza_buy feature panel numbers_7
+    m_Name: Sweet Bonanza_buy feature panel numbers_3
   - m_ElementType: 2
     m_Unicode: 65534
     m_GlyphIndex: 6
@@ -75,9 +70,24 @@ MonoBehaviour:
     m_Name: Sweet Bonanza_buy feature panel numbers_4
   - m_ElementType: 2
     m_Unicode: 65534
+    m_GlyphIndex: 4
+    m_Scale: 1
+    m_Name: Sweet Bonanza_buy feature panel numbers_5
+  - m_ElementType: 2
+    m_Unicode: 65534
     m_GlyphIndex: 7
     m_Scale: 1
     m_Name: Sweet Bonanza_buy feature panel numbers_6
+  - m_ElementType: 2
+    m_Unicode: 65534
+    m_GlyphIndex: 5
+    m_Scale: 1
+    m_Name: Sweet Bonanza_buy feature panel numbers_7
+  - m_ElementType: 2
+    m_Unicode: 65534
+    m_GlyphIndex: 10
+    m_Scale: 1
+    m_Name: Sweet Bonanza_buy feature panel numbers_8
   - m_ElementType: 2
     m_Unicode: 65534
     m_GlyphIndex: 8
@@ -88,17 +98,23 @@ MonoBehaviour:
     m_GlyphIndex: 9
     m_Scale: 1
     m_Name: Sweet Bonanza_buy feature panel numbers_11
-  - m_ElementType: 2
-    m_Unicode: 65534
-    m_GlyphIndex: 10
-    m_Scale: 1
-    m_Name: Sweet Bonanza_buy feature panel numbers_8
-  - m_ElementType: 2
-    m_Unicode: 65534
-    m_GlyphIndex: 11
-    m_Scale: 1
-    m_Name: Sweet Bonanza_buy feature panel numbers_9
   m_GlyphTable:
+  - m_Index: 11
+    m_Metrics:
+      m_Width: 89
+      m_Height: 109
+      m_HorizontalBearingX: -44.5
+      m_HorizontalBearingY: 54.5
+      m_HorizontalAdvance: 89
+    m_GlyphRect:
+      m_X: 329
+      m_Y: 115
+      m_Width: 89
+      m_Height: 109
+    m_Scale: 1
+    m_AtlasIndex: 0
+    m_ClassDefinitionType: 0
+    sprite: {fileID: -5458311003340114063, guid: 840f5f1d08d68ed4b93f1deff73cc9e9, type: 3}
   - m_Index: 0
     m_Metrics:
       m_Width: 97
@@ -151,7 +167,7 @@ MonoBehaviour:
     m_Metrics:
       m_Width: 71
       m_Height: 109
-      m_HorizontalBearingX: -35.5
+      m_HorizontalBearingX: -45.3
       m_HorizontalBearingY: 54.5
       m_HorizontalAdvance: 71
     m_GlyphRect:
@@ -231,15 +247,15 @@ MonoBehaviour:
     m_Metrics:
       m_Width: 40
       m_Height: 38
-      m_HorizontalBearingX: -20
-      m_HorizontalBearingY: 19
+      m_HorizontalBearingX: -53.2
+      m_HorizontalBearingY: -31.4
       m_HorizontalAdvance: 40
     m_GlyphRect:
       m_X: 603
       m_Y: 118
       m_Width: 40
       m_Height: 38
-    m_Scale: 1
+    m_Scale: 0.25
     m_AtlasIndex: 0
     m_ClassDefinitionType: 0
     sprite: {fileID: -8223165214368165291, guid: 840f5f1d08d68ed4b93f1deff73cc9e9, type: 3}
@@ -248,14 +264,14 @@ MonoBehaviour:
       m_Width: 91
       m_Height: 143
       m_HorizontalBearingX: -45.5
-      m_HorizontalBearingY: 71.5
+      m_HorizontalBearingY: 62.5
       m_HorizontalAdvance: 91
     m_GlyphRect:
       m_X: 827
       m_Y: 116
       m_Width: 91
       m_Height: 143
-    m_Scale: 1
+    m_Scale: 1.25
     m_AtlasIndex: 0
     m_ClassDefinitionType: 0
     sprite: {fileID: -8371594389470502756, guid: 840f5f1d08d68ed4b93f1deff73cc9e9, type: 3}
@@ -275,22 +291,6 @@ MonoBehaviour:
     m_AtlasIndex: 0
     m_ClassDefinitionType: 0
     sprite: {fileID: -2371538132094442541, guid: 840f5f1d08d68ed4b93f1deff73cc9e9, type: 3}
-  - m_Index: 11
-    m_Metrics:
-      m_Width: 89
-      m_Height: 109
-      m_HorizontalBearingX: -44.5
-      m_HorizontalBearingY: 54.5
-      m_HorizontalAdvance: 89
-    m_GlyphRect:
-      m_X: 329
-      m_Y: 115
-      m_Width: 89
-      m_Height: 109
-    m_Scale: 1
-    m_AtlasIndex: 0
-    m_ClassDefinitionType: 0
-    sprite: {fileID: -5458311003340114063, guid: 840f5f1d08d68ed4b93f1deff73cc9e9, type: 3}
   spriteInfoList: []
   fallbackSpriteAssets: []
 --- !u!21 &8361572707893503664
