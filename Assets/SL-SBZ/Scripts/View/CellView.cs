@@ -242,7 +242,7 @@ namespace SweetBonanza.View
             activeSequence.OnComplete(() => onComplete?.Invoke());
         }
 
-        internal void PlayMultiplierBombRevealAnimation(int multiplier, Action onComplete)
+        internal void PlayMultiplierBombRevealAnimation(int multiplier, Action onComplete, Sprite[] burstFrames = null)
         {
             KillActiveTweens();
             currentMultiplier = multiplier;
@@ -250,26 +250,59 @@ namespace SweetBonanza.View
             {
                 multiplierText.text = $"{multiplier}X";
                 multiplierText.gameObject.SetActive(true);
+                multiplierText.transform.localScale = Vector3.one;
             }
+
+            transform.SetAsLastSibling();
 
             activeSequence = DOTween.Sequence();
 
-            if (burstEffectImage != null && bombBurstSprite != null)
+            // 1. Anticipation squash & stretch
+            activeSequence.Append(rectTransform.DOScale(new Vector3(1.15f, 0.88f, 1f), 0.08f).SetEase(Ease.OutQuad));
+            activeSequence.Append(rectTransform.DOScale(new Vector3(0.92f, 1.18f, 1f), 0.06f).SetEase(Ease.InOutQuad));
+
+            // 2. Detonation: play explosion sound and cycle the 30-frame bomb burst
+            activeSequence.AppendCallback(() =>
             {
-                burstEffectImage.sprite = bombBurstSprite;
-                burstEffectImage.enabled = true;
-                burstEffectImage.color = new Color(1f, 1f, 1f, 0.95f);
-                burstEffectImage.transform.localScale = Vector3.zero;
-                activeSequence.Join(burstEffectImage.transform.DOScale(2.0f, 0.35f).SetEase(Ease.OutBack));
-                activeSequence.Join(burstEffectImage.DOFade(0f, 0.35f).SetEase(Ease.InQuad));
+                AudioManager.Instance?.PlayBombExplode();
+
+                if (burstEffectImage != null)
+                {
+                    burstEffectImage.enabled = true;
+                    burstEffectImage.color = Color.white;
+                    burstEffectImage.preserveAspect = true;
+                    burstEffectImage.rectTransform.sizeDelta = new Vector2(160f, 160f);
+                    burstEffectImage.transform.localScale = Vector3.one;
+
+                    if (burstFrames != null && burstFrames.Length > 0 && gameObject.activeInHierarchy)
+                    {
+                        burstEffectImage.sprite = burstFrames[0];
+                        activeBurstRoutine = StartCoroutine(CycleBurstFrames(burstFrames, 0.45f));
+                    }
+                    else if (bombBurstSprite != null)
+                    {
+                        burstEffectImage.sprite = bombBurstSprite;
+                        burstEffectImage.transform.localScale = Vector3.zero;
+                        burstEffectImage.transform.DOScale(2.0f, 0.35f).SetEase(Ease.OutBack);
+                        burstEffectImage.DOFade(0f, 0.35f).SetEase(Ease.InQuad);
+                    }
+                }
+            });
+
+            // 3. Punch bounce, wiggle, and pop up
+            activeSequence.Append(rectTransform.DOScale(1.35f, 0.16f).SetEase(Ease.OutElastic));
+            activeSequence.Append(rectTransform.DORotate(new Vector3(0, 0, 12f), 0.06f).SetEase(Ease.OutQuad));
+            activeSequence.Append(rectTransform.DORotate(new Vector3(0, 0, -12f), 0.06f).SetEase(Ease.InOutQuad));
+            activeSequence.Append(rectTransform.DORotate(Vector3.zero, 0.06f).SetEase(Ease.OutQuad));
+            activeSequence.Append(rectTransform.DOScale(1.0f, 0.12f).SetEase(Ease.InOutQuad));
+
+            // 4. Pop the Multiplier badge with punch bounce
+            if (multiplierText != null)
+            {
+                activeSequence.Join(multiplierText.transform.DOScale(1.45f, 0.18f).SetEase(Ease.OutBack));
+                activeSequence.Append(multiplierText.transform.DOScale(1.0f, 0.10f).SetEase(Ease.InOutQuad));
             }
 
-            // Punch bounce, wiggle, and pop up
-            activeSequence.Append(rectTransform.DOScale(1.4f, 0.18f).SetEase(Ease.OutElastic));
-            activeSequence.Append(rectTransform.DORotate(new Vector3(0, 0, 15f), 0.08f).SetEase(Ease.OutQuad));
-            activeSequence.Append(rectTransform.DORotate(new Vector3(0, 0, -15f), 0.08f).SetEase(Ease.InOutQuad));
-            activeSequence.Append(rectTransform.DORotate(Vector3.zero, 0.08f).SetEase(Ease.OutQuad));
-            activeSequence.Append(rectTransform.DOScale(1.0f, 0.12f).SetEase(Ease.InOutQuad));
             activeSequence.OnComplete(() =>
             {
                 if (burstEffectImage != null) burstEffectImage.enabled = false;

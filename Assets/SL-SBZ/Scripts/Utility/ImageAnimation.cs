@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -17,50 +17,50 @@ public class ImageAnimation : MonoBehaviour
         TWO_PHASE
     }
 
-    [SerializeField] private List<Sprite> textureArray;
-    [SerializeField] private Image rendererDelegate;
-    [SerializeField] private bool useSharedMaterial = true;
-    [SerializeField] private bool doLoopAnimation = true;
-    
+    public List<Sprite> textureArray;
+    public Image rendererDelegate;
+    public bool useSharedMaterial = true;
+    public bool doLoopAnimation = true;
+
     [Header("Dynamic Timing")]
-    [SerializeField] private bool useDynamicFramerate = false;
-    [SerializeField] private float dynamicLoopDuration = 1.0f;
+    public bool useDynamicFramerate = false;
+    public float dynamicLoopDuration = 1.0f;
     [Tooltip("Target frame rate (FPS) for smooth animation. When useDynamicFramerate is true, loop count adaptively scales to maintain smooth speed near this FPS.")]
-    [SerializeField] private float targetFPS = 24.0f;
-    
-    internal System.Action<int> onLoopComplete;
+    public float targetFPS = 24.0f;
+
+    public System.Action<int> onLoopComplete;
     private int currentLoopCount = 0;
-    
-    [SerializeField] private bool StartOnAwake;
-    [SerializeField] private bool StartonEnable;
+
+    [SerializeField] private bool StartOnAwake = true;
+    [SerializeField] private bool StartonEnable = true;
 
     [HideInInspector]
-    internal ImageState currentAnimationState;
+    public ImageState currentAnimationState;
 
     private int indexOfTexture;
     private float idealFrameRate = 0.0416666679f;
     private float delayBetweenAnimation;
 
-    [SerializeField] private float AnimationSpeed = 5f;
-    [SerializeField] private float delayBetweenLoop;
+    public float AnimationSpeed = 5f;
+    public float delayBetweenLoop;
 
     [Header("Two Phase Animation (Optional)")]
-    [SerializeField] private AnimationMode animationMode = AnimationMode.SINGLE_PHASE;
-    
+    public AnimationMode animationMode = AnimationMode.SINGLE_PHASE;
+
     [Tooltip("Index where Phase 2 starts (Phase 1 is 0 to this index-1)")]
-    [SerializeField] private int phase2StartIndex = 0;
-    
+    public int phase2StartIndex = 0;
+
     [Tooltip("How many times Phase 1 should loop (-1 = infinite, 0 = skip phase 1, 1+ = specific count)")]
-    [SerializeField] private int phase1LoopCount = 1;
-    
+    public int phase1LoopCount = 1;
+
     [Tooltip("How many times Phase 2 should loop (-1 = infinite, 0 = skip phase 2, 1+ = specific count)")]
-    [SerializeField] private int phase2LoopCount = -1;
+    public int phase2LoopCount = -1;
 
     [Tooltip("If enabled, allows separate animation speeds for Phase 1 and Phase 2. Phase 1 uses AnimationSpeed, while Phase 2 uses phase2AnimationSpeed.")]
-    [SerializeField] private bool useCustomSpeed = false;
+    public bool useCustomSpeed = false;
 
     [Tooltip("Animation speed for Phase 2 when useCustomSpeed is enabled.")]
-    [SerializeField] private float phase2AnimationSpeed = 5f;
+    public float phase2AnimationSpeed = 5f;
 
     private int currentPhase = 1;
     private int phase1CurrentLoop = 0;
@@ -172,10 +172,10 @@ public class ImageAnimation : MonoBehaviour
                 float frameDuration = dynamicLoopDuration / totalFrames;
                 float currentFrameProgress = (elapsedTime % dynamicLoopDuration) / dynamicLoopDuration;
                 int currentExpectedFrame = Mathf.Clamp(Mathf.FloorToInt(currentFrameProgress * totalFrames), 0, totalFrames - 1);
-                
+
                 float currentLoopIndex = Mathf.Floor(elapsedTime / dynamicLoopDuration);
                 float nextFrameTargetTime = (currentLoopIndex * dynamicLoopDuration) + ((currentExpectedFrame + 1) * frameDuration);
-                
+
                 nextDelay = nextFrameTargetTime - elapsedTime;
                 if (nextDelay < 0.001f) nextDelay = 0.001f;
             }
@@ -246,7 +246,7 @@ public class ImageAnimation : MonoBehaviour
                     indexOfTexture = 0;
                     currentLoopCount++;
                     onLoopComplete?.Invoke(currentLoopCount);
-                    
+
                     if (doLoopAnimation)
                     {
                         Invoke(nameof(AnimationProcess), delayBetweenAnimation + delayBetweenLoop);
@@ -275,7 +275,7 @@ public class ImageAnimation : MonoBehaviour
             if (indexOfTexture >= phase2StartIndex)
             {
                 phase1CurrentLoop++;
-                
+
                 if (phase1LoopCount == -1 || phase1CurrentLoop < phase1LoopCount)
                 {
                     indexOfTexture = 0;
@@ -289,7 +289,7 @@ public class ImageAnimation : MonoBehaviour
                     currentPhase = 2;
                     indexOfTexture = phase2StartIndex;
                     CalculateFrameDelay();
-                    
+
                     if (phase2LoopCount == 0)
                     {
                         currentAnimationState = ImageState.NONE;
@@ -314,7 +314,7 @@ public class ImageAnimation : MonoBehaviour
             if (indexOfTexture >= textureArray.Count)
             {
                 phase2CurrentLoop++;
-                
+
                 if (phase2LoopCount == -1 || phase2CurrentLoop < phase2LoopCount)
                 {
                     indexOfTexture = phase2StartIndex;
@@ -387,7 +387,7 @@ public class ImageAnimation : MonoBehaviour
             }
             CancelInvoke(nameof(AnimationProcess));
             currentAnimationState = ImageState.NONE;
-            
+
             currentPhase = 1;
             phase1CurrentLoop = 0;
             phase2CurrentLoop = 0;

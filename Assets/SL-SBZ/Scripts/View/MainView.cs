@@ -213,7 +213,7 @@ namespace SweetBonanza.View
             if (anteBetAmountText != null)
             {
                 double anteCost = baseBet * 1.25;
-                anteBetAmountText.text = $"${anteCost:F2}";
+                anteBetAmountText.text = SpriteTextUtility.FormatCurrency(anteCost);
             }
         }
 

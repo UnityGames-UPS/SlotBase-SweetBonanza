@@ -63,6 +63,10 @@ namespace SweetBonanza.View
         [SerializeField] private Toggle toggleAmbientMusic;
         [SerializeField] private Toggle toggleSoundFx;
         [SerializeField] private Toggle toggleIntroScreen;
+        [Header("System Settings - Total Bet")]
+        [SerializeField] private TMP_Text settingsBetAmountText;
+        [SerializeField] private Button buttonSystemSettingIncreaseBet;
+        [SerializeField] private Button buttonSystemSettingDecreaseBet;
 
         [Header("3. Sound Settings Modal")]
         [SerializeField] private GameObject soundSettingsPanel;
@@ -90,6 +94,13 @@ namespace SweetBonanza.View
         [SerializeField] private Button buttonCancelBuyFeature;
         [SerializeField] private TMP_Text buyFeatureCostText;
         [SerializeField] private TMP_Text buyFeatureButtonCostText;
+        [SerializeField] private TMP_Text buyFeatureSpinsCountText;
+
+        [Header("Ante Bet Slider & Sprites")]
+        [SerializeField] private Slider anteBetSlider;
+        [SerializeField] private Image anteBetHandleImage;
+        [SerializeField] private Sprite anteBetOffSprite;
+        [SerializeField] private Sprite anteBetOnSprite;
 
         [Header("5. Bet Adjustment Modal")]
         [SerializeField] private GameObject betAdjustmentPanel;
@@ -115,10 +126,6 @@ namespace SweetBonanza.View
         [Header("Bet Adjustment - Bet Max")]
         [SerializeField] private Button buttonBetMax;
 
-        [Header("System Settings Bet Controls")]
-        [SerializeField] private Button buttonSystemSettingIncreaseBet;
-        [SerializeField] private Button buttonSystemSettingDecreaseBet;
-        [SerializeField] private TMP_Text settingsBetAmountText;
 
         [Header("Autoplay Panel")]
         [SerializeField] private GameObject autoplayPanel;
@@ -307,6 +314,25 @@ namespace SweetBonanza.View
             {
                 BindClick(fullScreenButton, () => SetFullscreen(!isExpanded));
             }
+
+            // Ante Bet Slider (0 = OFF, 1 = ON)
+            if (anteBetSlider != null)
+            {
+                anteBetSlider.wholeNumbers = true;
+                anteBetSlider.minValue = 0;
+                anteBetSlider.maxValue = 1;
+                anteBetSlider.onValueChanged.AddListener(val =>
+                {
+                    bool isOn = Mathf.RoundToInt(val) == 1;
+                    if (isOn != isAnteBet)
+                    {
+                        UpdateAnteBetSliderVisuals(isOn);
+                        OnAnteBetToggled?.Invoke();
+                    }
+                });
+            }
+            UpdateAnteBetSliderVisuals(isAnteBet);
+            UpdateSettingsBetText(currentBetAmount);
         }
 
         private void BindClick(Button btn, UnityAction action)
@@ -484,7 +510,11 @@ namespace SweetBonanza.View
 
         #region Sound & Settings Modals
 
-        internal void OpenSystemSettings() => OpenModal(systemSettingsPanel);
+        internal void OpenSystemSettings()
+        {
+            UpdateSettingsBetText(currentBetAmount);
+            OpenModal(systemSettingsPanel);
+        }
 
         internal void ToggleSoundSettings()
         {
@@ -549,9 +579,12 @@ namespace SweetBonanza.View
 
         #region Buy Feature & Bet Adjustment
 
-        internal void OpenBuyFeatureModal(double betAmount)
+        internal void OpenBuyFeatureModal(double betAmount, int freeSpinsCount = 10)
         {
-            if (buyFeatureCostText != null) buyFeatureCostText.text = $"${(betAmount * 100.0):F2}";
+            if (buyFeatureCostText != null) 
+                buyFeatureCostText.text = SpriteTextUtility.FormatCurrency(betAmount * 100.0);
+            if (buyFeatureSpinsCountText != null) 
+                buyFeatureSpinsCountText.text = SpriteTextUtility.FormatCount(freeSpinsCount);
             OpenModal(buyFeatureConfirmPanel);
         }
 
@@ -610,7 +643,7 @@ namespace SweetBonanza.View
             if (betCoinsText != null) betCoinsText.text = betLevel.ToString();
             if (coinValueText != null) coinValueText.text = $"${coinVal:F2}";
             if (totalBetAmountText != null) totalBetAmountText.text = $"${effectiveTotalBet:F2}";
-            if (settingsBetAmountText != null) settingsBetAmountText.text = $"${effectiveTotalBet:F2}";
+            UpdateSettingsBetText(baseBet);
         }
 
         private void ApplyBetAdjustment()
@@ -725,7 +758,11 @@ namespace SweetBonanza.View
         internal void UpdateHUD(double balance, double bet, double win, bool isAnteBet, bool isSpinning)
         {
             currentBetAmount = bet;
-            if (buyFeatureButtonCostText != null) buyFeatureButtonCostText.text = $"${(bet * 100.0):F2}";
+            if (buyFeatureButtonCostText != null) 
+                buyFeatureButtonCostText.text = SpriteTextUtility.FormatCurrency(bet * 100.0);
+
+            UpdateAnteBetSliderVisuals(isAnteBet);
+            UpdateSettingsBetText(currentBetAmount);
 
             if (mainView != null)
             {
@@ -733,6 +770,30 @@ namespace SweetBonanza.View
                 mainView.SetBet(bet, isAnteBet);
                 mainView.SetWin(win, false);
                 mainView.SetSpinButtonInteractable(!isSpinning);
+            }
+        }
+
+        private void UpdateAnteBetSliderVisuals(bool active)
+        {
+            this.isAnteBet = active;
+            if (anteBetSlider != null)
+            {
+                anteBetSlider.SetValueWithoutNotify(active ? 1 : 0);
+            }
+            if (anteBetHandleImage != null)
+            {
+                anteBetHandleImage.sprite = active && anteBetOnSprite != null ? anteBetOnSprite : anteBetOffSprite;
+            }
+        }
+
+        private void UpdateSettingsBetText(double bet)
+        {
+            if (settingsBetAmountText != null)
+            {
+                double effectiveBet = isAnteBet ? bet * 1.25 : bet;
+                settingsBetAmountText.text = (effectiveBet % 1 == 0) 
+                    ? effectiveBet.ToString("0") 
+                    : effectiveBet.ToString("F2", System.Globalization.CultureInfo.InvariantCulture);
             }
         }
 

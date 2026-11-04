@@ -41,6 +41,8 @@ namespace SweetBonanza.View
         [SerializeField] private Sprite multiplierBombSprite;
         [SerializeField] private Sprite multiplierBombSprite2;
         [SerializeField] private Sprite multiplierBombSprite3;
+        [Header("Bomb Bust Effect (30 Frames)")]
+        [SerializeField] private Sprite[] bombEffectFrames;
 
         [Header("Symbol Win Animations (All Gems & Fruits)")]
         [SerializeField] private Sprite[] bananaFrames;
@@ -523,9 +525,15 @@ namespace SweetBonanza.View
                     cell.transform.SetAsLastSibling();
                     Sprite bombSprite = GetMultiplierBombSprite(bomb.MultiplierValue);
                     cell.Setup(SymbolType.MultiplierBomb, bombSprite, bomb.MultiplierValue);
-                    cell.PlayMultiplierBombRevealAnimation(bomb.MultiplierValue, () => completed++);
+                    cell.PlayMultiplierBombRevealAnimation(bomb.MultiplierValue, () => completed++, bombEffectFrames);
                 }
                 else completed++;
+
+                // Stagger detonations if multiple bombs land for arcade excitement
+                if (bombs.Count > 1 && i < bombs.Count - 1)
+                {
+                    yield return new WaitForSeconds(0.25f);
+                }
             }
 
             while (completed < bombs.Count) yield return null;
