@@ -13,19 +13,20 @@ namespace SweetBonanza.View
     public class CellView : MonoBehaviour
     {
         [Header("Components")]
-        [SerializeField] private Image symbolImage;
-        [SerializeField] private TMP_Text multiplierText;
-        [SerializeField] private TMP_Text winAmountText;
-        [SerializeField] private CanvasGroup canvasGroup;
-        [SerializeField] private RectTransform rectTransform;
+        public Image symbolImage;
+        public TMP_Text multiplierText;
+        public TMP_Text winAmountText;
+        public CanvasGroup canvasGroup;
+        public RectTransform rectTransform;
 
         [Header("Visual Effects")]
-        [SerializeField] private Image burstEffectImage;
-        [SerializeField] private Sprite candyBurstSprite;
-        [SerializeField] private Sprite bombBurstSprite;
+        public Image burstEffectImage;
+        public Sprite candyBurstSprite;
+        public Sprite bombBurstSprite;
 
         private SymbolType currentSymbol;
         private int currentMultiplier;
+        private Sprite baseSymbolSprite;
         private Sequence activeSequence;
         private Tweener activeTweener;
         private Coroutine activeAnimRoutine;
@@ -37,21 +38,25 @@ namespace SweetBonanza.View
             if (canvasGroup == null) canvasGroup = GetComponent<CanvasGroup>();
         }
 
-        internal SymbolType CurrentSymbol => currentSymbol;
-        internal RectTransform RectTransform => rectTransform;
+        public SymbolType CurrentSymbol => currentSymbol;
+        public RectTransform RectTransform => rectTransform;
+        public Sprite BaseSymbolSprite => baseSymbolSprite;
+        public Sprite CurrentSprite => symbolImage != null ? symbolImage.sprite : null;
 
-        internal void Setup(SymbolType symbol, Sprite sprite, int multiplier = 0)
+        public void Setup(SymbolType symbol, Sprite sprite, int multiplier = 0)
         {
             KillActiveTweens();
 
             currentSymbol = symbol;
             currentMultiplier = multiplier;
+            baseSymbolSprite = sprite;
 
             if (symbolImage != null)
             {
                 symbolImage.sprite = sprite;
                 symbolImage.color = Color.white;
                 symbolImage.enabled = sprite != null;
+                symbolImage.transform.localScale = Vector3.one;
             }
 
             if (multiplierText != null)
@@ -109,7 +114,7 @@ namespace SweetBonanza.View
 
             if (frames != null && frames.Length > 0 && gameObject.activeInHierarchy)
             {
-                activeAnimRoutine = StartCoroutine(CycleFrames(frames, duration));
+                activeAnimRoutine = StartCoroutine(CycleFrames(frames, duration, baseSymbolSprite));
             }
 
             activeSequence.OnComplete(() => onComplete?.Invoke());
@@ -120,7 +125,7 @@ namespace SweetBonanza.View
             PlayWinAnimation(null, 0.38f, 0, onComplete);
         }
 
-        internal void PlayExplodeAnimation(Sprite[] burstFrames, Action onComplete)
+        internal void PlayExplodeAnimation(Sprite[] burstFrames, Action onComplete, Sprite[] symbolFrames = null)
         {
             KillActiveTweens();
 
@@ -131,6 +136,13 @@ namespace SweetBonanza.View
 
             activeSequence = DOTween.Sequence();
 
+            // 1. Play the 3D symbol animation at accelerated speed during the burst pop
+            if (symbolFrames != null && symbolFrames.Length > 0 && gameObject.activeInHierarchy)
+            {
+                activeAnimRoutine = StartCoroutine(CycleFrames(symbolFrames, 0.22f));
+            }
+
+            // 2. Play the GEffect candy glass shatter explosion directly over the bursting candy
             if (burstEffectImage != null)
             {
                 burstEffectImage.enabled = true;
@@ -151,8 +163,9 @@ namespace SweetBonanza.View
                 activeSequence.Join(burstEffectImage.DOFade(0f, 0.22f).SetEase(Ease.InQuad));
             }
 
-            activeSequence.Append(rectTransform.DOScale(1.3f, 0.08f).SetEase(Ease.OutQuad));
-            if (canvasGroup != null) activeSequence.Join(canvasGroup.DOFade(0.2f, 0.14f));
+            // 3. Punch scale up, flash, and shatter into pieces
+            activeSequence.Append(rectTransform.DOScale(1.35f, 0.08f).SetEase(Ease.OutQuad));
+            if (canvasGroup != null) activeSequence.Join(canvasGroup.DOFade(0.1f, 0.14f));
             activeSequence.Append(rectTransform.DOScale(0.0f, 0.14f).SetEase(Ease.InBack));
             activeSequence.OnComplete(() =>
             {
@@ -162,62 +175,85 @@ namespace SweetBonanza.View
             });
         }
 
-        internal void PlayFallAnimation(Vector2 targetAnchoredPos, float duration, Action onComplete)
-        {
-            KillActiveTweens();
-
-            activeSequence = DOTween.Sequence();
-            // Fall with subtle vertical stretch
-            activeSequence.Append(rectTransform.DOAnchorPos(targetAnchoredPos, duration).SetEase(Ease.InQuad));
-            activeSequence.Join(rectTransform.DOScale(new Vector3(0.93f, 1.08f, 1f), duration * 0.7f).SetEase(Ease.InQuad));
-
-            // Bubbly gummy squash on landing
-            activeSequence.Append(rectTransform.DOScale(new Vector3(1.18f, 0.84f, 1f), 0.08f).SetEase(Ease.OutQuad));
-            // Rebound and settle
-            activeSequence.Append(rectTransform.DOScale(new Vector3(0.97f, 1.03f, 1f), 0.08f).SetEase(Ease.InOutQuad));
-            activeSequence.Append(rectTransform.DOScale(Vector3.one, 0.07f).SetEase(Ease.OutQuad));
-
-            activeSequence.OnComplete(() => onComplete?.Invoke());
-        }
-
-        internal void PlayDropInAnimation(Vector2 targetAnchoredPos, float delay, float duration, Action onComplete)
+        internal void PlayFallAnimation(Vector2 targetAnchoredPos, float duration, Action onComplete, float delay = 0f, Sprite[] animFrames = null)
         {
             KillActiveTweens();
             rectTransform.localScale = Vector3.one;
             rectTransform.localRotation = Quaternion.identity;
             if (canvasGroup != null) canvasGroup.alpha = 1f;
-            if (symbolImage != null) symbolImage.enabled = true;
+            if (symbolImage != null)
+            {
+                symbolImage.enabled = true;
+                if (baseSymbolSprite != null) symbolImage.sprite = baseSymbolSprite;
+            }
             if (burstEffectImage != null) burstEffectImage.enabled = false;
             if (winAmountText != null) winAmountText.gameObject.SetActive(false);
 
             activeSequence = DOTween.Sequence();
             if (delay > 0) activeSequence.AppendInterval(delay);
 
-            // 1. Initial fall with vertical jelly stretch
-            float fallDuration = duration * 0.72f;
+            float fallDuration = duration * 0.74f;
+            // High velocity downward fall with subtle vertical stretch (strictly upright, no tilt)
             activeSequence.Append(rectTransform.DOAnchorPos(targetAnchoredPos, fallDuration).SetEase(Ease.InQuad));
-            activeSequence.Join(rectTransform.DOScale(new Vector3(0.90f, 1.12f, 1f), fallDuration * 0.6f).SetEase(Ease.InQuad));
+            activeSequence.Join(rectTransform.DOScale(new Vector3(0.95f, 1.06f, 1f), fallDuration * 0.65f).SetEase(Ease.InQuad));
 
-            // 2. Gummy squash on impact (flat horizontal spread)
-            float randomTilt = UnityEngine.Random.Range(-4.5f, 4.5f);
-            activeSequence.Append(rectTransform.DOScale(new Vector3(1.24f, 0.80f, 1f), 0.08f).SetEase(Ease.OutQuad));
-            activeSequence.Join(rectTransform.DORotate(new Vector3(0, 0, randomTilt), 0.08f).SetEase(Ease.OutQuad));
+            // Crisp vertical gummy squash on landing
+            activeSequence.Append(rectTransform.DOScale(new Vector3(1.14f, 0.86f, 1f), 0.07f).SetEase(Ease.OutQuad));
+            // Elastic rebound and settle
+            activeSequence.Append(rectTransform.DOScale(new Vector3(0.98f, 1.02f, 1f), 0.06f).SetEase(Ease.InOutQuad));
+            activeSequence.Append(rectTransform.DOScale(Vector3.one, 0.05f).SetEase(Ease.OutQuad));
+
+            // Play the 3D frame animation during tumble fall
+            if (animFrames != null && animFrames.Length > 0 && gameObject.activeInHierarchy)
+            {
+                activeAnimRoutine = StartCoroutine(CycleFrames(animFrames, fallDuration, baseSymbolSprite, delay));
+            }
+
+            activeSequence.OnComplete(() => onComplete?.Invoke());
+        }
+
+        internal void PlayDropInAnimation(Vector2 targetAnchoredPos, float delay, float duration, Action onComplete, Sprite[] animFrames = null)
+        {
+            KillActiveTweens();
+            rectTransform.localScale = Vector3.one;
+            rectTransform.localRotation = Quaternion.identity;
+            if (canvasGroup != null) canvasGroup.alpha = 1f;
+            if (symbolImage != null)
+            {
+                symbolImage.enabled = true;
+                if (baseSymbolSprite != null) symbolImage.sprite = baseSymbolSprite;
+            }
+            if (burstEffectImage != null) burstEffectImage.enabled = false;
+            if (winAmountText != null) winAmountText.gameObject.SetActive(false);
+
+            activeSequence = DOTween.Sequence();
+            if (delay > 0) activeSequence.AppendInterval(delay);
+
+            // 1. Initial fall with vertical acceleration and subtle vertical jelly stretch (strictly upright track alignment)
+            float fallDuration = duration * 0.74f;
+            activeSequence.Append(rectTransform.DOAnchorPos(targetAnchoredPos, fallDuration).SetEase(Ease.InQuad));
+            activeSequence.Join(rectTransform.DOScale(new Vector3(0.92f, 1.10f, 1f), fallDuration * 0.65f).SetEase(Ease.InQuad));
+
+            // 2. Pure vertical gummy squash on impact (NO rotation/tilting - 100% upright like Pragmatic Play Sweet Bonanza)
+            activeSequence.Append(rectTransform.DOScale(new Vector3(1.16f, 0.84f, 1f), 0.07f).SetEase(Ease.OutQuad));
 
             // 3. Elastic rebound bounce
-            activeSequence.Append(rectTransform.DOScale(new Vector3(0.95f, 1.06f, 1f), 0.09f).SetEase(Ease.InOutQuad));
-            activeSequence.Join(rectTransform.DORotate(new Vector3(0, 0, -randomTilt * 0.5f), 0.09f).SetEase(Ease.InOutQuad));
+            activeSequence.Append(rectTransform.DOScale(new Vector3(0.96f, 1.04f, 1f), 0.07f).SetEase(Ease.InOutQuad));
 
             // 4. Settle back to upright rest state
-            activeSequence.Append(rectTransform.DOScale(Vector3.one, 0.08f).SetEase(Ease.OutQuad));
-            activeSequence.Join(rectTransform.DORotate(Vector3.zero, 0.08f).SetEase(Ease.OutQuad));
+            activeSequence.Append(rectTransform.DOScale(Vector3.one, 0.06f).SetEase(Ease.OutQuad));
 
-            // 5. Special playful Scatter Lollipop landing wobble if Scatter
+            // 5. Special playful Scatter Lollipop landing wobble if Scatter (wobbles on its wooden stick)
             if (currentSymbol == SymbolType.Lollipop)
             {
-                activeSequence.Append(rectTransform.DORotate(new Vector3(0, 0, 14f), 0.09f).SetEase(Ease.OutQuad));
-                activeSequence.Append(rectTransform.DORotate(new Vector3(0, 0, -14f), 0.09f).SetEase(Ease.InOutQuad));
-                activeSequence.Append(rectTransform.DORotate(Vector3.zero, 0.08f).SetEase(Ease.OutQuad));
-                activeSequence.Join(rectTransform.DOPunchScale(Vector3.one * 0.18f, 0.24f, 4, 0.4f));
+                activeSequence.Append(rectTransform.DOPunchRotation(new Vector3(0, 0, 10f), 0.28f, 4, 0.4f));
+                activeSequence.Join(rectTransform.DOPunchScale(Vector3.one * 0.14f, 0.24f, 3, 0.3f));
+            }
+
+            // 6. Play the 3D frame animation while dropping
+            if (animFrames != null && animFrames.Length > 0 && gameObject.activeInHierarchy)
+            {
+                activeAnimRoutine = StartCoroutine(CycleFrames(animFrames, fallDuration, baseSymbolSprite, delay));
             }
 
             activeSequence.OnComplete(() => onComplete?.Invoke());
@@ -225,7 +261,7 @@ namespace SweetBonanza.View
 
         internal void PlayClearDropAnimation(float delay, Action onComplete)
         {
-            PlayClearDropAnimation(delay, 0.38f, onComplete);
+            PlayClearDropAnimation(delay, 0.30f, onComplete);
         }
 
         internal void PlayClearDropAnimation(float delay, float duration, Action onComplete)
@@ -236,9 +272,10 @@ namespace SweetBonanza.View
             activeSequence = DOTween.Sequence();
             if (delay > 0) activeSequence.AppendInterval(delay);
 
-            float targetY = rectTransform.anchoredPosition.y - 480f;
+            // Plunge cleanly down past the bottom mask boundary with acceleration
+            float targetY = rectTransform.anchoredPosition.y - 1100f;
             activeSequence.Append(rectTransform.DOAnchorPosY(targetY, duration).SetEase(Ease.InQuad));
-            activeSequence.Join(rectTransform.DOScale(new Vector3(0.92f, 1.12f, 1f), duration * 0.7f).SetEase(Ease.InQuad));
+            activeSequence.Join(rectTransform.DOScale(new Vector3(0.90f, 1.12f, 1f), duration * 0.7f).SetEase(Ease.InQuad));
             activeSequence.OnComplete(() => onComplete?.Invoke());
         }
 
@@ -331,24 +368,47 @@ namespace SweetBonanza.View
 
             if (frames != null && frames.Length > 0 && gameObject.activeInHierarchy)
             {
-                activeAnimRoutine = StartCoroutine(CycleFrames(frames, duration));
+                activeAnimRoutine = StartCoroutine(CycleFrames(frames, duration, baseSymbolSprite));
             }
         }
 
-        private IEnumerator CycleFrames(Sprite[] frames, float duration)
+        private IEnumerator CycleFrames(Sprite[] frames, float duration, Sprite defaultSprite = null, float startDelay = 0f)
         {
+            if (frames == null || frames.Length == 0) yield break;
+
+            if (startDelay > 0f)
+            {
+                yield return new WaitForSeconds(startDelay);
+            }
+
             float elapsed = 0f;
-            float frameRate = 1f / 24f;
+            // Adapt frame rate dynamically so the full 3D animation plays smoothly across the duration
+            float frameRate = Mathf.Min(1f / 24f, duration / frames.Length);
+            float frameTimer = 0f;
             int index = 0;
+
             while (elapsed < duration)
             {
                 if (symbolImage != null && frames != null && frames.Length > 0)
                 {
                     symbolImage.sprite = frames[index % frames.Length];
                 }
-                index++;
-                elapsed += frameRate;
-                yield return new WaitForSeconds(frameRate);
+
+                yield return null;
+                elapsed += Time.deltaTime;
+                frameTimer += Time.deltaTime;
+
+                if (frameTimer >= frameRate)
+                {
+                    int advance = Mathf.Max(1, Mathf.FloorToInt(frameTimer / frameRate));
+                    index += advance;
+                    frameTimer -= advance * frameRate;
+                }
+            }
+
+            if (symbolImage != null)
+            {
+                symbolImage.sprite = defaultSprite != null ? defaultSprite : baseSymbolSprite;
             }
             activeAnimRoutine = null;
         }
@@ -374,6 +434,7 @@ namespace SweetBonanza.View
         internal void ResetCell()
         {
             KillActiveTweens();
+            baseSymbolSprite = null;
             if (rectTransform != null)
             {
                 rectTransform.localScale = Vector3.one;
@@ -384,6 +445,7 @@ namespace SweetBonanza.View
             {
                 symbolImage.sprite = null;
                 symbolImage.enabled = false;
+                symbolImage.transform.localScale = Vector3.one;
             }
             if (multiplierText != null) multiplierText.gameObject.SetActive(false);
             if (winAmountText != null) winAmountText.gameObject.SetActive(false);
@@ -392,6 +454,20 @@ namespace SweetBonanza.View
 
         internal void CompleteAnimation()
         {
+            if (activeAnimRoutine != null)
+            {
+                StopCoroutine(activeAnimRoutine);
+                activeAnimRoutine = null;
+            }
+            if (activeBurstRoutine != null)
+            {
+                StopCoroutine(activeBurstRoutine);
+                activeBurstRoutine = null;
+            }
+            if (symbolImage != null && baseSymbolSprite != null)
+            {
+                symbolImage.sprite = baseSymbolSprite;
+            }
             if (activeSequence != null && activeSequence.IsActive())
             {
                 activeSequence.Complete(true);

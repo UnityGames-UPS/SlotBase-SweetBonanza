@@ -67,7 +67,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -150,10 +150,10 @@ TextureImporter:
       name: SYMBOLS PAY ANYWHERE ON THE SCREEN_0
       rect:
         serializedVersion: 2
-        x: 49
-        y: 100
-        width: 269
-        height: 47
+        x: 39
+        y: 41
+        width: 1200
+        height: 170
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -164,160 +164,6 @@ TextureImporter:
       bones: []
       spriteID: 158876ee018049240800000000000000
       internalID: 4797468371868682321
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: SYMBOLS PAY ANYWHERE ON THE SCREEN_1
-      rect:
-        serializedVersion: 2
-        x: 329
-        y: 100
-        width: 40
-        height: 46
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 448f20af73aa447f0800000000000000
-      internalID: -629190890530604988
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: SYMBOLS PAY ANYWHERE ON THE SCREEN_2
-      rect:
-        serializedVersion: 2
-        x: 363
-        y: 100
-        width: 45
-        height: 47
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 49233eae20bcaea50800000000000000
-      internalID: 6551271821354939028
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: SYMBOLS PAY ANYWHERE ON THE SCREEN_3
-      rect:
-        serializedVersion: 2
-        x: 401
-        y: 100
-        width: 41
-        height: 47
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 62997294c70cd53d0800000000000000
-      internalID: -3216202918836856538
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: SYMBOLS PAY ANYWHERE ON THE SCREEN_4
-      rect:
-        serializedVersion: 2
-        x: 450
-        y: 99
-        width: 318
-        height: 48
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 62ebbd548528e6f50800000000000000
-      internalID: 6876576996682087974
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: SYMBOLS PAY ANYWHERE ON THE SCREEN_5
-      rect:
-        serializedVersion: 2
-        x: 777
-        y: 100
-        width: 85
-        height: 47
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: b091e63ff9ae69dd0800000000000000
-      internalID: -2479536572116100853
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: SYMBOLS PAY ANYWHERE ON THE SCREEN_6
-      rect:
-        serializedVersion: 2
-        x: 872
-        y: 100
-        width: 120
-        height: 47
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: c19d5ed7c6c37fc40800000000000000
-      internalID: 5545967902796405020
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: SYMBOLS PAY ANYWHERE ON THE SCREEN_7
-      rect:
-        serializedVersion: 2
-        x: 1000
-        y: 99
-        width: 229
-        height: 48
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 47abd46a18edc6ce0800000000000000
-      internalID: -1410507934851548556
       vertices: []
       indices: 
       edges: []

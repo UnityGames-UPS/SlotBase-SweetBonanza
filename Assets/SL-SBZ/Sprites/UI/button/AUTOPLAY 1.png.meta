@@ -81,7 +81,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -135,12 +135,12 @@ TextureImporter:
       name: AUTOPLAY 1_0
       rect:
         serializedVersion: 2
-        x: 36
-        y: 1713
-        width: 1236
-        height: 1087
+        x: 76
+        y: 0
+        width: 800
+        height: 800
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -157,12 +157,12 @@ TextureImporter:
       name: AUTOPLAY 1_1
       rect:
         serializedVersion: 2
-        x: 137
-        y: 0
-        width: 766
-        height: 624
+        x: 76
+        y: 1240
+        width: 800
+        height: 800
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -175,33 +175,11 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
-    - serializedVersion: 2
-      name: AUTOPLAY 1_2
-      rect:
-        serializedVersion: 2
-        x: 406
-        y: 222
-        width: 766
-        height: 625
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: a76d594f10327c090800000000000000
-      internalID: -8014398520577108358
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
     outline: []
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 2c0193a51f60f4a43bb0460063b46804
     internalID: 0
     vertices: []
     indices: 

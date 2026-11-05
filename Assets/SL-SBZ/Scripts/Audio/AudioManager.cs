@@ -102,11 +102,6 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private AudioClip clipAutoplayPanelOpen;
     [SerializeField] private AudioClip clipTurboButtonClick;
 
-    [Header("Wheel & Feature Clips")]
-    [SerializeField] private AudioClip clipWheelTriggerWinLine;
-    [SerializeField] private AudioClip clipWheelSpinBg;
-    [SerializeField] private AudioClip clipWheelStop;
-
     [Header("Sweet Bonanza Tumble & Feature Clips")]
     [SerializeField] private AudioClip clipSymbolPop;
     [SerializeField] private AudioClip clipBombExplode;
@@ -147,10 +142,7 @@ public class AudioManager : MonoBehaviour
     public AudioClip ClipReelSpinLoop       => clipReelSpinLoop;
     public AudioClip ClipWinTypePopupOpen   => clipWinTypePopupOpen;
     public AudioClip ClipResultPopupOpen    => clipResultPopupOpen;
-    public AudioClip ClipWheelTriggerWinLine => clipWheelTriggerWinLine;
     public AudioClip ClipFeatureBg          => clipFeatureBg;
-    public AudioClip ClipWheelSpinBg        => clipWheelSpinBg;
-    public AudioClip ClipWheelStop          => clipWheelStop;
     public AudioClip ClipSymbolPop          => clipSymbolPop;
     public AudioClip ClipBombExplode        => clipBombExplode;
     public AudioClip ClipScatterCelebration => clipScatterCelebration;
@@ -452,9 +444,7 @@ public class AudioManager : MonoBehaviour
 
     internal void PlaySpinStart()    => PlayPrimaryActionButton();
     internal void PlaySpinStop()     => PlayPrimaryActionButton();
-    internal void PlayTakeButton()   => PlayPrimaryActionButton();
     internal void PlayAutoplayStop() => PlayPrimaryActionButton();
-    internal void PlayWheelStart()   => PlayPrimaryActionButton();
 
     internal void PlayButton()
     {
@@ -582,13 +572,13 @@ public class AudioManager : MonoBehaviour
 
     internal void PlaySymbolPop()
     {
-        AudioClip clip = clipSymbolPop != null ? clipSymbolPop : clipWheelStop;
+        AudioClip clip = clipSymbolPop != null ? clipSymbolPop : clipReelStop;
         if (clip != null) PlayOneShotRandomPitch(clip, 0.05f, 0.9f);
     }
 
     internal void PlayBombExplode()
     {
-        AudioClip clip = clipBombExplode != null ? clipBombExplode : clipWheelTriggerWinLine;
+        AudioClip clip = clipBombExplode != null ? clipBombExplode : clipWinLinePhase1Start;
         if (clip != null) PlayOneShot(clip, 1f);
     }
 
@@ -596,53 +586,6 @@ public class AudioManager : MonoBehaviour
     {
         AudioClip clip = clipScatterCelebration != null ? clipScatterCelebration : clipResultPopupOpen;
         if (clip != null) PlayOneShot(clip, 1f);
-    }
-
-    #endregion
-
-    #region Wheel & Bonus Audio
-
-    internal void PlayWheelTriggerWinLine()
-    {
-        if (!_sfxEnabled || clipWheelTriggerWinLine == null) return;
-        AudioSource targetSource = (reserveSource != null) ? reserveSource : uiSource;
-        PlayLoop(targetSource, clipWheelTriggerWinLine);
-    }
-
-    internal void StopWheelTriggerWinLine()
-    {
-        if (reserveSource != null && reserveSource.clip == clipWheelTriggerWinLine)
-        {
-            StopSource(reserveSource);
-        }
-        if (uiSource != null && uiSource.clip == clipWheelTriggerWinLine)
-        {
-            StopSource(uiSource);
-        }
-    }
-
-    internal void PlayWheelSpinBg()
-    {
-        if (!_sfxEnabled || clipWheelSpinBg == null) return;
-        AudioSource targetSource = (reserveSource != null) ? reserveSource : uiSource;
-        PlayLoop(targetSource, clipWheelSpinBg);
-    }
-
-    internal void StopWheelSpinBg()
-    {
-        if (reserveSource != null && reserveSource.clip == clipWheelSpinBg)
-        {
-            StopSource(reserveSource);
-        }
-        if (uiSource != null && uiSource.clip == clipWheelSpinBg)
-        {
-            StopSource(uiSource);
-        }
-    }
-
-    internal void PlayWheelStop()
-    {
-        PlayUISound(clipWheelStop);
     }
 
     #endregion

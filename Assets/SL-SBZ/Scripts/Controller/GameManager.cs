@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using UnityEngine;
 using SweetBonanza.Model;
@@ -184,6 +184,8 @@ namespace SweetBonanza.Controller
         {
             AudioManager.Instance?.StopReelSpinLoop();
             AudioManager.Instance?.StopTensionBuilder();
+            if (uiManager != null) uiManager.SetStoppingState();
+            else if (mainView != null) mainView.SetStoppingButtonsState();
             if (gridView != null)
             {
                 gridView.RequestSlamStop();
@@ -377,6 +379,8 @@ namespace SweetBonanza.Controller
         {
             currentState = GameState.DroppingInitial;
             AudioManager.Instance?.StopTensionBuilder();
+            if (uiManager != null) uiManager.SetStoppingState();
+            else if (mainView != null) mainView.SetStoppingButtonsState();
             if (gridView != null) yield return gridView.PlayInitialDropSequence(result.InitialMatrix);
             AudioManager.Instance?.StopReelSpinLoop();
 

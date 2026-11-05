@@ -1,0 +1,507 @@
+fileFormatVersion: 2
+guid: 44ee306b0debcc743880b819d5e7df95
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 3729486436077661118
+    second: Sweet Bonanza_clouds_0
+  - first:
+      213: -475926136820406534
+    second: Sweet Bonanza_clouds_1
+  - first:
+      213: -5787124676287601048
+    second: Sweet Bonanza_clouds_2
+  - first:
+      213: 985343211111731614
+    second: Sweet Bonanza_clouds_3
+  - first:
+      213: -1426344743034420203
+    second: Sweet Bonanza_clouds_4
+  - first:
+      213: 5278323584399983108
+    second: Sweet Bonanza_clouds_5
+  - first:
+      213: 8488500183337653230
+    second: Sweet Bonanza_clouds_6
+  - first:
+      213: 4723095472262074615
+    second: Sweet Bonanza_clouds_7
+  - first:
+      213: -5699252771885065826
+    second: Sweet Bonanza_clouds_8
+  - first:
+      213: 2002522064828521602
+    second: Sweet Bonanza_clouds_9
+  - first:
+      213: 4213859015674210195
+    second: Sweet Bonanza_clouds_10
+  - first:
+      213: 8208528313727749211
+    second: Sweet Bonanza_clouds_11
+  - first:
+      213: -1594079506014736132
+    second: Sweet Bonanza_clouds_12
+  - first:
+      213: -7874356145411744490
+    second: Sweet Bonanza_clouds_13
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Sweet Bonanza_clouds_0
+      rect:
+        serializedVersion: 2
+        x: 815
+        y: 2434
+        width: 611
+        height: 222
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ebbeb09672cc1c330800000000000000
+      internalID: 3729486436077661118
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_clouds_1
+      rect:
+        serializedVersion: 2
+        x: 3013
+        y: 2460
+        width: 652
+        height: 235
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: af6ee7b33bb2569f0800000000000000
+      internalID: -475926136820406534
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_clouds_2
+      rect:
+        serializedVersion: 2
+        x: 5119
+        y: 2469
+        width: 443
+        height: 156
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 866eaf6b4c000bfa0800000000000000
+      internalID: -5787124676287601048
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_clouds_3
+      rect:
+        serializedVersion: 2
+        x: 6619
+        y: 2454
+        width: 937
+        height: 169
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e9158201e64acad00800000000000000
+      internalID: 985343211111731614
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_clouds_4
+      rect:
+        serializedVersion: 2
+        x: 8725
+        y: 2419
+        width: 474
+        height: 150
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5140038630b943ce0800000000000000
+      internalID: -1426344743034420203
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_clouds_5
+      rect:
+        serializedVersion: 2
+        x: 466
+        y: 1441
+        width: 1308
+        height: 469
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4024ab1955f504940800000000000000
+      internalID: 5278323584399983108
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_clouds_6
+      rect:
+        serializedVersion: 2
+        x: 2145
+        y: 1432
+        width: 2387
+        height: 429
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ee3dda751f53dc570800000000000000
+      internalID: 8488500183337653230
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_clouds_7
+      rect:
+        serializedVersion: 2
+        x: 4896
+        y: 1468
+        width: 888
+        height: 319
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7f0df68de4ecb8140800000000000000
+      internalID: 4723095472262074615
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_clouds_8
+      rect:
+        serializedVersion: 2
+        x: 6300
+        y: 1457
+        width: 1736
+        height: 313
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e9951a6cccf28e0b0800000000000000
+      internalID: -5699252771885065826
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_clouds_9
+      rect:
+        serializedVersion: 2
+        x: 8553
+        y: 1468
+        width: 850
+        height: 268
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 28c5cf845336acb10800000000000000
+      internalID: 2002522064828521602
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_clouds_10
+      rect:
+        serializedVersion: 2
+        x: 676
+        y: 457
+        width: 888
+        height: 319
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 397a6d2e272aa7a30800000000000000
+      internalID: 4213859015674210195
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_clouds_11
+      rect:
+        serializedVersion: 2
+        x: 2145
+        y: 408
+        width: 2317
+        height: 417
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b5c8a7cb20d8ae170800000000000000
+      internalID: 8208528313727749211
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_clouds_12
+      rect:
+        serializedVersion: 2
+        x: 4805
+        y: 447
+        width: 1071
+        height: 338
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cf0f2449221b0e9e0800000000000000
+      internalID: -1594079506014736132
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweet Bonanza_clouds_13
+      rect:
+        serializedVersion: 2
+        x: 6494
+        y: 457
+        width: 1187
+        height: 430
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 61d91dd4ecaa8b290800000000000000
+      internalID: -7874356145411744490
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Sweet Bonanza_clouds_0: 3729486436077661118
+      Sweet Bonanza_clouds_1: -475926136820406534
+      Sweet Bonanza_clouds_10: 4213859015674210195
+      Sweet Bonanza_clouds_11: 8208528313727749211
+      Sweet Bonanza_clouds_12: -1594079506014736132
+      Sweet Bonanza_clouds_13: -7874356145411744490
+      Sweet Bonanza_clouds_2: -5787124676287601048
+      Sweet Bonanza_clouds_3: 985343211111731614
+      Sweet Bonanza_clouds_4: -1426344743034420203
+      Sweet Bonanza_clouds_5: 5278323584399983108
+      Sweet Bonanza_clouds_6: 8488500183337653230
+      Sweet Bonanza_clouds_7: 4723095472262074615
+      Sweet Bonanza_clouds_8: -5699252771885065826
+      Sweet Bonanza_clouds_9: 2002522064828521602
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -141,10 +141,10 @@ TextureImporter:
       name: Sweet Bonanza_up with 100x multiplier_0
       rect:
         serializedVersion: 2
-        x: 515
-        y: 95
-        width: 165
-        height: 55
+        x: 500
+        y: 84
+        width: 919
+        height: 77
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -159,99 +159,11 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
-    - serializedVersion: 2
-      name: Sweet Bonanza_up with 100x multiplier_1
-      rect:
-        serializedVersion: 2
-        x: 693
-        y: 95
-        width: 93
-        height: 55
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 9522ad60033b7ee70800000000000000
-      internalID: 9144474587253842521
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Sweet Bonanza_up with 100x multiplier_2
-      rect:
-        serializedVersion: 2
-        x: 796
-        y: 95
-        width: 93
-        height: 55
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: fbec28719f386af50800000000000000
-      internalID: 6892341385601666751
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Sweet Bonanza_up with 100x multiplier_3
-      rect:
-        serializedVersion: 2
-        x: 889
-        y: 81
-        width: 161
-        height: 69
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 6043ba85648665e60800000000000000
-      internalID: 7950656843513803782
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Sweet Bonanza_up with 100x multiplier_4
-      rect:
-        serializedVersion: 2
-        x: 1049
-        y: 95
-        width: 356
-        height: 55
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: de77067b084bf14d0800000000000000
-      internalID: -3161609948465432595
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
     outline: []
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 

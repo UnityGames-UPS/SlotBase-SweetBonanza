@@ -181,50 +181,6 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
-    - serializedVersion: 2
-      name: AUTOPLAY_0
-      rect:
-        serializedVersion: 2
-        x: 21
-        y: 482
-        width: 379
-        height: 92
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 98a4fd9d7c9d1894ba8debf13c67b268
-      internalID: 7441728358847625314
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: AUTOPLAY_2
-      rect:
-        serializedVersion: 2
-        x: 21
-        y: 0
-        width: 379
-        height: 91
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 8f488ee755c401f46afac02a4e58f54b
-      internalID: -7349841773003514499
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
     outline: []
     customData: 
     physicsShape: []

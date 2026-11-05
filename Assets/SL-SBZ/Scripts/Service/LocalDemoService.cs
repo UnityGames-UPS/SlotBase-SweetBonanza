@@ -65,18 +65,20 @@ namespace SweetBonanza.Service
             if (scatterCount >= 4)
             {
                 scatterWin = betAmount * GameConfig.GetPayoutMultiplier(SymbolType.Lollipop, scatterCount);
-                if (!isInFreeSpins)
-                {
-                    result.TriggeredFreeSpins = true;
-                    result.FreeSpinsAwarded = 10;
-                    isInFreeSpins = true;
-                    remainingFreeSpins = 10;
-                }
-                else
-                {
-                    remainingFreeSpins += 5;
-                    result.FreeSpinsAwarded = 5;
-                }
+            }
+
+            if (!isInFreeSpins && scatterCount >= 4)
+            {
+                result.TriggeredFreeSpins = true;
+                result.FreeSpinsAwarded = 10;
+                isInFreeSpins = true;
+                remainingFreeSpins = 10;
+            }
+            else if (isInFreeSpins && scatterCount >= 3)
+            {
+                result.TriggeredFreeSpins = true;
+                result.FreeSpinsAwarded = 5;
+                remainingFreeSpins += 5;
             }
 
             if (isInFreeSpins && !result.TriggeredFreeSpins)
@@ -116,10 +118,9 @@ namespace SweetBonanza.Service
                 accumulatedTumbleWin += stepWin;
                 step.ExplodedPositions = new List<GridPosition>(explodedPositionsSet);
 
-                ApplyGravityAndSpawn(currentMatrix, explodedPositionsSet, step, isInFreeSpins);
+                ApplyGravityAndSpawn(currentMatrix, explodedPositionsSet, step, isInFreeSpins, bombsInRound);
                 step.MatrixAfter = (int[,])currentMatrix.Clone();
 
-                CollectMultiplierBombs(currentMatrix, bombsInRound);
                 result.TumbleSteps.Add(step);
             }
 
@@ -141,6 +142,19 @@ namespace SweetBonanza.Service
             else
             {
                 result.FinalWinAmount = result.TotalBaseWin;
+            }
+
+            // Enforce Pragmatic Play Max Win Cap of 21,100x base bet
+            double maxWinCap = betAmount * 21100.0;
+            if (result.FinalWinAmount > maxWinCap)
+            {
+                result.FinalWinAmount = maxWinCap;
+                if (isInFreeSpins)
+                {
+                    remainingFreeSpins = 0;
+                    isInFreeSpins = false;
+                    result.RemainingFreeSpins = 0;
+                }
             }
 
             return result;
@@ -223,7 +237,7 @@ namespace SweetBonanza.Service
             return wins;
         }
 
-        private void ApplyGravityAndSpawn(int[,] matrix, HashSet<GridPosition> exploded, TumbleStep step, bool isFreeSpins)
+        private void ApplyGravityAndSpawn(int[,] matrix, HashSet<GridPosition> exploded, TumbleStep step, bool isFreeSpins, List<BombMultiplierInfo> bombs)
         {
             for (int c = 0; c < GameConfig.COLUMNS; c++)
             {
@@ -237,6 +251,19 @@ namespace SweetBonanza.Service
                         {
                             step.FallingSymbols.Add(new SymbolFallInfo(c, r, writeRow, (SymbolType)matrix[c, r]));
                             matrix[c, writeRow] = matrix[c, r];
+
+                            // Track falling multiplier bomb to its new row position so coordinates stay aligned
+                            if ((SymbolType)matrix[c, writeRow] == SymbolType.MultiplierBomb && bombs != null)
+                            {
+                                for (int b = 0; b < bombs.Count; b++)
+                                {
+                                    if (bombs[b].Position.Column == c && bombs[b].Position.Row == r)
+                                    {
+                                        bombs[b].Position.Row = writeRow;
+                                        break;
+                                    }
+                                }
+                            }
                         }
                         writeRow++;
                     }
@@ -247,6 +274,12 @@ namespace SweetBonanza.Service
                     SymbolType newSym = GetRandomSymbol(false, isFreeSpins);
                     matrix[c, r] = (int)newSym;
                     step.NewSpawns.Add(new NewSpawnInfo(c, r, newSym));
+
+                    if (newSym == SymbolType.MultiplierBomb && bombs != null)
+                    {
+                        int val = MultiplierValues[UnityEngine.Random.Range(0, MultiplierValues.Length)];
+                        bombs.Add(new BombMultiplierInfo(new GridPosition(c, r), val));
+                    }
                 }
             }
         }

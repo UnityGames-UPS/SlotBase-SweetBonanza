@@ -73,7 +73,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -156,12 +156,12 @@ TextureImporter:
       name: WIN FREE SPINS_0
       rect:
         serializedVersion: 2
-        x: 278
-        y: 101
-        width: 75
-        height: 47
+        x: 151
+        y: 40
+        width: 1000
+        height: 166
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -170,204 +170,6 @@ TextureImporter:
       bones: []
       spriteID: 64356dbc5e4607e80800000000000000
       internalID: -8182929584802081978
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: WIN FREE SPINS_1
-      rect:
-        serializedVersion: 2
-        x: 371
-        y: 79
-        width: 80
-        height: 87
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 1a340944806219550800000000000000
-      internalID: 6165751181798818721
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: WIN FREE SPINS_2
-      rect:
-        serializedVersion: 2
-        x: 468
-        y: 101
-        width: 77
-        height: 47
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 76a7d18cce2fc1170800000000000000
-      internalID: 8150656524417333863
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: WIN FREE SPINS_3
-      rect:
-        serializedVersion: 2
-        x: 544
-        y: 101
-        width: 44
-        height: 47
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: d83358bbbff4efe90800000000000000
-      internalID: -6990061629030976627
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: WIN FREE SPINS_4
-      rect:
-        serializedVersion: 2
-        x: 587
-        y: 101
-        width: 42
-        height: 47
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: fe30fc7eede01eb80800000000000000
-      internalID: -8367390282143038481
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: WIN FREE SPINS_5
-      rect:
-        serializedVersion: 2
-        x: 645
-        y: 98
-        width: 118
-        height: 50
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 25cc8c1b68bf8dcd0800000000000000
-      internalID: -2532998234468987822
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: WIN FREE SPINS_6
-      rect:
-        serializedVersion: 2
-        x: 762
-        y: 102
-        width: 41
-        height: 46
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 4df8dfe9c0a403e20800000000000000
-      internalID: 3328241542694277076
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: WIN FREE SPINS_7
-      rect:
-        serializedVersion: 2
-        x: 817
-        y: 101
-        width: 98
-        height: 47
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: d28f1a571e3ce69e0800000000000000
-      internalID: -1626147042325563347
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: WIN FREE SPINS_8
-      rect:
-        serializedVersion: 2
-        x: 915
-        y: 101
-        width: 44
-        height: 47
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 751ebe92ad37deb50800000000000000
-      internalID: 6624078007775256919
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: WIN FREE SPINS_9
-      rect:
-        serializedVersion: 2
-        x: 958
-        y: 101
-        width: 42
-        height: 47
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 03e57b9d58f983530800000000000000
-      internalID: 3834990479938117168
       vertices: []
       indices: 
       edges: []

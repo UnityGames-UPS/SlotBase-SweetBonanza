@@ -18,6 +18,8 @@ namespace SweetBonanza.View
 
         [Header("Buttons")]
         [SerializeField] private Button spinButton;
+        [SerializeField] private Button stopSpinButton;
+        [SerializeField] private GameObject autoplayButtonObj;
         [SerializeField] private Button betPlusButton;
         [SerializeField] private Button betMinusButton;
         [SerializeField] private Button buyBonusButton;
@@ -38,6 +40,8 @@ namespace SweetBonanza.View
         [SerializeField] private Image topDisplayBannerImage;
         [SerializeField] private Sprite bannerFreeSpinsSprite;
         [SerializeField] private Sprite bannerPayAnywhereSprite;
+
+
         [SerializeField] private Image anteBetButtonImage;
         [SerializeField] private Sprite anteBetNormalSprite;
         [SerializeField] private Sprite anteBetGlowSprite;
@@ -64,16 +68,9 @@ namespace SweetBonanza.View
         [SerializeField] private Image candyTransitionImage;
 
         [Header("Spin Button Visuals")]
-        [SerializeField] private Image spinButtonBaseImage;
-        [SerializeField] private GameObject spinArrowsObj;
-        [SerializeField] private Transform spinButtonArrows;
-        [SerializeField] private GameObject stopIconObj;
         [SerializeField] private TMP_Text spinAutoplayCountText;
-        [SerializeField] private Sprite spinBaseIdleSprite;
-        [SerializeField] private Sprite spinBaseDarkSprite;
 
         private Tweener winCountTweener;
-        private Tweener spinRotationTweener;
         private Coroutine bannerCycleCoroutine;
         private double displayedWin = 0;
         private bool isCurrentlyNightMode = false;
@@ -87,6 +84,7 @@ namespace SweetBonanza.View
         private CanvasGroup buyBonusCanvasGroup;
         private CanvasGroup anteBetCanvasGroup;
 
+        /// <summary>Ensures CanvasGroup components exist on Buy Feature and Ante Bet buttons.</summary>
         private void EnsureFeatureCanvasGroups()
         {
             if (buyBonusButton != null && buyBonusCanvasGroup == null)
@@ -101,6 +99,7 @@ namespace SweetBonanza.View
             }
         }
 
+        /// <summary>Updates interactivity and alpha opacity for Buy Feature and Ante Bet buttons.</summary>
         internal void UpdateFeatureButtonsVisualState()
         {
             EnsureFeatureCanvasGroups();
@@ -127,6 +126,37 @@ namespace SweetBonanza.View
             }
         }
 
+#if UNITY_EDITOR
+        /// <summary>Ensures buttons stay fully opaque (alpha = 1) in the Unity Editor when not in Play Mode.</summary>
+        private void OnValidate()
+        {
+            if (!Application.isPlaying)
+            {
+                if (buyBonusButton != null)
+                {
+                    var cg = buyBonusButton.GetComponent<CanvasGroup>();
+                    if (cg != null)
+                    {
+                        cg.alpha = 1f;
+                        cg.interactable = true;
+                        cg.blocksRaycasts = true;
+                    }
+                }
+                if (anteBetToggleButton != null)
+                {
+                    var cg = anteBetToggleButton.GetComponent<CanvasGroup>();
+                    if (cg != null)
+                    {
+                        cg.alpha = 1f;
+                        cg.interactable = true;
+                        cg.blocksRaycasts = true;
+                    }
+                }
+            }
+        }
+#endif
+
+        /// <summary>Initializes canvas groups, button click listeners, and default overlay states.</summary>
         private void Awake()
         {
             EnsureFeatureCanvasGroups();
@@ -134,6 +164,15 @@ namespace SweetBonanza.View
             if (spinButton != null)
             {
                 spinButton.onClick.AddListener(HandleSpinButtonClicked);
+            }
+            if (stopSpinButton != null)
+            {
+                stopSpinButton.onClick.AddListener(() =>
+                {
+                    SetStoppingButtonsState();
+                    AudioManager.Instance?.PlaySpinStop();
+                    OnStopClicked?.Invoke();
+                });
             }
             if (betPlusButton != null) betPlusButton.onClick.AddListener(() => OnBetIncreaseClicked?.Invoke());
             if (betMinusButton != null) betMinusButton.onClick.AddListener(() => OnBetDecreaseClicked?.Invoke());
@@ -150,6 +189,7 @@ namespace SweetBonanza.View
             }
         }
 
+        /// <summary>Initializes Ante Bet slider position, spin button visuals, and starts banner cycling.</summary>
         private void Start()
         {
             InitializeAnteBetSlider();
@@ -160,6 +200,7 @@ namespace SweetBonanza.View
             }
         }
 
+        /// <summary>Handles spin button clicks with press animation, stopping autoplay, or triggering spin start.</summary>
         private void HandleSpinButtonClicked()
         {
             if (spinButton != null)
@@ -186,6 +227,7 @@ namespace SweetBonanza.View
             }
         }
 
+        /// <summary>Cycles top banner between 'Free Spins' and 'Pay Anywhere' messages every few seconds.</summary>
         private System.Collections.IEnumerator CycleTopDisplayBanners()
         {
             bool showFreeSpins = true;
@@ -195,13 +237,17 @@ namespace SweetBonanza.View
                 showFreeSpins = !showFreeSpins;
                 yield return new WaitForSeconds(4.5f);
             }
+
         }
 
+
+        /// <summary>Updates the player's balance text display on the bottom HUD.</summary>
         internal void SetBalance(double balance)
         {
             if (balanceText != null) balanceText.text = $"${balance:F2}";
         }
 
+        /// <summary>Updates the current bet text and calculates effective bet when Ante Bet is active.</summary>
         internal void SetBet(double baseBet, bool isAnteBet)
         {
             if (currentBetText != null)
@@ -217,6 +263,7 @@ namespace SweetBonanza.View
             }
         }
 
+        /// <summary>Displays the spin win amount with an optional counting roll-up tween animation.</summary>
         internal void SetWin(double targetWin, bool animate = false)
         {
             if (winCountTweener != null && winCountTweener.IsActive()) winCountTweener.Kill();
@@ -241,51 +288,56 @@ namespace SweetBonanza.View
             }, (float)targetWin, 0.6f).SetEase(Ease.OutCubic);
         }
 
-        internal void SetSpinButtonInteractable(bool interactable)
+        /// <summary>Updates reel spinning state, toggles bet adjustments, and refreshes button visuals.</summary>
+        public void SetSpinButtonInteractable(bool interactable)
         {
             this.isSpinning = !interactable;
 
             bool canInteractBet = interactable && !isAutoplaying && !isInFreeSpins;
             if (betPlusButton != null) betPlusButton.interactable = canInteractBet;
             if (betMinusButton != null) betMinusButton.interactable = canInteractBet;
-
+            
             UpdateFeatureButtonsVisualState();
             UpdateSpinButtonVisuals();
         }
 
+        /// <summary>Updates Ante Bet visual indicators, glow button sprite, and animated slider handle.</summary>
         internal void SetAnteBetState(bool isActive)
         {
             this.isAnteBetActive = isActive;
-            if (anteBetActiveIndicator != null) anteBetActiveIndicator.SetActive(isActive);
-            if (anteBetButtonImage != null)
-            {
-                anteBetButtonImage.sprite = isActive && anteBetGlowSprite != null ? anteBetGlowSprite : anteBetNormalSprite;
-            }
-
-            if (anteBetHandleRect != null)
-            {
-                float targetX = isActive ? anteBetHandleRightX : anteBetHandleLeftX;
-                anteBetHandleRect.DOKill();
-                anteBetHandleRect.DOLocalMoveX(targetX, 0.2f).SetEase(Ease.OutQuad);
-            }
-
-            if (anteBetHandleImage != null)
-            {
-                Sprite targetSprite = isActive ? anteBetHandleCheckSprite : anteBetHandleArrowSprite;
-                if (targetSprite != null) anteBetHandleImage.sprite = targetSprite;
-            }
-
+            UpdateAnteBetVisuals(animate: true);
             UpdateFeatureButtonsVisualState();
         }
 
+        /// <summary>Initializes the Ante Bet slider handle position and button sprite on startup.</summary>
         private void InitializeAnteBetSlider()
         {
+            UpdateAnteBetVisuals(animate: false);
+        }
+
+        /// <summary>Updates the Ante Bet slider handle position, handle sprite, and button glow state.</summary>
+        private void UpdateAnteBetVisuals(bool animate)
+        {
+            if (anteBetActiveIndicator != null) anteBetActiveIndicator.SetActive(isAnteBetActive);
+            if (anteBetButtonImage != null)
+            {
+                anteBetButtonImage.sprite = isAnteBetActive && anteBetGlowSprite != null ? anteBetGlowSprite : anteBetNormalSprite;
+            }
+
             if (anteBetHandleRect != null)
             {
+                float targetX = isAnteBetActive ? anteBetHandleRightX : anteBetHandleLeftX;
                 anteBetHandleRect.DOKill();
-                Vector3 pos = anteBetHandleRect.localPosition;
-                pos.x = isAnteBetActive ? anteBetHandleRightX : anteBetHandleLeftX;
-                anteBetHandleRect.localPosition = pos;
+                if (animate)
+                {
+                    anteBetHandleRect.DOLocalMoveX(targetX, 0.2f).SetEase(Ease.OutQuad);
+                }
+                else
+                {
+                    Vector3 pos = anteBetHandleRect.localPosition;
+                    pos.x = targetX;
+                    anteBetHandleRect.localPosition = pos;
+                }
             }
 
             if (anteBetHandleImage != null)
@@ -293,13 +345,9 @@ namespace SweetBonanza.View
                 Sprite targetSprite = isAnteBetActive ? anteBetHandleCheckSprite : anteBetHandleArrowSprite;
                 if (targetSprite != null) anteBetHandleImage.sprite = targetSprite;
             }
-
-            if (anteBetButtonImage != null)
-            {
-                anteBetButtonImage.sprite = isAnteBetActive && anteBetGlowSprite != null ? anteBetGlowSprite : anteBetNormalSprite;
-            }
         }
 
+        /// <summary>Updates the HUD and spin button state for active Autoplay sessions.</summary>
         internal void SetAutoplayState(bool isAutoplay, int remainingSpins)
         {
             this.isAutoplaying = isAutoplay;
@@ -323,79 +371,60 @@ namespace SweetBonanza.View
             UpdateSpinButtonVisuals();
         }
 
+        //** ----------------------------------------------------
+        //** Controls Spin / Stop / Autoplay Button States (Hot Chilli style)
+        //** ----------------------------------------------------
+        /// <summary>Swaps visibility between SpinButton and StopSpin button during active reel spins.</summary>
+        public void SetSpinningButtonsState(bool isSpinning)
+        {
+            if (spinButton != null) spinButton.gameObject.SetActive(!isSpinning);
+            if (stopSpinButton != null)
+            {
+                stopSpinButton.gameObject.SetActive(isSpinning);
+                if (isSpinning)
+                {
+                    stopSpinButton.interactable = true;
+                }
+            }
+            if (autoplayButtonObj != null) autoplayButtonObj.SetActive(!isSpinning);
+        }
+
+        /// <summary>Puts the buttons in Stopping/Resolving state: stop button remains visible but non-interactable to prevent spam.</summary>
+        public void SetStoppingButtonsState()
+        {
+            if (spinButton != null) spinButton.gameObject.SetActive(false);
+            if (stopSpinButton != null)
+            {
+                stopSpinButton.gameObject.SetActive(true);
+                stopSpinButton.interactable = false;
+            }
+            if (autoplayButtonObj != null) autoplayButtonObj.SetActive(false);
+        }
+
+        /// <summary>Updates spin button interactability and autoplay remaining spin count display.</summary>
         internal void UpdateSpinButtonVisuals()
         {
+            SetSpinningButtonsState(isSpinning);
+
             if (isAutoplaying)
             {
-                if (spinRotationTweener != null && spinRotationTweener.IsActive()) spinRotationTweener.Kill();
-
-                if (spinButtonBaseImage != null && spinBaseDarkSprite != null)
-                {
-                    spinButtonBaseImage.sprite = spinBaseDarkSprite;
-                }
-
-                if (spinArrowsObj != null) spinArrowsObj.SetActive(false);
-                if (stopIconObj != null) stopIconObj.SetActive(false);
-
                 if (spinAutoplayCountText != null)
                 {
                     spinAutoplayCountText.gameObject.SetActive(true);
-                    spinAutoplayCountText.text = remainingAutoplayCount > 0 ? $"{remainingAutoplayCount}" : "";
+                    spinAutoplayCountText.text = remainingAutoplayCount > 0 ? $"{remainingAutoplayCount}" : string.Empty;
                 }
 
-                if (spinButton != null) spinButton.interactable = true;
-            }
-            else if (isSpinning)
-            {
-                if (spinButtonBaseImage != null && spinBaseDarkSprite != null)
-                {
-                    spinButtonBaseImage.sprite = spinBaseDarkSprite;
-                }
-
-                if (spinArrowsObj != null) spinArrowsObj.SetActive(false);
-                if (spinAutoplayCountText != null) spinAutoplayCountText.gameObject.SetActive(false);
-
-                if (stopIconObj != null)
-                {
-                    if (!stopIconObj.activeSelf)
-                    {
-                        stopIconObj.SetActive(true);
-                        stopIconObj.transform.DOKill();
-                        stopIconObj.transform.localScale = Vector3.one;
-                        stopIconObj.transform.DOPunchScale(Vector3.one * 0.18f, 0.2f);
-                    }
-                }
-
+                // In autoplay, clicking the spin button cancels autoplay
                 if (spinButton != null) spinButton.interactable = true;
             }
             else
             {
-                if (spinRotationTweener != null && spinRotationTweener.IsActive()) spinRotationTweener.Kill();
-
-                if (spinButtonBaseImage != null && spinBaseIdleSprite != null)
-                {
-                    spinButtonBaseImage.sprite = spinBaseIdleSprite;
-                }
-
-                if (stopIconObj != null) stopIconObj.SetActive(false);
                 if (spinAutoplayCountText != null) spinAutoplayCountText.gameObject.SetActive(false);
-
-                if (spinArrowsObj != null)
-                {
-                    if (!spinArrowsObj.activeSelf)
-                    {
-                        spinArrowsObj.SetActive(true);
-                        spinArrowsObj.transform.DOKill();
-                        spinArrowsObj.transform.localScale = Vector3.one;
-                        spinArrowsObj.transform.localRotation = Quaternion.identity;
-                        spinArrowsObj.transform.DOPunchScale(Vector3.one * 0.12f, 0.2f);
-                    }
-                }
-
-                if (spinButton != null) spinButton.interactable = !isInFreeSpins;
+                if (spinButton != null) spinButton.interactable = !isSpinning && !isInFreeSpins;
             }
         }
 
+        /// <summary>Toggles Free Spins badge animation, remaining count text, and day/night theme mode.</summary>
         internal void SetFreeSpinsDisplay(bool isInFreeSpins, int remainingSpins)
         {
             this.isInFreeSpins = isInFreeSpins;
@@ -456,6 +485,7 @@ namespace SweetBonanza.View
             UpdateSpinButtonVisuals();
         }
 
+        /// <summary>Fades background, frame, and clouds smoothly between Day and Night (Free Spins) themes.</summary>
         private void ApplyThemeMode(bool nightMode)
         {
             if (isCurrentlyNightMode == nightMode) return;
@@ -523,6 +553,7 @@ namespace SweetBonanza.View
             }
         }
 
+        /// <summary>Displays a punch-animated notification or status message on the status banner.</summary>
         internal void SetStatusMessage(string message)
         {
             if (statusBannerText != null)
@@ -534,10 +565,10 @@ namespace SweetBonanza.View
             }
         }
 
+        /// <summary>Kills active DOTween tweens when the MainView component is destroyed.</summary>
         private void OnDestroy()
         {
             if (winCountTweener != null && winCountTweener.IsActive()) winCountTweener.Kill();
-            if (spinRotationTweener != null && spinRotationTweener.IsActive()) spinRotationTweener.Kill();
         }
     }
 }

@@ -58,7 +58,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -141,12 +141,12 @@ TextureImporter:
       name: WIN OVER_0
       rect:
         serializedVersion: 2
-        x: 297
-        y: 101
-        width: 119
-        height: 51
+        x: 165
+        y: 53
+        width: 1000
+        height: 155
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -155,94 +155,6 @@ TextureImporter:
       bones: []
       spriteID: b6b93bedf4fcd35c0800000000000000
       internalID: -4234000132712719509
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: WIN OVER_1
-      rect:
-        serializedVersion: 2
-        x: 431
-        y: 101
-        width: 169
-        height: 51
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: afa8da89a502236e0800000000000000
-      internalID: -1859388122669937926
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: WIN OVER_2
-      rect:
-        serializedVersion: 2
-        x: 613
-        y: 90
-        width: 91
-        height: 65
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: f044167068a3f1470800000000000000
-      internalID: 8367470980001514511
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: WIN OVER_3
-      rect:
-        serializedVersion: 2
-        x: 694
-        y: 103
-        width: 151
-        height: 52
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 07bfe183973a53e70800000000000000
-      internalID: 9094354763572509552
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: WIN OVER_4
-      rect:
-        serializedVersion: 2
-        x: 858
-        y: 101
-        width: 124
-        height: 50
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: d5b7564591146bd90800000000000000
-      internalID: -7082401786947601571
       vertices: []
       indices: 
       edges: []
