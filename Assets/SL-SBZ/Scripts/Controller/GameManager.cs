@@ -443,8 +443,12 @@ namespace SweetBonanza.Controller
                 }
 
                 if (mainView != null) mainView.SetFreeSpinsDisplay(true, remainingFreeSpins);
-                if (uiManager != null) uiManager.ShowFreeSpinsIntro(result.FreeSpinsAwarded);
-                yield return new WaitForSeconds(2.0f);
+                bool showIntro = PlayerPrefs.GetInt("settings_intro_screen", 1) == 1;
+                if (uiManager != null && showIntro)
+                {
+                    uiManager.ShowFreeSpinsIntro(result.FreeSpinsAwarded);
+                    yield return new WaitForSeconds(2.0f);
+                }
             }
             else if (isInFreeSpins)
             {

@@ -171,7 +171,7 @@ namespace SweetBonanza.View
             0.01f, 0.02f, 0.03f, 0.04f, 0.05f, 0.06f, 0.07f, 0.08f, 0.09f, 0.10f,
             0.12f, 0.15f, 0.20f, 0.25f, 0.50f, 0.75f, 1.00f, 1.25f, 1.50f
         };
-        private readonly int[] autoplaySpinOptions = new int[] { 10, 20, 30, 50, 70, 100 };
+        private readonly int[] autoplaySpinOptions = new int[] { 10, 20, 30, 50, 70, 100, 500, 1000 };
 
         private int currentBetLevelIndex = 0;
         private int currentCoinValueIndex = 9;
@@ -183,6 +183,7 @@ namespace SweetBonanza.View
         private Tweener winCelebrationTweener;
         private double currentBetAmount = 2.0;
         private float lastNonZeroVolume = 0.5f;
+        private bool isSoundMuted = false;
 
         #region Lifecycle & Event Registrations
 
@@ -219,29 +220,27 @@ namespace SweetBonanza.View
             if (masterVolumeSlider != null)
             {
                 float savedVol = PlayerPrefs.GetFloat("settings_master_volume", 0.5f);
+                if (savedVol <= 0.001f) savedVol = 0.5f;
+                lastNonZeroVolume = savedVol;
                 masterVolumeSlider.value = savedVol;
-                AudioListener.volume = savedVol;
-                UpdateSoundUI(savedVol);
+                SetAudioMute(PlayerPrefs.GetInt("settings_sound_muted", 0) == 1);
+
                 masterVolumeSlider.onValueChanged.AddListener(v =>
                 {
-                    AudioListener.volume = v;
+                    if (v > 0.001f) lastNonZeroVolume = v;
                     PlayerPrefs.SetFloat("settings_master_volume", v);
-                    if (v > 0) lastNonZeroVolume = v;
-                    UpdateSoundUI(v);
+                    SetAudioMute(v <= 0.001f);
                 });
             }
+
             BindClick(buttonSoundMute, () =>
             {
                 if (masterVolumeSlider == null) return;
-                if (masterVolumeSlider.value > 0)
+                if (isSoundMuted && masterVolumeSlider.value <= 0.001f)
                 {
-                    lastNonZeroVolume = masterVolumeSlider.value;
-                    masterVolumeSlider.value = 0f;
+                    masterVolumeSlider.value = lastNonZeroVolume > 0.001f ? lastNonZeroVolume : 0.5f;
                 }
-                else
-                {
-                    masterVolumeSlider.value = lastNonZeroVolume > 0 ? lastNonZeroVolume : 0.5f;
-                }
+                SetAudioMute(!isSoundMuted);
             });
 
             // Buy Feature Modal
@@ -276,7 +275,13 @@ namespace SweetBonanza.View
                 else OpenAutoplayModal();
             });
             BindClick(buttonCloseAutoplay, CloseCurrentPanel);
-            if (autoplaySpinsSlider != null) autoplaySpinsSlider.onValueChanged.AddListener(val => UpdateAutoplaySpinsText((int)val));
+            if (autoplaySpinsSlider != null)
+            {
+                autoplaySpinsSlider.wholeNumbers = true;
+                autoplaySpinsSlider.minValue = 0;
+                autoplaySpinsSlider.maxValue = autoplaySpinOptions.Length - 1;
+                autoplaySpinsSlider.onValueChanged.AddListener(val => UpdateAutoplaySpinsText((int)val));
+            }
             BindClick(buttonStartAutoplay, () =>
             {
                 CloseCurrentPanel();
@@ -377,12 +382,14 @@ namespace SweetBonanza.View
 
         private void OnHomeButtonPressed()
         {
+            AudioManager.Instance?.PlayButton();
             if (popupManager != null) popupManager.ShowExitGamePopup();
             else Application.Quit();
         }
 
         private void SetFullscreen(bool expand)
         {
+            AudioManager.Instance?.PlayButton();
             isExpanded = expand;
             if (jsFunctCalls != null)
             {
@@ -534,16 +541,26 @@ namespace SweetBonanza.View
 
         internal void OpenSoundSettings()
         {
-            if (masterVolumeSlider != null) UpdateSoundUI(masterVolumeSlider.value);
+            if (masterVolumeSlider != null) UpdateSoundUI(masterVolumeSlider.value, isSoundMuted);
             OpenModal(soundSettingsPanel);
         }
 
-        private void UpdateSoundUI(float volume)
+        private void SetAudioMute(bool mute)
+        {
+            isSoundMuted = mute;
+            PlayerPrefs.SetInt("settings_sound_muted", mute ? 1 : 0);
+            float vol = masterVolumeSlider != null ? masterVolumeSlider.value : 0.5f;
+            AudioListener.volume = mute ? 0f : vol;
+            AudioManager.Instance?.SetMuteAll(mute);
+            if (masterVolumeSlider != null) UpdateSoundUI(vol, mute);
+        }
+
+        private void UpdateSoundUI(float volume) => UpdateSoundUI(volume, isSoundMuted);
+
+        private void UpdateSoundUI(float volume, bool isMuted)
         {
             int percentage = Mathf.RoundToInt(volume * 100f);
             if (soundVolumeText != null) soundVolumeText.text = percentage.ToString();
-
-            bool isMuted = percentage <= 0;
 
             // Speaker Icon
             if (buttonSoundMute != null)
@@ -552,19 +569,22 @@ namespace SweetBonanza.View
                 if (img != null) img.sprite = isMuted ? speakerMutedSprite : speakerAudibleSprite;
             }
 
-            // Track Line Sprite
+            // Fill Area (Turn Red when muted, Green when unmuted)
             Sprite targetLine = isMuted ? volumeLineRedSprite : volumeLineGreenSprite;
-            if (targetLine != null)
+            if (soundFillImage != null)
             {
-                if (soundTrackLineImage != null) { soundTrackLineImage.sprite = targetLine; soundTrackLineImage.color = Color.white; }
-                if (soundFillImage != null) { soundFillImage.sprite = targetLine; soundFillImage.color = Color.white; }
-            }
-            else if (soundFillImage != null)
-            {
-                soundFillImage.color = isMuted ? new Color(0.95f, 0.15f, 0.15f, 1f) : new Color(0.1f, 0.85f, 0.3f, 1f);
+                if (targetLine != null)
+                {
+                    soundFillImage.sprite = targetLine;
+                    soundFillImage.color = Color.white;
+                }
+                else
+                {
+                    soundFillImage.color = isMuted ? new Color(0.95f, 0.15f, 0.15f, 1f) : new Color(0.1f, 0.85f, 0.3f, 1f);
+                }
             }
 
-            // Handle Sprites
+            // Handle Sprites (Turn Red when muted, Green when unmuted)
             Sprite targetHandleNormal = isMuted ? volumeButtonRedNormal : volumeButtonGreenNormal;
             Sprite targetHandlePressed = isMuted ? volumeButtonRedPressed : volumeButtonGreenPressed;
 
