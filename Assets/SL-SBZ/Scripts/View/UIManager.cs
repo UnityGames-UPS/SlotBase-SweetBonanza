@@ -47,7 +47,6 @@ namespace SweetBonanza.View
         [SerializeField] private Button buttonCloseGameRules;
         [SerializeField] private Button buttonNextRulesPage;
         [SerializeField] private Button buttonPrevRulesPage;
-        [SerializeField] private TMP_Text rulesPageIndicatorText;
         [SerializeField] private TMP_Text minBetText;
         [SerializeField] private TMP_Text maxBetText;
         [SerializeField] private List<GameObject> rulesPageObjects = new List<GameObject>();
@@ -132,9 +131,10 @@ namespace SweetBonanza.View
         [SerializeField] private Button buttonOpenAutoplay;
         [SerializeField] private Button buttonCloseAutoplay;
         [SerializeField] private Button buttonStartAutoplay;
-        [SerializeField] private TMP_Text autoplayRemainingText;
+        //[SerializeField] private TMP_Text autoplayRemainingText;
         [SerializeField] private Slider autoplaySpinsSlider;
         [SerializeField] private TMP_Text autoplaySpinsCountText;
+        [SerializeField] private TMP_Text autoplaySpinsCountSliderText;
         [SerializeField] private Toggle toggleTurboSpin;
         [SerializeField] private Toggle toggleQuickSpinAutoplay;
         [SerializeField] private Toggle toggleSkipScreens;
@@ -147,9 +147,7 @@ namespace SweetBonanza.View
 
         [Header("Win Celebration")]
         [SerializeField] private GameObject winCelebrationPanel;
-        [SerializeField] private TMP_Text winCelebrationTitleText;
         [SerializeField] private TMP_Text winCelebrationAmountText;
-        [SerializeField] private ParticleSystem winCelebrationParticles;
 
         [Header("7. Navigation & Fullscreen Controls")]
         [SerializeField] private Button homeButton;
@@ -520,7 +518,6 @@ namespace SweetBonanza.View
                     if (rulesPageObjects[i] != null) rulesPageObjects[i].SetActive(i == currentRulesPageIndex);
                 }
             }
-            if (rulesPageIndicatorText != null) rulesPageIndicatorText.text = $"{currentRulesPageIndex + 1} / {total}";
         }
 
         #endregion
@@ -700,8 +697,10 @@ namespace SweetBonanza.View
             int idx = Mathf.Clamp(index, 0, autoplaySpinOptions.Length - 1);
             int count = autoplaySpinOptions[idx];
             if (autoplaySpinsCountText != null) autoplaySpinsCountText.text = count.ToString();
+            if(autoplaySpinsCountSliderText != null) autoplaySpinsCountSliderText.text = count.ToString();
 
-            if (buttonStartAutoplay != null)
+
+           /* if (buttonStartAutoplay != null)
             {
                 var txt = buttonStartAutoplay.GetComponentInChildren<UnityEngine.UI.Text>();
                 if (txt != null) txt.text = $"START AUTOPLAY ({count})";
@@ -710,17 +709,17 @@ namespace SweetBonanza.View
                     var tmp = buttonStartAutoplay.GetComponentInChildren<TMP_Text>();
                     if (tmp != null) tmp.text = $"START AUTOPLAY ({count})";
                 }
-            }
+            }*///000
         }
 
         internal void SetAutoplayState(bool isAutoplay, int remainingSpins = 0)
         {
             this.isAutoplaying = isAutoplay;
-            if (autoplayRemainingText != null)
+            /*if (autoplayRemainingText != null)
             {
                 autoplayRemainingText.text = isAutoplay ? $"STOP ({remainingSpins})" : "AUTOPLAY";
                 autoplayRemainingText.gameObject.SetActive(true);
-            }
+            }*/ //000
             if (buttonOpenAutoplay != null)
             {
                 var img = buttonOpenAutoplay.GetComponent<Image>();
@@ -749,7 +748,6 @@ namespace SweetBonanza.View
 
         internal void ShowWinCelebration(string title, double winAmount, float displayDuration = 3.0f)
         {
-            if (winCelebrationTitleText != null) winCelebrationTitleText.text = title;
             if (winCelebrationPanel != null)
             {
                 OpenModal(winCelebrationPanel);
@@ -761,7 +759,6 @@ namespace SweetBonanza.View
                     sunburst.DORotate(new Vector3(0, 0, -360), 8f, RotateMode.FastBeyond360).SetEase(Ease.Linear).SetLoops(-1);
                 }
             }
-            if (winCelebrationParticles != null) winCelebrationParticles.Play();
             AudioManager.Instance?.PlayWinTypePopupOpen();
             if (winCelebrationTweener != null && winCelebrationTweener.IsActive()) winCelebrationTweener.Kill();
 

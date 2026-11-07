@@ -35,6 +35,8 @@ namespace SweetBonanza.Controller
         private bool isAnteBetActive = false;
         private bool isInFreeSpins = false;
         private int remainingFreeSpins = 0;
+        private int totalFreeSpinsAwarded = 10;
+        private double accumulatedFreeSpinsWin = 0;
         private bool isAutoplaying = false;
         private int remainingAutoplaySpins = 0;
 
@@ -65,6 +67,12 @@ namespace SweetBonanza.Controller
             bool batterySaver = PlayerPrefs.GetInt("settings_battery_saver", 0) == 1;
             Application.targetFrameRate = batterySaver ? 30 : 60;
             QualitySettings.vSyncCount = batterySaver ? 0 : 1;
+
+            bool music = PlayerPrefs.GetInt("settings_ambient_music", 1) == 1;
+            AudioManager.Instance?.SetMusicEnabled(music);
+
+            bool sfx = PlayerPrefs.GetInt("settings_sound_fx", 1) == 1;
+            AudioManager.Instance?.SetSfxEnabled(sfx);
         }
 
         private void InitializeServices()
@@ -76,6 +84,11 @@ namespace SweetBonanza.Controller
                 {
                     backendService = gameObject.AddComponent<LocalDemoService>();
                 }
+            }
+
+            if (backendService is LocalDemoService demo)
+            {
+                demo.SetInitialBalance(currentBalance);
             }
 
             backendService.OnInitDataReceived += HandleInitDataReceived;
@@ -379,6 +392,7 @@ namespace SweetBonanza.Controller
         {
             currentState = GameState.DroppingInitial;
             AudioManager.Instance?.StopTensionBuilder();
+            if (mainView != null) mainView.HideTopTumbleWinBanner(immediate: true);
             if (uiManager != null) uiManager.SetStoppingState();
             else if (mainView != null) mainView.SetStoppingButtonsState();
             if (gridView != null) yield return gridView.PlayInitialDropSequence(result.InitialMatrix);
@@ -397,42 +411,83 @@ namespace SweetBonanza.Controller
             {
                 var step = result.TumbleSteps[i];
                 rollingTumbleWin += step.StepWinAmount;
+
+                string payDetail = "";
+                if (step.Wins != null && step.Wins.Count > 0)
+                {
+                    var w = step.Wins[0];
+                    payDetail = $"{w.Count}X {w.Symbol.ToString().ToUpperInvariant()} PAYS ${w.WinAmount:F2}";
+                }
+
                 SetStatusMessage($"TUMBLE #{i + 1} WIN: ${step.StepWinAmount:F2}");
+
+                if (isInFreeSpins && mainView != null && rollingTumbleWin > 0)
+                {
+                    mainView.ShowTopTumbleWinBanner(rollingTumbleWin);
+                }
+
                 if (gridView != null) yield return gridView.PlayTumbleStepSequence(step);
-                if (mainView != null) mainView.SetWin(rollingTumbleWin, true);
+                if (mainView != null) mainView.SetTumbleStepWin(rollingTumbleWin, payDetail);
             }
 
             if (result.MultiplierBombs != null && result.MultiplierBombs.Count > 0 && rollingTumbleWin > 0)
             {
                 currentState = GameState.EvaluatingMultipliers;
                 SetStatusMessage($"💣 MULTIPLIERS ACTIVATED: {result.TotalMultiplier}X!");
-                if (gridView != null) yield return gridView.PlayMultiplierBombRevealSequence(result.MultiplierBombs);
+
+                if (isInFreeSpins && mainView != null)
+                {
+                    mainView.ShowTopTumbleWinBanner(rollingTumbleWin);
+                }
+
+                if (gridView != null)
+                {
+                    yield return gridView.PlayMultiplierBombRevealSequence(result.MultiplierBombs, (bombVal, worldPos, runningMult) =>
+                    {
+                        if (mainView != null && isInFreeSpins)
+                        {
+                            StartCoroutine(mainView.AnimateBombMultiplierFlyUp(worldPos, bombVal, rollingTumbleWin, runningMult));
+                        }
+                    });
+                }
+
+                if (mainView != null && isInFreeSpins)
+                {
+                    yield return mainView.FinalizeTumbleWinMultipliers(rollingTumbleWin, result.TotalMultiplier);
+                }
+
                 if (mainView != null) mainView.SetWin(result.FinalWinAmount, true);
                 yield return new WaitForSeconds(0.5f);
             }
 
-            if (result.FinalWinAmount >= CurrentBetAmount * 10)
+            if (result.FinalWinAmount >= CurrentBetAmount * 20)
             {
-                string title = "BIG WIN!";
-                if (result.FinalWinAmount >= CurrentBetAmount * 50) title = "SENSATIONAL WIN!";
-                else if (result.FinalWinAmount >= CurrentBetAmount * 25) title = "MEGA WIN!";
-
                 if (uiManager != null)
                 {
-                    uiManager.ShowWinCelebration(title, result.FinalWinAmount, 2.5f);
-                    yield return new WaitForSeconds(2.5f);
+                    uiManager.ShowWinCelebration("MEGA WIN!", result.FinalWinAmount, 3.5f);
+                    yield return new WaitForSeconds(3.5f);
                 }
             }
-            else if (result.FinalWinAmount >= CurrentBetAmount * 5)
+            else if (result.FinalWinAmount >= CurrentBetAmount * 2)
             {
-                SetStatusMessage($"⭐ NICE WIN: ${result.FinalWinAmount:F2} ⭐");
-                AudioManager.Instance?.PlayResultPopupOpen();
+                if (uiManager != null)
+                {
+                    uiManager.ShowWinCelebration("NICE WIN!", result.FinalWinAmount, 3.0f);
+                    yield return new WaitForSeconds(3.0f);
+                }
             }
 
             if (result.TriggeredFreeSpins && !isInFreeSpins)
             {
+                if (isAutoplaying)
+                {
+                    HandleAutoplayStopped();
+                }
+
                 isInFreeSpins = true;
                 remainingFreeSpins = result.RemainingFreeSpins;
+                totalFreeSpinsAwarded = result.FreeSpinsAwarded > 0 ? result.FreeSpinsAwarded : 10;
+                accumulatedFreeSpinsWin = 0;
 
                 AudioManager.Instance?.PlayScatterCelebration();
                 AudioManager.Instance?.PlayFeatureBg();
@@ -446,24 +501,36 @@ namespace SweetBonanza.Controller
                 bool showIntro = PlayerPrefs.GetInt("settings_intro_screen", 1) == 1;
                 if (uiManager != null && showIntro)
                 {
-                    uiManager.ShowFreeSpinsIntro(result.FreeSpinsAwarded);
+                    uiManager.ShowFreeSpinsIntro(totalFreeSpinsAwarded);
                     yield return new WaitForSeconds(2.0f);
                 }
             }
             else if (isInFreeSpins)
             {
+                if (result.TriggeredFreeSpins && result.FreeSpinsAwarded > 0)
+                {
+                    totalFreeSpinsAwarded += result.FreeSpinsAwarded;
+                }
+                accumulatedFreeSpinsWin += result.FinalWinAmount;
                 remainingFreeSpins = result.RemainingFreeSpins;
                 if (mainView != null) mainView.SetFreeSpinsDisplay(remainingFreeSpins > 0, remainingFreeSpins);
                 if (remainingFreeSpins <= 0)
                 {
                     isInFreeSpins = false;
                     AudioManager.Instance?.StopFeatureBg();
-                    if (uiManager != null) uiManager.ShowFreeSpinsOutro(result.FinalWinAmount);
+                    double finalFsWin = accumulatedFreeSpinsWin > 0 ? accumulatedFreeSpinsWin : result.FinalWinAmount;
+                    if (uiManager != null) uiManager.ShowFreeSpinsOutro(finalFsWin);
+                    accumulatedFreeSpinsWin = 0;
                     yield return new WaitForSeconds(2.0f);
                 }
             }
 
             currentState = GameState.Idle;
+            if (mainView != null)
+            {
+                mainView.HideTopTumbleWinBanner();
+                mainView.SetIdleBottomBarState();
+            }
             UpdateHUD(false);
 
             if (isInFreeSpins && remainingFreeSpins > 0)
@@ -503,6 +570,11 @@ namespace SweetBonanza.Controller
         private void HandleErrorOccurred(string error)
         {
             currentState = GameState.Idle;
+            if (mainView != null)
+            {
+                mainView.HideTopTumbleWinBanner();
+                mainView.SetIdleBottomBarState();
+            }
             UpdateHUD(false);
             SetStatusMessage(error);
         }

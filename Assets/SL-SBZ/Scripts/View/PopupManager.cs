@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -6,69 +6,52 @@ using DG.Tweening;
 
 public class PopupManager : MonoBehaviour
 {
-    [Header("Popup Parent")]
+    [Header("Popup Backdrop Overlay")]
     [SerializeField] private GameObject popupParent;
 
     [Header("1. Disconnection Popup")]
     [SerializeField] private GameObject disconnectionPopup;
-    [SerializeField] private RectTransform disconnectionPopupRect;
-    [SerializeField] private TextMeshProUGUI disconnectionMessageText;
+   
     [SerializeField] private Button disconnectionOkButton;
 
     [Header("2. Error Popup")]
     [SerializeField] private GameObject errorPopup;
-    [SerializeField] private RectTransform errorPopupRect;
-    [SerializeField] private TextMeshProUGUI errorTitleText;
-    [SerializeField] private TextMeshProUGUI errorMessageText;
+    
     [SerializeField] private Button errorOkButton;
-    [SerializeField] private TextMeshProUGUI errorOkButtonText;
 
     [Header("3. Reconnection Popup")]
     [SerializeField] private GameObject reconnectionPopup;
-    [SerializeField] private RectTransform reconnectionPopupRect;
-    [SerializeField] private Image reconnectionRotatingImage;
-    [SerializeField] private TextMeshProUGUI reconnectionTryText;
+  
 
     [Header("4. Loading Popup")]
     [SerializeField] private GameObject loadingPopup;
-    [SerializeField] private RectTransform loadingPopupRect;
-    [SerializeField] private Image loadingRotatingImage;
-    [SerializeField] private TextMeshProUGUI loadingAnimatedText;
+  
 
     [Header("5. Exit Game Popup")]
     [SerializeField] private GameObject exitGamePopup;
-    [SerializeField] private RectTransform exitGamePopupRect;
+   
     [SerializeField] private Button exitGameYesButton;
     [SerializeField] private Button exitGameNoButton;
 
     [Header("Animation Settings")]
-    [SerializeField] private float popupScaleInDuration = 0.3f;
-    [SerializeField] private float popupScaleOutDuration = 0.2f;
-    [SerializeField] private float rotationSpeed = 360f;
-    [SerializeField] private float loadingTextCycleSpeed = 0.5f;
-    [SerializeField] private float defaultLoadingDuration = 5f;
-    [SerializeField] private float minLoadingDuration = 0.8f;
+    [SerializeField] private float popupScaleDuration = 0.25f;
+
+    public static PopupManager Instance { get; private set; }
 
     private GameObject currentActivePopup;
-    private Coroutine rotationCoroutine;
-    private Coroutine loadingTextCoroutine;
-    private Coroutine autoCloseCoroutine;
-    private Coroutine delayedCloseCoroutine;
-    private float loadingStartTime;
-    private System.Action onLoadingClosed;
-    private bool isErrorCritical = false;
-
-    #region Initialization
+    private bool isErrorCritical;
 
     private void Awake()
     {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        Instance = this;
+
         SetupButtons();
         HideAllPopups();
-
-        if (popupParent != null)
-        {
-            popupParent.SetActive(false);
-        }
     }
 
     private void SetupButtons()
@@ -76,25 +59,98 @@ public class PopupManager : MonoBehaviour
         if (disconnectionOkButton != null)
         {
             disconnectionOkButton.onClick.RemoveAllListeners();
-            disconnectionOkButton.onClick.AddListener(() => { AudioManager.Instance?.PlayButton(); OnDisconnectionOkClicked(); });
+            disconnectionOkButton.onClick.AddListener(() =>
+            {
+                AudioManager.Instance?.PlayButton();
+                ClosePopup(disconnectionPopup, ExitGame);
+            });
         }
 
         if (errorOkButton != null)
         {
             errorOkButton.onClick.RemoveAllListeners();
-            errorOkButton.onClick.AddListener(() => { AudioManager.Instance?.PlayButton(); OnErrorOkClicked(); });
+            errorOkButton.onClick.AddListener(() =>
+            {
+                AudioManager.Instance?.PlayButton();
+                ClosePopup(errorPopup, () =>
+                {
+                    if (isErrorCritical) ExitGame();
+                });
+            });
         }
 
         if (exitGameYesButton != null)
         {
             exitGameYesButton.onClick.RemoveAllListeners();
-            exitGameYesButton.onClick.AddListener(() => { AudioManager.Instance?.PlayButton(); OnExitGameYesClicked(); });
+            exitGameYesButton.onClick.AddListener(() =>
+            {
+                AudioManager.Instance?.PlayButton();
+                ClosePopup(exitGamePopup, ExitGame);
+            });
         }
 
         if (exitGameNoButton != null)
         {
             exitGameNoButton.onClick.RemoveAllListeners();
-            exitGameNoButton.onClick.AddListener(() => { AudioManager.Instance?.PlayButton(); OnExitGameNoClicked(); });
+            exitGameNoButton.onClick.AddListener(() =>
+            {
+                AudioManager.Instance?.PlayButton();
+                ClosePopup(exitGamePopup);
+            });
+        }
+    }
+
+    #region Popup Core (Open & Close)
+
+    public void OpenPopup(GameObject popup)
+    {
+        if (popup == null) return;
+
+        if (currentActivePopup != null && currentActivePopup != popup)
+        {
+            currentActivePopup.SetActive(false);
+        }
+
+        currentActivePopup = popup;
+        if (popupParent != null) popupParent.SetActive(true);
+
+        popup.SetActive(true);
+        AudioManager.Instance?.PlayPopupOpen();
+        popup.transform.DOKill();
+        popup.transform.localScale = Vector3.zero;
+        popup.transform.DOScale(1f, popupScaleDuration).SetEase(Ease.OutBack);
+    }
+
+    public void ClosePopup(GameObject popup, Action onComplete = null)
+    {
+        if (popup == null || !popup.activeSelf)
+        {
+            onComplete?.Invoke();
+            return;
+        }
+
+        AudioManager.Instance?.PlayPopupClose();
+        popup.transform.DOKill();
+        popup.transform.DOScale(0f, popupScaleDuration * 0.8f).SetEase(Ease.InBack).OnComplete(() =>
+        {
+            popup.transform.localScale = Vector3.one;
+            popup.SetActive(false);
+            if (currentActivePopup == popup) currentActivePopup = null;
+            UpdateBackdrop();
+            onComplete?.Invoke();
+        });
+    }
+
+    private void UpdateBackdrop()
+    {
+        if (popupParent != null)
+        {
+            bool anyActive = (disconnectionPopup != null && disconnectionPopup.activeSelf) ||
+                             (errorPopup != null && errorPopup.activeSelf) ||
+                             (reconnectionPopup != null && reconnectionPopup.activeSelf) ||
+                             (loadingPopup != null && loadingPopup.activeSelf) ||
+                             (exitGamePopup != null && exitGamePopup.activeSelf);
+            popupParent.SetActive(anyActive);
         }
     }
 
@@ -105,449 +161,71 @@ public class PopupManager : MonoBehaviour
         if (reconnectionPopup != null) reconnectionPopup.SetActive(false);
         if (loadingPopup != null) loadingPopup.SetActive(false);
         if (exitGamePopup != null) exitGamePopup.SetActive(false);
+        if (popupParent != null) popupParent.SetActive(false);
+        currentActivePopup = null;
     }
 
     #endregion
 
-    #region 1. Disconnection Popup
+    #region 5 Popups APIs
 
-    internal void ShowDisconnectionPopup()
+    // 1. Disconnection
+    internal void ShowDisconnectionPopup(string message = null, string heading = null)
     {
-        ShowDisconnectionPopup("Please restart the game.");
+      
+        OpenPopup(disconnectionPopup);
     }
 
-    internal void ShowDisconnectionPopup(string message)
+    // 2. Error
+    internal void ShowErrorPopup(string heading, string message, bool isCritical = false)
     {
-        if (disconnectionPopup == null) return;
-
-        CloseCurrentPopup();
-
-        if (popupParent != null) popupParent.SetActive(true);
-
-        if (disconnectionMessageText != null)
-        {
-            disconnectionMessageText.text = message;
-        }
-
-        currentActivePopup = disconnectionPopup;
-        disconnectionPopup.SetActive(true);
-
-        AnimatePopupOpen(disconnectionPopupRect);
-    }
-
-    private void OnDisconnectionOkClicked()
-    {
-        AnimatePopupClose(disconnectionPopupRect, () =>
-        {
-            disconnectionPopup.SetActive(false);
-            if (currentActivePopup == disconnectionPopup) currentActivePopup = null;
-            UpdatePopupParentState();
-            ExitGame();
-        });
-    }
-
-    #endregion
-
-    #region 2. Error Popup
-
-    internal void ShowInsufficientFundsError()
-    {
-        ShowErrorPopup("Information", "Insufficient balance. Please add funds to continue.", false);
-    }
-
-    internal void ShowAnotherDeviceError()
-    {
-        ShowErrorPopup("Warning", "Your account has been logged in from another device. This session will be closed.", true);
-    }
-
-    internal void ShowServerError(string message = "A server error occurred. Please try again later.")
-    {
-        ShowErrorPopup("Server Error", message, true);
-    }
-
-    internal void ShowErrorPopup(string title, string message, bool isCritical)
-    {
-        if (errorPopup == null) return;
-
-        CloseCurrentPopup();
-
-        if (popupParent != null) popupParent.SetActive(true);
-
-        if (errorTitleText != null)
-        {
-            errorTitleText.text = title;
-        }
-
-        if (errorMessageText != null)
-        {
-            errorMessageText.text = message;
-        }
-
-        if (errorOkButtonText != null)
-        {
-            errorOkButtonText.text = isCritical ? "Exit Game" : "OKAY";
-        }
-
         isErrorCritical = isCritical;
+     
 
-        currentActivePopup = errorPopup;
-        errorPopup.SetActive(true);
-
-        AnimatePopupOpen(errorPopupRect);
-    }
-
-    private void OnErrorOkClicked()
-    {
-        AnimatePopupClose(errorPopupRect, () =>
+        if (errorOkButton != null)
         {
-            errorPopup.SetActive(false);
-            if (currentActivePopup == errorPopup) currentActivePopup = null;
-            UpdatePopupParentState();
+            var btnText = errorOkButton.GetComponentInChildren<TMP_Text>(true);
+            if (btnText != null) btnText.text = isCritical ? "Exit Game" : "OKAY";
+        }
 
-            if (isErrorCritical)
-            {
-                ExitGame();
-            }
-        });
+        OpenPopup(errorPopup);
     }
 
-    #endregion
+    internal void ShowServerError(string message = "A server error occurred.") => ShowErrorPopup("Server Error", message, true);
+    internal void ShowAnotherDeviceError() => ShowErrorPopup("Warning", "Logged in from another device.", true);
+    internal void ShowInsufficientFundsError() => ShowErrorPopup("Information", "Insufficient balance.", false);
 
-    #region 3. Reconnection Popup
-
+    // 3. Reconnection
     internal void ShowReconnectionPopup(int currentTry, int maxTries)
     {
-        if (reconnectionPopup == null) return;
+        OpenPopup(reconnectionPopup);
+    }
 
-        if (popupParent != null) popupParent.SetActive(true);
+    internal void CloseReconnectionPopup() => ClosePopup(reconnectionPopup);
 
-        if (reconnectionTryText != null)
+    // 4. Loading
+    internal void ShowLoadingPopup(float duration = 0f)
+    {
+        OpenPopup(loadingPopup);
+        if (duration > 0f)
         {
-            reconnectionTryText.text = string.Format("{0} / {1}", currentTry, maxTries);
-        }
-
-        if (currentActivePopup != reconnectionPopup)
-        {
-            currentActivePopup = reconnectionPopup;
-            reconnectionPopup.SetActive(true);
-
-            AnimatePopupOpen(reconnectionPopupRect);
-            StartRotation(reconnectionRotatingImage);
+            DOVirtual.DelayedCall(duration, () => CloseLoadingPopup());
         }
     }
 
-    internal void CloseReconnectionPopup()
-    {
-        if (reconnectionPopup == null || !reconnectionPopup.activeSelf) return;
+    internal void CloseLoadingPopup(Action onComplete = null) => ClosePopup(loadingPopup, onComplete);
+    internal bool IsLoadingPopupActive() => loadingPopup != null && loadingPopup.activeSelf;
 
-        StopRotation();
-
-        AnimatePopupClose(reconnectionPopupRect, () =>
-        {
-            reconnectionPopup.SetActive(false);
-            if (currentActivePopup == reconnectionPopup)
-            {
-                currentActivePopup = null;
-            }
-            UpdatePopupParentState();
-        });
-    }
-
-    #endregion
-
-    #region 4. Loading Popup
-
-    internal void ShowLoadingPopup(float duration = -1f)
-    {
-        if (loadingPopup == null) return;
-
-        if (duration < 0) duration = defaultLoadingDuration;
-
-        CloseCurrentPopup();
-
-        if (delayedCloseCoroutine != null)
-        {
-            StopCoroutine(delayedCloseCoroutine);
-            delayedCloseCoroutine = null;
-        }
-
-        if (popupParent != null) popupParent.SetActive(true);
-
-        currentActivePopup = loadingPopup;
-        loadingPopup.SetActive(true);
-        loadingStartTime = Time.time;
-
-        AnimatePopupOpen(loadingPopupRect);
-        StartRotation(loadingRotatingImage);
-        StartLoadingTextAnimation();
-
-        if (duration > 0)
-        {
-            if (autoCloseCoroutine != null)
-            {
-                StopCoroutine(autoCloseCoroutine);
-            }
-            autoCloseCoroutine = StartCoroutine(AutoCloseLoadingPopup(duration));
-        }
-    }
-
-    internal void CloseLoadingPopup(System.Action onComplete = null)
-    {
-        if (onComplete != null) onLoadingClosed += onComplete;
-
-        if (loadingPopup == null || !loadingPopup.activeSelf)
-        {
-            onLoadingClosed?.Invoke();
-            onLoadingClosed = null;
-            return;
-        }
-
-        float elapsed = Time.time - loadingStartTime;
-        if (elapsed < minLoadingDuration)
-        {
-            if (delayedCloseCoroutine == null)
-            {
-                delayedCloseCoroutine = StartCoroutine(CloseLoadingAfterDelay(minLoadingDuration - elapsed));
-            }
-            return;
-        }
-
-        PerformCloseLoadingPopup();
-    }
-
-    private IEnumerator CloseLoadingAfterDelay(float delay)
-    {
-        yield return new WaitForSeconds(delay);
-        delayedCloseCoroutine = null;
-        PerformCloseLoadingPopup();
-    }
-
-    private void PerformCloseLoadingPopup()
-    {
-        if (loadingPopup == null || !loadingPopup.activeSelf)
-        {
-            onLoadingClosed?.Invoke();
-            onLoadingClosed = null;
-            return;
-        }
-
-        if (autoCloseCoroutine != null)
-        {
-            StopCoroutine(autoCloseCoroutine);
-            autoCloseCoroutine = null;
-        }
-
-        StopRotation();
-        StopLoadingTextAnimation();
-
-        AnimatePopupClose(loadingPopupRect, () =>
-        {
-            loadingPopup.SetActive(false);
-            if (currentActivePopup == loadingPopup)
-            {
-                currentActivePopup = null;
-            }
-            UpdatePopupParentState();
-
-            onLoadingClosed?.Invoke();
-            onLoadingClosed = null;
-        });
-    }
-
-    private IEnumerator AutoCloseLoadingPopup(float duration)
-    {
-        yield return new WaitForSeconds(duration);
-        CloseLoadingPopup();
-        autoCloseCoroutine = null;
-    }
-
-    #endregion
-
-    #region 5. Exit Game Popup
-
-    internal void ShowExitGamePopup()
-    {
-        if (exitGamePopup == null) return;
-
-        CloseCurrentPopup();
-
-        if (popupParent != null) popupParent.SetActive(true);
-
-        currentActivePopup = exitGamePopup;
-        exitGamePopup.SetActive(true);
-
-        AnimatePopupOpen(exitGamePopupRect);
-    }
-
-    private void OnExitGameYesClicked()
-    {
-        AnimatePopupClose(exitGamePopupRect, () =>
-        {
-            exitGamePopup.SetActive(false);
-            if (currentActivePopup == exitGamePopup) currentActivePopup = null;
-            UpdatePopupParentState();
-            ExitGame();
-        });
-    }
-
-    private void OnExitGameNoClicked()
-    {
-        AnimatePopupClose(exitGamePopupRect, () =>
-        {
-            exitGamePopup.SetActive(false);
-            if (currentActivePopup == exitGamePopup) currentActivePopup = null;
-            UpdatePopupParentState();
-        });
-    }
-
-    #endregion
-
-    #region Animation Helpers
-
-    private void AnimatePopupOpen(RectTransform popupRect)
-    {
-        if (popupRect == null) return;
-
-        AudioManager.Instance?.PlayPopupOpen();
-        popupRect.localScale = Vector3.zero;
-        popupRect.DOScale(1f, popupScaleInDuration).SetEase(Ease.OutBack);
-    }
-
-    private void AnimatePopupClose(RectTransform popupRect, System.Action onComplete)
-    {
-        AudioManager.Instance?.PlayPopupClose();
-        if (popupRect == null)
-        {
-            onComplete?.Invoke();
-            return;
-        }
-
-        Sequence closeSeq = DOTween.Sequence();
-        closeSeq.Append(popupRect.DOScale(1.1f, 0.08f));
-        closeSeq.Append(popupRect.DOScale(0f, popupScaleOutDuration).SetEase(Ease.InBack));
-        closeSeq.OnComplete(() =>
-        {
-            popupRect.localScale = Vector3.one;
-            onComplete?.Invoke();
-        });
-    }
-
-    private void StartRotation(Image targetImage)
-    {
-        if (targetImage == null) return;
-
-        StopRotation();
-        rotationCoroutine = StartCoroutine(RotateImageCoroutine(targetImage));
-    }
-
-    private void StopRotation()
-    {
-        if (rotationCoroutine != null)
-        {
-            StopCoroutine(rotationCoroutine);
-            rotationCoroutine = null;
-        }
-    }
-
-    private IEnumerator RotateImageCoroutine(Image targetImage)
-    {
-        if (targetImage == null) yield break;
-
-        while (targetImage != null && targetImage.gameObject.activeInHierarchy)
-        {
-            targetImage.transform.Rotate(0f, 0f, -rotationSpeed * Time.deltaTime);
-            yield return null;
-        }
-    }
-
-    private void StartLoadingTextAnimation()
-    {
-        if (loadingAnimatedText == null) return;
-
-        StopLoadingTextAnimation();
-        loadingTextCoroutine = StartCoroutine(LoadingTextCoroutine());
-    }
-
-    private void StopLoadingTextAnimation()
-    {
-        if (loadingTextCoroutine != null)
-        {
-            StopCoroutine(loadingTextCoroutine);
-            loadingTextCoroutine = null;
-        }
-    }
-
-    private IEnumerator LoadingTextCoroutine()
-    {
-        string[] dotStates = { ".", "..", "..." };
-        int currentIndex = 0;
-
-        while (loadingAnimatedText != null && loadingAnimatedText.gameObject.activeInHierarchy)
-        {
-            loadingAnimatedText.text = dotStates[currentIndex];
-            currentIndex = (currentIndex + 1) % dotStates.Length;
-            yield return new WaitForSeconds(loadingTextCycleSpeed);
-        }
-    }
-
-    #endregion
-
-    #region Popup Management
-
-    private void UpdatePopupParentState()
-    {
-        if (popupParent != null)
-        {
-            bool anyActive = (disconnectionPopup != null && disconnectionPopup.activeSelf) ||
-                             (errorPopup != null && errorPopup.activeSelf) ||
-                             (reconnectionPopup != null && reconnectionPopup.activeSelf) ||
-                             (loadingPopup != null && loadingPopup.activeSelf) ||
-                             (exitGamePopup != null && exitGamePopup.activeSelf);
-
-            popupParent.SetActive(anyActive);
-        }
-    }
-
-    private void CloseCurrentPopup()
-    {
-        if (currentActivePopup == null) return;
-
-        StopRotation();
-        StopLoadingTextAnimation();
-
-        if (autoCloseCoroutine != null)
-        {
-            StopCoroutine(autoCloseCoroutine);
-            autoCloseCoroutine = null;
-        }
-
-        currentActivePopup.SetActive(false);
-        currentActivePopup = null;
-        UpdatePopupParentState();
-    }
-
-    internal bool IsLoadingPopupActive()
-    {
-        return loadingPopup != null && loadingPopup.activeSelf;
-    }
-
-    #endregion
-
-    #region Game Exit
+    // 5. Exit Game
+    internal void ShowExitGamePopup() => OpenPopup(exitGamePopup);
 
     internal void ExitGame()
     {
-        var socketMgr = Object.FindFirstObjectByType<SocketIOManager>();
-        if (socketMgr != null)
-        {
-            socketMgr.CloseSocket();
-        }
+        var socketMgr = UnityEngine.Object.FindFirstObjectByType<SocketIOManager>();
+        if (socketMgr != null) socketMgr.CloseSocket();
 
-        var jsCall = Object.FindFirstObjectByType<JSFunctCalls>();
-        if (jsCall != null)
-        {
-            jsCall.SendCustomMessage("OnExit");
-        }
+        var jsCall = UnityEngine.Object.FindFirstObjectByType<JSFunctCalls>();
+        if (jsCall != null) jsCall.SendCustomMessage("OnExit");
 
 #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
@@ -558,24 +236,8 @@ public class PopupManager : MonoBehaviour
 
     #endregion
 
-    #region Cleanup
-
     private void OnDestroy()
     {
-        StopRotation();
-        StopLoadingTextAnimation();
-
-        if (autoCloseCoroutine != null)
-        {
-            StopCoroutine(autoCloseCoroutine);
-        }
-
-        if (disconnectionPopupRect != null) DOTween.Kill(disconnectionPopupRect);
-        if (errorPopupRect != null) DOTween.Kill(errorPopupRect);
-        if (reconnectionPopupRect != null) DOTween.Kill(reconnectionPopupRect);
-        if (loadingPopupRect != null) DOTween.Kill(loadingPopupRect);
-        if (exitGamePopupRect != null) DOTween.Kill(exitGamePopupRect);
+        DOTween.Kill(this);
     }
-
-    #endregion
 }

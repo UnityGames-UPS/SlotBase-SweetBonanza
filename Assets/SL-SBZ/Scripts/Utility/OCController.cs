@@ -161,24 +161,7 @@ public class OCController : MonoBehaviour
             }
         }
 
-        if (slotObject != null)
-        {
-            Vector3 targetScale = isMobilePortrait ? portraitSlotScale : landscapeSlotScale;
-            Vector3 targetPosition = isMobilePortrait ? portraitSlotPosition : landscapeSlotPosition;
 
-            if (transitionDuration > 0)
-            {
-                Tween scaleTween = slotObject.DOScale(targetScale, transitionDuration).SetEase(Ease.OutCubic);
-                Tween posTween = slotObject.DOLocalMove(targetPosition, transitionDuration).SetEase(Ease.OutCubic);
-                activeTweens.Add(scaleTween);
-                activeTweens.Add(posTween);
-            }
-            else
-            {
-                slotObject.localScale = targetScale;
-                slotObject.localPosition = targetPosition;
-            }
-        }
 
         if (logoObject != null)
         {

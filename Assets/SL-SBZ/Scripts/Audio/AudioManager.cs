@@ -17,12 +17,6 @@ public class AudioManager : MonoBehaviour
 
     private void Awake()
     {
-        if (Instance != null && Instance != this)
-        {
-            Destroy(gameObject);
-            return;
-        }
-
         Instance = this;
 
         // Auto-configure missing or unlinked AudioSources defensively
@@ -61,8 +55,8 @@ public class AudioManager : MonoBehaviour
 
     #region Constants & Persistence Keys
 
-    private const string PrefKeyMusic     = "audio_music_enabled";
-    private const string PrefKeySfx       = "audio_sfx_enabled";
+    private const string PrefKeyMusic     = "settings_ambient_music";
+    private const string PrefKeySfx       = "settings_sound_fx";
     private const string PrefKeyMusicVol  = "audio_music_volume";
     private const string PrefKeySfxVol    = "audio_sfx_volume";
     private const string PrefKeyMasterVol = "settings_master_volume";
@@ -222,7 +216,11 @@ public class AudioManager : MonoBehaviour
         PlayerPrefs.Save();
         ApplyMusicVolume();
 
-        if (on && bgMusicSource != null && !bgMusicSource.isPlaying)
+        if (!on && bgMusicSource != null)
+        {
+            bgMusicSource.Stop();
+        }
+        else if (on && bgMusicSource != null && !bgMusicSource.isPlaying)
         {
             PlayBgMusic();
         }
@@ -396,6 +394,11 @@ public class AudioManager : MonoBehaviour
     public void CrossFadeMusic(AudioClip newClip, float duration = 0.5f, bool loop = true)
     {
         if (bgMusicSource == null || newClip == null) return;
+        if (!_musicEnabled)
+        {
+            if (bgMusicSource != null) bgMusicSource.Stop();
+            return;
+        }
 
         musicFadeTween?.Kill();
         float targetVolume = _musicEnabled ? _musicVolume : 0f;

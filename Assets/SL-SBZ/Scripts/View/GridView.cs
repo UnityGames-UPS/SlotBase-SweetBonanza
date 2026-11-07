@@ -417,8 +417,11 @@ namespace SweetBonanza.View
                 }
                 yield return null;
             }
-            if (isSlamStopRequested) AudioManager.Instance?.PlayReelStop();
-            yield return new WaitForSeconds(isSlamStopRequested ? 0.04f : 0.10f);
+            BringScattersAndBombsToFront();
+            bool wasSlam = isSlamStopRequested;
+            if (wasSlam) AudioManager.Instance?.PlayReelStop();
+            isSlamStopRequested = false;
+            yield return new WaitForSeconds(wasSlam ? 0.04f : 0.10f);
         }
 
         internal IEnumerator PlayTumbleStepSequence(TumbleStep step)
@@ -466,6 +469,10 @@ namespace SweetBonanza.View
             yield return new WaitForSeconds(isSlamStopRequested ? 0.08f : winPulseDuration);
 
             // 2. Explode and pop with glass / candy burst effect while playing 3D symbol animation
+            if (step.ExplodedPositions != null && step.ExplodedPositions.Count > 0)
+            {
+                AudioManager.Instance?.PlaySymbolPop();
+            }
             foreach (var pos in step.ExplodedPositions)
             {
                 var cell = activeCells[pos.Column, pos.Row];
@@ -560,18 +567,38 @@ namespace SweetBonanza.View
                 }
                 yield return null;
             }
+            BringScattersAndBombsToFront();
+            bool wasSlam = isSlamStopRequested;
             AudioManager.Instance?.PlayReelStop();
-            yield return new WaitForSeconds(isSlamStopRequested ? 0.04f : 0.22f);
+            isSlamStopRequested = false;
+            yield return new WaitForSeconds(wasSlam ? 0.04f : 0.22f);
         }
 
-        internal IEnumerator PlayMultiplierBombRevealSequence(List<BombMultiplierInfo> bombs)
+        private void BringScattersAndBombsToFront()
+        {
+            for (int c = 0; c < GameConfig.COLUMNS; c++)
+            {
+                for (int r = 0; r < GameConfig.ROWS; r++)
+                {
+                    var cell = activeCells[c, r];
+                    if (cell != null && (cell.CurrentSymbol == SymbolType.Lollipop || cell.CurrentSymbol == SymbolType.MultiplierBomb))
+                    {
+                        cell.transform.SetAsLastSibling();
+                    }
+                }
+            }
+        }
+
+        internal IEnumerator PlayMultiplierBombRevealSequence(List<BombMultiplierInfo> bombs, Action<int, Vector3, int> onBombDetonated = null)
         {
             if (bombs == null || bombs.Count == 0) yield break;
 
             int completed = 0;
+            int runningMultiplier = 0;
             for (int i = 0; i < bombs.Count; i++)
             {
                 var bomb = bombs[i];
+                runningMultiplier += bomb.MultiplierValue;
                 var cell = activeCells[bomb.Position.Column, bomb.Position.Row];
                 if (cell != null)
                 {
@@ -579,19 +606,24 @@ namespace SweetBonanza.View
                     Sprite bombSprite = GetMultiplierBombSprite(bomb.MultiplierValue);
                     cell.Setup(SymbolType.MultiplierBomb, bombSprite, bomb.MultiplierValue);
 
-                    // High multipliers (25x+) trigger the explosive 60-frame Colorful Bomb blast, standard bombs use 30-frame Bomb effect
-                    Sprite[] blastFrames = (bomb.MultiplierValue >= 25 && colorfulBombBlastFrames != null && colorfulBombBlastFrames.Length > 0)
-                        ? colorfulBombBlastFrames
-                        : bombEffectFrames;
+                    // High multipliers (25x+) trigger the explosive Colorful Bomb blast; standard bombs fallback to colorfulBombBlastFrames if bombEffectFrames is empty
+                    Sprite[] blastFrames = (bombEffectFrames != null && bombEffectFrames.Length > 0 && bomb.MultiplierValue < 25)
+                        ? bombEffectFrames
+                        : (colorfulBombBlastFrames != null && colorfulBombBlastFrames.Length > 0 ? colorfulBombBlastFrames : bombEffectFrames);
 
-                    cell.PlayMultiplierBombRevealAnimation(bomb.MultiplierValue, () => completed++, blastFrames);
+                    Vector3 bombPos = cell.transform.position;
+                    int bombVal = bomb.MultiplierValue;
+                    int curRunning = runningMultiplier;
+
+                    cell.PlayMultiplierBombRevealAnimation(bombVal, () => completed++, blastFrames);
+                    onBombDetonated?.Invoke(bombVal, bombPos, curRunning);
                 }
                 else completed++;
 
                 // Stagger detonations if multiple bombs land for arcade excitement
                 if (bombs.Count > 1 && i < bombs.Count - 1)
                 {
-                    yield return new WaitForSeconds(0.25f);
+                    yield return new WaitForSeconds(0.35f);
                 }
             }
 
@@ -665,7 +697,10 @@ namespace SweetBonanza.View
             if (cell == null) return;
             cell.ResetCell();
             cell.gameObject.SetActive(false);
-            cellPool.Add(cell);
+            if (!cellPool.Contains(cell))
+            {
+                cellPool.Add(cell);
+            }
         }
 
         private void OnDestroy()

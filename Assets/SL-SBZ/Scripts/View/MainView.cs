@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -33,27 +34,10 @@ namespace SweetBonanza.View
         [SerializeField] private TMP_Text statusBannerText;
 
         [Header("Indicators & Overlays")]
-        [SerializeField] private GameObject anteBetActiveIndicator;
         [SerializeField] private GameObject freeSpinsBadge;
 
-        [Header("Top Display & Ante Bet Visuals")]
-        [SerializeField] private Image topDisplayBannerImage;
-        [SerializeField] private Sprite bannerFreeSpinsSprite;
-        [SerializeField] private Sprite bannerPayAnywhereSprite;
-
-
-        [SerializeField] private Image anteBetButtonImage;
-        [SerializeField] private Sprite anteBetNormalSprite;
-        [SerializeField] private Sprite anteBetGlowSprite;
-
-        [Header("Ante Bet Slider & Cost Display")]
-        [SerializeField] private RectTransform anteBetHandleRect;
-        [SerializeField] private Image anteBetHandleImage;
-        [SerializeField] private Sprite anteBetHandleArrowSprite;
-        [SerializeField] private Sprite anteBetHandleCheckSprite;
+        [Header("Ante Bet Display")]
         [SerializeField] private TMP_Text anteBetAmountText;
-        [SerializeField] private float anteBetHandleLeftX = -19f;
-        [SerializeField] private float anteBetHandleRightX = 19f;
 
         [Header("Theme Visuals (Day / Night Free Spins)")]
         [SerializeField] private Image backgroundImage;
@@ -62,7 +46,6 @@ namespace SweetBonanza.View
         [SerializeField] private Image slotFrameImage;
         [SerializeField] private Sprite slotFrameDaySprite;
         [SerializeField] private Sprite slotFrameNightSprite;
-        [SerializeField] private Image cloudsImage;
         [SerializeField] private Sprite cloudsDaySprite;
         [SerializeField] private Sprite cloudsNightSprite;
         [SerializeField] private Image candyTransitionImage;
@@ -70,10 +53,17 @@ namespace SweetBonanza.View
         [Header("Spin Button Visuals")]
         [SerializeField] private TMP_Text spinAutoplayCountText;
 
+        [Header("Top Tumble Win (Free Spins Night Mode)")]
+        [SerializeField] private GameObject topTumbleWinBanner;
+        [SerializeField] private TMP_Text topTumbleWinText;
+
+        [Header("Bottom Bar Controls")]
+        [SerializeField] private GameObject totalBetContainer;
+
         private Tweener winCountTweener;
-        private Coroutine bannerCycleCoroutine;
         private double displayedWin = 0;
         private bool isCurrentlyNightMode = false;
+        private TMP_Text flyerText;
 
         private bool isSpinning = false;
         private bool isAutoplaying = false;
@@ -83,6 +73,21 @@ namespace SweetBonanza.View
 
         private CanvasGroup buyBonusCanvasGroup;
         private CanvasGroup anteBetCanvasGroup;
+
+        private Vector2 slotFrameDayPos;
+        private Vector2 buyButtonDayPos;
+        private Vector2 anteButtonDayPos;
+        private bool dayPositionsCaptured = false;
+
+        /// <summary>Captures default Day (base game) anchored positions for slot frame and feature buttons.</summary>
+        private void CaptureDayPositions()
+        {
+            if (dayPositionsCaptured) return;
+            if (slotFrameImage != null) slotFrameDayPos = slotFrameImage.rectTransform.anchoredPosition;
+            if (buyBonusButton != null) buyButtonDayPos = buyBonusButton.GetComponent<RectTransform>().anchoredPosition;
+            if (anteBetToggleButton != null) anteButtonDayPos = anteBetToggleButton.GetComponent<RectTransform>().anchoredPosition;
+            dayPositionsCaptured = true;
+        }
 
         /// <summary>Ensures CanvasGroup components exist on Buy Feature and Ante Bet buttons.</summary>
         private void EnsureFeatureCanvasGroups()
@@ -159,6 +164,7 @@ namespace SweetBonanza.View
         /// <summary>Initializes canvas groups, button click listeners, and default overlay states.</summary>
         private void Awake()
         {
+            CaptureDayPositions();
             EnsureFeatureCanvasGroups();
             UpdateFeatureButtonsVisualState();
             if (spinButton != null)
@@ -189,14 +195,27 @@ namespace SweetBonanza.View
             }
         }
 
-        /// <summary>Initializes Ante Bet slider position, spin button visuals, and starts banner cycling.</summary>
+        /// <summary>Initializes spin button visuals and bottom bar layout.</summary>
         private void Start()
         {
-            InitializeAnteBetSlider();
             UpdateSpinButtonVisuals();
-            if (topDisplayBannerImage != null && bannerFreeSpinsSprite != null && bannerPayAnywhereSprite != null)
+            EnsureTotalBetContainer();
+            UpdateBottomBarCenterState();
+            if (topTumbleWinBanner != null) topTumbleWinBanner.SetActive(false);
+        }
+
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.Space))
             {
-                bannerCycleCoroutine = StartCoroutine(CycleTopDisplayBanners());
+                if (stopSpinButton != null && stopSpinButton.gameObject.activeInHierarchy && stopSpinButton.interactable)
+                {
+                    stopSpinButton.onClick?.Invoke();
+                }
+                else if (spinButton != null && spinButton.gameObject.activeInHierarchy && spinButton.interactable)
+                {
+                    HandleSpinButtonClicked();
+                }
             }
         }
 
@@ -227,18 +246,7 @@ namespace SweetBonanza.View
             }
         }
 
-        /// <summary>Cycles top banner between 'Free Spins' and 'Pay Anywhere' messages every few seconds.</summary>
-        private System.Collections.IEnumerator CycleTopDisplayBanners()
-        {
-            bool showFreeSpins = true;
-            while (enabled)
-            {
-                topDisplayBannerImage.sprite = showFreeSpins ? bannerFreeSpinsSprite : bannerPayAnywhereSprite;
-                showFreeSpins = !showFreeSpins;
-                yield return new WaitForSeconds(4.5f);
-            }
 
-        }
 
 
         /// <summary>Updates the player's balance text display on the bottom HUD.</summary>
@@ -263,7 +271,68 @@ namespace SweetBonanza.View
             }
         }
 
-        /// <summary>Displays the spin win amount with an optional counting roll-up tween animation.</summary>
+        private void EnsureTotalBetContainer()
+        {
+            if (totalBetContainer == null)
+            {
+                var tbp = GameObject.Find("MainCanvas/BG/BottomBar/totalbet Parent");
+                if (tbp != null) totalBetContainer = tbp;
+            }
+        }
+
+        private CanvasGroup GetOrCreateCanvasGroup(GameObject go)
+        {
+            if (go == null) return null;
+            var cg = go.GetComponent<CanvasGroup>();
+            if (cg == null) cg = go.AddComponent<CanvasGroup>();
+            return cg;
+        }
+
+        /// <summary>Smoothly toggles center bottom bar between Total Bet controls and Win / Autoplay status.</summary>
+        private void UpdateBottomBarCenterState()
+        {
+            EnsureTotalBetContainer();
+
+            bool showBet = !isSpinning && !isAutoplaying && displayedWin <= 0;
+
+            if (totalBetContainer != null)
+            {
+                if (totalBetContainer.activeSelf != showBet)
+                {
+                    var cg = GetOrCreateCanvasGroup(totalBetContainer);
+                    cg.DOKill();
+                    if (showBet)
+                    {
+                        totalBetContainer.SetActive(true);
+                        cg.alpha = 0f;
+                        cg.DOFade(1f, 0.2f);
+                    }
+                    else
+                    {
+                        cg.DOFade(0f, 0.15f).OnComplete(() => totalBetContainer.SetActive(false));
+                    }
+                }
+            }
+
+            if (totalWinText != null)
+            {
+                if (isAutoplaying && remainingAutoplayCount > 0 && displayedWin <= 0)
+                {
+                    totalWinText.text = $"AUTO SPINS LEFT {remainingAutoplayCount}";
+                    totalWinText.gameObject.SetActive(true);
+                }
+                else if (displayedWin > 0)
+                {
+                    totalWinText.gameObject.SetActive(true);
+                }
+                else if (showBet)
+                {
+                    totalWinText.text = string.Empty;
+                }
+            }
+        }
+
+        /// <summary>Displays the spin win amount with smooth yellow/white styling and optional rolling count up.</summary>
         internal void SetWin(double targetWin, bool animate = false)
         {
             if (winCountTweener != null && winCountTweener.IsActive()) winCountTweener.Kill();
@@ -273,10 +342,11 @@ namespace SweetBonanza.View
                 displayedWin = targetWin;
                 if (totalWinText != null)
                 {
-                    if (targetWin > 0) totalWinText.text = $"${targetWin:F2}";
-                    else if (isAutoplaying && remainingAutoplayCount > 0) totalWinText.text = $"AUTO SPINS LEFT: {remainingAutoplayCount}";
+                    if (targetWin > 0) totalWinText.text = $"<color=#F1C40F>WIN</color> ${targetWin:F2}";
+                    else if (isAutoplaying && remainingAutoplayCount > 0) totalWinText.text = $"AUTO SPINS LEFT {remainingAutoplayCount}";
                     else totalWinText.text = "$0.00";
                 }
+                UpdateBottomBarCenterState();
                 return;
             }
 
@@ -284,9 +354,145 @@ namespace SweetBonanza.View
             winCountTweener = DOTween.To(() => (float)startWin, x =>
             {
                 displayedWin = x;
-                totalWinText.text = $"${x:F2}";
-            }, (float)targetWin, 0.6f).SetEase(Ease.OutCubic);
+                if (totalWinText != null) totalWinText.text = $"<color=#F1C40F>WIN</color> ${x:F2}";
+            }, (float)targetWin, 0.6f).SetEase(Ease.OutCubic).OnComplete(() =>
+            {
+                UpdateBottomBarCenterState();
+            });
+            UpdateBottomBarCenterState();
         }
+
+        /// <summary>Updates the bottom bar with rolling tumble win and winning symbol pay details (e.g. 8X BANANA PAYS $60.00).</summary>
+        internal void SetTumbleStepWin(double tumbleWin, string detail = null)
+        {
+            displayedWin = tumbleWin;
+            UpdateBottomBarCenterState();
+
+            if (totalWinText != null)
+            {
+                if (!string.IsNullOrEmpty(detail))
+                    totalWinText.text = $"<color=#F1C40F>WIN</color> ${tumbleWin:F2}\n<size=65%>{detail}</size>";
+                else
+                    totalWinText.text = $"<color=#F1C40F>WIN</color> ${tumbleWin:F2}";
+            }
+        }
+
+        /// <summary>Restores the bottom bar back to its default idle Total Bet state.</summary>
+        internal void SetIdleBottomBarState()
+        {
+            displayedWin = 0;
+            UpdateBottomBarCenterState();
+        }
+
+        #region Top Tumble Win Banner & Multiplier Bomb Fly-Up
+
+        private TMP_Text GetFlyer()
+        {
+            if (flyerText == null)
+            {
+                var go = new GameObject("MultiplierFlyer", typeof(RectTransform), typeof(CanvasRenderer), typeof(TextMeshProUGUI));
+                go.transform.SetParent(transform, false);
+                flyerText = go.GetComponent<TextMeshProUGUI>();
+                if (topTumbleWinText != null) flyerText.font = topTumbleWinText.font;
+                flyerText.fontSize = 44;
+                flyerText.fontStyle = FontStyles.Bold;
+                flyerText.alignment = TextAlignmentOptions.Center;
+                flyerText.color = new Color(1f, 0.95f, 0.15f, 1f);
+                go.SetActive(false);
+            }
+            return flyerText;
+        }
+
+        /// <summary>Shows the purple capsule banner at the top of the grid during Free Spins night mode.</summary>
+        internal void ShowTopTumbleWinBanner(double initialTumbleWin)
+        {
+            if (topTumbleWinBanner == null || !isInFreeSpins) return;
+
+            var cg = GetOrCreateCanvasGroup(topTumbleWinBanner);
+            topTumbleWinBanner.SetActive(true);
+            cg.DOKill();
+            cg.alpha = 0f;
+            cg.DOFade(1f, 0.25f);
+
+            topTumbleWinBanner.transform.DOKill();
+            topTumbleWinBanner.transform.localScale = Vector3.one * 0.85f;
+            topTumbleWinBanner.transform.DOScale(1f, 0.25f).SetEase(Ease.OutBack);
+
+            if (topTumbleWinText != null)
+            {
+                topTumbleWinText.text = $"<color=#FFE600>TUMBLE WIN</color>\n${initialTumbleWin:F2}";
+            }
+        }
+
+        /// <summary>Hides the top tumble win banner with a smooth fade-out.</summary>
+        internal void HideTopTumbleWinBanner(bool immediate = false)
+        {
+            if (topTumbleWinBanner == null || !topTumbleWinBanner.activeSelf) return;
+
+            if (immediate)
+            {
+                topTumbleWinBanner.SetActive(false);
+                return;
+            }
+
+            var cg = GetOrCreateCanvasGroup(topTumbleWinBanner);
+            cg.DOKill();
+            cg.DOFade(0f, 0.25f).OnComplete(() =>
+            {
+                topTumbleWinBanner.SetActive(false);
+            });
+        }
+
+        /// <summary>Animates a flying multiplier from a grid bomb cell up into the top tumble banner.</summary>
+        internal IEnumerator AnimateBombMultiplierFlyUp(Vector3 fromWorldPos, int multiplier, double baseTumbleWin, int runningMultiplier)
+        {
+            if (topTumbleWinBanner == null || !topTumbleWinBanner.activeInHierarchy) yield break;
+
+            var flyer = GetFlyer();
+            flyer.gameObject.SetActive(true);
+            flyer.transform.position = fromWorldPos;
+            flyer.transform.localScale = Vector3.one * 0.5f;
+            flyer.text = $"{multiplier}x";
+
+            Vector3 targetPos = topTumbleWinBanner.transform.position;
+
+            flyer.transform.DOScale(1.25f, 0.15f);
+            yield return flyer.transform.DOMove(targetPos, 0.35f).SetEase(Ease.OutQuad).WaitForCompletion();
+
+            flyer.gameObject.SetActive(false);
+
+            AudioManager.Instance?.PlaySymbolPop();
+            topTumbleWinBanner.transform.DOKill();
+            topTumbleWinBanner.transform.localScale = Vector3.one;
+            topTumbleWinBanner.transform.DOPunchScale(Vector3.one * 0.18f, 0.22f, 10, 1f);
+
+            if (topTumbleWinText != null)
+            {
+                topTumbleWinText.text = $"<color=#FFE600>TUMBLE WIN</color>\n${baseTumbleWin:F2} x {runningMultiplier}";
+            }
+
+            yield return new WaitForSeconds(0.15f);
+        }
+
+        /// <summary>Calculates and flashes the final multiplied tumble win on the top banner.</summary>
+        internal IEnumerator FinalizeTumbleWinMultipliers(double baseTumbleWin, int totalMultiplier)
+        {
+            if (topTumbleWinBanner == null || !topTumbleWinBanner.activeInHierarchy) yield break;
+
+            double finalWin = baseTumbleWin * totalMultiplier;
+            topTumbleWinBanner.transform.DOKill();
+            topTumbleWinBanner.transform.localScale = Vector3.one;
+            topTumbleWinBanner.transform.DOPunchScale(Vector3.one * 0.25f, 0.3f, 8, 1f);
+
+            if (topTumbleWinText != null)
+            {
+                topTumbleWinText.text = $"<color=#FFE600>TUMBLE WIN</color>\n<color=#FFF700>${finalWin:F2}</color>";
+            }
+
+            yield return new WaitForSeconds(0.8f);
+        }
+
+        #endregion
 
         /// <summary>Updates reel spinning state, toggles bet adjustments, and refreshes button visuals.</summary>
         public void SetSpinButtonInteractable(bool interactable)
@@ -299,52 +505,14 @@ namespace SweetBonanza.View
             
             UpdateFeatureButtonsVisualState();
             UpdateSpinButtonVisuals();
+            UpdateBottomBarCenterState();
         }
 
         /// <summary>Updates Ante Bet visual indicators, glow button sprite, and animated slider handle.</summary>
         internal void SetAnteBetState(bool isActive)
         {
             this.isAnteBetActive = isActive;
-            UpdateAnteBetVisuals(animate: true);
             UpdateFeatureButtonsVisualState();
-        }
-
-        /// <summary>Initializes the Ante Bet slider handle position and button sprite on startup.</summary>
-        private void InitializeAnteBetSlider()
-        {
-            UpdateAnteBetVisuals(animate: false);
-        }
-
-        /// <summary>Updates the Ante Bet slider handle position, handle sprite, and button glow state.</summary>
-        private void UpdateAnteBetVisuals(bool animate)
-        {
-            if (anteBetActiveIndicator != null) anteBetActiveIndicator.SetActive(isAnteBetActive);
-            if (anteBetButtonImage != null)
-            {
-                anteBetButtonImage.sprite = isAnteBetActive && anteBetGlowSprite != null ? anteBetGlowSprite : anteBetNormalSprite;
-            }
-
-            if (anteBetHandleRect != null)
-            {
-                float targetX = isAnteBetActive ? anteBetHandleRightX : anteBetHandleLeftX;
-                anteBetHandleRect.DOKill();
-                if (animate)
-                {
-                    anteBetHandleRect.DOLocalMoveX(targetX, 0.2f).SetEase(Ease.OutQuad);
-                }
-                else
-                {
-                    Vector3 pos = anteBetHandleRect.localPosition;
-                    pos.x = targetX;
-                    anteBetHandleRect.localPosition = pos;
-                }
-            }
-
-            if (anteBetHandleImage != null)
-            {
-                Sprite targetSprite = isAnteBetActive ? anteBetHandleCheckSprite : anteBetHandleArrowSprite;
-                if (targetSprite != null) anteBetHandleImage.sprite = targetSprite;
-            }
         }
 
         /// <summary>Updates the HUD and spin button state for active Autoplay sessions.</summary>
@@ -361,7 +529,7 @@ namespace SweetBonanza.View
 
             if (isAutoplay && remainingSpins > 0)
             {
-                SetStatusMessage($"AUTO SPINS LEFT: {remainingSpins}");
+                SetStatusMessage($"AUTO SPINS LEFT {remainingSpins}");
             }
             else if (!isAutoplay)
             {
@@ -369,6 +537,7 @@ namespace SweetBonanza.View
             }
 
             UpdateSpinButtonVisuals();
+            UpdateBottomBarCenterState();
         }
 
         //** ----------------------------------------------------
@@ -461,37 +630,45 @@ namespace SweetBonanza.View
             if (buyBonusButton != null && isInFreeSpins) buyBonusButton.interactable = false;
 
             // Pause banner cycle during free spins to lock on free spins banner
-            if (isInFreeSpins)
-            {
-                if (bannerCycleCoroutine != null)
-                {
-                    StopCoroutine(bannerCycleCoroutine);
-                    bannerCycleCoroutine = null;
-                }
-                if (topDisplayBannerImage != null && bannerFreeSpinsSprite != null)
-                {
-                    topDisplayBannerImage.sprite = bannerFreeSpinsSprite;
-                }
-            }
-            else
-            {
-                if (bannerCycleCoroutine == null && topDisplayBannerImage != null && bannerFreeSpinsSprite != null)
-                {
-                    bannerCycleCoroutine = StartCoroutine(CycleTopDisplayBanners());
-                }
-            }
-
             ApplyThemeMode(isInFreeSpins);
             UpdateSpinButtonVisuals();
         }
 
-        /// <summary>Fades background, frame, and clouds smoothly between Day and Night (Free Spins) themes.</summary>
+        /// <summary>Fades background, frame, and clouds smoothly between Day and Night (Free Spins) themes, and repositions slot grid and side buttons.</summary>
         private void ApplyThemeMode(bool nightMode)
         {
             if (isCurrentlyNightMode == nightMode) return;
             isCurrentlyNightMode = nightMode;
 
-            // Trigger candy transition overlay burst
+            CaptureDayPositions();
+
+            // 1. Slide Buy Feature and Ante Bet buttons off-screen (Night) or back in (Day)
+            float offscreenOffset = -550f;
+            if (buyBonusButton != null)
+            {
+                RectTransform buyRect = buyBonusButton.GetComponent<RectTransform>();
+                buyRect.DOKill();
+                float targetX = nightMode ? buyButtonDayPos.x + offscreenOffset : buyButtonDayPos.x;
+                buyRect.DOAnchorPosX(targetX, 0.45f).SetEase(nightMode ? Ease.InBack : Ease.OutBack);
+            }
+
+            if (anteBetToggleButton != null)
+            {
+                RectTransform anteRect = anteBetToggleButton.GetComponent<RectTransform>();
+                anteRect.DOKill();
+                float targetX = nightMode ? anteButtonDayPos.x + offscreenOffset : anteButtonDayPos.x;
+                anteRect.DOAnchorPosX(targetX, 0.45f).SetEase(nightMode ? Ease.InBack : Ease.OutBack);
+            }
+
+            // 2. Center slot frame (Night) or return to Day offset (Day)
+            if (slotFrameImage != null)
+            {
+                slotFrameImage.rectTransform.DOKill();
+                float targetSlotX = nightMode ? 0f : slotFrameDayPos.x;
+                slotFrameImage.rectTransform.DOAnchorPosX(targetSlotX, 0.5f).SetEase(Ease.InOutCubic);
+            }
+
+            // 3. Trigger candy transition overlay burst
             if (candyTransitionImage != null)
             {
                 candyTransitionImage.gameObject.SetActive(true);
@@ -509,7 +686,7 @@ namespace SweetBonanza.View
                 });
             }
 
-            // Swap Background & Frame & Clouds Sprites with smooth fade
+            // 4. Swap Background, Frame & Clouds Sprites with smooth fade
             if (backgroundImage != null)
             {
                 Sprite targetBg = nightMode ? (backgroundNightSprite != null ? backgroundNightSprite : backgroundDaySprite) : backgroundDaySprite;
@@ -533,22 +710,7 @@ namespace SweetBonanza.View
                     slotFrameImage.DOFade(0.3f, 0.18f).OnComplete(() =>
                     {
                         slotFrameImage.sprite = targetFrame;
-                        slotFrameImage.DOFade(1f, 0.22f);
-                    });
-                }
-            }
-
-            if (cloudsImage != null)
-            {
-                Sprite targetClouds = nightMode ? (cloudsNightSprite != null ? cloudsNightSprite : cloudsDaySprite) : cloudsDaySprite;
-                if (targetClouds != null)
-                {
-                    cloudsImage.DOKill();
-                    cloudsImage.DOFade(0.2f, 0.18f).OnComplete(() =>
-                    {
-                        cloudsImage.sprite = targetClouds;
-                        cloudsImage.DOFade(1f, 0.22f);
-                    });
+                        slotFrameImage.DOFade(1f, 0.22f);                    });
                 }
             }
         }
@@ -569,6 +731,9 @@ namespace SweetBonanza.View
         private void OnDestroy()
         {
             if (winCountTweener != null && winCountTweener.IsActive()) winCountTweener.Kill();
+            if (slotFrameImage != null) slotFrameImage.rectTransform.DOKill();
+            if (buyBonusButton != null) buyBonusButton.GetComponent<RectTransform>()?.DOKill();
+            if (anteBetToggleButton != null) anteBetToggleButton.GetComponent<RectTransform>()?.DOKill();
         }
     }
 }

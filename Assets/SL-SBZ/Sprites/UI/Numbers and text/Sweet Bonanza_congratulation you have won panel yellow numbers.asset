@@ -40,9 +40,14 @@ MonoBehaviour:
   m_SpriteCharacterTable:
   - m_ElementType: 2
     m_Unicode: 65534
-    m_GlyphIndex: 0
+    m_GlyphIndex: 10
     m_Scale: 1
-    m_Name: Sweet Bonanza_congratulation you have won panel yellow numbers_3
+    m_Name: Sweet Bonanza_congratulation you have won panel yellow numbers_9
+  - m_ElementType: 2
+    m_Unicode: 65534
+    m_GlyphIndex: 3
+    m_Scale: 1
+    m_Name: Sweet Bonanza_congratulation you have won panel yellow numbers_0
   - m_ElementType: 2
     m_Unicode: 65534
     m_GlyphIndex: 1
@@ -55,9 +60,14 @@ MonoBehaviour:
     m_Name: Sweet Bonanza_congratulation you have won panel yellow numbers_2
   - m_ElementType: 2
     m_Unicode: 65534
-    m_GlyphIndex: 3
+    m_GlyphIndex: 0
     m_Scale: 1
-    m_Name: Sweet Bonanza_congratulation you have won panel yellow numbers_0
+    m_Name: Sweet Bonanza_congratulation you have won panel yellow numbers_3
+  - m_ElementType: 2
+    m_Unicode: 65534
+    m_GlyphIndex: 6
+    m_Scale: 1
+    m_Name: Sweet Bonanza_congratulation you have won panel yellow numbers_4
   - m_ElementType: 2
     m_Unicode: 65534
     m_GlyphIndex: 4
@@ -70,19 +80,9 @@ MonoBehaviour:
     m_Name: Sweet Bonanza_congratulation you have won panel yellow numbers_6
   - m_ElementType: 2
     m_Unicode: 65534
-    m_GlyphIndex: 6
-    m_Scale: 1
-    m_Name: Sweet Bonanza_congratulation you have won panel yellow numbers_4
-  - m_ElementType: 2
-    m_Unicode: 65534
     m_GlyphIndex: 7
     m_Scale: 1
     m_Name: Sweet Bonanza_congratulation you have won panel yellow numbers_7
-  - m_ElementType: 2
-    m_Unicode: 65534
-    m_GlyphIndex: 8
-    m_Scale: 1
-    m_Name: Sweet Bonanza_congratulation you have won panel yellow numbers_10
   - m_ElementType: 2
     m_Unicode: 65534
     m_GlyphIndex: 9
@@ -90,9 +90,9 @@ MonoBehaviour:
     m_Name: Sweet Bonanza_congratulation you have won panel yellow numbers_8
   - m_ElementType: 2
     m_Unicode: 65534
-    m_GlyphIndex: 10
+    m_GlyphIndex: 8
     m_Scale: 1
-    m_Name: Sweet Bonanza_congratulation you have won panel yellow numbers_9
+    m_Name: Sweet Bonanza_congratulation you have won panel yellow numbers_10
   - m_ElementType: 2
     m_Unicode: 65534
     m_GlyphIndex: 11
@@ -105,7 +105,7 @@ MonoBehaviour:
       m_Height: 106
       m_HorizontalBearingX: -44
       m_HorizontalBearingY: 53
-      m_HorizontalAdvance: 88
+      m_HorizontalAdvance: 76.8
     m_GlyphRect:
       m_X: 824
       m_Y: 767
@@ -121,7 +121,7 @@ MonoBehaviour:
       m_Height: 105
       m_HorizontalBearingX: -40
       m_HorizontalBearingY: 52.5
-      m_HorizontalAdvance: 80
+      m_HorizontalAdvance: 64.9
     m_GlyphRect:
       m_X: 341
       m_Y: 766
@@ -137,7 +137,7 @@ MonoBehaviour:
       m_Height: 106
       m_HorizontalBearingX: -39.5
       m_HorizontalBearingY: 53
-      m_HorizontalAdvance: 79
+      m_HorizontalAdvance: 73
     m_GlyphRect:
       m_X: 585
       m_Y: 766
@@ -231,15 +231,15 @@ MonoBehaviour:
     m_Metrics:
       m_Width: 36
       m_Height: 36
-      m_HorizontalBearingX: -18
-      m_HorizontalBearingY: 18
+      m_HorizontalBearingX: -48.3
+      m_HorizontalBearingY: -27.2
       m_HorizontalAdvance: 36
     m_GlyphRect:
       m_X: 607
       m_Y: 112
       m_Width: 36
       m_Height: 36
-    m_Scale: 1
+    m_Scale: 0.25
     m_AtlasIndex: 0
     m_ClassDefinitionType: 0
     sprite: {fileID: -1943728650153864116, guid: 76f79086603d15840a05e58174dc6a6f, type: 3}
@@ -263,7 +263,7 @@ MonoBehaviour:
     m_Metrics:
       m_Width: 79
       m_Height: 106
-      m_HorizontalBearingX: -39.5
+      m_HorizontalBearingX: -23.5
       m_HorizontalBearingY: 53
       m_HorizontalAdvance: 79
     m_GlyphRect:

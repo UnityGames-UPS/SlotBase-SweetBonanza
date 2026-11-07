@@ -150,13 +150,13 @@ TextureImporter:
       name: Sweet Bonanza_NICE panel_0
       rect:
         serializedVersion: 2
-        x: 41
-        y: 386
-        width: 919
-        height: 227
+        x: 44
+        y: 410
+        width: 914
+        height: 186
       alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 456, y: 0, z: 456, w: 0}
       customData: 
       outline: []
       physicsShape: []
@@ -168,165 +168,11 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
-    - serializedVersion: 2
-      name: Sweet Bonanza_NICE panel_1
-      rect:
-        serializedVersion: 2
-        x: 378
-        y: 386
-        width: 6
-        height: 6
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: f32831b21addf1060800000000000000
-      internalID: 6926498436201284159
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Sweet Bonanza_NICE panel_2
-      rect:
-        serializedVersion: 2
-        x: 509
-        y: 386
-        width: 17
-        height: 14
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 6b9b0c70614b8fef0800000000000000
-      internalID: -74111387139262026
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Sweet Bonanza_NICE panel_3
-      rect:
-        serializedVersion: 2
-        x: 531
-        y: 386
-        width: 8
-        height: 6
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 8a00a3202363508c0800000000000000
-      internalID: -4033758302826790744
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Sweet Bonanza_NICE panel_4
-      rect:
-        serializedVersion: 2
-        x: 563
-        y: 386
-        width: 9
-        height: 7
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 0cafd1b3a66a29160800000000000000
-      internalID: 7030864943467330240
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Sweet Bonanza_NICE panel_5
-      rect:
-        serializedVersion: 2
-        x: 589
-        y: 386
-        width: 8
-        height: 7
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: abb24ec320d1ad3e0800000000000000
-      internalID: -2028276786728260678
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Sweet Bonanza_NICE panel_6
-      rect:
-        serializedVersion: 2
-        x: 606
-        y: 386
-        width: 8
-        height: 6
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 757eade49c3ad5fb0800000000000000
-      internalID: -4657386354624501929
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Sweet Bonanza_NICE panel_7
-      rect:
-        serializedVersion: 2
-        x: 613
-        y: 386
-        width: 24
-        height: 9
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 6854d53f488aaed00800000000000000
-      internalID: 1002799156015482246
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
     outline: []
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 5ca5f1293e8df4a4fb8dd5e8ad9c9ed5
     internalID: 0
     vertices: []
     indices: 

@@ -56,7 +56,20 @@ namespace SweetBonanza.View
                 symbolImage.sprite = sprite;
                 symbolImage.color = Color.white;
                 symbolImage.enabled = sprite != null;
-                symbolImage.transform.localScale = Vector3.one;
+                if (symbol == SymbolType.Lollipop)
+                {
+                    symbolImage.transform.localScale = new Vector3(1.38f, 1.38f, 1f);
+                    transform.SetAsLastSibling();
+                }
+                else if (symbol == SymbolType.MultiplierBomb)
+                {
+                    symbolImage.transform.localScale = new Vector3(1.15f, 1.15f, 1f);
+                    transform.SetAsLastSibling();
+                }
+                else
+                {
+                    symbolImage.transform.localScale = Vector3.one;
+                }
             }
 
             if (multiplierText != null)
@@ -246,6 +259,7 @@ namespace SweetBonanza.View
             // 5. Special playful Scatter Lollipop landing wobble if Scatter (wobbles on its wooden stick)
             if (currentSymbol == SymbolType.Lollipop)
             {
+                transform.SetAsLastSibling();
                 activeSequence.Append(rectTransform.DOPunchRotation(new Vector3(0, 0, 10f), 0.28f, 4, 0.4f));
                 activeSequence.Join(rectTransform.DOPunchScale(Vector3.one * 0.14f, 0.24f, 3, 0.3f));
             }
@@ -382,8 +396,10 @@ namespace SweetBonanza.View
             }
 
             float elapsed = 0f;
-            // Adapt frame rate dynamically so the full 3D animation plays smoothly across the duration
-            float frameRate = Mathf.Min(1f / 24f, duration / frames.Length);
+            // Constant, smooth 24 FPS symbol playback rate.
+            // Never hyper-accelerate symbol frames when reel drop / tumble is fast.
+            const float SYMBOL_ANIM_FPS = 24f;
+            float frameRate = 1f / SYMBOL_ANIM_FPS;
             float frameTimer = 0f;
             int index = 0;
 
@@ -415,8 +431,12 @@ namespace SweetBonanza.View
 
         private IEnumerator CycleBurstFrames(Sprite[] frames, float duration)
         {
+            if (frames == null || frames.Length == 0) yield break;
+
             float elapsed = 0f;
-            float frameRate = duration / frames.Length;
+            // Constant smooth 30 FPS burst shatter rate
+            const float BURST_FPS = 30f;
+            float frameRate = 1f / BURST_FPS;
             int index = 0;
             while (elapsed < duration && index < frames.Length)
             {

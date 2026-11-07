@@ -132,12 +132,12 @@ TextureImporter:
       name: Sweet Bonanza_NICE star 3_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 125
-        height: 122
+        x: 9
+        y: 10
+        width: 105
+        height: 101
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -150,33 +150,11 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
-    - serializedVersion: 2
-      name: Sweet Bonanza_NICE star 3_1
-      rect:
-        serializedVersion: 2
-        x: 121
-        y: 37
-        width: 9
-        height: 9
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 05e1ee4c6357276d0800000000000000
-      internalID: -2994201924155335088
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
     outline: []
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: ab1ebfd52f55a8f4280f1c5954dacba2
     internalID: 0
     vertices: []
     indices: 

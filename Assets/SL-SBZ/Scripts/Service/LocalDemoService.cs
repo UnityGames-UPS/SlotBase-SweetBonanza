@@ -13,6 +13,11 @@ namespace SweetBonanza.Service
         private int remainingFreeSpins = 0;
         private double playerBalance = 11645.27;
 
+        internal void SetInitialBalance(double balance)
+        {
+            if (balance > 0) playerBalance = balance;
+        }
+
         internal override void Initialize()
         {
             var payload = new InitPayload
