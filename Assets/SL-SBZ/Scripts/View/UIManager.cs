@@ -154,11 +154,6 @@ namespace SweetBonanza.View
         [SerializeField] private Button fullScreenButton;
         [SerializeField] private Button shrinkButton;
 
-        [Header("Bottom Display Banner")]
-        [SerializeField] private System.Collections.Generic.List<Sprite> imageList;
-        [SerializeField] private Image bannerImageFront;
-        [SerializeField] private Image bannerImageBack;
-
         [Header("External Managers")]
         [SerializeField] private PopupManager popupManager;
         [SerializeField] private JSFunctCalls jsFunctCalls;
@@ -341,11 +336,6 @@ namespace SweetBonanza.View
             }
             UpdateAnteBetSliderVisuals(isAnteBet);
             UpdateSettingsBetText(currentBetAmount);
-
-            if (imageList != null && imageList.Count > 0)
-            {
-                StartCoroutine(CycleBanners());
-            }
         }
 
         private void BindClick(Button btn, UnityAction action)
@@ -442,6 +432,10 @@ namespace SweetBonanza.View
                 var sunburst = winCelebrationPanel.transform.Find("EffectSunburst");
                 if (sunburst != null) sunburst.DOKill();
                 AudioManager.Instance?.StopWinTypePopupOpen();
+            }
+            if (panel == buyFeatureConfirmPanel && mainView != null)
+            {
+                mainView.SetIdleBottomBarState();
             }
             panel.SetActive(false);
             if (currentOpenPanel == panel) currentOpenPanel = null;
@@ -612,6 +606,8 @@ namespace SweetBonanza.View
                 buyFeatureCostText.text = SpriteTextUtility.FormatCurrency(betAmount * 100.0);
             if (buyFeatureSpinsCountText != null) 
                 buyFeatureSpinsCountText.text = SpriteTextUtility.FormatCount(freeSpinsCount);
+            if (mainView != null)
+                mainView.SetBuyFeatureState();
             OpenModal(buyFeatureConfirmPanel);
         }
 
@@ -696,7 +692,7 @@ namespace SweetBonanza.View
         {
             int idx = Mathf.Clamp(index, 0, autoplaySpinOptions.Length - 1);
             int count = autoplaySpinOptions[idx];
-            if (autoplaySpinsCountText != null) autoplaySpinsCountText.text = count.ToString();
+            if (autoplaySpinsCountText != null) autoplaySpinsCountText.text = $"START AUTOPLAY ({count})"; //count.ToString();
             if(autoplaySpinsCountSliderText != null) autoplaySpinsCountSliderText.text = count.ToString();
 
 
@@ -836,61 +832,6 @@ namespace SweetBonanza.View
 
         //** ----------------------------------------------------
         //** Bottom Banner On/Off & Cross-Fade Cycle
-        //** ----------------------------------------------------
-        //** Turn ON / OFF
-        public void bottombannner(bool onoffController)
-        {
-            if (bannerImageFront != null) bannerImageFront.gameObject.SetActive(onoffController);
-            if (bannerImageBack != null) bannerImageBack.gameObject.SetActive(onoffController);
-        }
-
-        //** Simple 15-20s cross-fade loop (0 -> 1 -> 2 -> 3 -> repeat)
-        private System.Collections.IEnumerator CycleBanners()
-        {
-            if (imageList == null || imageList.Count == 0) yield break;
-
-            int index = 0;
-            bool isFront = true;
-
-            // Initialize first sprite on front image
-            if (bannerImageFront != null)
-            {
-                bannerImageFront.sprite = imageList[0];
-                bannerImageFront.color = new Color(bannerImageFront.color.r, bannerImageFront.color.g, bannerImageFront.color.b, 1f);
-            }
-            if (bannerImageBack != null)
-            {
-                bannerImageBack.color = new Color(bannerImageBack.color.r, bannerImageBack.color.g, bannerImageBack.color.b, 0f);
-            }
-
-            while (isActiveAndEnabled)
-            {
-                Debug.Log("Waiting 123");
-                yield return new WaitForSeconds(UnityEngine.Random.Range(15f, 20f));
-             
-                if (imageList == null || imageList.Count == 0) yield break;
-
-                index = (index + 1) % imageList.Count;
-
-                if (isFront)
-                {
-                    if (bannerImageBack != null) bannerImageBack.sprite = imageList[index];
-                    bannerImageFront?.DOFade(0f, 1f);
-                    bannerImageBack?.DOFade(1f, 1f);
-                }
-                else
-                {
-                    if (bannerImageFront != null) bannerImageFront.sprite = imageList[index];
-                    bannerImageBack?.DOFade(0f, 1f);
-                    bannerImageFront?.DOFade(1f, 1f);
-                }
-
-                isFront = !isFront;
-                Debug.Log("done");
-
-            }
-        }
-
         #endregion
 
         private void OnDisable()

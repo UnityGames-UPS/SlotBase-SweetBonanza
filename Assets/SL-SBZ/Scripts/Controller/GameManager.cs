@@ -178,6 +178,10 @@ namespace SweetBonanza.Controller
             if (currentBalance < CurrentBetAmount && !isInFreeSpins)
             {
                 SetStatusMessage("INSUFFICIENT BALANCE");
+                if (isAutoplaying)
+                {
+                    HandleAutoplayStopped();
+                }
                 return;
             }
 
@@ -208,6 +212,7 @@ namespace SweetBonanza.Controller
         private void HandleBuyBonusRequested()
         {
             if (currentState != GameState.Idle || isAnteBetActive) return;
+            if (mainView != null) mainView.SetBuyFeatureState();
             if (uiManager != null) uiManager.OpenBuyFeatureModal(currentBetAmount);
         }
 
@@ -231,6 +236,10 @@ namespace SweetBonanza.Controller
             if (!isInFreeSpins)
             {
                 currentBalance -= cost;
+            }
+            if (mainView != null)
+            {
+                mainView.SetSpinStartedState(isAutoplaying, remainingAutoplaySpins);
             }
             UpdateHUD(true);
 
@@ -413,9 +422,16 @@ namespace SweetBonanza.Controller
                 rollingTumbleWin += step.StepWinAmount;
 
                 string payDetail = "";
+                SweetBonanza.Model.SymbolType winSymbol = SweetBonanza.Model.SymbolType.Banana;
+                int winCount = 0;
+                double winPayout = 0;
+
                 if (step.Wins != null && step.Wins.Count > 0)
                 {
                     var w = step.Wins[0];
+                    winSymbol = w.Symbol;
+                    winCount = w.Count;
+                    winPayout = w.WinAmount;
                     payDetail = $"{w.Count}X {w.Symbol.ToString().ToUpperInvariant()} PAYS ${w.WinAmount:F2}";
                 }
 
@@ -427,7 +443,8 @@ namespace SweetBonanza.Controller
                 }
 
                 if (gridView != null) yield return gridView.PlayTumbleStepSequence(step);
-                if (mainView != null) mainView.SetTumbleStepWin(rollingTumbleWin, payDetail);
+                Sprite winSprite = (winCount > 0 && gridView != null) ? gridView.GetSymbolSprite(winSymbol) : null;
+                if (mainView != null) mainView.SetTumbleStepWin(rollingTumbleWin, winSprite, winCount, winPayout, payDetail);
             }
 
             if (result.MultiplierBombs != null && result.MultiplierBombs.Count > 0 && rollingTumbleWin > 0)
@@ -569,6 +586,10 @@ namespace SweetBonanza.Controller
 
         private void HandleErrorOccurred(string error)
         {
+            if (isAutoplaying)
+            {
+                HandleAutoplayStopped();
+            }
             currentState = GameState.Idle;
             if (mainView != null)
             {

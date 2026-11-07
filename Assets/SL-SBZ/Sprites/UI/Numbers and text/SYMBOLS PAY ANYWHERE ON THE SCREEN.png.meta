@@ -150,12 +150,12 @@ TextureImporter:
       name: SYMBOLS PAY ANYWHERE ON THE SCREEN_0
       rect:
         serializedVersion: 2
-        x: 39
-        y: 41
-        width: 1200
-        height: 170
+        x: 0
+        y: 0
+        width: 1278
+        height: 246
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
