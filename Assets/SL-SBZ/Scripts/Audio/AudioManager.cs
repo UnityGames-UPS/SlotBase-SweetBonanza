@@ -19,9 +19,6 @@ public class AudioManager : MonoBehaviour
     {
         Instance = this;
 
-        // Auto-configure missing or unlinked AudioSources defensively
-        EnsureAudioSources();
-
         // Load persisted audio settings
         _musicEnabled  = PlayerPrefs.GetInt(PrefKeyMusic, 1) == 1;
         _sfxEnabled    = PlayerPrefs.GetInt(PrefKeySfx, 1) == 1;
@@ -70,6 +67,7 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private AudioSource uiSource;
     [SerializeField] private AudioSource reserveSource;
     [SerializeField] private AudioSource primaryButtonSource;
+    [SerializeField] private AudioSource[] sfxSourcePool;
 
     #endregion
 
@@ -114,9 +112,7 @@ public class AudioManager : MonoBehaviour
 
     private Tween musicFadeTween;
 
-    // Dynamic SFX Voice Pool to prevent sound clipping
-    private readonly List<AudioSource> sfxSourcePool = new List<AudioSource>();
-    private const int SfxPoolSize = 6;
+    // SFX voice pool round-robin index
     private int nextSfxPoolIndex = 0;
 
     #endregion
@@ -143,65 +139,33 @@ public class AudioManager : MonoBehaviour
 
     #endregion
 
-    #region Audio Source Auto-Configuration & Pooling
+    #region SFX Voice Pooling & Editor Helper
 
-    private void EnsureAudioSources()
+#if UNITY_EDITOR
+    [ContextMenu("Auto-Assign AudioSources From This Object")]
+    private void AutoAssignSources()
     {
-        if (bgMusicSource == null)
-        {
-            bgMusicSource = CreateAudioSource("BG_Music_Channel", loop: true, playOnAwake: false);
-        }
-
-        if (uiSource == null)
-        {
-            uiSource = CreateAudioSource("UI_Channel", loop: false, playOnAwake: false);
-        }
-
-        if (reserveSource == null)
-        {
-            reserveSource = CreateAudioSource("Reserve_Channel", loop: false, playOnAwake: false);
-        }
-
-        if (primaryButtonSource == null)
-        {
-            primaryButtonSource = CreateAudioSource("PrimaryButton_Channel", loop: false, playOnAwake: false);
-        }
-
-        // Initialize dynamic SFX voice pool
-        sfxSourcePool.Clear();
-        for (int i = 0; i < SfxPoolSize; i++)
-        {
-            var source = CreateAudioSource($"SFX_Voice_{i + 1}", loop: false, playOnAwake: false);
-            sfxSourcePool.Add(source);
-        }
+        UnityEditor.Undo.RecordObject(this, "Auto-Assign AudioSources");
+        sfxSourcePool = GetComponents<AudioSource>();
+        UnityEditor.EditorUtility.SetDirty(this);
     }
-
-    private AudioSource CreateAudioSource(string name, bool loop, bool playOnAwake)
-    {
-        var child = new GameObject(name);
-        child.transform.SetParent(transform, false);
-        var source = child.AddComponent<AudioSource>();
-        source.playOnAwake = playOnAwake;
-        source.loop = loop;
-        source.spatialBlend = 0f; // 2D UI & Game audio
-        source.rolloffMode = AudioRolloffMode.Linear;
-        return source;
-    }
+#endif
 
     private AudioSource GetNextAvailableSfxSource()
     {
+        if (sfxSourcePool == null || sfxSourcePool.Length == 0) return uiSource;
+
         // 1. Look for a voice that has finished playing
-        for (int i = 0; i < sfxSourcePool.Count; i++)
+        for (int i = 0; i < sfxSourcePool.Length; i++)
         {
             var src = sfxSourcePool[i];
             if (src != null && !src.isPlaying) return src;
         }
 
         // 2. Round-robin steal if all voices are currently active
-        if (sfxSourcePool.Count == 0) return uiSource;
         var stolen = sfxSourcePool[nextSfxPoolIndex];
-        nextSfxPoolIndex = (nextSfxPoolIndex + 1) % sfxSourcePool.Count;
-        return stolen;
+        nextSfxPoolIndex = (nextSfxPoolIndex + 1) % sfxSourcePool.Length;
+        return stolen != null ? stolen : uiSource;
     }
 
     #endregion
@@ -284,9 +248,12 @@ public class AudioManager : MonoBehaviour
         if (reserveSource != null) reserveSource.volume = v;
         if (primaryButtonSource != null) primaryButtonSource.volume = v;
 
-        foreach (var sfx in sfxSourcePool)
+        if (sfxSourcePool != null)
         {
-            if (sfx != null) sfx.volume = v;
+            for (int i = 0; i < sfxSourcePool.Length; i++)
+            {
+                if (sfxSourcePool[i] != null) sfxSourcePool[i].volume = v;
+            }
         }
     }
 

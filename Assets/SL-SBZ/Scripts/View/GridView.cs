@@ -58,7 +58,6 @@ namespace SweetBonanza.View
         public Sprite[] redHeartFrames;
         public Sprite[] spiralCandyFrames;
         public Sprite[] spiralCandyRotationFrames;
-        public Sprite[] spiralCandyTransitionFrames;
         public Sprite[] glassEffectFrames;
 
         private bool isQuickSpinMode = false;
@@ -371,6 +370,7 @@ namespace SweetBonanza.View
                 float dropInDelay = columnDelays[c];
                 float duration = columnDurations[c];
                 int colCompleted = 0;
+                bool isLastCol = (c == GameConfig.COLUMNS - 1);
 
                 for (int r = 0; r < GameConfig.ROWS; r++)
                 {
@@ -388,15 +388,27 @@ namespace SweetBonanza.View
                     // Row-stagger (r * rowStagger): creates the bubbly stacking wave where Row 0 lands first, Row 1 lands on top of it, Row 2 next, etc.
                     float symbolDropDelay = dropInDelay + (r * rowStagger);
 
+                    Action onImpact = null;
+                    if (r == 0)
+                    {
+                        onImpact = () =>
+                        {
+                            if (!isSlamStopRequested)
+                            {
+                                AudioManager.Instance?.PlayReelStop();
+                                if (isLastCol)
+                                {
+                                    AudioManager.Instance?.StopReelSpinLoop();
+                                }
+                            }
+                        };
+                    }
+
                     cell.PlayDropInAnimation(targetPos, symbolDropDelay, duration, () =>
                     {
                         completedDrops++;
                         colCompleted++;
-                        if (colCompleted == GameConfig.ROWS && !isSlamStopRequested)
-                        {
-                            AudioManager.Instance?.PlayReelStop();
-                        }
-                    });
+                    }, null, onImpact);
                 }
             }
 
@@ -615,15 +627,17 @@ namespace SweetBonanza.View
                     int bombVal = bomb.MultiplierValue;
                     int curRunning = runningMultiplier;
 
-                    cell.PlayMultiplierBombRevealAnimation(bombVal, () => completed++, blastFrames);
-                    onBombDetonated?.Invoke(bombVal, bombPos, curRunning);
+                    cell.PlayMultiplierBombRevealAnimation(bombVal, () => completed++, blastFrames, () =>
+                    {
+                        onBombDetonated?.Invoke(bombVal, bombPos, curRunning);
+                    });
                 }
                 else completed++;
 
                 // Stagger detonations if multiple bombs land for arcade excitement
                 if (bombs.Count > 1 && i < bombs.Count - 1)
                 {
-                    yield return new WaitForSeconds(0.35f);
+                    yield return new WaitForSeconds(0.45f);
                 }
             }
 
@@ -648,8 +662,8 @@ namespace SweetBonanza.View
             if (scatterCells.Count >= 3)
             {
                 // Play special 32-frame Spiral candy transition when Scatters trigger Free Spins
-                Sprite[] triggerFrames = (spiralCandyTransitionFrames != null && spiralCandyTransitionFrames.Length > 0)
-                    ? spiralCandyTransitionFrames
+                Sprite[] triggerFrames = (spiralCandyRotationFrames != null && spiralCandyRotationFrames.Length > 0)
+                    ? spiralCandyRotationFrames
                     : spiralCandyFrames;
 
                 foreach (var cell in scatterCells)

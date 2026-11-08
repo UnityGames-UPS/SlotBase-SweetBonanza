@@ -16,6 +16,7 @@ namespace SweetBonanza.View
         internal event Action OnBetDecreaseClicked;
         internal event Action OnBuyBonusClicked;
         internal event Action OnAnteBetToggled;
+        internal event Action OnSpinStopped;
 
         [Header("Buttons")]
         [SerializeField] private Button spinButton;
@@ -57,7 +58,7 @@ namespace SweetBonanza.View
         [SerializeField] private TMP_Text topTumbleWinText;
 
         [Header("Bottom Bar Display Objects")]
-       /* [SerializeField] private GameObject betCounterObj;*/
+       
         [SerializeField] private Button betPlusBtn;
         [SerializeField] private Button betMinusBtn;
         [SerializeField] private TMP_Text betDisplayText;
@@ -79,6 +80,7 @@ namespace SweetBonanza.View
         private TMP_Text flyerText;
 
         private bool isSpinning = false;
+        private bool isStopping = false;
         private bool isAutoplaying = false;
         private bool isInFreeSpins = false;
         private bool isAnteBetActive = false;
@@ -188,6 +190,7 @@ namespace SweetBonanza.View
             {
                 stopSpinButton.onClick.AddListener(() =>
                 {
+                    if (isStopping) return;
                     SetStoppingButtonsState();
                     AudioManager.Instance?.PlaySpinStop();
                     OnStopClicked?.Invoke();
@@ -197,14 +200,16 @@ namespace SweetBonanza.View
             {
                 autoSpinStopButton.onClick.AddListener(() =>
                 {
+                    if (isStopping) return;
+                    SetStoppingButtonsState();
                     AudioManager.Instance?.PlayAutoplayStop();
                     OnAutoplayStopClicked?.Invoke();
                 });
             }
             if (betPlusButton != null) betPlusButton.onClick.AddListener(() => OnBetIncreaseClicked?.Invoke());
+            if (betPlusBtn != null && betPlusBtn != betPlusButton) betPlusBtn.onClick.AddListener(() => OnBetIncreaseClicked?.Invoke());
             if (betMinusButton != null) betMinusButton.onClick.AddListener(() => OnBetDecreaseClicked?.Invoke());
-            if (betPlusBtn != null) betPlusBtn.onClick.AddListener(() => OnBetIncreaseClicked?.Invoke());
-            if (betMinusBtn != null) betMinusBtn.onClick.AddListener(() => OnBetDecreaseClicked?.Invoke());
+            if (betMinusBtn != null && betMinusBtn != betMinusButton) betMinusBtn.onClick.AddListener(() => OnBetDecreaseClicked?.Invoke());
             if (buyBonusButton != null) buyBonusButton.onClick.AddListener(() => OnBuyBonusClicked?.Invoke());
             if (anteBetToggleButton != null) anteBetToggleButton.onClick.AddListener(() => OnAnteBetToggled?.Invoke());
 
@@ -257,15 +262,18 @@ namespace SweetBonanza.View
                 spinButton.transform.DOKill();
                 spinButton.transform.localScale = Vector3.one;
                 spinButton.transform.DOPunchScale(Vector3.one * -0.08f, 0.14f);
+                spinButton.interactable = false;
             }
 
             if (isAutoplaying)
             {
+                SetStoppingButtonsState();
                 AudioManager.Instance?.PlayAutoplayStop();
                 OnAutoplayStopClicked?.Invoke();
             }
             else if (isSpinning)
             {
+                SetStoppingButtonsState();
                 AudioManager.Instance?.PlaySpinStop();
                 OnStopClicked?.Invoke();
             }
@@ -318,6 +326,7 @@ namespace SweetBonanza.View
         /// <summary>Called when Buy Feature opens or is active: all bottom bar display objects are hidden.</summary>
         public void SetBuyFeatureState()
         {
+            
             if (spinInstructionObj != null) spinInstructionObj.SetActive(false);
             if (payoutMultiplayerObj != null) payoutMultiplayerObj.SetActive(false);
             if (winCountObj != null) winCountObj.SetActive(false);
@@ -327,11 +336,15 @@ namespace SweetBonanza.View
         /// <summary>Called when a spin starts (manual or autoplay).</summary>
         public void SetSpinStartedState(bool isAutoplay, int remainingSpins)
         {
+            this.isSpinning = true;
+            this.isStopping = false;
             this.isAutoplaying = isAutoplay;
             this.remainingAutoplayCount = remainingSpins;
+            this.displayedWin = 0;
 
             if (winCountObj != null) winCountObj.SetActive(false);
             if (payoutMultiplayerObj != null) payoutMultiplayerObj.SetActive(false);
+           
 
             if (isAutoplay)
             {
@@ -344,6 +357,8 @@ namespace SweetBonanza.View
                 if (autoSpinCountObj != null) autoSpinCountObj.SetActive(false);
                 if (spinInstructionObj != null) spinInstructionObj.SetActive(true);
             }
+
+            SetSpinningButtonsState(true);
         }
 
         /// <summary>Updates bottom bar display on tumble step win: displays win count and symbol payout detail with icon.</summary>
@@ -351,49 +366,57 @@ namespace SweetBonanza.View
         {
             displayedWin = tumbleWin;
 
-            // 1. Win Count (WIN $X.XX)
+            // Keep winCountObj active continuously from the first win through the entire spin
             if (tumbleWin > 0)
             {
                 if (winCountObj != null) winCountObj.SetActive(true);
-                if (winCountText != null) winCountText.text = $"WIN ${tumbleWin:F2}";
-                if (totalWinText != null) totalWinText.text = $"<color=#F1C40F>WIN</color> ${tumbleWin:F2}";
-            }
-            else
-            {
-                if (winCountObj != null) winCountObj.SetActive(false);
+                if (winCountText != null) winCountText.text = $"{tumbleWin:F2}";
             }
 
-            // 2. Win Detail (e.g. 8x BANANA PAYS $60.00)
             if (count > 0 && payout > 0)
             {
                 if (payoutMultiplayerObj != null) payoutMultiplayerObj.SetActive(true);
                 if (spinInstructionObj != null) spinInstructionObj.SetActive(false);
+                
+                if (autoSpinCountObj != null) autoSpinCountObj.SetActive(false);
 
-                if (payoutMultiplayerText != null) payoutMultiplayerText.text = $"{count}x";
+                if (payoutMultiplayerText != null) payoutMultiplayerText.text = $"{count}";
                 if (payoutMultiplierIcon != null)
                 {
                     payoutMultiplierIcon.sprite = symbolSprite;
                     payoutMultiplierIcon.gameObject.SetActive(symbolSprite != null);
                 }
-                if (payoutMultiplierLabel != null) payoutMultiplierLabel.text = $"PAYS ${payout:F2}";
+                if (payoutMultiplierLabel != null) payoutMultiplierLabel.text = $"{payout:F2}";
 
                 if (totalWinText != null && !string.IsNullOrEmpty(detail))
                     totalWinText.text = $"<color=#F1C40F>WIN</color> ${tumbleWin:F2}\n<size=65%>{detail}</size>";
             }
+            else if (tumbleWin > 0)
+            {
+                // Cascade step with no new cluster match: hide cluster payout detail, keep running tumble win count
+                if (payoutMultiplayerObj != null) payoutMultiplayerObj.SetActive(false);
+                if (spinInstructionObj != null) spinInstructionObj.SetActive(false);
+               
+                if (autoSpinCountObj != null) autoSpinCountObj.SetActive(false);
+
+                if (totalWinText != null) totalWinText.text = $"<color=#F1C40F>WIN</color> ${tumbleWin:F2}";
+            }
             else
             {
                 if (payoutMultiplayerObj != null) payoutMultiplayerObj.SetActive(false);
-                if (!isAutoplaying && spinInstructionObj != null) spinInstructionObj.SetActive(true);
-            }
+                if (winCountObj != null) winCountObj.SetActive(false);
+                
 
-            // 3. Autoplay Count
-            if (isAutoplaying && remainingAutoplayCount > 0)
-            {
-                if (autoSpinCountObj != null) autoSpinCountObj.SetActive(true);
-            }
-            else
-            {
-                if (autoSpinCountObj != null) autoSpinCountObj.SetActive(false);
+                if (isAutoplaying && remainingAutoplayCount > 0)
+                {
+                    if (autoSpinCountObj != null) autoSpinCountObj.SetActive(true);
+                    if (spinInstructionObj != null) spinInstructionObj.SetActive(false);
+                }
+                else
+                {
+                    if (autoSpinCountObj != null) autoSpinCountObj.SetActive(false);
+                    if (spinInstructionObj != null) spinInstructionObj.SetActive(true);
+                }
             }
         }
 
@@ -406,46 +429,69 @@ namespace SweetBonanza.View
         /// <summary>Displays the spin final win amount directly with snap transition (no animation).</summary>
         internal void SetWin(double targetWin, bool animate = false)
         {
-            displayedWin = targetWin;
-
             if (targetWin > 0)
             {
+                displayedWin = targetWin;
+                // Final round win: show winCountObj cleanly in the center
                 if (winCountObj != null) winCountObj.SetActive(true);
-                if (winCountText != null) winCountText.text = $"WIN ${targetWin:F2}";
+                if (winCountText != null) winCountText.text = $"{targetWin:F2}";
                 if (totalWinText != null) totalWinText.text = $"<color=#F1C40F>WIN</color> ${targetWin:F2}";
+
+                if (payoutMultiplayerObj != null) payoutMultiplayerObj.SetActive(false);
+                if (spinInstructionObj != null) spinInstructionObj.SetActive(false);
+               
+                if (autoSpinCountObj != null) autoSpinCountObj.SetActive(false);
             }
             else
             {
-                if (winCountObj != null) winCountObj.SetActive(false);
-                if (totalWinText != null) totalWinText.text = "$0.00";
-            }
+                // Only clear win display if displayedWin is also 0
+                if (displayedWin <= 0)
+                {
+                    if (winCountObj != null) winCountObj.SetActive(false);
+                    if (totalWinText != null) totalWinText.text = "$0.00";
 
-            if (!isAutoplaying)
-            {
-                if (payoutMultiplayerObj != null) payoutMultiplayerObj.SetActive(false);
-                if (spinInstructionObj != null) spinInstructionObj.SetActive(true);
-                if (autoSpinCountObj != null) autoSpinCountObj.SetActive(false);
+                    if (isAutoplaying && remainingAutoplayCount > 0)
+                    {
+                        if (autoSpinCountObj != null) autoSpinCountObj.SetActive(true);
+                        if (spinInstructionObj != null) spinInstructionObj.SetActive(false);
+                       
+                        if (payoutMultiplayerObj != null) payoutMultiplayerObj.SetActive(false);
+                    }
+                    else
+                    {
+                        if (autoSpinCountObj != null) autoSpinCountObj.SetActive(false);
+                        if (payoutMultiplayerObj != null) payoutMultiplayerObj.SetActive(false);
+                        if (!isSpinning)
+                        {
+                            
+                            if (spinInstructionObj != null) spinInstructionObj.SetActive(true);
+                        }
+                    }
+                }
             }
         }
 
         /// <summary>Restores the bottom bar back to its default idle state.</summary>
         internal void SetIdleBottomBarState()
         {
-            displayedWin = 0;
+            this.isSpinning = false;
+            this.isStopping = false;
             if (payoutMultiplayerObj != null) payoutMultiplayerObj.SetActive(false);
+            if (winCountObj != null) winCountObj.SetActive(false);
 
             if (isAutoplaying && remainingAutoplayCount > 0)
             {
-                if (spinInstructionObj != null) spinInstructionObj.SetActive(false);
                 if (autoSpinCountObj != null) autoSpinCountObj.SetActive(true);
-                if (winCountObj != null) winCountObj.SetActive(false);
+                if (spinInstructionObj != null) spinInstructionObj.SetActive(false);
             }
             else
             {
                 if (autoSpinCountObj != null) autoSpinCountObj.SetActive(false);
                 if (spinInstructionObj != null) spinInstructionObj.SetActive(true);
-                if (winCountObj != null) winCountObj.SetActive(false);
             }
+
+            SetSpinningButtonsState(false);
+            OnSpinStopped?.Invoke();
         }
 
         #region Top Tumble Win Banner & Multiplier Bomb Fly-Up
@@ -455,13 +501,27 @@ namespace SweetBonanza.View
             if (flyerText == null)
             {
                 var go = new GameObject("MultiplierFlyer", typeof(RectTransform), typeof(CanvasRenderer), typeof(TextMeshProUGUI));
-                go.transform.SetParent(transform, false);
+                Transform parentCanvas = topTumbleWinBanner != null ? topTumbleWinBanner.transform.parent : transform;
+                go.transform.SetParent(parentCanvas, false);
+
+                var rt = go.GetComponent<RectTransform>();
+                if (rt != null)
+                {
+                    rt.sizeDelta = new Vector2(300f, 100f);
+                }
+
                 flyerText = go.GetComponent<TextMeshProUGUI>();
-                if (topTumbleWinText != null) flyerText.font = topTumbleWinText.font;
-                flyerText.fontSize = 44;
+                if (topTumbleWinText != null)
+                {
+                    flyerText.font = topTumbleWinText.font;
+                    flyerText.fontSharedMaterial = topTumbleWinText.fontSharedMaterial;
+                }
+                flyerText.fontSize = 54;
                 flyerText.fontStyle = FontStyles.Bold;
                 flyerText.alignment = TextAlignmentOptions.Center;
                 flyerText.color = new Color(1f, 0.95f, 0.15f, 1f);
+                flyerText.raycastTarget = false;
+                flyerText.overflowMode = TextOverflowModes.Overflow;
                 go.SetActive(false);
             }
             return flyerText;
@@ -470,7 +530,7 @@ namespace SweetBonanza.View
         /// <summary>Shows the purple capsule banner at the top of the grid during Free Spins night mode.</summary>
         internal void ShowTopTumbleWinBanner(double initialTumbleWin)
         {
-            if (topTumbleWinBanner == null || !isInFreeSpins) return;
+            if (topTumbleWinBanner == null) return;
 
             if (topPromoBannerObj != null) topPromoBannerObj.SetActive(false);
 
@@ -514,18 +574,22 @@ namespace SweetBonanza.View
         /// <summary>Animates a flying multiplier from a grid bomb cell up into the top tumble banner.</summary>
         internal IEnumerator AnimateBombMultiplierFlyUp(Vector3 fromWorldPos, int multiplier, double baseTumbleWin, int runningMultiplier)
         {
-            if (topTumbleWinBanner == null || !topTumbleWinBanner.activeInHierarchy) yield break;
+            if (topTumbleWinBanner == null) yield break;
+            if (!topTumbleWinBanner.activeSelf) topTumbleWinBanner.SetActive(true);
 
             var flyer = GetFlyer();
+            if (flyer == null) yield break;
+
+            flyer.transform.SetAsLastSibling();
             flyer.gameObject.SetActive(true);
             flyer.transform.position = fromWorldPos;
-            flyer.transform.localScale = Vector3.one * 0.5f;
+            flyer.transform.localScale = Vector3.one * 0.6f;
             flyer.text = $"{multiplier}x";
 
             Vector3 targetPos = topTumbleWinBanner.transform.position;
 
-            flyer.transform.DOScale(1.25f, 0.15f);
-            yield return flyer.transform.DOMove(targetPos, 0.35f).SetEase(Ease.OutQuad).WaitForCompletion();
+            flyer.transform.DOScale(1.35f, 0.15f);
+            yield return flyer.transform.DOMove(targetPos, 0.42f).SetEase(Ease.OutQuad).WaitForCompletion();
 
             flyer.gameObject.SetActive(false);
 
@@ -545,7 +609,8 @@ namespace SweetBonanza.View
         /// <summary>Calculates and flashes the final multiplied tumble win on the top banner.</summary>
         internal IEnumerator FinalizeTumbleWinMultipliers(double baseTumbleWin, int totalMultiplier)
         {
-            if (topTumbleWinBanner == null || !topTumbleWinBanner.activeInHierarchy) yield break;
+            if (topTumbleWinBanner == null) yield break;
+            if (!topTumbleWinBanner.activeSelf) topTumbleWinBanner.SetActive(true);
 
             double finalWin = baseTumbleWin * totalMultiplier;
             topTumbleWinBanner.transform.DOKill();
@@ -565,9 +630,13 @@ namespace SweetBonanza.View
         /// <summary>Updates reel spinning state, toggles bet adjustments, and refreshes button visuals.</summary>
         public void SetSpinButtonInteractable(bool interactable)
         {
-            this.isSpinning = !interactable;
+            // If already spinning, keep spinning state locked until SetIdleBottomBarState resets it at round end
+            if (!this.isSpinning)
+            {
+                this.isSpinning = !interactable;
+            }
 
-            bool canInteractBet = interactable && !isAutoplaying && !isInFreeSpins;
+            bool canInteractBet = interactable && !this.isSpinning && !isAutoplaying && !isInFreeSpins;
             if (betPlusButton != null) betPlusButton.interactable = canInteractBet;
             if (betMinusButton != null) betMinusButton.interactable = canInteractBet;
             if (betPlusBtn != null) betPlusBtn.interactable = canInteractBet;
@@ -607,14 +676,17 @@ namespace SweetBonanza.View
                 }
                 if (autoSpinCountObj != null) autoSpinCountObj.SetActive(true);
                 if (spinInstructionObj != null) spinInstructionObj.SetActive(false);
+                
                 if (payoutMultiplayerObj != null) payoutMultiplayerObj.SetActive(false);
+                if (winCountObj != null) winCountObj.SetActive(false);
             }
             else if (!isAutoplay)
             {
                 SetStatusMessage(string.Empty);
                 if (autoSpinCountObj != null) autoSpinCountObj.SetActive(false);
                 if (payoutMultiplayerObj != null) payoutMultiplayerObj.SetActive(false);
-                if (spinInstructionObj != null) spinInstructionObj.SetActive(true);
+                if (winCountObj != null) winCountObj.SetActive(false);
+                if (!isSpinning && spinInstructionObj != null) spinInstructionObj.SetActive(true);
             }
 
             UpdateSpinButtonVisuals();
@@ -626,37 +698,49 @@ namespace SweetBonanza.View
         /// <summary>Swaps visibility between SpinButton, StopSpin button, and AutoSpinStopButton.</summary>
         public void SetSpinningButtonsState(bool isSpinning)
         {
+            this.isSpinning = isSpinning;
+
             if (isAutoplaying)
             {
-                // AutoSpin: Active -> spinButton: OFF, stopButton: OFF, autoSpinStopButton: ON (interactable)
+                // AutoSpin: Active -> spinButton: OFF, stopButton: OFF, autoSpinStopButton: ON
                 if (spinButton != null) spinButton.gameObject.SetActive(false);
                 if (stopSpinButton != null) stopSpinButton.gameObject.SetActive(false);
                 if (autoSpinStopButton != null)
                 {
                     autoSpinStopButton.gameObject.SetActive(true);
-                    autoSpinStopButton.interactable = true;
+                    autoSpinStopButton.interactable = !isStopping;
                 }
                 if (autoplayButtonObj != null) autoplayButtonObj.SetActive(false);
                 return;
             }
 
-            // Manual Mode: autoSpinStopButton is ALWAYS OFF
-            if (autoSpinStopButton != null) autoSpinStopButton.gameObject.SetActive(false);
-
             if (isSpinning)
             {
-                // Manual: Spinning -> spinButton: OFF, stopButton: ON (interactable)
+                // If autoplay was stopping or autoSpinStopButton is active, keep it visible (disabled) until idle
+                if (autoSpinStopButton != null && autoSpinStopButton.gameObject.activeInHierarchy)
+                {
+                    if (spinButton != null) spinButton.gameObject.SetActive(false);
+                    if (stopSpinButton != null) stopSpinButton.gameObject.SetActive(false);
+                    autoSpinStopButton.interactable = false;
+                    if (autoplayButtonObj != null) autoplayButtonObj.SetActive(false);
+                    return;
+                }
+
+                if (autoSpinStopButton != null) autoSpinStopButton.gameObject.SetActive(false);
+
+                // Manual: Spinning -> spinButton: OFF, stopButton: ON
                 if (spinButton != null) spinButton.gameObject.SetActive(false);
                 if (stopSpinButton != null)
                 {
                     stopSpinButton.gameObject.SetActive(true);
-                    stopSpinButton.interactable = true;
+                    stopSpinButton.interactable = !isStopping;
                 }
             }
             else
             {
-                // Manual: Idle -> spinButton: ON (interactable), stopButton: OFF
+                // Manual: Idle -> spinButton: ON (interactable), stop buttons: OFF
                 if (stopSpinButton != null) stopSpinButton.gameObject.SetActive(false);
+                if (autoSpinStopButton != null) autoSpinStopButton.gameObject.SetActive(false);
                 if (spinButton != null)
                 {
                     spinButton.gameObject.SetActive(true);
@@ -669,7 +753,10 @@ namespace SweetBonanza.View
         /// <summary>Puts the buttons in Stopping/Resolving state: stop button remains visible but non-interactable to prevent spam.</summary>
         public void SetStoppingButtonsState()
         {
-            if (isAutoplaying)
+            this.isSpinning = true;
+            this.isStopping = true;
+
+            if (isAutoplaying || (autoSpinStopButton != null && autoSpinStopButton.gameObject.activeInHierarchy))
             {
                 // AutoSpin: Stopping -> spinButton: OFF, stopButton: OFF, autoSpinStopButton: ON (disabled while final landing)
                 if (spinButton != null) spinButton.gameObject.SetActive(false);
@@ -867,6 +954,8 @@ namespace SweetBonanza.View
             if (spinButton != null) spinButton.transform.DOKill();
             if (autoSpinStopButton != null) autoSpinStopButton.transform.DOKill();
             if (autoSpinRemainingText != null) autoSpinRemainingText.transform.DOKill();
+            if (flyerText != null) flyerText.transform.DOKill();
+            if (topTumbleWinBanner != null) topTumbleWinBanner.transform.DOKill();
         }
     }
 }

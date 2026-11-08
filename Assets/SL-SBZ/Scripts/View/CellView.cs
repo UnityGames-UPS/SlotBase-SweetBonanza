@@ -225,7 +225,7 @@ namespace SweetBonanza.View
             activeSequence.OnComplete(() => onComplete?.Invoke());
         }
 
-        internal void PlayDropInAnimation(Vector2 targetAnchoredPos, float delay, float duration, Action onComplete, Sprite[] animFrames = null)
+        internal void PlayDropInAnimation(Vector2 targetAnchoredPos, float delay, float duration, Action onComplete, Sprite[] animFrames = null, Action onImpact = null)
         {
             KillActiveTweens();
             rectTransform.localScale = Vector3.one;
@@ -246,6 +246,11 @@ namespace SweetBonanza.View
             float fallDuration = duration * 0.74f;
             activeSequence.Append(rectTransform.DOAnchorPos(targetAnchoredPos, fallDuration).SetEase(Ease.InQuad));
             activeSequence.Join(rectTransform.DOScale(new Vector3(0.92f, 1.10f, 1f), fallDuration * 0.65f).SetEase(Ease.InQuad));
+
+            if (onImpact != null)
+            {
+                activeSequence.AppendCallback(() => onImpact.Invoke());
+            }
 
             // 2. Pure vertical gummy squash on impact (NO rotation/tilting - 100% upright like Pragmatic Play Sweet Bonanza)
             activeSequence.Append(rectTransform.DOScale(new Vector3(1.16f, 0.84f, 1f), 0.07f).SetEase(Ease.OutQuad));
@@ -293,7 +298,7 @@ namespace SweetBonanza.View
             activeSequence.OnComplete(() => onComplete?.Invoke());
         }
 
-        internal void PlayMultiplierBombRevealAnimation(int multiplier, Action onComplete, Sprite[] burstFrames = null)
+        internal void PlayMultiplierBombRevealAnimation(int multiplier, Action onComplete, Sprite[] burstFrames = null, Action onDetonated = null)
         {
             KillActiveTweens();
             currentMultiplier = multiplier;
@@ -301,6 +306,7 @@ namespace SweetBonanza.View
             {
                 multiplierText.text = $"{multiplier}X";
                 multiplierText.gameObject.SetActive(true);
+                multiplierText.transform.SetAsLastSibling();
                 multiplierText.transform.localScale = Vector3.one;
             }
 
@@ -347,12 +353,13 @@ namespace SweetBonanza.View
             activeSequence.Append(rectTransform.DORotate(Vector3.zero, 0.06f).SetEase(Ease.OutQuad));
             activeSequence.Append(rectTransform.DOScale(1.0f, 0.12f).SetEase(Ease.InOutQuad));
 
-            // 4. Pop the Multiplier badge with punch bounce
+            // 4. Pop the Multiplier badge with punch bounce & notify detonation
             if (multiplierText != null)
             {
                 activeSequence.Join(multiplierText.transform.DOScale(1.45f, 0.18f).SetEase(Ease.OutBack));
                 activeSequence.Append(multiplierText.transform.DOScale(1.0f, 0.10f).SetEase(Ease.InOutQuad));
             }
+            activeSequence.AppendCallback(() => onDetonated?.Invoke());
 
             activeSequence.OnComplete(() =>
             {
@@ -517,6 +524,8 @@ namespace SweetBonanza.View
 
             if (activeTweener != null && activeTweener.IsActive()) activeTweener.Kill();
             activeTweener = null;
+
+            if (multiplierText != null) multiplierText.transform.DOKill();
         }
 
         private void OnDestroy()

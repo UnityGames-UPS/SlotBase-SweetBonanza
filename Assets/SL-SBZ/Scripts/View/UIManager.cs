@@ -32,6 +32,7 @@ namespace SweetBonanza.View
         internal event Action OnBuyFeatureConfirmed;
         internal event Action<int> OnAutoplayStarted;
         internal event Action OnAutoplayStopped;
+        internal event Action OnSpinStopped;
         internal event Action<bool> OnQuickSpinChanged;
         internal event Action<bool> OnBatterySaverChanged;
         internal event Action<bool> OnAmbientMusicChanged;
@@ -174,6 +175,7 @@ namespace SweetBonanza.View
         private int currentRulesPageIndex = 0;
         private GameObject currentOpenPanel;
         private Tweener winCelebrationTweener;
+        private Tweener freeSpinsOutroTweener;
         private double currentBetAmount = 2.0;
         private float lastNonZeroVolume = 0.5f;
         private bool isSoundMuted = false;
@@ -295,6 +297,7 @@ namespace SweetBonanza.View
                 mainView.OnSpinClicked += () => OnSpinClicked?.Invoke();
                 mainView.OnStopClicked += () => OnStopClicked?.Invoke();
                 mainView.OnAutoplayStopClicked += () => OnAutoplayStopped?.Invoke();
+                mainView.OnSpinStopped += () => OnSpinStopped?.Invoke();
                 mainView.OnBetIncreaseClicked += HandleBottomBarBetPlus;
                 mainView.OnBetDecreaseClicked += HandleBottomBarBetMinus;
                 mainView.OnAnteBetToggled += () => OnAnteBetToggled?.Invoke();
@@ -730,14 +733,36 @@ namespace SweetBonanza.View
 
         internal void ShowFreeSpinsIntro(int spinsCount)
         {
-            if (freeSpinsIntroCountText != null) freeSpinsIntroCountText.text = $"{spinsCount}";
+            if (freeSpinsIntroCountText != null)
+            {
+                freeSpinsIntroCountText.text = SpriteTextUtility.FormatCount(spinsCount);
+            }
             OpenModal(freeSpinsIntroPanel);
             StartCoroutine(AutoDismissModal(freeSpinsIntroPanel, 3.0f));
         }
 
         internal void ShowFreeSpinsOutro(double totalWin)
         {
-            if (freeSpinsOutroWinText != null) freeSpinsOutroWinText.text = $"${totalWin:F2}";
+            if (freeSpinsOutroTweener != null && freeSpinsOutroTweener.IsActive()) freeSpinsOutroTweener.Kill();
+            if (freeSpinsOutroWinText != null)
+            {
+                freeSpinsOutroWinText.text = SpriteTextUtility.FormatCurrency(0, includeDollar: false);
+                float startWin = 0;
+                freeSpinsOutroTweener = DOTween.To(() => startWin, x =>
+                {
+                    startWin = x;
+                    if (freeSpinsOutroWinText != null)
+                    {
+                        freeSpinsOutroWinText.text = SpriteTextUtility.FormatCurrency(x, includeDollar: false);
+                    }
+                }, (float)totalWin, 1.2f).SetEase(Ease.OutCubic).OnComplete(() =>
+                {
+                    if (freeSpinsOutroWinText != null)
+                    {
+                        freeSpinsOutroWinText.text = SpriteTextUtility.FormatCurrency(totalWin, includeDollar: false);
+                    }
+                });
+            }
             OpenModal(freeSpinsOutroPanel);
             StartCoroutine(AutoDismissModal(freeSpinsOutroPanel, 3.5f));
         }
@@ -838,6 +863,7 @@ namespace SweetBonanza.View
         {
             StopAllCoroutines();
             if (winCelebrationTweener != null && winCelebrationTweener.IsActive()) winCelebrationTweener.Kill();
+            if (freeSpinsOutroTweener != null && freeSpinsOutroTweener.IsActive()) freeSpinsOutroTweener.Kill();
             if (winCelebrationPanel != null)
             {
                 var sunburst = winCelebrationPanel.transform.Find("EffectSunburst");
@@ -849,6 +875,7 @@ namespace SweetBonanza.View
         {
             StopAllCoroutines();
             if (winCelebrationTweener != null && winCelebrationTweener.IsActive()) winCelebrationTweener.Kill();
+            if (freeSpinsOutroTweener != null && freeSpinsOutroTweener.IsActive()) freeSpinsOutroTweener.Kill();
             if (winCelebrationPanel != null)
             {
                 var sunburst = winCelebrationPanel.transform.Find("EffectSunburst");

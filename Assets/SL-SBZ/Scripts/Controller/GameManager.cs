@@ -341,6 +341,7 @@ namespace SweetBonanza.Controller
         {
             isAutoplaying = false;
             remainingAutoplaySpins = 0;
+
             if (uiManager != null) uiManager.SetAutoplayState(false, 0);
         }
 
@@ -402,8 +403,6 @@ namespace SweetBonanza.Controller
             currentState = GameState.DroppingInitial;
             AudioManager.Instance?.StopTensionBuilder();
             if (mainView != null) mainView.HideTopTumbleWinBanner(immediate: true);
-            if (uiManager != null) uiManager.SetStoppingState();
-            else if (mainView != null) mainView.SetStoppingButtonsState();
             if (gridView != null) yield return gridView.PlayInitialDropSequence(result.InitialMatrix);
             AudioManager.Instance?.StopReelSpinLoop();
 
@@ -442,9 +441,11 @@ namespace SweetBonanza.Controller
                     mainView.ShowTopTumbleWinBanner(rollingTumbleWin);
                 }
 
-                if (gridView != null) yield return gridView.PlayTumbleStepSequence(step);
+                // Show cluster payout in bottom bar immediately as symbols celebrate and explode
                 Sprite winSprite = (winCount > 0 && gridView != null) ? gridView.GetSymbolSprite(winSymbol) : null;
                 if (mainView != null) mainView.SetTumbleStepWin(rollingTumbleWin, winSprite, winCount, winPayout, payDetail);
+
+                if (gridView != null) yield return gridView.PlayTumbleStepSequence(step);
             }
 
             if (result.MultiplierBombs != null && result.MultiplierBombs.Count > 0 && rollingTumbleWin > 0)
@@ -452,7 +453,7 @@ namespace SweetBonanza.Controller
                 currentState = GameState.EvaluatingMultipliers;
                 SetStatusMessage($"💣 MULTIPLIERS ACTIVATED: {result.TotalMultiplier}X!");
 
-                if (isInFreeSpins && mainView != null)
+                if (mainView != null)
                 {
                     mainView.ShowTopTumbleWinBanner(rollingTumbleWin);
                 }
@@ -461,14 +462,14 @@ namespace SweetBonanza.Controller
                 {
                     yield return gridView.PlayMultiplierBombRevealSequence(result.MultiplierBombs, (bombVal, worldPos, runningMult) =>
                     {
-                        if (mainView != null && isInFreeSpins)
+                        if (mainView != null)
                         {
                             StartCoroutine(mainView.AnimateBombMultiplierFlyUp(worldPos, bombVal, rollingTumbleWin, runningMult));
                         }
                     });
                 }
 
-                if (mainView != null && isInFreeSpins)
+                if (mainView != null)
                 {
                     yield return mainView.FinalizeTumbleWinMultipliers(rollingTumbleWin, result.TotalMultiplier);
                 }
@@ -542,6 +543,12 @@ namespace SweetBonanza.Controller
                 }
             }
 
+            if (result.FinalWinAmount > 0)
+            {
+                if (mainView != null) mainView.SetWin(result.FinalWinAmount);
+                yield return new WaitForSeconds(isAutoplaying ? 0.4f : 1.0f);
+            }
+
             currentState = GameState.Idle;
             if (mainView != null)
             {
@@ -603,7 +610,7 @@ namespace SweetBonanza.Controller
         private void HandleBalanceSync(double newBalance)
         {
             currentBalance = newBalance;
-            UpdateHUD(false);
+            UpdateHUD(currentState != GameState.Idle);
         }
 
         #region System Settings Handlers

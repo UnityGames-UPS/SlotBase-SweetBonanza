@@ -28,22 +28,48 @@ namespace SweetBonanza.View
         private Coroutine cycleCoroutine;
         private bool isPaused = false;
 
+        private void Awake()
+        {
+            if (mainView == null)
+            {
+                mainView = GetComponentInParent<MainView>();
+                if (mainView == null) mainView = UnityEngine.Object.FindFirstObjectByType<MainView>();
+            }
+        }
+
         private void OnEnable()
         {
-            if (mainView != null) mainView.OnSpinClicked += AdvanceOnSpin;
+            if (mainView != null)
+            {
+                mainView.OnSpinClicked += AdvanceOnSpin;
+                mainView.OnSpinStopped += HandleSpinStopped;
+            }
             InitializeDisplay();
             StartCycle();
         }
 
         private void OnDisable()
         {
-            if (mainView != null) mainView.OnSpinClicked -= AdvanceOnSpin;
+            if (mainView != null)
+            {
+                mainView.OnSpinClicked -= AdvanceOnSpin;
+                mainView.OnSpinStopped -= HandleSpinStopped;
+            }
             StopCycle();
             KillTweens();
         }
 
         /// <summary>Advances immediately to the next banner sprite when Spin is clicked.</summary>
         public void AdvanceOnSpin()
+        {
+            if (imageList == null || imageList.Count <= 1) return;
+            currentIndex = 0;
+            ApplySpriteInstant(currentIndex);
+            StartCycle();
+        }
+
+        /// <summary>Advances immediately to the next banner sprite or restarts cycling when the slot stops.</summary>
+        public void HandleSpinStopped()
         {
             if (imageList == null || imageList.Count <= 1) return;
             currentIndex = (currentIndex + 1) % imageList.Count;

@@ -141,10 +141,10 @@ TextureImporter:
       name: WIN OVER_0
       rect:
         serializedVersion: 2
-        x: 165
-        y: 53
-        width: 1000
-        height: 155
+        x: 100
+        y: 36
+        width: 1078
+        height: 201
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}

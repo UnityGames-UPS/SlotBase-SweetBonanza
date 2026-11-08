@@ -11,10 +11,10 @@ namespace SweetBonanza.View
 
         /// <summary>
         /// Formats a currency amount into Sweet Bonanza TMP sprite tags.
-        /// (e.g. 200 -> "<sprite=11><sprite=2><sprite=0><sprite=0>")
-        /// (e.g. 1.25 -> "<sprite=11><sprite=1><sprite=10><sprite=2><sprite=5>")
+        /// (e.g. 200, includeDollar=true -> "<sprite=11><sprite=2><sprite=0><sprite=0>")
+        /// (e.g. 200, includeDollar=false -> "<sprite=2><sprite=0><sprite=0>")
         /// </summary>
-        public static string FormatCurrency(double amount)
+        public static string FormatCurrency(double amount, bool includeDollar = true)
         {
             if (amount < 0) amount = 0;
 
@@ -29,7 +29,10 @@ namespace SweetBonanza.View
             }
 
             StringBuilder sb = new StringBuilder(64);
-            sb.Append(DollarSprite);
+            if (includeDollar)
+            {
+                sb.Append(DollarSprite);
+            }
 
             for (int i = 0; i < formatted.Length; i++)
             {

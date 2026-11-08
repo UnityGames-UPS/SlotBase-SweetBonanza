@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -46,7 +46,7 @@ public class SocketIOManager : MonoBehaviour
 
     private Coroutine pingCoroutine;
     private float pingSendTime;
-    private const float PING_INTERVAL = 5f;
+    private const float PING_INTERVAL = 2f;
 
     #region Initialization
 
@@ -255,14 +255,25 @@ public class SocketIOManager : MonoBehaviour
         }
         else
         {
-            if (popupManager != null)
+            // Do NOT send "error" message to JSManager/platform, as that triggers the fatal
+            // platform black screen ("Launch Error / Unity Error: Unknown error") on the React host.
+            // Instead, gracefully display the in-game disconnection or error modal so Unity stays alive.
+            if (!isConnected)
             {
-                popupManager.ShowServerError(err.message);
+                if (popupManager != null)
+                {
+                    popupManager.ShowDisconnectionPopup("Disconnected from server. Please check your network connection.");
+                }
             }
+            else
+            {
+                if (popupManager != null)
+                {
+                    popupManager.ShowServerError(string.IsNullOrEmpty(err.message) ? "A network error occurred." : err.message);
+                }
+            }
+
             OnSocketErrorEvent?.Invoke(err.message);
-#if UNITY_WEBGL && !UNITY_EDITOR
-            JSManager?.SendCustomMessage("error");
-#endif
         }
     }
 

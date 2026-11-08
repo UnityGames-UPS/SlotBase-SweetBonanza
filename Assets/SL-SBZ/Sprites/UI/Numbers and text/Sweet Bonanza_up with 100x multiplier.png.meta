@@ -141,12 +141,12 @@ TextureImporter:
       name: Sweet Bonanza_up with 100x multiplier_0
       rect:
         serializedVersion: 2
-        x: 500
-        y: 84
-        width: 919
-        height: 77
+        x: 397
+        y: 95
+        width: 1085
+        height: 92
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
