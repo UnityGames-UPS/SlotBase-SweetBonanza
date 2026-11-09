@@ -239,7 +239,7 @@ namespace SweetBonanza.Controller
             }
             if (mainView != null)
             {
-                mainView.SetSpinStartedState(isAutoplaying, remainingAutoplaySpins);
+                mainView.SetSpinStartedState(isAutoplaying, isInFreeSpins ? remainingFreeSpins : remainingAutoplaySpins);
             }
             UpdateHUD(true);
 
@@ -403,7 +403,7 @@ namespace SweetBonanza.Controller
             currentState = GameState.DroppingInitial;
             AudioManager.Instance?.StopTensionBuilder();
             if (mainView != null) mainView.HideTopTumbleWinBanner(immediate: true);
-            if (gridView != null) yield return gridView.PlayInitialDropSequence(result.InitialMatrix);
+            if (gridView != null) yield return gridView.PlayInitialDropSequence(result.InitialMatrix, result.MultiplierBombs);
             AudioManager.Instance?.StopReelSpinLoop();
 
             if (result.ScatterCount >= 4)
@@ -431,10 +431,10 @@ namespace SweetBonanza.Controller
                     winSymbol = w.Symbol;
                     winCount = w.Count;
                     winPayout = w.WinAmount;
-                    payDetail = $"{w.Count}X {w.Symbol.ToString().ToUpperInvariant()} PAYS ${w.WinAmount:F2}";
+                    payDetail = $"{w.Count}X {w.Symbol.ToString().ToUpperInvariant()} PAYS {w.WinAmount:F2}";
                 }
 
-                SetStatusMessage($"TUMBLE #{i + 1} WIN: ${step.StepWinAmount:F2}");
+                SetStatusMessage($"TUMBLE #{i + 1} WIN: {step.StepWinAmount:F2}");
 
                 if (isInFreeSpins && mainView != null && rollingTumbleWin > 0)
                 {
@@ -445,7 +445,7 @@ namespace SweetBonanza.Controller
                 Sprite winSprite = (winCount > 0 && gridView != null) ? gridView.GetSymbolSprite(winSymbol) : null;
                 if (mainView != null) mainView.SetTumbleStepWin(rollingTumbleWin, winSprite, winCount, winPayout, payDetail);
 
-                if (gridView != null) yield return gridView.PlayTumbleStepSequence(step);
+                if (gridView != null) yield return gridView.PlayTumbleStepSequence(step, result.MultiplierBombs);
             }
 
             if (result.MultiplierBombs != null && result.MultiplierBombs.Count > 0 && rollingTumbleWin > 0)

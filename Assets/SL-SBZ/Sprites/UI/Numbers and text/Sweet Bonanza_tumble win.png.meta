@@ -134,10 +134,10 @@ TextureImporter:
         serializedVersion: 2
         x: 545
         y: 55
-        width: 340
+        width: 501
         height: 81
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -150,33 +150,11 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
-    - serializedVersion: 2
-      name: Sweet Bonanza_tumble win_1
-      rect:
-        serializedVersion: 2
-        x: 883
-        y: 55
-        width: 169
-        height: 81
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 199ea7d4d9bb3c2c0800000000000000
-      internalID: -4412476925608793711
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
     outline: []
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 46b9ec9520a9d3f4c9e1c805dbd6629b
     internalID: 0
     vertices: []
     indices: 

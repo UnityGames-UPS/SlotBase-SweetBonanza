@@ -46,6 +46,7 @@ namespace SweetBonanza.View
         [SerializeField] private GameObject gameRulesPanel;
         [SerializeField] private Button buttonOpenGameRules;
         [SerializeField] private Button buttonCloseGameRules;
+        [SerializeField] private Button buttonGreenCloseGameRules;
         [SerializeField] private Button buttonNextRulesPage;
         [SerializeField] private Button buttonPrevRulesPage;
         [SerializeField] private TMP_Text minBetText;
@@ -97,6 +98,7 @@ namespace SweetBonanza.View
         [SerializeField] private TMP_Text buyFeatureSpinsCountText;
 
         [Header("Ante Bet Slider & Sprites")]
+        [SerializeField] private Button anteBetButton;
         [SerializeField] private Slider anteBetSlider;
         [SerializeField] private Image anteBetHandleImage;
         [SerializeField] private Sprite anteBetOffSprite;
@@ -198,6 +200,7 @@ namespace SweetBonanza.View
             // Rules
             BindClick(buttonOpenGameRules, OpenGameRules);
             BindClick(buttonCloseGameRules, CloseCurrentPanel);
+            BindClick(buttonGreenCloseGameRules, CloseCurrentPanel);
             BindClick(buttonNextRulesPage, NextRulesPage);
             BindClick(buttonPrevRulesPage, PrevRulesPage);
 
@@ -324,20 +327,12 @@ namespace SweetBonanza.View
             // Ante Bet Slider (0 = OFF, 1 = ON)
             if (anteBetSlider != null)
             {
-                anteBetSlider.wholeNumbers = true;
-                anteBetSlider.minValue = 0;
-                anteBetSlider.maxValue = 1;
-                anteBetSlider.onValueChanged.AddListener(val =>
-                {
-                    bool isOn = Mathf.RoundToInt(val) == 1;
-                    if (isOn != isAnteBet)
-                    {
-                        UpdateAnteBetSliderVisuals(isOn);
-                        OnAnteBetToggled?.Invoke();
-                    }
-                });
+                anteBetSlider.wholeNumbers = false;
+                anteBetSlider.minValue = 0f;
+                anteBetSlider.maxValue = 1f;
             }
-            UpdateAnteBetSliderVisuals(isAnteBet);
+            BindClick(anteBetButton, () => OnAnteBetToggled?.Invoke());
+            UpdateAnteBetSliderVisuals(isAnteBet, false);
             UpdateSettingsBetText(currentBetAmount);
         }
 
@@ -469,8 +464,8 @@ namespace SweetBonanza.View
 
         internal void UpdateBetLimits(double minBet, double maxBet)
         {
-            if (minBetText != null) minBetText.text = $"${minBet:F2}";
-            if (maxBetText != null) maxBetText.text = $"${maxBet:F2}";
+            if (minBetText != null) minBetText.text = $"{minBet:F2}";
+            if (maxBetText != null) maxBetText.text = $"{maxBet:F2}";
         }
 
         internal void UpdatePaytableDisplay(double bet)
@@ -489,9 +484,9 @@ namespace SweetBonanza.View
                 int t2 = isScatter ? 5 : 10;
                 int t3 = isScatter ? 4 : 8;
 
-                if (h.textTier1 != null) h.textTier1.text = $"{(isScatter ? "6+" : "12+")}  ${bet * GameConfig.GetPayoutMultiplier(h.symbol, t1):F2}";
-                if (h.textTier2 != null) h.textTier2.text = $"{(isScatter ? "5" : "10 -11")}  ${bet * GameConfig.GetPayoutMultiplier(h.symbol, t2):F2}";
-                if (h.textTier3 != null) h.textTier3.text = $"{(isScatter ? "4" : "8-9")}  ${bet * GameConfig.GetPayoutMultiplier(h.symbol, t3):F2}";
+                if (h.textTier1 != null) h.textTier1.text = $"{(isScatter ? "6+" : "12+")}  {bet * GameConfig.GetPayoutMultiplier(h.symbol, t1):F2}";
+                if (h.textTier2 != null) h.textTier2.text = $"{(isScatter ? "5" : "10 -11")}  {bet * GameConfig.GetPayoutMultiplier(h.symbol, t2):F2}";
+                if (h.textTier3 != null) h.textTier3.text = $"{(isScatter ? "4" : "8-9")}  {bet * GameConfig.GetPayoutMultiplier(h.symbol, t3):F2}";
             }
         }
 
@@ -667,8 +662,8 @@ namespace SweetBonanza.View
             double effectiveTotalBet = isAnteBet ? baseBet * 1.25 : baseBet;
 
             if (betCoinsText != null) betCoinsText.text = betLevel.ToString();
-            if (coinValueText != null) coinValueText.text = $"${coinVal:F2}";
-            if (totalBetAmountText != null) totalBetAmountText.text = $"${effectiveTotalBet:F2}";
+            if (coinValueText != null) coinValueText.text = $"{coinVal:F2}";
+            if (totalBetAmountText != null) totalBetAmountText.text = $"{effectiveTotalBet:F2}";
             UpdateSettingsBetText(baseBet);
         }
 
@@ -784,11 +779,19 @@ namespace SweetBonanza.View
             if (winCelebrationTweener != null && winCelebrationTweener.IsActive()) winCelebrationTweener.Kill();
 
             float startWin = 0;
+            if (winCelebrationAmountText != null)
+                winCelebrationAmountText.text = SpriteTextUtility.FormatCurrency(0);
+
             winCelebrationTweener = DOTween.To(() => startWin, x =>
             {
                 startWin = x;
-                if (winCelebrationAmountText != null) winCelebrationAmountText.text = $"${x:F2}";
-            }, (float)winAmount, 1.2f).SetEase(Ease.OutCubic);
+                if (winCelebrationAmountText != null)
+                    winCelebrationAmountText.text = SpriteTextUtility.FormatCurrency(x);
+            }, (float)winAmount, 1.2f).SetEase(Ease.OutCubic).OnComplete(() =>
+            {
+                if (winCelebrationAmountText != null)
+                    winCelebrationAmountText.text = SpriteTextUtility.FormatCurrency(winAmount);
+            });
 
             StartCoroutine(AutoDismissModal(winCelebrationPanel, displayDuration));
         }
@@ -821,12 +824,21 @@ namespace SweetBonanza.View
             }
         }
 
-        private void UpdateAnteBetSliderVisuals(bool active)
+        private void UpdateAnteBetSliderVisuals(bool active, bool animate = true)
         {
             this.isAnteBet = active;
+            float targetValue = active ? 1f : 0f;
             if (anteBetSlider != null)
             {
-                anteBetSlider.SetValueWithoutNotify(active ? 1 : 0);
+                anteBetSlider.DOKill();
+                if (animate && Mathf.Abs(anteBetSlider.value - targetValue) > 0.01f)
+                {
+                    anteBetSlider.DOValue(targetValue, 0.2f).SetEase(Ease.OutQuad);
+                }
+                else
+                {
+                    anteBetSlider.SetValueWithoutNotify(targetValue);
+                }
             }
             if (anteBetHandleImage != null)
             {
@@ -864,6 +876,7 @@ namespace SweetBonanza.View
             StopAllCoroutines();
             if (winCelebrationTweener != null && winCelebrationTweener.IsActive()) winCelebrationTweener.Kill();
             if (freeSpinsOutroTweener != null && freeSpinsOutroTweener.IsActive()) freeSpinsOutroTweener.Kill();
+            if (anteBetSlider != null) anteBetSlider.DOKill();
             if (winCelebrationPanel != null)
             {
                 var sunburst = winCelebrationPanel.transform.Find("EffectSunburst");
@@ -876,6 +889,7 @@ namespace SweetBonanza.View
             StopAllCoroutines();
             if (winCelebrationTweener != null && winCelebrationTweener.IsActive()) winCelebrationTweener.Kill();
             if (freeSpinsOutroTweener != null && freeSpinsOutroTweener.IsActive()) freeSpinsOutroTweener.Kill();
+            if (anteBetSlider != null) anteBetSlider.DOKill();
             if (winCelebrationPanel != null)
             {
                 var sunburst = winCelebrationPanel.transform.Find("EffectSunburst");

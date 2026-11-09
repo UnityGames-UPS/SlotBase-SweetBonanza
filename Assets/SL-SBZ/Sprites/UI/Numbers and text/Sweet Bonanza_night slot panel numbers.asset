@@ -40,9 +40,14 @@ MonoBehaviour:
   m_SpriteCharacterTable:
   - m_ElementType: 2
     m_Unicode: 65534
-    m_GlyphIndex: 0
+    m_GlyphIndex: 10
     m_Scale: 1
-    m_Name: Sweet Bonanza_night slot panel numbers_3
+    m_Name: Sweet Bonanza_night slot panel numbers_9
+  - m_ElementType: 2
+    m_Unicode: 65534
+    m_GlyphIndex: 3
+    m_Scale: 1
+    m_Name: Sweet Bonanza_night slot panel numbers_0
   - m_ElementType: 2
     m_Unicode: 65534
     m_GlyphIndex: 1
@@ -55,19 +60,19 @@ MonoBehaviour:
     m_Name: Sweet Bonanza_night slot panel numbers_2
   - m_ElementType: 2
     m_Unicode: 65534
-    m_GlyphIndex: 3
+    m_GlyphIndex: 0
     m_Scale: 1
-    m_Name: Sweet Bonanza_night slot panel numbers_0
-  - m_ElementType: 2
-    m_Unicode: 65534
-    m_GlyphIndex: 4
-    m_Scale: 1
-    m_Name: Sweet Bonanza_night slot panel numbers_5
+    m_Name: Sweet Bonanza_night slot panel numbers_3
   - m_ElementType: 2
     m_Unicode: 65534
     m_GlyphIndex: 5
     m_Scale: 1
     m_Name: Sweet Bonanza_night slot panel numbers_4
+  - m_ElementType: 2
+    m_Unicode: 65534
+    m_GlyphIndex: 4
+    m_Scale: 1
+    m_Name: Sweet Bonanza_night slot panel numbers_5
   - m_ElementType: 2
     m_Unicode: 65534
     m_GlyphIndex: 6
@@ -80,19 +85,14 @@ MonoBehaviour:
     m_Name: Sweet Bonanza_night slot panel numbers_7
   - m_ElementType: 2
     m_Unicode: 65534
-    m_GlyphIndex: 8
-    m_Scale: 1
-    m_Name: Sweet Bonanza_night slot panel numbers_10
-  - m_ElementType: 2
-    m_Unicode: 65534
     m_GlyphIndex: 9
     m_Scale: 1
     m_Name: Sweet Bonanza_night slot panel numbers_8
   - m_ElementType: 2
     m_Unicode: 65534
-    m_GlyphIndex: 10
+    m_GlyphIndex: 8
     m_Scale: 1
-    m_Name: Sweet Bonanza_night slot panel numbers_9
+    m_Name: Sweet Bonanza_night slot panel numbers_10
   - m_ElementType: 2
     m_Unicode: 65534
     m_GlyphIndex: 11
@@ -103,9 +103,9 @@ MonoBehaviour:
     m_Metrics:
       m_Width: 100
       m_Height: 118
-      m_HorizontalBearingX: -50
+      m_HorizontalBearingX: -59.7
       m_HorizontalBearingY: 59
-      m_HorizontalAdvance: 100
+      m_HorizontalAdvance: 66.5
     m_GlyphRect:
       m_X: 819
       m_Y: 758
@@ -121,7 +121,7 @@ MonoBehaviour:
       m_Height: 117
       m_HorizontalBearingX: -46
       m_HorizontalBearingY: 58.5
-      m_HorizontalAdvance: 92
+      m_HorizontalAdvance: 74.4
     m_GlyphRect:
       m_X: 336
       m_Y: 757
@@ -185,7 +185,7 @@ MonoBehaviour:
       m_Height: 116
       m_HorizontalBearingX: -46
       m_HorizontalBearingY: 58
-      m_HorizontalAdvance: 92
+      m_HorizontalAdvance: 76.3
     m_GlyphRect:
       m_X: 83
       m_Y: 440
@@ -199,9 +199,9 @@ MonoBehaviour:
     m_Metrics:
       m_Width: 93
       m_Height: 116
-      m_HorizontalBearingX: -46.5
+      m_HorizontalBearingX: -66.8
       m_HorizontalBearingY: 58
-      m_HorizontalAdvance: 93
+      m_HorizontalAdvance: 74.3
     m_GlyphRect:
       m_X: 578
       m_Y: 439
@@ -217,7 +217,7 @@ MonoBehaviour:
       m_Height: 118
       m_HorizontalBearingX: -46
       m_HorizontalBearingY: 59
-      m_HorizontalAdvance: 92
+      m_HorizontalAdvance: 72.2
     m_GlyphRect:
       m_X: 822
       m_Y: 437
@@ -231,15 +231,15 @@ MonoBehaviour:
     m_Metrics:
       m_Width: 48
       m_Height: 48
-      m_HorizontalBearingX: -24
-      m_HorizontalBearingY: 24
-      m_HorizontalAdvance: 48
+      m_HorizontalBearingX: -48
+      m_HorizontalBearingY: -33.1
+      m_HorizontalAdvance: 49.9
     m_GlyphRect:
       m_X: 602
       m_Y: 103
       m_Width: 48
       m_Height: 48
-    m_Scale: 1
+    m_Scale: 0.25
     m_AtlasIndex: 0
     m_ClassDefinitionType: 0
     sprite: {fileID: 5371658807153759690, guid: 7035afe1d7227b04f9e08e778933d284, type: 3}
@@ -249,7 +249,7 @@ MonoBehaviour:
       m_Height: 118
       m_HorizontalBearingX: -46.5
       m_HorizontalBearingY: 59
-      m_HorizontalAdvance: 93
+      m_HorizontalAdvance: 68.9
     m_GlyphRect:
       m_X: 85
       m_Y: 102
@@ -263,7 +263,7 @@ MonoBehaviour:
     m_Metrics:
       m_Width: 91
       m_Height: 118
-      m_HorizontalBearingX: -45.5
+      m_HorizontalBearingX: -25.5
       m_HorizontalBearingY: 59
       m_HorizontalAdvance: 91
     m_GlyphRect:

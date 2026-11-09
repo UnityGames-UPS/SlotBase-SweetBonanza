@@ -58,7 +58,7 @@ namespace SweetBonanza.View
                 symbolImage.enabled = sprite != null;
                 if (symbol == SymbolType.Lollipop)
                 {
-                    symbolImage.transform.localScale = new Vector3(1.38f, 1.38f, 1f);
+                    symbolImage.transform.localScale = new Vector3(1.75f, 1.75f, 1f);
                     transform.SetAsLastSibling();
                 }
                 else if (symbol == SymbolType.MultiplierBomb)
@@ -76,7 +76,7 @@ namespace SweetBonanza.View
             {
                 if (symbol == SymbolType.MultiplierBomb && multiplier > 0)
                 {
-                    multiplierText.text = $"{multiplier}X";
+                    multiplierText.text = SpriteTextUtility.FormatBombMultiplier(multiplier);
                     multiplierText.gameObject.SetActive(true);
                 }
                 else
@@ -261,12 +261,11 @@ namespace SweetBonanza.View
             // 4. Settle back to upright rest state
             activeSequence.Append(rectTransform.DOScale(Vector3.one, 0.06f).SetEase(Ease.OutQuad));
 
-            // 5. Special playful Scatter Lollipop landing wobble if Scatter (wobbles on its wooden stick)
+            // 5. Special playful Scatter Lollipop landing bounce if Scatter
             if (currentSymbol == SymbolType.Lollipop)
             {
                 transform.SetAsLastSibling();
-                activeSequence.Append(rectTransform.DOPunchRotation(new Vector3(0, 0, 10f), 0.28f, 4, 0.4f));
-                activeSequence.Join(rectTransform.DOPunchScale(Vector3.one * 0.14f, 0.24f, 3, 0.3f));
+                activeSequence.Append(rectTransform.DOPunchScale(Vector3.one * 0.14f, 0.24f, 3, 0.3f));
             }
 
             // 6. Play the 3D frame animation while dropping
@@ -298,84 +297,101 @@ namespace SweetBonanza.View
             activeSequence.OnComplete(() => onComplete?.Invoke());
         }
 
-        internal void PlayMultiplierBombRevealAnimation(int multiplier, Action onComplete, Sprite[] burstFrames = null, Action onDetonated = null)
+        internal void PlayMultiplierBombRevealAnimation(int multiplier, Action onComplete, Sprite[] threadFrames = null, Sprite[] blastFrames = null, Action onDetonated = null)
         {
             KillActiveTweens();
             currentMultiplier = multiplier;
+            transform.SetAsLastSibling();
+
             if (multiplierText != null)
             {
-                multiplierText.text = $"{multiplier}X";
+                multiplierText.text = SpriteTextUtility.FormatBombMultiplier(multiplier);
                 multiplierText.gameObject.SetActive(true);
-                multiplierText.transform.SetAsLastSibling();
                 multiplierText.transform.localScale = Vector3.one;
             }
 
-            transform.SetAsLastSibling();
-
-            activeSequence = DOTween.Sequence();
-
-            // 1. Anticipation squash & stretch
-            activeSequence.Append(rectTransform.DOScale(new Vector3(1.15f, 0.88f, 1f), 0.08f).SetEase(Ease.OutQuad));
-            activeSequence.Append(rectTransform.DOScale(new Vector3(0.92f, 1.18f, 1f), 0.06f).SetEase(Ease.InOutQuad));
-
-            // 2. Detonation: play explosion sound and cycle the 30-frame bomb burst
-            activeSequence.AppendCallback(() =>
+            if (burstEffectImage != null)
             {
-                AudioManager.Instance?.PlayBombExplode();
+                burstEffectImage.enabled = false;
+            }
 
-                if (burstEffectImage != null)
+            if (gameObject.activeInHierarchy)
+            {
+                activeBurstRoutine = StartCoroutine(PlayBombBlastSequence(blastFrames,threadFrames, onComplete, onDetonated));
+            }
+            else
+            {
+                onDetonated?.Invoke();
+                onComplete?.Invoke();
+            }
+        }
+
+        private IEnumerator PlayBombBlastSequence(Sprite[] threadFrames, Sprite[] blastFrames, Action onComplete, Action onDetonated)
+        {
+            // 1. Light the thread (fuse spark/burning on burst effect overlay)
+            //AudioManager.Instance?.PlayBombFuseSpark();
+
+            if (threadFrames != null && threadFrames.Length > 0 && symbolImage != null)
+            {
+                Debug.Log("Bomb Fuse Spark");
+                float threadRate = 1f / 30f;
+                for (int i = 0; i < threadFrames.Length; i++)
                 {
-                    burstEffectImage.enabled = true;
-                    burstEffectImage.color = Color.white;
-                    burstEffectImage.preserveAspect = true;
-                    burstEffectImage.rectTransform.sizeDelta = new Vector2(160f, 160f);
-                    burstEffectImage.transform.localScale = Vector3.one;
-
-                    if (burstFrames != null && burstFrames.Length > 0 && gameObject.activeInHierarchy)
-                    {
-                        burstEffectImage.sprite = burstFrames[0];
-                        activeBurstRoutine = StartCoroutine(CycleBurstFrames(burstFrames, 0.45f));
-                    }
-                    else if (bombBurstSprite != null)
-                    {
-                        burstEffectImage.sprite = bombBurstSprite;
-                        burstEffectImage.transform.localScale = Vector3.zero;
-                        burstEffectImage.transform.DOScale(2.0f, 0.35f).SetEase(Ease.OutBack);
-                        burstEffectImage.DOFade(0f, 0.35f).SetEase(Ease.InQuad);
-                    }
+                    symbolImage.sprite = threadFrames[i];
+                    yield return new WaitForSeconds(threadRate);
                 }
-            });
+            }
+            // 2. The explosion blast (plays blastFrames 0-59 second on symbolImage)
+            AudioManager.Instance?.PlayBombExplode();
+            if (blastFrames != null && blastFrames.Length > 0 && symbolImage != null)
+            {
+                Debug.Log("Bomb Explode");
+                float blastRate = 1f / 40f;
+                for (int i = 0; i < blastFrames.Length; i++)
+                {
+                    symbolImage.sprite = blastFrames[i];
+                    yield return new WaitForSeconds(blastRate);
+                }
+            }
+            else
+            {
+                yield return new WaitForSeconds(0.35f);
+            }
 
-            // 3. Punch bounce, wiggle, and pop up
-            activeSequence.Append(rectTransform.DOScale(1.35f, 0.16f).SetEase(Ease.OutElastic));
-            activeSequence.Append(rectTransform.DORotate(new Vector3(0, 0, 12f), 0.06f).SetEase(Ease.OutQuad));
-            activeSequence.Append(rectTransform.DORotate(new Vector3(0, 0, -12f), 0.06f).SetEase(Ease.InOutQuad));
-            activeSequence.Append(rectTransform.DORotate(Vector3.zero, 0.06f).SetEase(Ease.OutQuad));
-            activeSequence.Append(rectTransform.DOScale(1.0f, 0.12f).SetEase(Ease.InOutQuad));
+            if (burstEffectImage != null)
+            {
+                burstEffectImage.enabled = false;
+            }
 
-            // 4. Pop the Multiplier badge with punch bounce & notify detonation
+            // 3. Blast frames ended -> Multiplier text pop
             if (multiplierText != null)
             {
-                activeSequence.Join(multiplierText.transform.DOScale(1.45f, 0.18f).SetEase(Ease.OutBack));
-                activeSequence.Append(multiplierText.transform.DOScale(1.0f, 0.10f).SetEase(Ease.InOutQuad));
-            }
-            activeSequence.AppendCallback(() => onDetonated?.Invoke());
+                multiplierText.gameObject.SetActive(true);
+                multiplierText.transform.SetAsLastSibling();
+                multiplierText.transform.localScale = Vector3.zero;
 
-            activeSequence.OnComplete(() =>
+                activeSequence = DOTween.Sequence();
+                activeSequence.Append(multiplierText.transform.DOScale(1.4f, 0.20f).SetEase(Ease.OutBack));
+                activeSequence.Append(multiplierText.transform.DOScale(1.0f, 0.12f).SetEase(Ease.InOutQuad));
+                activeSequence.AppendCallback(() =>
+                {
+                    if (multiplierText != null) multiplierText.gameObject.SetActive(false);
+                    onDetonated?.Invoke();
+                });
+                activeSequence.OnComplete(() => onComplete?.Invoke());
+            }
+            else
             {
-                if (burstEffectImage != null) burstEffectImage.enabled = false;
+                onDetonated?.Invoke();
                 onComplete?.Invoke();
-            });
+            }
+
+            activeBurstRoutine = null;
         }
 
         internal void PlayScatterTriggerAnimation(Sprite[] frames, float duration)
         {
             KillActiveTweens();
-
-            activeSequence = DOTween.Sequence();
-            activeSequence.Append(rectTransform.DOScale(1.35f, 0.22f).SetEase(Ease.OutBack));
-            activeSequence.Append(rectTransform.DORotate(new Vector3(0, 0, -360f), 0.75f, RotateMode.FastBeyond360).SetEase(Ease.Linear).SetLoops(2));
-            activeSequence.Append(rectTransform.DOScale(1.0f, 0.2f).SetEase(Ease.OutQuad));
 
             if (burstEffectImage != null && candyBurstSprite != null)
             {
@@ -383,6 +399,7 @@ namespace SweetBonanza.View
                 burstEffectImage.enabled = true;
                 burstEffectImage.color = new Color(1f, 0.9f, 0.2f, 1f);
                 burstEffectImage.transform.localScale = Vector3.zero;
+                activeSequence = DOTween.Sequence();
                 activeSequence.Join(burstEffectImage.transform.DOScale(1.7f, 0.3f).SetEase(Ease.OutBack));
                 activeSequence.Join(burstEffectImage.DOFade(0f, 0.35f).SetEase(Ease.InQuad));
             }
@@ -490,6 +507,15 @@ namespace SweetBonanza.View
             {
                 StopCoroutine(activeBurstRoutine);
                 activeBurstRoutine = null;
+            }
+            if (burstEffectImage != null)
+            {
+                burstEffectImage.enabled = false;
+            }
+            if (multiplierText != null && currentMultiplier > 0)
+            {
+                multiplierText.gameObject.SetActive(true);
+                multiplierText.transform.localScale = Vector3.one;
             }
             if (symbolImage != null && baseSymbolSprite != null)
             {

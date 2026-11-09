@@ -21,6 +21,7 @@ namespace SweetBonanza.View
         [SerializeField] private float fadeDuration = 1f;
 
         [Header("Spin Trigger (Optional)")]
+        [SerializeField] private bool syncWithSpin = true;
         [SerializeField] private MainView mainView;
 
         private int currentIndex = 0;
@@ -30,6 +31,7 @@ namespace SweetBonanza.View
 
         private void Awake()
         {
+            if (!syncWithSpin) return;
             if (mainView == null)
             {
                 mainView = GetComponentInParent<MainView>();
@@ -39,7 +41,7 @@ namespace SweetBonanza.View
 
         private void OnEnable()
         {
-            if (mainView != null)
+            if (syncWithSpin && mainView != null)
             {
                 mainView.OnSpinClicked += AdvanceOnSpin;
                 mainView.OnSpinStopped += HandleSpinStopped;
@@ -50,7 +52,7 @@ namespace SweetBonanza.View
 
         private void OnDisable()
         {
-            if (mainView != null)
+            if (syncWithSpin && mainView != null)
             {
                 mainView.OnSpinClicked -= AdvanceOnSpin;
                 mainView.OnSpinStopped -= HandleSpinStopped;
@@ -62,6 +64,7 @@ namespace SweetBonanza.View
         /// <summary>Advances immediately to the next banner sprite when Spin is clicked.</summary>
         public void AdvanceOnSpin()
         {
+            if (!syncWithSpin) return;
             if (imageList == null || imageList.Count <= 1) return;
             currentIndex = 0;
             ApplySpriteInstant(currentIndex);
@@ -71,6 +74,7 @@ namespace SweetBonanza.View
         /// <summary>Advances immediately to the next banner sprite or restarts cycling when the slot stops.</summary>
         public void HandleSpinStopped()
         {
+            if (!syncWithSpin) return;
             if (imageList == null || imageList.Count <= 1) return;
             currentIndex = (currentIndex + 1) % imageList.Count;
             ApplySpriteInstant(currentIndex);

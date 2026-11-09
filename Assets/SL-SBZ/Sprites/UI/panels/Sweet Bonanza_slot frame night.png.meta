@@ -129,12 +129,12 @@ TextureImporter:
       name: Sweet Bonanza_slot frame night_0
       rect:
         serializedVersion: 2
-        x: 283
-        y: 51
+        x: 286
+        y: 66
         width: 1357
         height: 945
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -151,7 +151,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 2764648248f49e248a36a6353c80d9a3
     internalID: 0
     vertices: []
     indices: 

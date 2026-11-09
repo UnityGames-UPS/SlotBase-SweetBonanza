@@ -82,14 +82,9 @@ MonoBehaviour:
   m_SpriteCharacterTable:
   - m_ElementType: 2
     m_Unicode: 65534
-    m_GlyphIndex: 0
+    m_GlyphIndex: 10
     m_Scale: 1
-    m_Name: Sweet Bonanza_bomb numbers_3
-  - m_ElementType: 2
-    m_Unicode: 65534
-    m_GlyphIndex: 1
-    m_Scale: 1
-    m_Name: Sweet Bonanza_bomb numbers_1
+    m_Name: Sweet Bonanza_bomb numbers_9
   - m_ElementType: 2
     m_Unicode: 65534
     m_GlyphIndex: 2
@@ -97,19 +92,29 @@ MonoBehaviour:
     m_Name: Sweet Bonanza_bomb numbers_0
   - m_ElementType: 2
     m_Unicode: 65534
+    m_GlyphIndex: 1
+    m_Scale: 1
+    m_Name: Sweet Bonanza_bomb numbers_1
+  - m_ElementType: 2
+    m_Unicode: 65534
     m_GlyphIndex: 3
     m_Scale: 1
     m_Name: Sweet Bonanza_bomb numbers_2
   - m_ElementType: 2
     m_Unicode: 65534
-    m_GlyphIndex: 4
+    m_GlyphIndex: 0
     m_Scale: 1
-    m_Name: Sweet Bonanza_bomb numbers_5
+    m_Name: Sweet Bonanza_bomb numbers_3
   - m_ElementType: 2
     m_Unicode: 65534
     m_GlyphIndex: 5
     m_Scale: 1
     m_Name: Sweet Bonanza_bomb numbers_4
+  - m_ElementType: 2
+    m_Unicode: 65534
+    m_GlyphIndex: 4
+    m_Scale: 1
+    m_Name: Sweet Bonanza_bomb numbers_5
   - m_ElementType: 2
     m_Unicode: 65534
     m_GlyphIndex: 6
@@ -130,11 +135,6 @@ MonoBehaviour:
     m_GlyphIndex: 9
     m_Scale: 1
     m_Name: Sweet Bonanza_bomb numbers_10
-  - m_ElementType: 2
-    m_Unicode: 65534
-    m_GlyphIndex: 10
-    m_Scale: 1
-    m_Name: Sweet Bonanza_bomb numbers_9
   - m_ElementType: 2
     m_Unicode: 65534
     m_GlyphIndex: 11
@@ -177,7 +177,7 @@ MonoBehaviour:
     m_Metrics:
       m_Width: 56
       m_Height: 104
-      m_HorizontalBearingX: -28
+      m_HorizontalBearingX: -35.3
       m_HorizontalBearingY: 52
       m_HorizontalAdvance: 56
     m_GlyphRect:
