@@ -107,6 +107,7 @@ namespace SweetBonanza.View
         internal void PlayWinAnimation(Sprite[] frames, float duration, double winAmount, Action onComplete)
         {
             KillActiveTweens();
+            transform.SetAsLastSibling();
 
             activeSequence = DOTween.Sequence();
             activeSequence.Append(rectTransform.DOScale(1.24f, 0.16f).SetEase(Ease.OutBack));
@@ -115,7 +116,7 @@ namespace SweetBonanza.View
 
             if (winAmount > 0 && winAmountText != null)
             {
-                winAmountText.text = $"+${winAmount:F2}";
+                winAmountText.text = SpriteTextUtility.FormatWithSpriteAsset(winAmount, winAmountText);
                 winAmountText.gameObject.SetActive(true);
                 winAmountText.transform.DOKill();
                 winAmountText.transform.localScale = Vector3.zero;

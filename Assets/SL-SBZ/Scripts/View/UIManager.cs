@@ -142,15 +142,40 @@ namespace SweetBonanza.View
         [SerializeField] private Toggle toggleQuickSpinAutoplay;
         [SerializeField] private Toggle toggleSkipScreens;
 
-        [Header("Feature Overlays")]
+        [Header("Feature Overlays - Free Spins Intro")]
         [SerializeField] private GameObject freeSpinsIntroPanel;
         [SerializeField] private TMP_Text freeSpinsIntroCountText;
+        [SerializeField] private CanvasGroup introCanvasGroup;
+        [SerializeField] private Transform introModalBox;
+        [SerializeField] private Transform introBadgeTransform;
+        [SerializeField] private CanvasGroup introPressGroup;
+        [SerializeField] private Transform introStarBig1;
+        [SerializeField] private Transform introStarBig2;
+        [SerializeField] private Transform introStarSmall1;
+        [SerializeField] private Transform introStarSmall2;
+
+        [Header("Feature Overlays - Congratulations Outro")]
         [SerializeField] private GameObject freeSpinsOutroPanel;
         [SerializeField] private TMP_Text freeSpinsOutroWinText;
+        [SerializeField] private CanvasGroup outroCanvasGroup;
+        [SerializeField] private Transform outroModalBox;
+        [SerializeField] private Transform outroBadgeTransform;
+        [SerializeField] private Transform outroStarBig1;
+        [SerializeField] private Transform outroStarBig2;
+        [SerializeField] private Transform outroStarSmall1;
+        [SerializeField] private Transform outroStarSmall2;
 
         [Header("Win Celebration")]
         [SerializeField] private GameObject winCelebrationPanel;
         [SerializeField] private TMP_Text winCelebrationAmountText;
+        [SerializeField] private CanvasGroup winDisplayGroup;
+        [SerializeField] private Transform winTitleTransform;
+        //[SerializeField] private Transform winBgEffectTransform;
+        [SerializeField] private Transform winStarsParent;
+        [SerializeField] private Transform winStarCenter;
+        [SerializeField] private Transform winStarLeft;
+        [SerializeField] private Transform winStarRight;
+        [SerializeField] private Transform winLabelTransform;
 
         [Header("7. Navigation & Fullscreen Controls")]
         [SerializeField] private Button homeButton;
@@ -190,9 +215,51 @@ namespace SweetBonanza.View
             if (jsFunctCalls == null) jsFunctCalls = UnityEngine.Object.FindFirstObjectByType<JSFunctCalls>();
             if (jsFunctCalls != null) jsFunctCalls.RegisterFullscreenListener(gameObject.name);
 
+            InitializePanelAnimationReferences();
             RegisterButtonCallbacks();
             CloseAllModalsImmediate();
             SetExpandShrinkButtons(false);
+        }
+
+        private void InitializePanelAnimationReferences()
+        {
+            if (winCelebrationPanel != null)
+            {
+                if (winDisplayGroup == null)
+                {
+                    var disp = winCelebrationPanel.transform.Find("DisplayOnly");
+                    if (disp != null) winDisplayGroup = disp.GetComponent<CanvasGroup>() ?? disp.gameObject.AddComponent<CanvasGroup>();
+                }
+                if (winTitleTransform == null) winTitleTransform = winCelebrationPanel.transform.Find("DisplayOnly/Displaytext place");
+                //if (winBgEffectTransform == null) winBgEffectTransform = winCelebrationPanel.transform.Find("DisplayOnly/BGEfffect");
+                if (winStarsParent == null) winStarsParent = winCelebrationPanel.transform.Find("DisplayOnly/StaresParent");
+                if (winStarsParent != null)
+                {
+                    if (winStarCenter == null) winStarCenter = winStarsParent.Find("s1");
+                    if (winStarLeft == null) winStarLeft = winStarsParent.Find("Ls");
+                    if (winStarRight == null) winStarRight = winStarsParent.Find("Rs");
+                }
+                if (winLabelTransform == null) winLabelTransform = winCelebrationPanel.transform.Find("LabbleTextDisplay");
+            }
+
+            if (freeSpinsOutroPanel != null)
+            {
+                if (outroCanvasGroup == null) outroCanvasGroup = freeSpinsOutroPanel.GetComponent<CanvasGroup>() ?? freeSpinsOutroPanel.AddComponent<CanvasGroup>();
+                if (outroModalBox == null) outroModalBox = freeSpinsOutroPanel.transform.Find("ModalBox");
+                if (outroBadgeTransform == null) outroBadgeTransform = freeSpinsOutroPanel.transform.Find("ModalBox/PanaelShowImage");
+            }
+
+            if (freeSpinsIntroPanel != null)
+            {
+                if (introCanvasGroup == null) introCanvasGroup = freeSpinsIntroPanel.GetComponent<CanvasGroup>() ?? freeSpinsIntroPanel.AddComponent<CanvasGroup>();
+                if (introModalBox == null) introModalBox = freeSpinsIntroPanel.transform.Find("ModalBox");
+                if (introBadgeTransform == null) introBadgeTransform = freeSpinsIntroPanel.transform.Find("ModalBox/PanaelShowImage");
+                if (introPressGroup == null)
+                {
+                    var press = freeSpinsIntroPanel.transform.Find("ModalBox/PressAnythingTextImg (1)");
+                    if (press != null) introPressGroup = press.GetComponent<CanvasGroup>() ?? press.gameObject.AddComponent<CanvasGroup>();
+                }
+            }
         }
 
         private void RegisterButtonCallbacks()
@@ -425,10 +492,9 @@ namespace SweetBonanza.View
         private void CloseModal(GameObject panel)
         {
             if (panel == null) return;
-            if (panel == winCelebrationPanel)
+            if (panel == winCelebrationPanel || panel == freeSpinsOutroPanel || panel == freeSpinsIntroPanel)
             {
-                var sunburst = winCelebrationPanel.transform.Find("EffectSunburst");
-                if (sunburst != null) sunburst.DOKill();
+                ResetCelebrationPanelStates();
                 AudioManager.Instance?.StopWinTypePopupOpen();
             }
             if (panel == buyFeatureConfirmPanel && mainView != null)
@@ -442,6 +508,7 @@ namespace SweetBonanza.View
         private void CloseAllModalsImmediate()
         {
             currentOpenPanel = null;
+            ResetCelebrationPanelStates();
             AudioManager.Instance?.StopWinTypePopupOpen();
             GameObject[] modals = { gameRulesPanel, systemSettingsPanel, soundSettingsPanel, buyFeatureConfirmPanel, betAdjustmentPanel, autoplayPanel, freeSpinsIntroPanel, freeSpinsOutroPanel, winCelebrationPanel };
             for (int i = 0; i < modals.Length; i++)
@@ -601,9 +668,9 @@ namespace SweetBonanza.View
         internal void OpenBuyFeatureModal(double betAmount, int freeSpinsCount = 10)
         {
             if (buyFeatureCostText != null) 
-                buyFeatureCostText.text = SpriteTextUtility.FormatCurrency(betAmount * 100.0);
+                buyFeatureCostText.text = SpriteTextUtility.FormatWithSpriteAsset(betAmount * 100.0, buyFeatureCostText);
             if (buyFeatureSpinsCountText != null) 
-                buyFeatureSpinsCountText.text = SpriteTextUtility.FormatCount(freeSpinsCount);
+                buyFeatureSpinsCountText.text = SpriteTextUtility.FormatCountWithSpriteAsset(freeSpinsCount, buyFeatureSpinsCountText);
             if (mainView != null)
                 mainView.SetBuyFeatureState();
             OpenModal(buyFeatureConfirmPanel);
@@ -726,72 +793,250 @@ namespace SweetBonanza.View
 
         #region Feature Overlays & Win Celebration
 
+        private void AnimateStarPop(Transform star, float delay)
+        {
+            if (star == null) return;
+            star.localScale = Vector3.zero;
+            star.DOScale(Vector3.one, 0.3f).SetEase(Ease.OutBack).SetDelay(delay);
+        }
+
+        private void ResetStar(Transform star)
+        {
+            if (star == null) return;
+            star.DOKill();
+            star.localScale = Vector3.one;
+        }
+
+        private void ResetCelebrationPanelStates()
+        {
+            if (winCelebrationTweener != null && winCelebrationTweener.IsActive()) winCelebrationTweener.Kill();
+            if (freeSpinsOutroTweener != null && freeSpinsOutroTweener.IsActive()) freeSpinsOutroTweener.Kill();
+
+            // Win celebration reset
+            if (winDisplayGroup != null) { winDisplayGroup.DOKill(); winDisplayGroup.alpha = 1f; }
+            //if (winBgEffectTransform != null) { winBgEffectTransform.DOKill(); winBgEffectTransform.rotation = Quaternion.identity; }
+            if (winTitleTransform != null) { winTitleTransform.DOKill(); winTitleTransform.localScale = Vector3.one; }
+            if (winLabelTransform != null) { winLabelTransform.DOKill(); winLabelTransform.localScale = Vector3.one; }
+            if (winCelebrationAmountText != null) { winCelebrationAmountText.transform.DOKill(); winCelebrationAmountText.transform.localScale = Vector3.one; }
+
+            ResetStar(winStarCenter);
+            ResetStar(winStarLeft);
+            ResetStar(winStarRight);
+            if (winStarsParent != null)
+            {
+                winStarsParent.DOKill();
+                for (int i = 0; i < winStarsParent.childCount; i++)
+                {
+                    ResetStar(winStarsParent.GetChild(i));
+                }
+            }
+
+            // Free spins outro reset
+            if (outroCanvasGroup != null) { outroCanvasGroup.DOKill(); outroCanvasGroup.alpha = 1f; }
+            if (outroModalBox != null) { outroModalBox.DOKill(); outroModalBox.localScale = Vector3.one; }
+            if (outroBadgeTransform != null) { outroBadgeTransform.DOKill(); outroBadgeTransform.localScale = Vector3.one; }
+            if (freeSpinsOutroWinText != null) { freeSpinsOutroWinText.transform.DOKill(); freeSpinsOutroWinText.transform.localScale = Vector3.one; }
+            ResetStar(outroStarBig1);
+            ResetStar(outroStarBig2);
+            ResetStar(outroStarSmall1);
+            ResetStar(outroStarSmall2);
+
+            // Free spins intro reset
+            if (introCanvasGroup != null) { introCanvasGroup.DOKill(); introCanvasGroup.alpha = 1f; }
+            if (introModalBox != null) { introModalBox.DOKill(); introModalBox.localScale = Vector3.one; }
+            if (introBadgeTransform != null) { introBadgeTransform.DOKill(); introBadgeTransform.localScale = Vector3.one; }
+            if (freeSpinsIntroCountText != null) { freeSpinsIntroCountText.transform.DOKill(); freeSpinsIntroCountText.transform.localScale = Vector3.one; }
+            if (introPressGroup != null) { introPressGroup.DOKill(); introPressGroup.alpha = 1f; }
+            ResetStar(introStarBig1);
+            ResetStar(introStarBig2);
+            ResetStar(introStarSmall1);
+            ResetStar(introStarSmall2);
+        }
+
         internal void ShowFreeSpinsIntro(int spinsCount)
         {
+            ResetCelebrationPanelStates();
+            OpenModal(freeSpinsIntroPanel);
+
+            // 1. Panel Alpha Fade-in
+            if (introCanvasGroup != null)
+            {
+                introCanvasGroup.alpha = 0f;
+                introCanvasGroup.DOFade(1f, 0.22f);
+            }
+
+            // 2. ModalBox Pop-in
+            if (introModalBox != null)
+            {
+                introModalBox.localScale = Vector3.one * 0.65f;
+                introModalBox.DOScale(Vector3.one, 0.30f).SetEase(Ease.OutBack);
+            }
+
+            // 3. Badge Graphic Pop-in
+            if (introBadgeTransform != null)
+            {
+                introBadgeTransform.localScale = Vector3.one * 0.5f;
+                introBadgeTransform.DOScale(Vector3.one, 0.32f).SetEase(Ease.OutBack).SetDelay(0.08f);
+            }
+
+            // 4. Spin Count Pop
             if (freeSpinsIntroCountText != null)
             {
-                freeSpinsIntroCountText.text = SpriteTextUtility.FormatCount(spinsCount);
+                freeSpinsIntroCountText.text = SpriteTextUtility.FormatCountWithSpriteAsset(spinsCount, freeSpinsIntroCountText);
+                freeSpinsIntroCountText.transform.localScale = Vector3.one;
+                freeSpinsIntroCountText.transform.DOPunchScale(Vector3.one * 0.25f, 0.30f, 6, 1f).SetDelay(0.12f);
             }
-            OpenModal(freeSpinsIntroPanel);
+
+            // 5. Star Pop-up (2 big, 2 small)
+            AnimateStarPop(introStarBig1, 0.10f);
+            AnimateStarPop(introStarBig2, 0.16f);
+            AnimateStarPop(introStarSmall1, 0.22f);
+            AnimateStarPop(introStarSmall2, 0.28f);
+
+            // 6. Press Anywhere pulsing prompt
+            if (introPressGroup != null)
+            {
+                introPressGroup.alpha = 0.6f;
+                introPressGroup.DOFade(1.0f, 0.8f).SetEase(Ease.InOutSine).SetLoops(-1, LoopType.Yoyo);
+            }
+
             StartCoroutine(AutoDismissModal(freeSpinsIntroPanel, 3.0f));
         }
 
         internal void ShowFreeSpinsOutro(double totalWin)
         {
-            if (freeSpinsOutroTweener != null && freeSpinsOutroTweener.IsActive()) freeSpinsOutroTweener.Kill();
+            ResetCelebrationPanelStates();
+            OpenModal(freeSpinsOutroPanel);
+
+            // 1. Panel Alpha Fade-in
+            if (outroCanvasGroup != null)
+            {
+                outroCanvasGroup.alpha = 0f;
+                outroCanvasGroup.DOFade(1f, 0.22f);
+            }
+
+            // 2. ModalBox Pop-in (preserves fixed aspect ratio)
+            if (outroModalBox != null)
+            {
+                outroModalBox.localScale = Vector3.one * 0.65f;
+                outroModalBox.DOScale(Vector3.one, 0.30f).SetEase(Ease.OutBack);
+            }
+
+            // 3. Badge Graphic Pop-in
+            if (outroBadgeTransform != null)
+            {
+                outroBadgeTransform.localScale = Vector3.one * 0.5f;
+                outroBadgeTransform.DOScale(Vector3.one, 0.28f).SetEase(Ease.OutBack).SetDelay(0.08f);
+            }
+
+            // 4. Star Pop-up (2 big, 2 small)
+            AnimateStarPop(outroStarBig1, 0.10f);
+            AnimateStarPop(outroStarBig2, 0.16f);
+            AnimateStarPop(outroStarSmall1, 0.22f);
+            AnimateStarPop(outroStarSmall2, 0.28f);
+
+            // 5. Number count-up and final pop punch
             if (freeSpinsOutroWinText != null)
             {
-                freeSpinsOutroWinText.text = SpriteTextUtility.FormatCurrency(0, includeDollar: false);
+                freeSpinsOutroWinText.transform.localScale = Vector3.one;
+                freeSpinsOutroWinText.text = SpriteTextUtility.FormatWithSpriteAsset(0, freeSpinsOutroWinText);
                 float startWin = 0;
                 freeSpinsOutroTweener = DOTween.To(() => startWin, x =>
                 {
                     startWin = x;
                     if (freeSpinsOutroWinText != null)
                     {
-                        freeSpinsOutroWinText.text = SpriteTextUtility.FormatCurrency(x, includeDollar: false);
+                        freeSpinsOutroWinText.text = SpriteTextUtility.FormatWithSpriteAsset(x, freeSpinsOutroWinText);
                     }
                 }, (float)totalWin, 1.2f).SetEase(Ease.OutCubic).OnComplete(() =>
                 {
                     if (freeSpinsOutroWinText != null)
                     {
-                        freeSpinsOutroWinText.text = SpriteTextUtility.FormatCurrency(totalWin, includeDollar: false);
+                        freeSpinsOutroWinText.text = SpriteTextUtility.FormatWithSpriteAsset(totalWin, freeSpinsOutroWinText);
+                        freeSpinsOutroWinText.transform.DOPunchScale(Vector3.one * 0.20f, 0.30f, 8, 1f);
                     }
                 });
             }
-            OpenModal(freeSpinsOutroPanel);
+
             StartCoroutine(AutoDismissModal(freeSpinsOutroPanel, 3.5f));
         }
 
-        internal void ShowWinCelebration(string title, double winAmount, float displayDuration = 3.0f)
+        internal void ShowWinCelebration(string title, double winAmount, float displayDuration = 3.5f)
         {
-            if (winCelebrationPanel != null)
+            ResetCelebrationPanelStates();
+            OpenModal(winCelebrationPanel);
+            AudioManager.Instance?.PlayWinTypePopupOpen();
+
+            // 1. DisplayOnly Alpha Fade-in
+            if (winDisplayGroup != null)
             {
-                OpenModal(winCelebrationPanel);
-                var sunburst = winCelebrationPanel.transform.Find("EffectSunburst");
-                if (sunburst != null)
+                winDisplayGroup.alpha = 0f;
+                winDisplayGroup.DOFade(1f, 0.25f);
+            }
+
+            // 2. Sunburst continuous rotation
+           /* if (winBgEffectTransform != null)
+            {
+                winBgEffectTransform.rotation = Quaternion.identity;
+                winBgEffectTransform.DORotate(new Vector3(0, 0, -360), 8f, RotateMode.FastBeyond360).SetEase(Ease.Linear).SetLoops(-1);
+            }*/
+
+            // 3. Title pop-in (0 -> 1.15 -> 1.0) and idle breathe (0.85 <-> 1.15)
+            if (winTitleTransform != null)
+            {
+                winTitleTransform.localScale = Vector3.zero;
+                winTitleTransform.DOScale(Vector3.one, 0.32f).SetEase(Ease.OutBack).OnComplete(() =>
                 {
-                    sunburst.DOKill();
-                    sunburst.rotation = Quaternion.identity;
-                    sunburst.DORotate(new Vector3(0, 0, -360), 8f, RotateMode.FastBeyond360).SetEase(Ease.Linear).SetLoops(-1);
+                    winTitleTransform.DOScale(Vector3.one * 1.12f, 0.9f).SetEase(Ease.InOutSine).SetLoops(-1, LoopType.Yoyo);
+                });
+            }
+
+            // 4. Stars staggered pop-up
+            if (winStarCenter != null || winStarLeft != null || winStarRight != null)
+            {
+                AnimateStarPop(winStarCenter, 0.10f);
+                AnimateStarPop(winStarLeft, 0.18f);
+                AnimateStarPop(winStarRight, 0.24f);
+            }
+            else if (winStarsParent != null)
+            {
+                for (int i = 0; i < winStarsParent.childCount; i++)
+                {
+                    var star = winStarsParent.GetChild(i);
+                    AnimateStarPop(star, 0.10f + (i * 0.08f));
                 }
             }
-            AudioManager.Instance?.PlayWinTypePopupOpen();
-            if (winCelebrationTweener != null && winCelebrationTweener.IsActive()) winCelebrationTweener.Kill();
 
-            float startWin = 0;
+            // 5. Amount container pop-in (0.5 -> 1.0) and slow breathing (0.95 <-> 1.05)
+            if (winLabelTransform != null)
+            {
+                winLabelTransform.localScale = Vector3.one * 0.5f;
+                winLabelTransform.DOScale(Vector3.one, 0.32f).SetEase(Ease.OutBack).OnComplete(() =>
+                {
+                    winLabelTransform.DOScale(Vector3.one * 1.05f, 1.2f).SetEase(Ease.InOutSine).SetLoops(-1, LoopType.Yoyo);
+                });
+            }
+
+            // 6. Number count-up and final celebratory punch pop
             if (winCelebrationAmountText != null)
-                winCelebrationAmountText.text = SpriteTextUtility.FormatCurrency(0);
-
-            winCelebrationTweener = DOTween.To(() => startWin, x =>
             {
-                startWin = x;
-                if (winCelebrationAmountText != null)
-                    winCelebrationAmountText.text = SpriteTextUtility.FormatCurrency(x);
-            }, (float)winAmount, 1.2f).SetEase(Ease.OutCubic).OnComplete(() =>
-            {
-                if (winCelebrationAmountText != null)
-                    winCelebrationAmountText.text = SpriteTextUtility.FormatCurrency(winAmount);
-            });
+                winCelebrationAmountText.transform.localScale = Vector3.one;
+                winCelebrationAmountText.text = SpriteTextUtility.FormatWithSpriteAsset(0, winCelebrationAmountText);
+                float startWin = 0;
+                winCelebrationTweener = DOTween.To(() => startWin, x =>
+                {
+                    startWin = x;
+                    if (winCelebrationAmountText != null)
+                        winCelebrationAmountText.text = SpriteTextUtility.FormatWithSpriteAsset(x, winCelebrationAmountText);
+                }, (float)winAmount, 1.2f).SetEase(Ease.OutCubic).OnComplete(() =>
+                {
+                    if (winCelebrationAmountText != null)
+                    {
+                        winCelebrationAmountText.text = SpriteTextUtility.FormatWithSpriteAsset(winAmount, winCelebrationAmountText);
+                        winCelebrationAmountText.transform.DOPunchScale(Vector3.one * 0.22f, 0.35f, 8, 1f);
+                    }
+                });
+            }
 
             StartCoroutine(AutoDismissModal(winCelebrationPanel, displayDuration));
         }
@@ -810,7 +1055,7 @@ namespace SweetBonanza.View
         {
             currentBetAmount = bet;
             if (buyFeatureButtonCostText != null) 
-                buyFeatureButtonCostText.text = SpriteTextUtility.FormatCurrency(bet * 100.0);
+                buyFeatureButtonCostText.text = SpriteTextUtility.FormatWithSpriteAsset(bet * 100.0, buyFeatureButtonCostText);
 
             UpdateAnteBetSliderVisuals(isAnteBet);
             UpdateSettingsBetText(currentBetAmount);
@@ -874,27 +1119,15 @@ namespace SweetBonanza.View
         private void OnDisable()
         {
             StopAllCoroutines();
-            if (winCelebrationTweener != null && winCelebrationTweener.IsActive()) winCelebrationTweener.Kill();
-            if (freeSpinsOutroTweener != null && freeSpinsOutroTweener.IsActive()) freeSpinsOutroTweener.Kill();
+            ResetCelebrationPanelStates();
             if (anteBetSlider != null) anteBetSlider.DOKill();
-            if (winCelebrationPanel != null)
-            {
-                var sunburst = winCelebrationPanel.transform.Find("EffectSunburst");
-                if (sunburst != null) sunburst.DOKill();
-            }
         }
 
         private void OnDestroy()
         {
             StopAllCoroutines();
-            if (winCelebrationTweener != null && winCelebrationTweener.IsActive()) winCelebrationTweener.Kill();
-            if (freeSpinsOutroTweener != null && freeSpinsOutroTweener.IsActive()) freeSpinsOutroTweener.Kill();
+            ResetCelebrationPanelStates();
             if (anteBetSlider != null) anteBetSlider.DOKill();
-            if (winCelebrationPanel != null)
-            {
-                var sunburst = winCelebrationPanel.transform.Find("EffectSunburst");
-                if (sunburst != null) sunburst.DOKill();
-            }
         }
     }
 }

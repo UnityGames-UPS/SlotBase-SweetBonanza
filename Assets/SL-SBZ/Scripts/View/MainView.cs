@@ -56,6 +56,8 @@ namespace SweetBonanza.View
         [SerializeField] private GameObject topPromoBannerObj;
         [SerializeField] private GameObject topTumbleWinBanner;
         [SerializeField] private TMP_Text topTumbleWinText;
+        [SerializeField] private CanvasGroup promoCanvasGroup;
+        [SerializeField] private CanvasGroup tumbleCanvasGroup;
 
         [Header("Bottom Bar Display Objects")]
        
@@ -98,7 +100,11 @@ namespace SweetBonanza.View
         private void CaptureDayPositions()
         {
             if (dayPositionsCaptured) return;
-            if (slotFrameImage != null) slotFrameDayPos = slotFrameImage.rectTransform.anchoredPosition;
+            if (slotFrameImage != null)
+            {
+                RectTransform frameRect = slotFrameImage.transform.parent as RectTransform ?? slotFrameImage.rectTransform;
+                slotFrameDayPos = frameRect != null ? frameRect.anchoredPosition : new Vector2(143.60f, 57f);
+            }
             if (buyBonusButton != null) buyButtonDayPos = buyBonusButton.GetComponent<RectTransform>().anchoredPosition;
             if (anteBetToggleButton != null) anteButtonDayPos = anteBetToggleButton.GetComponent<RectTransform>().anchoredPosition;
             dayPositionsCaptured = true;
@@ -116,6 +122,21 @@ namespace SweetBonanza.View
             {
                 anteBetCanvasGroup = anteBetToggleButton.GetComponent<CanvasGroup>();
                 if (anteBetCanvasGroup == null) anteBetCanvasGroup = anteBetToggleButton.gameObject.AddComponent<CanvasGroup>();
+            }
+        }
+
+        /// <summary>Ensures CanvasGroup components exist on top promo banner and top tumble win banner.</summary>
+        private void EnsureTopBannerCanvasGroups()
+        {
+            if (topPromoBannerObj != null && promoCanvasGroup == null)
+            {
+                promoCanvasGroup = topPromoBannerObj.GetComponent<CanvasGroup>();
+                if (promoCanvasGroup == null) promoCanvasGroup = topPromoBannerObj.AddComponent<CanvasGroup>();
+            }
+            if (topTumbleWinBanner != null && tumbleCanvasGroup == null)
+            {
+                tumbleCanvasGroup = topTumbleWinBanner.GetComponent<CanvasGroup>();
+                if (tumbleCanvasGroup == null) tumbleCanvasGroup = topTumbleWinBanner.AddComponent<CanvasGroup>();
             }
         }
 
@@ -181,6 +202,7 @@ namespace SweetBonanza.View
         {
             CaptureDayPositions();
             EnsureFeatureCanvasGroups();
+            EnsureTopBannerCanvasGroups();
             UpdateFeatureButtonsVisualState();
             if (spinButton != null)
             {
@@ -228,8 +250,19 @@ namespace SweetBonanza.View
         {
             UpdateSpinButtonVisuals();
             SetIdleBottomBarState();
+            EnsureTopBannerCanvasGroups();
             if (topTumbleWinBanner != null) topTumbleWinBanner.SetActive(false);
+            if (tumbleCanvasGroup != null)
+            {
+                tumbleCanvasGroup.alpha = 0f;
+                tumbleCanvasGroup.blocksRaycasts = false;
+            }
             if (topPromoBannerObj != null) topPromoBannerObj.SetActive(true);
+            if (promoCanvasGroup != null)
+            {
+                promoCanvasGroup.alpha = 1f;
+                promoCanvasGroup.blocksRaycasts = true;
+            }
         }
 
         private void Update()
@@ -311,16 +344,8 @@ namespace SweetBonanza.View
             if (anteBetAmountText != null)
             {
                 double anteCost = baseBet * 1.25;
-                anteBetAmountText.text = SpriteTextUtility.FormatCurrency(anteCost);
+                anteBetAmountText.text = SpriteTextUtility.FormatWithSpriteAsset(anteCost, anteBetAmountText);
             }
-        }
-
-        private CanvasGroup GetOrCreateCanvasGroup(GameObject go)
-        {
-            if (go == null) return null;
-            var cg = go.GetComponent<CanvasGroup>();
-            if (cg == null) cg = go.AddComponent<CanvasGroup>();
-            return cg;
         }
 
         /// <summary>Called when Buy Feature opens or is active: all bottom bar display objects are hidden.</summary>
@@ -386,13 +411,13 @@ namespace SweetBonanza.View
                 if (freeSpinsBadge != null) freeSpinsBadge.SetActive(false);
                 if (autoSpinCountObj != null) autoSpinCountObj.SetActive(false);
 
-                if (payoutMultiplayerText != null) payoutMultiplayerText.text = $"{count}";
+                if (payoutMultiplayerText != null) payoutMultiplayerText.text = SpriteTextUtility.FormatCountWithSpriteAsset(count, payoutMultiplayerText);
                 if (payoutMultiplierIcon != null)
                 {
                     payoutMultiplierIcon.sprite = symbolSprite;
                     payoutMultiplierIcon.gameObject.SetActive(symbolSprite != null);
                 }
-                if (payoutMultiplierLabel != null) payoutMultiplierLabel.text = $"{payout:F2}";
+                if (payoutMultiplierLabel != null) payoutMultiplierLabel.text = SpriteTextUtility.FormatWithSpriteAsset(payout, payoutMultiplierLabel);
 
                 if (totalWinText != null && !string.IsNullOrEmpty(detail))
                     totalWinText.text = $"<color=#F1C40F>WIN</color> {tumbleWin:F2}\n<size=65%>{detail}</size>";
@@ -521,7 +546,7 @@ namespace SweetBonanza.View
             if (flyerText == null)
             {
                 var go = new GameObject("MultiplierFlyer", typeof(RectTransform), typeof(CanvasRenderer), typeof(TextMeshProUGUI));
-                Transform parentCanvas = topTumbleWinBanner != null ? topTumbleWinBanner.transform.parent : transform;
+                Transform parentCanvas = topTumbleWinBanner != null ? (topTumbleWinBanner.transform.parent?.parent ?? topTumbleWinBanner.transform.parent) : transform;
                 go.transform.SetParent(parentCanvas, false);
 
                 var rt = go.GetComponent<RectTransform>();
@@ -548,48 +573,100 @@ namespace SweetBonanza.View
             return flyerText;
         }
 
-        /// <summary>Shows the purple capsule banner at the top of the grid during Free Spins night mode.</summary>
+        /// <summary>Shows the purple capsule banner at the top of the grid with smooth cross-fade.</summary>
         internal void ShowTopTumbleWinBanner(double initialTumbleWin)
         {
             if (topTumbleWinBanner == null) return;
+            EnsureTopBannerCanvasGroups();
 
-            if (topPromoBannerObj != null) topPromoBannerObj.SetActive(false);
+            // Fade out promo banner (topImageReplacePose) if currently visible
+            if (promoCanvasGroup != null && topPromoBannerObj != null && topPromoBannerObj.activeSelf)
+            {
+                promoCanvasGroup.DOKill();
+                promoCanvasGroup.blocksRaycasts = false;
+                promoCanvasGroup.DOFade(0f, 0.25f).OnComplete(() =>
+                {
+                    if (topPromoBannerObj != null) topPromoBannerObj.SetActive(false);
+                });
+            }
 
-            var cg = GetOrCreateCanvasGroup(topTumbleWinBanner);
-            topTumbleWinBanner.SetActive(true);
-            cg.DOKill();
-            cg.alpha = 0f;
-            cg.DOFade(1f, 0.25f);
-
-            topTumbleWinBanner.transform.DOKill();
-            topTumbleWinBanner.transform.localScale = Vector3.one * 0.85f;
-            topTumbleWinBanner.transform.DOScale(1f, 0.25f).SetEase(Ease.OutBack);
+            // Fade in tumble win banner if not already active
+            if (!topTumbleWinBanner.activeSelf)
+            {
+                topTumbleWinBanner.SetActive(true);
+                if (tumbleCanvasGroup != null)
+                {
+                    tumbleCanvasGroup.DOKill();
+                    tumbleCanvasGroup.alpha = 0f;
+                    tumbleCanvasGroup.DOFade(1f, 0.25f);
+                    tumbleCanvasGroup.blocksRaycasts = true;
+                }
+                topTumbleWinBanner.transform.DOKill();
+                topTumbleWinBanner.transform.localScale = Vector3.one * 0.85f;
+                topTumbleWinBanner.transform.DOScale(1f, 0.25f).SetEase(Ease.OutBack);
+            }
 
             if (topTumbleWinText != null)
             {
-                topTumbleWinText.text = SpriteTextUtility.FormatFloatingWin(initialTumbleWin, includeDollar: false);
+                topTumbleWinText.text = SpriteTextUtility.FormatTopTumbleWin(initialTumbleWin, topTumbleWinText);
             }
         }
 
-        /// <summary>Hides the top tumble win banner with a smooth fade-out.</summary>
+        /// <summary>Hides the top tumble win banner with a smooth cross-fade back to promo banner.</summary>
         internal void HideTopTumbleWinBanner(bool immediate = false)
         {
-            if (topTumbleWinBanner == null || !topTumbleWinBanner.activeSelf) return;
+            EnsureTopBannerCanvasGroups();
 
             if (immediate)
             {
-                topTumbleWinBanner.SetActive(false);
-                if (topPromoBannerObj != null && !isInFreeSpins) topPromoBannerObj.SetActive(true);
+                if (tumbleCanvasGroup != null)
+                {
+                    tumbleCanvasGroup.DOKill();
+                    tumbleCanvasGroup.alpha = 0f;
+                    tumbleCanvasGroup.blocksRaycasts = false;
+                }
+                if (topTumbleWinBanner != null) topTumbleWinBanner.SetActive(false);
+
+                if (topPromoBannerObj != null)
+                {
+                    topPromoBannerObj.SetActive(true);
+                    if (promoCanvasGroup != null)
+                    {
+                        promoCanvasGroup.DOKill();
+                        promoCanvasGroup.alpha = 1f;
+                        promoCanvasGroup.blocksRaycasts = true;
+                    }
+                }
                 return;
             }
 
-            var cg = GetOrCreateCanvasGroup(topTumbleWinBanner);
-            cg.DOKill();
-            cg.DOFade(0f, 0.25f).OnComplete(() =>
+            if (topTumbleWinBanner == null || !topTumbleWinBanner.activeSelf) return;
+
+            if (tumbleCanvasGroup != null)
+            {
+                tumbleCanvasGroup.DOKill();
+                tumbleCanvasGroup.blocksRaycasts = false;
+                tumbleCanvasGroup.DOFade(0f, 0.25f).OnComplete(() =>
+                {
+                    if (topTumbleWinBanner != null) topTumbleWinBanner.SetActive(false);
+                });
+            }
+            else if (topTumbleWinBanner != null)
             {
                 topTumbleWinBanner.SetActive(false);
-                if (topPromoBannerObj != null && !isInFreeSpins) topPromoBannerObj.SetActive(true);
-            });
+            }
+
+            if (topPromoBannerObj != null)
+            {
+                topPromoBannerObj.SetActive(true);
+                if (promoCanvasGroup != null)
+                {
+                    promoCanvasGroup.DOKill();
+                    promoCanvasGroup.alpha = 0f;
+                    promoCanvasGroup.DOFade(1f, 0.25f);
+                    promoCanvasGroup.blocksRaycasts = true;
+                }
+            }
         }
 
         /// <summary>Animates a flying multiplier from a grid bomb cell up into the top tumble banner.</summary>
@@ -604,12 +681,13 @@ namespace SweetBonanza.View
             flyer.transform.SetAsLastSibling();
             flyer.gameObject.SetActive(true);
             flyer.transform.position = fromWorldPos;
-            flyer.transform.localScale = Vector3.one * 0.6f;
-            flyer.text = $"{multiplier}x";
+            flyer.transform.localScale = Vector3.one;
+            flyer.text = SpriteTextUtility.FormatBombMultiplier(multiplier);
 
             Vector3 targetPos = topTumbleWinBanner.transform.position;
 
-            flyer.transform.DOScale(1.35f, 0.15f);
+            flyer.transform.DOScale(1.5f, 0.21f).SetEase(Ease.OutQuad)
+                .OnComplete(() => flyer.transform.DOScale(1.0f, 0.21f).SetEase(Ease.InQuad));
             yield return flyer.transform.DOMove(targetPos, 0.42f).SetEase(Ease.OutQuad).WaitForCompletion();
 
             flyer.gameObject.SetActive(false);
@@ -621,7 +699,7 @@ namespace SweetBonanza.View
 
             if (topTumbleWinText != null)
             {
-                topTumbleWinText.text = SpriteTextUtility.FormatFloatingWin(baseTumbleWin, includeDollar: false);
+                topTumbleWinText.text = SpriteTextUtility.FormatTopTumbleWinFormula(baseTumbleWin, runningMultiplier, topTumbleWinText);
             }
 
             yield return new WaitForSeconds(0.15f);
@@ -633,6 +711,8 @@ namespace SweetBonanza.View
             if (topTumbleWinBanner == null) yield break;
             if (!topTumbleWinBanner.activeSelf) topTumbleWinBanner.SetActive(true);
 
+            yield return new WaitForSeconds(0.35f);
+
             double finalWin = baseTumbleWin * totalMultiplier;
             topTumbleWinBanner.transform.DOKill();
             topTumbleWinBanner.transform.localScale = Vector3.one;
@@ -640,7 +720,7 @@ namespace SweetBonanza.View
 
             if (topTumbleWinText != null)
             {
-                topTumbleWinText.text = SpriteTextUtility.FormatFloatingWin(finalWin, includeDollar: false);
+                topTumbleWinText.text = SpriteTextUtility.FormatTopTumbleWin(finalWin, topTumbleWinText);
             }
 
             yield return new WaitForSeconds(0.8f);
@@ -871,15 +951,10 @@ namespace SweetBonanza.View
             if (freeSpinsCountText != null) freeSpinsCountText.text = isInFreeSpins ? $"{remainingSpins}" : "";
             if (buyBonusButton != null && isInFreeSpins) buyBonusButton.interactable = false;
 
-            // Pause promo banner cycle during free spins; resume when returning to base game
-            if (isInFreeSpins)
+            // Top promo banner vs tumble win banner visibility is handled via CanvasGroup cross-fade
+            if (!isInFreeSpins && topTumbleWinBanner != null && topTumbleWinBanner.activeSelf)
             {
-                if (topPromoBannerObj != null) topPromoBannerObj.SetActive(false);
-            }
-            else
-            {
-                if (topTumbleWinBanner != null) topTumbleWinBanner.SetActive(false);
-                if (topPromoBannerObj != null) topPromoBannerObj.SetActive(true);
+                HideTopTumbleWinBanner(immediate: true);
             }
 
             ApplyThemeMode(isInFreeSpins);
@@ -912,12 +987,13 @@ namespace SweetBonanza.View
                 anteRect.DOAnchorPosX(targetX, 0.45f).SetEase(nightMode ? Ease.InBack : Ease.OutBack);
             }
 
-            // 2. Center slot frame (Night) or return to Day offset (Day)
+            // 2. Center slot frame to 6 (Night / Free Spins) or 143.60 (Day / Base Game)
             if (slotFrameImage != null)
             {
-                slotFrameImage.rectTransform.DOKill();
-                float targetSlotX = nightMode ? 0f : slotFrameDayPos.x;
-                slotFrameImage.rectTransform.DOAnchorPosX(targetSlotX, 0.5f).SetEase(Ease.InOutCubic);
+                RectTransform frameRect = slotFrameImage.transform.parent as RectTransform ?? slotFrameImage.rectTransform;
+                frameRect.DOKill();
+                float targetSlotX = nightMode ? 6f : (slotFrameDayPos.x != 0 ? slotFrameDayPos.x : 143.60f);
+                frameRect.DOAnchorPosX(targetSlotX, 0.5f).SetEase(Ease.InOutCubic);
             }
 
             // 3. Trigger candy transition overlay
@@ -979,7 +1055,11 @@ namespace SweetBonanza.View
         /// <summary>Kills active DOTween tweens when the MainView component is destroyed.</summary>
         private void OnDestroy()
         {
-            if (slotFrameImage != null) slotFrameImage.rectTransform.DOKill();
+            if (slotFrameImage != null)
+            {
+                slotFrameImage.rectTransform.DOKill();
+                if (slotFrameImage.transform.parent != null) slotFrameImage.transform.parent.DOKill();
+            }
             if (buyBonusButton != null) buyBonusButton.transform.DOKill();
             if (anteBetToggleButton != null) anteBetToggleButton.transform.DOKill();
             if (spinButton != null) spinButton.transform.DOKill();
@@ -987,6 +1067,8 @@ namespace SweetBonanza.View
             if (autoSpinRemainingText != null) autoSpinRemainingText.transform.DOKill();
             if (flyerText != null) flyerText.transform.DOKill();
             if (topTumbleWinBanner != null) topTumbleWinBanner.transform.DOKill();
+            if (promoCanvasGroup != null) promoCanvasGroup.DOKill();
+            if (tumbleCanvasGroup != null) tumbleCanvasGroup.DOKill();
         }
     }
 }
