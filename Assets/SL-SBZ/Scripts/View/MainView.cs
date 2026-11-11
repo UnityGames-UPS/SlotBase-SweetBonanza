@@ -37,6 +37,9 @@ namespace SweetBonanza.View
 
         [Header("Indicators & Overlays")]
         [SerializeField] private GameObject freeSpinsBadge;
+        [SerializeField] private Image freeSpinsBadgeImage;
+        [SerializeField] private Sprite freeSpinsBadgeSprite;
+        [SerializeField] private Sprite autoSpinBadgeSprite;
 
         [Header("Ante Bet Display")]
         [SerializeField] private TMP_Text anteBetAmountText;
@@ -61,9 +64,9 @@ namespace SweetBonanza.View
 
         [Header("Bottom Bar Display Objects")]
        
-        [SerializeField] private Button betPlusBtn;
+       /* [SerializeField] private Button betPlusBtn;
         [SerializeField] private Button betMinusBtn;
-        [SerializeField] private TMP_Text betDisplayText;
+        [SerializeField] private TMP_Text betDisplayText;*/
 
         [SerializeField] private GameObject spinInstructionObj;
         [SerializeField] private GameObject payoutMultiplayerObj;
@@ -229,9 +232,9 @@ namespace SweetBonanza.View
                 });
             }
             if (betPlusButton != null) betPlusButton.onClick.AddListener(() => OnBetIncreaseClicked?.Invoke());
-            if (betPlusBtn != null && betPlusBtn != betPlusButton) betPlusBtn.onClick.AddListener(() => OnBetIncreaseClicked?.Invoke());
+            //if (betPlusBtn != null && betPlusBtn != betPlusButton) betPlusBtn.onClick.AddListener(() => OnBetIncreaseClicked?.Invoke());
             if (betMinusButton != null) betMinusButton.onClick.AddListener(() => OnBetDecreaseClicked?.Invoke());
-            if (betMinusBtn != null && betMinusBtn != betMinusButton) betMinusBtn.onClick.AddListener(() => OnBetDecreaseClicked?.Invoke());
+            //if (betMinusBtn != null && betMinusBtn != betMinusButton) betMinusBtn.onClick.AddListener(() => OnBetDecreaseClicked?.Invoke());
             if (buyBonusButton != null) buyBonusButton.onClick.AddListener(() => OnBuyBonusClicked?.Invoke());
             if (anteBetToggleButton != null) anteBetToggleButton.onClick.AddListener(() => OnAnteBetToggled?.Invoke());
 
@@ -269,7 +272,7 @@ namespace SweetBonanza.View
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                if (isAutoplaying)
+                if (isAutoplaying || isInFreeSpins)
                 {
                     if (autoSpinStopButton != null && autoSpinStopButton.gameObject.activeInHierarchy && autoSpinStopButton.interactable)
                     {
@@ -336,13 +339,14 @@ namespace SweetBonanza.View
                 currentBetText.text = $"{effectiveBet:F2}";
             }
 
-            if (betDisplayText != null)
+           /* if (betDisplayText != null)
             {
                 betDisplayText.text = $"{effectiveBet:F2}";
-            }
+            }*/
 
             if (anteBetAmountText != null)
             {
+                anteBetAmountText.textWrappingMode = TextWrappingModes.NoWrap;
                 double anteCost = baseBet * 1.25;
                 anteBetAmountText.text = SpriteTextUtility.FormatWithSpriteAsset(anteCost, anteBetAmountText);
             }
@@ -358,6 +362,32 @@ namespace SweetBonanza.View
             if (autoSpinCountObj != null) autoSpinCountObj.SetActive(false);
         }
 
+        /// <summary>Updates the spins badge with sprite swap and priority (Free Spins > AutoSpin > Idle).</summary>
+        private void UpdateSpinsBadge(int remainingCount = -1)
+        {
+            int autoCount = remainingCount >= 0 ? remainingCount : remainingAutoplayCount;
+            bool show = isInFreeSpins || (isAutoplaying && autoCount > 0);
+
+            if (freeSpinsBadge != null) freeSpinsBadge.SetActive(show);
+            if (spinInstructionObj != null) spinInstructionObj.SetActive(!show && !isSpinning);
+            if (!show) return;
+
+            if (freeSpinsBadgeImage != null)
+                freeSpinsBadgeImage.sprite = isInFreeSpins ? freeSpinsBadgeSprite : autoSpinBadgeSprite;
+
+            if (freeSpinsCountText != null)
+            {
+                if (isInFreeSpins)
+                {
+                    if (remainingCount >= 0) freeSpinsCountText.text = $"{remainingCount}";
+                }
+                else
+                {
+                    freeSpinsCountText.text = $"{autoCount}";
+                }
+            }
+        }
+
         /// <summary>Called when a spin starts (manual or autoplay).</summary>
         public void SetSpinStartedState(bool isAutoplay, int remainingSpins)
         {
@@ -370,23 +400,7 @@ namespace SweetBonanza.View
             if (winCountObj != null) winCountObj.SetActive(false);
             if (payoutMultiplayerObj != null) payoutMultiplayerObj.SetActive(false);
 
-            if (isInFreeSpins)
-            {
-                if (freeSpinsBadge != null) freeSpinsBadge.SetActive(true);
-                if (freeSpinsCountText != null && remainingSpins > 0) freeSpinsCountText.text = $"{remainingSpins}";
-                if (spinInstructionObj != null) spinInstructionObj.SetActive(false);
-            }
-            else if (isAutoplay)
-            {
-                if (autoSpinCountObj != null) autoSpinCountObj.SetActive(true);
-                if (autoSpinRemainingText != null) autoSpinRemainingText.text = $"{remainingSpins}";
-                if (spinInstructionObj != null) spinInstructionObj.SetActive(false);
-            }
-            else
-            {
-                if (autoSpinCountObj != null) autoSpinCountObj.SetActive(false);
-                if (spinInstructionObj != null) spinInstructionObj.SetActive(true);
-            }
+            UpdateSpinsBadge(remainingSpins);
 
             SetSpinningButtonsState(true);
         }
@@ -436,22 +450,7 @@ namespace SweetBonanza.View
             {
                 if (payoutMultiplayerObj != null) payoutMultiplayerObj.SetActive(false);
                 if (winCountObj != null) winCountObj.SetActive(false);
-
-                if (isInFreeSpins)
-                {
-                    if (freeSpinsBadge != null) freeSpinsBadge.SetActive(true);
-                    if (spinInstructionObj != null) spinInstructionObj.SetActive(false);
-                }
-                else if (isAutoplaying && remainingAutoplayCount > 0)
-                {
-                    if (autoSpinCountObj != null) autoSpinCountObj.SetActive(true);
-                    if (spinInstructionObj != null) spinInstructionObj.SetActive(false);
-                }
-                else
-                {
-                    if (autoSpinCountObj != null) autoSpinCountObj.SetActive(false);
-                    if (spinInstructionObj != null) spinInstructionObj.SetActive(true);
-                }
+                UpdateSpinsBadge();
             }
         }
 
@@ -485,28 +484,8 @@ namespace SweetBonanza.View
                     if (winCountObj != null) winCountObj.SetActive(false);
                     if (totalWinText != null) totalWinText.text = "0.00";
 
-                    if (isInFreeSpins)
-                    {
-                        if (freeSpinsBadge != null) freeSpinsBadge.SetActive(true);
-                        if (spinInstructionObj != null) spinInstructionObj.SetActive(false);
-                        if (payoutMultiplayerObj != null) payoutMultiplayerObj.SetActive(false);
-                    }
-                    else if (isAutoplaying && remainingAutoplayCount > 0)
-                    {
-                        if (autoSpinCountObj != null) autoSpinCountObj.SetActive(true);
-                        if (spinInstructionObj != null) spinInstructionObj.SetActive(false);
-                       
-                        if (payoutMultiplayerObj != null) payoutMultiplayerObj.SetActive(false);
-                    }
-                    else
-                    {
-                        if (autoSpinCountObj != null) autoSpinCountObj.SetActive(false);
-                        if (payoutMultiplayerObj != null) payoutMultiplayerObj.SetActive(false);
-                        if (!isSpinning && spinInstructionObj != null)
-                        {
-                            spinInstructionObj.SetActive(true);
-                        }
-                    }
+                    if (payoutMultiplayerObj != null) payoutMultiplayerObj.SetActive(false);
+                    UpdateSpinsBadge();
                 }
             }
         }
@@ -519,21 +498,7 @@ namespace SweetBonanza.View
             if (payoutMultiplayerObj != null) payoutMultiplayerObj.SetActive(false);
             if (winCountObj != null) winCountObj.SetActive(false);
 
-            if (isInFreeSpins)
-            {
-                if (freeSpinsBadge != null) freeSpinsBadge.SetActive(true);
-                if (spinInstructionObj != null) spinInstructionObj.SetActive(false);
-            }
-            else if (isAutoplaying && remainingAutoplayCount > 0)
-            {
-                if (autoSpinCountObj != null) autoSpinCountObj.SetActive(true);
-                if (spinInstructionObj != null) spinInstructionObj.SetActive(false);
-            }
-            else
-            {
-                if (autoSpinCountObj != null) autoSpinCountObj.SetActive(false);
-                if (spinInstructionObj != null) spinInstructionObj.SetActive(true);
-            }
+            UpdateSpinsBadge();
 
             SetSpinningButtonsState(false);
             OnSpinStopped?.Invoke();
@@ -567,6 +532,7 @@ namespace SweetBonanza.View
                 flyerText.alignment = TextAlignmentOptions.Center;
                 flyerText.color = new Color(1f, 0.95f, 0.15f, 1f);
                 flyerText.raycastTarget = false;
+                flyerText.textWrappingMode = TextWrappingModes.NoWrap;
                 flyerText.overflowMode = TextOverflowModes.Overflow;
                 go.SetActive(false);
             }
@@ -608,6 +574,7 @@ namespace SweetBonanza.View
 
             if (topTumbleWinText != null)
             {
+                topTumbleWinText.textWrappingMode = TextWrappingModes.NoWrap;
                 topTumbleWinText.text = SpriteTextUtility.FormatTopTumbleWin(initialTumbleWin, topTumbleWinText);
             }
         }
@@ -746,9 +713,9 @@ namespace SweetBonanza.View
             bool canInteractBet = interactable && !this.isSpinning && !isAutoplaying && !isInFreeSpins;
             if (betPlusButton != null) betPlusButton.interactable = canInteractBet;
             if (betMinusButton != null) betMinusButton.interactable = canInteractBet;
-            if (betPlusBtn != null) betPlusBtn.interactable = canInteractBet;
-            if (betMinusBtn != null) betMinusBtn.interactable = canInteractBet;
-            
+            //if (betPlusBtn != null) betPlusBtn.interactable = canInteractBet;
+            //if (betMinusBtn != null) betMinusBtn.interactable = canInteractBet;
+
             UpdateFeatureButtonsVisualState();
             UpdateSpinButtonVisuals();
         }
@@ -769,28 +736,24 @@ namespace SweetBonanza.View
             bool canInteractBet = !isAutoplay && !isSpinning && !isInFreeSpins;
             if (betPlusButton != null) betPlusButton.interactable = canInteractBet;
             if (betMinusButton != null) betMinusButton.interactable = canInteractBet;
-            if (betPlusBtn != null) betPlusBtn.interactable = canInteractBet;
-            if (betMinusBtn != null) betMinusBtn.interactable = canInteractBet;
+            //if (betPlusBtn != null) betPlusBtn.interactable = canInteractBet;
+            //if (betMinusBtn != null) betMinusBtn.interactable = canInteractBet;
 
             UpdateFeatureButtonsVisualState();
 
             if (isAutoplay && remainingSpins > 0)
             {
                 SetStatusMessage($"AUTO SPINS LEFT {remainingSpins}");
-                if (autoSpinRemainingText != null) autoSpinRemainingText.text = $"{remainingSpins}";
-                if (autoSpinCountObj != null) autoSpinCountObj.SetActive(true);
-                if (spinInstructionObj != null) spinInstructionObj.SetActive(false);
-                
                 if (payoutMultiplayerObj != null) payoutMultiplayerObj.SetActive(false);
                 if (winCountObj != null) winCountObj.SetActive(false);
+                UpdateSpinsBadge(remainingSpins);
             }
             else if (!isAutoplay && !isInFreeSpins)
             {
                 SetStatusMessage(string.Empty);
-                if (autoSpinCountObj != null) autoSpinCountObj.SetActive(false);
                 if (payoutMultiplayerObj != null) payoutMultiplayerObj.SetActive(false);
                 if (winCountObj != null) winCountObj.SetActive(false);
-                if (!isSpinning && spinInstructionObj != null) spinInstructionObj.SetActive(true);
+                UpdateSpinsBadge();
             }
 
             UpdateSpinButtonVisuals();
@@ -902,10 +865,7 @@ namespace SweetBonanza.View
 
             if (isAutoplaying)
             {
-                if (autoSpinRemainingText != null)
-                {
-                    autoSpinRemainingText.text = remainingAutoplayCount > 0 ? $"{remainingAutoplayCount}" : string.Empty;
-                }
+                UpdateSpinsBadge();
             }
             else
             {
@@ -913,42 +873,14 @@ namespace SweetBonanza.View
             }
         }
 
-        /// <summary>Toggles Free Spins badge animation, remaining count text, and day/night theme mode.</summary>
+        /// <summary>Updates Free Spins display, remaining count, and day/night theme mode.</summary>
         internal void SetFreeSpinsDisplay(bool isInFreeSpins, int remainingSpins)
         {
             this.isInFreeSpins = isInFreeSpins;
             UpdateFeatureButtonsVisualState();
 
-            if (freeSpinsBadge != null)
-            {
-                if (isInFreeSpins)
-                {
-                    if (!freeSpinsBadge.activeSelf)
-                    {
-                        freeSpinsBadge.SetActive(true);
-                        freeSpinsBadge.transform.DOKill();
-                        freeSpinsBadge.transform.localScale = Vector3.zero;
-                        freeSpinsBadge.transform.DOScale(1f, 0.35f).SetEase(Ease.OutBack);
-                    }
-                    else
-                    {
-                        freeSpinsBadge.transform.DOKill();
-                        freeSpinsBadge.transform.DOPunchScale(Vector3.one * 0.15f, 0.2f);
-                    }
-                    if (spinInstructionObj != null) spinInstructionObj.SetActive(false);
-                }
-                else
-                {
-                    freeSpinsBadge.transform.DOKill();
-                    freeSpinsBadge.transform.DOScale(0f, 0.25f).SetEase(Ease.InBack).OnComplete(() =>
-                    {
-                        freeSpinsBadge.SetActive(false);
-                        if (!isSpinning && spinInstructionObj != null) spinInstructionObj.SetActive(true);
-                    });
-                }
-            }
+            UpdateSpinsBadge(remainingSpins);
 
-            if (freeSpinsCountText != null) freeSpinsCountText.text = isInFreeSpins ? $"{remainingSpins}" : "";
             if (buyBonusButton != null && isInFreeSpins) buyBonusButton.interactable = false;
 
             // Top promo banner vs tumble win banner visibility is handled via CanvasGroup cross-fade

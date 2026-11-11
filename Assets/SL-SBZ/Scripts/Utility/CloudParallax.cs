@@ -23,46 +23,39 @@ public class CloudParallax : MonoBehaviour
 
     void Update()
     {
-        if (startPosition == null || endPosition == null || clouds == null)
+        if (startPosition == null || endPosition == null || clouds == null || clouds.Length == 0)
             return;
 
-        // Determine move direction based on start and end positions (+1: moving right, -1: moving left)
-        float moveDir = (endPosition.position.x >= startPosition.position.x) ? 1f : -1f;
+        // Determine move direction based on start and end positions in local space
+        float moveDir = (endPosition.localPosition.x >= startPosition.localPosition.x) ? 1f : -1f;
+        float totalSpan = clouds.Length * 1917f;
 
         foreach (CloudLayer layer in clouds)
         {
             if (layer.cloud == null)
                 continue;
 
-            // Move cloud towards end position
-            layer.cloud.Translate(
-                Vector3.right * (moveDir * layer.speed * Time.deltaTime),
-                Space.World
-            );
+            // Move cloud towards end position in local UI space (resolution-independent)
+            Vector3 pos = layer.cloud.localPosition;
+            pos.x += moveDir * (layer.speed * 160f) * Time.deltaTime;
 
-            // Check if cloud has reached or passed end position
+            // Check if cloud has reached or passed end position in local space and loop seamlessly
             if (moveDir > 0f)
             {
-                // Moving Left -> Right
-                if (layer.cloud.position.x >= endPosition.position.x)
+                if (pos.x >= endPosition.localPosition.x)
                 {
-                    float overshoot = layer.cloud.position.x - endPosition.position.x;
-                    Vector3 pos = layer.cloud.position;
-                    pos.x = startPosition.position.x + overshoot;
-                    layer.cloud.position = pos;
+                    pos.x -= totalSpan;
                 }
             }
             else
             {
-                // Moving Right -> Left
-                if (layer.cloud.position.x <= endPosition.position.x)
+                if (pos.x <= endPosition.localPosition.x)
                 {
-                    float overshoot = endPosition.position.x - layer.cloud.position.x;
-                    Vector3 pos = layer.cloud.position;
-                    pos.x = startPosition.position.x - overshoot;
-                    layer.cloud.position = pos;
+                    pos.x += totalSpan;
                 }
             }
+
+            layer.cloud.localPosition = pos;
         }
     }
 }

@@ -96,6 +96,9 @@ namespace SweetBonanza.View
         [SerializeField] private TMP_Text buyFeatureCostText;
         [SerializeField] private TMP_Text buyFeatureButtonCostText;
         [SerializeField] private TMP_Text buyFeatureSpinsCountText;
+        [SerializeField] private Button buyFeatureBetPlusBtn;
+        [SerializeField] private Button buyFeatureBetMinusBtn;
+        [SerializeField] private TMP_Text buyFeatureBetDisplayText;
 
         [Header("Ante Bet Slider & Sprites")]
         [SerializeField] private Button anteBetButton;
@@ -332,6 +335,10 @@ namespace SweetBonanza.View
             // Settings Modal Bet Buttons
             BindClick(buttonSystemSettingIncreaseBet, () => OnBetIncreaseClicked?.Invoke());
             BindClick(buttonSystemSettingDecreaseBet, () => OnBetDecreaseClicked?.Invoke());
+
+            //Buy Feature Modal
+            BindClick(buyFeatureBetPlusBtn, () => OnBetIncreaseClicked?.Invoke());
+            BindClick(buyFeatureBetMinusBtn, () => OnBetDecreaseClicked?.Invoke());
 
             // Autoplay Modal
             BindClick(buttonOpenAutoplay, () =>
@@ -668,9 +675,15 @@ namespace SweetBonanza.View
         internal void OpenBuyFeatureModal(double betAmount, int freeSpinsCount = 10)
         {
             if (buyFeatureCostText != null) 
-                buyFeatureCostText.text = SpriteTextUtility.FormatWithSpriteAsset(betAmount * 100.0, buyFeatureCostText);
+            {
+                buyFeatureCostText.textWrappingMode = TextWrappingModes.NoWrap;
+                buyFeatureCostText.text = SpriteTextUtility.FormatWithSpriteAsset(betAmount * 100.0, buyFeatureCostText, forceTwoDecimals: false);
+            }
             if (buyFeatureSpinsCountText != null) 
+            {
+                buyFeatureSpinsCountText.textWrappingMode = TextWrappingModes.NoWrap;
                 buyFeatureSpinsCountText.text = SpriteTextUtility.FormatCountWithSpriteAsset(freeSpinsCount, buyFeatureSpinsCountText);
+            }
             if (mainView != null)
                 mainView.SetBuyFeatureState();
             OpenModal(buyFeatureConfirmPanel);
@@ -882,6 +895,7 @@ namespace SweetBonanza.View
             // 4. Spin Count Pop
             if (freeSpinsIntroCountText != null)
             {
+                freeSpinsIntroCountText.textWrappingMode = TextWrappingModes.NoWrap;
                 freeSpinsIntroCountText.text = SpriteTextUtility.FormatCountWithSpriteAsset(spinsCount, freeSpinsIntroCountText);
                 freeSpinsIntroCountText.transform.localScale = Vector3.one;
                 freeSpinsIntroCountText.transform.DOPunchScale(Vector3.one * 0.25f, 0.30f, 6, 1f).SetDelay(0.12f);
@@ -938,6 +952,7 @@ namespace SweetBonanza.View
             // 5. Number count-up and final pop punch
             if (freeSpinsOutroWinText != null)
             {
+                freeSpinsOutroWinText.textWrappingMode = TextWrappingModes.NoWrap;
                 freeSpinsOutroWinText.transform.localScale = Vector3.one;
                 freeSpinsOutroWinText.text = SpriteTextUtility.FormatWithSpriteAsset(0, freeSpinsOutroWinText);
                 float startWin = 0;
@@ -1020,6 +1035,7 @@ namespace SweetBonanza.View
             // 6. Number count-up and final celebratory punch pop
             if (winCelebrationAmountText != null)
             {
+                winCelebrationAmountText.textWrappingMode = TextWrappingModes.NoWrap;
                 winCelebrationAmountText.transform.localScale = Vector3.one;
                 winCelebrationAmountText.text = SpriteTextUtility.FormatWithSpriteAsset(0, winCelebrationAmountText);
                 float startWin = 0;
@@ -1055,7 +1071,10 @@ namespace SweetBonanza.View
         {
             currentBetAmount = bet;
             if (buyFeatureButtonCostText != null) 
-                buyFeatureButtonCostText.text = SpriteTextUtility.FormatWithSpriteAsset(bet * 100.0, buyFeatureButtonCostText);
+            {
+                buyFeatureButtonCostText.textWrappingMode = TextWrappingModes.NoWrap;
+                buyFeatureButtonCostText.text = SpriteTextUtility.FormatWithSpriteAsset(bet * 100.0, buyFeatureButtonCostText, forceTwoDecimals: false);
+            }
 
             UpdateAnteBetSliderVisuals(isAnteBet);
             UpdateSettingsBetText(currentBetAmount);
@@ -1098,6 +1117,14 @@ namespace SweetBonanza.View
                 double effectiveBet = isAnteBet ? bet * 1.25 : bet;
                 settingsBetAmountText.text = (effectiveBet % 1 == 0) 
                     ? effectiveBet.ToString("0") 
+                    : effectiveBet.ToString("F2", System.Globalization.CultureInfo.InvariantCulture);
+            }
+            //000***
+            if(buyFeatureBetDisplayText != null)
+            {
+                double effectiveBet = isAnteBet ? bet * 1.25 : bet;
+                buyFeatureBetDisplayText.text = (effectiveBet % 1 == 0)
+                    ? effectiveBet.ToString("0")
                     : effectiveBet.ToString("F2", System.Globalization.CultureInfo.InvariantCulture);
             }
         }

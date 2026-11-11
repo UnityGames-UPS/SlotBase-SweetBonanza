@@ -36,6 +36,8 @@ namespace SweetBonanza.View
         {
             if (rectTransform == null) rectTransform = GetComponent<RectTransform>();
             if (canvasGroup == null) canvasGroup = GetComponent<CanvasGroup>();
+            if (winAmountText != null) winAmountText.textWrappingMode = TextWrappingModes.NoWrap;
+            if (multiplierText != null) multiplierText.textWrappingMode = TextWrappingModes.NoWrap;
         }
 
         public SymbolType CurrentSymbol => currentSymbol;
@@ -113,6 +115,7 @@ namespace SweetBonanza.View
             activeSequence.Append(rectTransform.DOScale(1.24f, 0.16f).SetEase(Ease.OutBack));
             activeSequence.Append(rectTransform.DOScale(1.08f, 0.14f).SetEase(Ease.InOutQuad));
             activeSequence.Append(rectTransform.DOScale(1.18f, 0.14f).SetEase(Ease.OutQuad));
+            activeSequence.Append(rectTransform.DOScale(Vector3.one, 0.10f).SetEase(Ease.OutQuad));
 
             if (winAmount > 0 && winAmountText != null)
             {
@@ -518,17 +521,29 @@ namespace SweetBonanza.View
                 multiplierText.gameObject.SetActive(true);
                 multiplierText.transform.localScale = Vector3.one;
             }
-            if (symbolImage != null && baseSymbolSprite != null)
-            {
-                symbolImage.sprite = baseSymbolSprite;
-            }
             if (activeSequence != null && activeSequence.IsActive())
             {
-                activeSequence.Complete(true);
+                activeSequence.Kill();
+                activeSequence = null;
             }
             if (activeTweener != null && activeTweener.IsActive())
             {
-                activeTweener.Complete(true);
+                activeTweener.Kill();
+                activeTweener = null;
+            }
+            if (symbolImage != null)
+            {
+                if (baseSymbolSprite != null) symbolImage.sprite = baseSymbolSprite;
+                symbolImage.enabled = true;
+            }
+            if (rectTransform != null)
+            {
+                rectTransform.localScale = Vector3.one;
+                rectTransform.localRotation = Quaternion.identity;
+            }
+            if (canvasGroup != null)
+            {
+                canvasGroup.alpha = 1f;
             }
         }
 
@@ -553,6 +568,11 @@ namespace SweetBonanza.View
             activeTweener = null;
 
             if (multiplierText != null) multiplierText.transform.DOKill();
+        }
+
+        private void OnDisable()
+        {
+            KillActiveTweens();
         }
 
         private void OnDestroy()

@@ -102,24 +102,20 @@ namespace SweetBonanza.View
                 {
                     for (int r = 0; r < GameConfig.ROWS; r++)
                     {
-                        if (activeCells[c, r] != null)
+                        var cell = activeCells[c, r];
+                        if (cell != null)
                         {
-                            activeCells[c, r].CompleteAnimation();
+                            cell.CompleteAnimation();
+                            cell.RectTransform.anchoredPosition = GetCellPosition(c, r);
                         }
                     }
                 }
             }
+        }
 
-            if (cellPool != null)
-            {
-                foreach (var cell in cellPool)
-                {
-                    if (cell != null && cell.gameObject.activeSelf)
-                    {
-                        cell.CompleteAnimation();
-                    }
-                }
-            }
+        internal void ResetSlamStop()
+        {
+            isSlamStopRequested = false;
         }
 
         private void Awake()
@@ -287,7 +283,6 @@ namespace SweetBonanza.View
 
         internal IEnumerator PlayInitialDropSequence(int[,] matrix, List<BombMultiplierInfo> bombs = null)
         {
-            isSlamStopRequested = false;
             if (gridMask != null) gridMask.enabled = true;
             // 1. Gather active cells by column so exit and entrance can cascade synchronously
             var oldCellsByCol = new List<CellView>[GameConfig.COLUMNS];
@@ -317,10 +312,17 @@ namespace SweetBonanza.View
                     float oldColDelay = c * clearStagger;
                     foreach (var oldCell in oldCellsByCol[c])
                     {
-                        oldCell.PlayClearDropAnimation(oldColDelay, clearDuration, () =>
+                        if (isSlamStopRequested)
                         {
                             RecycleCell(oldCell);
-                        });
+                        }
+                        else
+                        {
+                            oldCell.PlayClearDropAnimation(oldColDelay, clearDuration, () =>
+                            {
+                                RecycleCell(oldCell);
+                            });
+                        }
                     }
                 }
             }
@@ -337,7 +339,7 @@ namespace SweetBonanza.View
 
             // 4. Calculate timing for incoming new wave:
             // Screen clears cleanly: Column 0 enters top-left as column 5 plunges out at bottom-right
-            float entranceStartDelay = totalOldCells > 0
+            float entranceStartDelay = (totalOldCells > 0 && !isSlamStopRequested)
                 ? ((GameConfig.COLUMNS - 1) * clearStagger + clearDuration * 0.40f)
                 : 0f;
 
@@ -451,12 +453,15 @@ namespace SweetBonanza.View
                     {
                         for (int r = 0; r < GameConfig.ROWS; r++)
                         {
-                            if (activeCells[c, r] != null)
+                            var cell = activeCells[c, r];
+                            if (cell != null)
                             {
-                                activeCells[c, r].CompleteAnimation();
+                                cell.CompleteAnimation();
+                                cell.RectTransform.anchoredPosition = GetCellPosition(c, r);
                             }
                         }
                     }
+                    break;
                 }
                 yield return null;
             }
@@ -464,7 +469,6 @@ namespace SweetBonanza.View
             if (gridMask != null) gridMask.enabled = false;
             bool wasSlam = isSlamStopRequested;
             if (wasSlam) AudioManager.Instance?.PlayReelStop();
-            isSlamStopRequested = false;
             yield return new WaitForSeconds(wasSlam ? 0.04f : 0.10f);
         }
 
@@ -622,12 +626,15 @@ namespace SweetBonanza.View
                     {
                         for (int r = 0; r < GameConfig.ROWS; r++)
                         {
-                            if (activeCells[c, r] != null)
+                            var cell = activeCells[c, r];
+                            if (cell != null)
                             {
-                                activeCells[c, r].CompleteAnimation();
+                                cell.CompleteAnimation();
+                                cell.RectTransform.anchoredPosition = GetCellPosition(c, r);
                             }
                         }
                     }
+                    break;
                 }
                 yield return null;
             }
@@ -635,7 +642,6 @@ namespace SweetBonanza.View
             if (gridMask != null) gridMask.enabled = false;
             bool wasSlam = isSlamStopRequested;
             AudioManager.Instance?.PlayReelStop();
-            isSlamStopRequested = false;
             yield return new WaitForSeconds(wasSlam ? 0.04f : 0.22f);
         }
 

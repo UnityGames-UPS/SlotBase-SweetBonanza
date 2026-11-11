@@ -45,11 +45,6 @@ MonoBehaviour:
     m_Name: Sweet Bonanza_NICE numbers_9
   - m_ElementType: 2
     m_Unicode: 65534
-    m_GlyphIndex: 0
-    m_Scale: 1
-    m_Name: Sweet Bonanza_NICE numbers_2
-  - m_ElementType: 2
-    m_Unicode: 65534
     m_GlyphIndex: 1
     m_Scale: 1
     m_Name: Sweet Bonanza_NICE numbers_0
@@ -58,6 +53,11 @@ MonoBehaviour:
     m_GlyphIndex: 2
     m_Scale: 1
     m_Name: Sweet Bonanza_NICE numbers_1
+  - m_ElementType: 2
+    m_Unicode: 65534
+    m_GlyphIndex: 0
+    m_Scale: 1
+    m_Name: Sweet Bonanza_NICE numbers_2
   - m_ElementType: 2
     m_Unicode: 65534
     m_GlyphIndex: 3

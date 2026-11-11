@@ -99,6 +99,22 @@ MonoBehaviour:
     m_Scale: 1
     m_Name: Sweet Bonanza_congratulation you have won panel yellow numbers_11
   m_GlyphTable:
+  - m_Index: 10
+    m_Metrics:
+      m_Width: 79
+      m_Height: 106
+      m_HorizontalBearingX: -43.7
+      m_HorizontalBearingY: 53
+      m_HorizontalAdvance: 79
+    m_GlyphRect:
+      m_X: 344
+      m_Y: 110
+      m_Width: 79
+      m_Height: 106
+    m_Scale: 1
+    m_AtlasIndex: 0
+    m_ClassDefinitionType: 0
+    sprite: {fileID: -6046855670394749799, guid: 76f79086603d15840a05e58174dc6a6f, type: 3}
   - m_Index: 0
     m_Metrics:
       m_Width: 88
@@ -259,22 +275,6 @@ MonoBehaviour:
     m_AtlasIndex: 0
     m_ClassDefinitionType: 0
     sprite: {fileID: -3248026091649556284, guid: 76f79086603d15840a05e58174dc6a6f, type: 3}
-  - m_Index: 10
-    m_Metrics:
-      m_Width: 79
-      m_Height: 106
-      m_HorizontalBearingX: -23.5
-      m_HorizontalBearingY: 53
-      m_HorizontalAdvance: 79
-    m_GlyphRect:
-      m_X: 344
-      m_Y: 110
-      m_Width: 79
-      m_Height: 106
-    m_Scale: 1
-    m_AtlasIndex: 0
-    m_ClassDefinitionType: 0
-    sprite: {fileID: -6046855670394749799, guid: 76f79086603d15840a05e58174dc6a6f, type: 3}
   - m_Index: 11
     m_Metrics:
       m_Width: 82
