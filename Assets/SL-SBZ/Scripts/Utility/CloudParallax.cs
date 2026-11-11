@@ -8,18 +8,18 @@ public class CloudParallax : MonoBehaviour
     [System.Serializable]
     public class CloudLayer
     {
-        public Transform cloud;
+        [SerializeField] internal Transform cloud;
 
         [Range(0.01f, 5f)]
-        public float speed = 0.2f;
+        [SerializeField] internal float speed = 0.2f;
     }
 
     [Header("Cloud Objects")]
-    public CloudLayer[] clouds;
+    [SerializeField] private CloudLayer[] clouds;
 
     [Header("Movement Positions")]
-    public Transform startPosition;
-    public Transform endPosition;
+    [SerializeField] private Transform startPosition;
+    [SerializeField] private Transform endPosition;
 
     void Update()
     {

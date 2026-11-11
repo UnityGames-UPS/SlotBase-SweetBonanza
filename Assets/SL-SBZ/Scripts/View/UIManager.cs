@@ -13,10 +13,10 @@ namespace SweetBonanza.View
     [Serializable]
     public class PaytableSymbolEntry
     {
-        public SymbolType symbol;
-        public TMP_Text textTier1; // 12+ (or 6+ for Scatter)
-        public TMP_Text textTier2; // 10-11 (or 5 for Scatter)
-        public TMP_Text textTier3; // 8-9 (or 4 for Scatter)
+        [SerializeField] internal SymbolType symbol;
+        [SerializeField] internal TMP_Text textTier1; // 12+ (or 6+ for Scatter)
+        [SerializeField] internal TMP_Text textTier2; // 10-11 (or 5 for Scatter)
+        [SerializeField] internal TMP_Text textTier3; // 8-9 (or 4 for Scatter)
     }
 
     public class UIManager : MonoBehaviour

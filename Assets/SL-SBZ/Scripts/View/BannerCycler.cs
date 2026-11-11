@@ -62,7 +62,7 @@ namespace SweetBonanza.View
         }
 
         /// <summary>Advances immediately to the next banner sprite when Spin is clicked.</summary>
-        public void AdvanceOnSpin()
+        internal void AdvanceOnSpin()
         {
             if (!syncWithSpin) return;
             if (imageList == null || imageList.Count <= 1) return;
@@ -72,7 +72,7 @@ namespace SweetBonanza.View
         }
 
         /// <summary>Advances immediately to the next banner sprite or restarts cycling when the slot stops.</summary>
-        public void HandleSpinStopped()
+        internal void HandleSpinStopped()
         {
             if (!syncWithSpin) return;
             if (imageList == null || imageList.Count <= 1) return;
@@ -82,14 +82,14 @@ namespace SweetBonanza.View
         }
 
         /// <summary>Shows or hides the banner images.</summary>
-        public void SetBannerVisible(bool visible)
+        internal void SetBannerVisible(bool visible)
         {
             if (bannerImageFront != null) bannerImageFront.gameObject.SetActive(visible);
             if (bannerImageBack != null) bannerImageBack.gameObject.SetActive(visible);
         }
 
         /// <summary>Pauses or resumes banner cycling (e.g. during tumble sequences).</summary>
-        public void PauseCycle(bool pause)
+        internal void PauseCycle(bool pause)
         {
             isPaused = pause;
             if (pause) StopCycle();

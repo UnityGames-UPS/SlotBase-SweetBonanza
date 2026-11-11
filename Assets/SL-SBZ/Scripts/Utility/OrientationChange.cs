@@ -5,43 +5,23 @@ using System.Collections;
 
 public class OrientationChange : MonoBehaviour
 {
+    public enum OrientationMode { Landscape, DesktopPortrait, MobilePortrait }
+    internal static event System.Action<OrientationMode, int, int> OnOrientationChanged;
+    internal event System.Action<OrientationMode, int, int> OnOrientationChangedInstance;
+
     [SerializeField] private RectTransform UIWrapper;
     [SerializeField] private CanvasScaler CanvasScaler;
-
     [SerializeField] private float transitionDuration = 0.2f;
     [SerializeField] private float waitForRotation = 0.2f;
-
-    // Compatibility stubs
-    public enum OrientationMode { Landscape, DesktopPortrait, MobilePortrait }
-    public static event System.Action<OrientationMode, int, int> OnOrientationChanged;
-    public event System.Action<OrientationMode, int, int> OnOrientationChangedInstance;
 
     private Vector2 ReferenceAspect;
     private Tween matchTween;
     private Tween rotationTween;
     private Coroutine rotationRoutine;
     private bool isLandscape;
-
     private void Awake()
     {
-        if (CanvasScaler == null)
-        {
-            CanvasScaler = GetComponent<CanvasScaler>() ?? Object.FindFirstObjectByType<CanvasScaler>();
-        }
-        if (UIWrapper == null)
-        {
-            var bg = GameObject.Find("MainCanvas/BG");
-            if (bg != null) UIWrapper = bg.GetComponent<RectTransform>();
-        }
-
-        if (CanvasScaler != null)
-        {
-            ReferenceAspect = CanvasScaler.referenceResolution;
-        }
-        else
-        {
-            ReferenceAspect = new Vector2(1920, 1080);
-        }
+        ReferenceAspect = CanvasScaler.referenceResolution;
     }
 
     private void Start()
@@ -49,13 +29,13 @@ public class OrientationChange : MonoBehaviour
         ApplyMatch(Screen.width, Screen.height);
     }
 
-    public void SwitchDisplay(string dimensions)
+    internal void SwitchDisplay(string dimensions)
     {
         if (rotationRoutine != null) StopCoroutine(rotationRoutine);
         rotationRoutine = StartCoroutine(RotationCoroutine(dimensions));
     }
 
-    private IEnumerator RotationCoroutine(string dimensions)
+    IEnumerator RotationCoroutine(string dimensions)
     {
         yield return new WaitForSecondsRealtime(waitForRotation);
         string[] parts = dimensions.Split(',');
@@ -74,14 +54,11 @@ public class OrientationChange : MonoBehaviour
         isLandscape = width > height;
 
         Quaternion targetRotation = isLandscape ? Quaternion.identity : Quaternion.Euler(0, 0, -90);
-        if (UIWrapper != null)
-        {
-            if (rotationTween != null && rotationTween.IsActive()) rotationTween.Kill();
-            rotationTween = UIWrapper.DOLocalRotateQuaternion(targetRotation, transitionDuration).SetEase(Ease.OutCubic);
-        }
+        if (rotationTween != null && rotationTween.IsActive()) rotationTween.Kill();
+        rotationTween = UIWrapper.DOLocalRotateQuaternion(targetRotation, transitionDuration).SetEase(Ease.OutCubic);
 
-        float refW = ReferenceAspect.x > 0 ? ReferenceAspect.x : 1920f;
-        float refH = ReferenceAspect.y > 0 ? ReferenceAspect.y : 1080f;
+        float refW = ReferenceAspect.x;
+        float refH = ReferenceAspect.y;
 
         float widthScale = (float)width / refW;
         float heightScale = (float)height / refH;
@@ -110,17 +87,19 @@ public class OrientationChange : MonoBehaviour
             targetMatch = Mathf.Clamp01(targetMatch);
         }
 
-        if (CanvasScaler != null)
-        {
-            if (matchTween != null && matchTween.IsActive()) matchTween.Kill();
-            matchTween = DOTween.To(() => CanvasScaler.matchWidthOrHeight, x => CanvasScaler.matchWidthOrHeight = x, targetMatch, transitionDuration).SetEase(Ease.InOutQuad);
-        }
-
-        Debug.LogWarning($"Unity: Dimensions {width}x{height}, isLandscape: {isLandscape}, targetMatch calculated: {targetMatch}");
+        if (matchTween != null && matchTween.IsActive()) matchTween.Kill();
+        matchTween = DOTween.To(() => CanvasScaler.matchWidthOrHeight, x => CanvasScaler.matchWidthOrHeight = x, targetMatch, transitionDuration).SetEase(Ease.InOutQuad);
 
         OnOrientationChanged?.Invoke(isLandscape ? OrientationMode.Landscape : OrientationMode.DesktopPortrait, width, height);
         OnOrientationChangedInstance?.Invoke(isLandscape ? OrientationMode.Landscape : OrientationMode.DesktopPortrait, width, height);
     }
+
+    private void OnDestroy()
+    {
+        if (rotationTween != null && rotationTween.IsActive()) rotationTween.Kill();
+        if (matchTween != null && matchTween.IsActive()) matchTween.Kill();
+    }
+
 
 #if UNITY_EDITOR
     private void Update()

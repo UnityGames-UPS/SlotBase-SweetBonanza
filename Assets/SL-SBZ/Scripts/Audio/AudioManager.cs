@@ -13,7 +13,7 @@ public class AudioManager : MonoBehaviour
 {
     #region Singleton & Initialization
 
-    public static AudioManager Instance { get; private set; }
+    internal static AudioManager Instance { get; private set; }
 
     private void Awake()
     {
@@ -119,23 +119,23 @@ public class AudioManager : MonoBehaviour
 
     #region Public Encapsulated Properties
 
-    public bool MusicEnabled => _musicEnabled;
-    public bool SfxEnabled   => _sfxEnabled;
-    public float MusicVolume => _musicVolume;
-    public float SfxVolume   => _sfxVolume;
-    public float MasterVolume => _masterVolume;
-    public bool IsMuted      => isForceMuted;
+    internal bool MusicEnabled => _musicEnabled;
+    internal bool SfxEnabled   => _sfxEnabled;
+    internal float MusicVolume => _musicVolume;
+    internal float SfxVolume   => _sfxVolume;
+    internal float MasterVolume => _masterVolume;
+    internal bool IsMuted      => isForceMuted;
 
     // Clip Accessors
-    public AudioClip ClipTurboButtonClick   => clipTurboButtonClick;
-    public AudioClip ClipTensionBuilder     => clipTensionBuilder;
-    public AudioClip ClipReelSpinLoop       => clipReelSpinLoop;
-    public AudioClip ClipWinTypePopupOpen   => clipWinTypePopupOpen;
-    public AudioClip ClipResultPopupOpen    => clipResultPopupOpen;
-    public AudioClip ClipFeatureBg          => clipFeatureBg;
-    public AudioClip ClipSymbolPop          => clipSymbolPop;
-    public AudioClip ClipBombExplode        => clipBombExplode;
-    public AudioClip ClipScatterCelebration => clipScatterCelebration;
+    internal AudioClip ClipTurboButtonClick   => clipTurboButtonClick;
+    internal AudioClip ClipTensionBuilder     => clipTensionBuilder;
+    internal AudioClip ClipReelSpinLoop       => clipReelSpinLoop;
+    internal AudioClip ClipWinTypePopupOpen   => clipWinTypePopupOpen;
+    internal AudioClip ClipResultPopupOpen    => clipResultPopupOpen;
+    internal AudioClip ClipFeatureBg          => clipFeatureBg;
+    internal AudioClip ClipSymbolPop          => clipSymbolPop;
+    internal AudioClip ClipBombExplode        => clipBombExplode;
+    internal AudioClip ClipScatterCelebration => clipScatterCelebration;
 
     #endregion
 
@@ -172,7 +172,7 @@ public class AudioManager : MonoBehaviour
 
     #region Volume & Mute Controls
 
-    public void SetMusicEnabled(bool on)
+    internal void SetMusicEnabled(bool on)
     {
         if (_musicEnabled == on) return;
         _musicEnabled = on;
@@ -190,7 +190,7 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    public void SetSfxEnabled(bool on)
+    internal void SetSfxEnabled(bool on)
     {
         if (_sfxEnabled == on) return;
         _sfxEnabled = on;
@@ -199,7 +199,7 @@ public class AudioManager : MonoBehaviour
         ApplySfxVolume();
     }
 
-    public void SetMusicVolume(float volume)
+    internal void SetMusicVolume(float volume)
     {
         _musicVolume = Mathf.Clamp01(volume);
         PlayerPrefs.SetFloat(PrefKeyMusicVol, _musicVolume);
@@ -207,7 +207,7 @@ public class AudioManager : MonoBehaviour
         ApplyMusicVolume();
     }
 
-    public void SetSfxVolume(float volume)
+    internal void SetSfxVolume(float volume)
     {
         _sfxVolume = Mathf.Clamp01(volume);
         PlayerPrefs.SetFloat(PrefKeySfxVol, _sfxVolume);
@@ -215,7 +215,7 @@ public class AudioManager : MonoBehaviour
         ApplySfxVolume();
     }
 
-    public void SetMasterVolume(float volume)
+    internal void SetMasterVolume(float volume)
     {
         _masterVolume = Mathf.Clamp01(volume);
         PlayerPrefs.SetFloat(PrefKeyMasterVol, _masterVolume);
@@ -223,7 +223,7 @@ public class AudioManager : MonoBehaviour
         ApplyMasterVolume();
     }
 
-    public void SetMuteAll(bool forceMute)
+    internal void SetMuteAll(bool forceMute)
     {
         if (forceMute == isForceMuted) return;
         isForceMuted = forceMute;
@@ -278,7 +278,7 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    public void PlayOneShot(AudioClip clip, float volumeScale = 1f)
+    internal void PlayOneShot(AudioClip clip, float volumeScale = 1f)
     {
         if (!_sfxEnabled || clip == null) return;
         var source = GetNextAvailableSfxSource();
@@ -289,7 +289,7 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    public void PlayOneShotRandomPitch(AudioClip clip, float pitchVariation = 0.04f, float volumeScale = 1f)
+    internal void PlayOneShotRandomPitch(AudioClip clip, float pitchVariation = 0.04f, float volumeScale = 1f)
     {
         if (!_sfxEnabled || clip == null) return;
         var source = GetNextAvailableSfxSource();
@@ -358,7 +358,7 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    public void CrossFadeMusic(AudioClip newClip, float duration = 0.5f, bool loop = true)
+    internal void CrossFadeMusic(AudioClip newClip, float duration = 0.5f, bool loop = true)
     {
         if (bgMusicSource == null || newClip == null) return;
         if (!_musicEnabled)

@@ -13,16 +13,16 @@ namespace SweetBonanza.View
     public class CellView : MonoBehaviour
     {
         [Header("Components")]
-        public Image symbolImage;
-        public TMP_Text multiplierText;
-        public TMP_Text winAmountText;
-        public CanvasGroup canvasGroup;
-        public RectTransform rectTransform;
+        [SerializeField] private Image symbolImage;
+        [SerializeField] private TMP_Text multiplierText;
+        [SerializeField] private TMP_Text winAmountText;
+        [SerializeField] private CanvasGroup canvasGroup;
+        [SerializeField] private RectTransform rectTransform;
 
         [Header("Visual Effects")]
-        public Image burstEffectImage;
-        public Sprite candyBurstSprite;
-        public Sprite bombBurstSprite;
+        [SerializeField] private Image burstEffectImage;
+        [SerializeField] private Sprite candyBurstSprite;
+        [SerializeField] private Sprite bombBurstSprite;
 
         private SymbolType currentSymbol;
         private int currentMultiplier;
@@ -40,12 +40,12 @@ namespace SweetBonanza.View
             if (multiplierText != null) multiplierText.textWrappingMode = TextWrappingModes.NoWrap;
         }
 
-        public SymbolType CurrentSymbol => currentSymbol;
-        public RectTransform RectTransform => rectTransform;
-        public Sprite BaseSymbolSprite => baseSymbolSprite;
-        public Sprite CurrentSprite => symbolImage != null ? symbolImage.sprite : null;
+        internal SymbolType CurrentSymbol => currentSymbol;
+        internal RectTransform RectTransform => rectTransform;
+        internal Sprite BaseSymbolSprite => baseSymbolSprite;
+        internal Sprite CurrentSprite => symbolImage != null ? symbolImage.sprite : null;
 
-        public void Setup(SymbolType symbol, Sprite sprite, int multiplier = 0)
+        internal void Setup(SymbolType symbol, Sprite sprite, int multiplier = 0)
         {
             KillActiveTweens();
 

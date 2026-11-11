@@ -353,7 +353,7 @@ namespace SweetBonanza.View
         }
 
         /// <summary>Called when Buy Feature opens or is active: all bottom bar display objects are hidden.</summary>
-        public void SetBuyFeatureState()
+        internal void SetBuyFeatureState()
         {
             
             if (spinInstructionObj != null) spinInstructionObj.SetActive(false);
@@ -389,7 +389,7 @@ namespace SweetBonanza.View
         }
 
         /// <summary>Called when a spin starts (manual or autoplay).</summary>
-        public void SetSpinStartedState(bool isAutoplay, int remainingSpins)
+        internal void SetSpinStartedState(bool isAutoplay, int remainingSpins)
         {
             this.isSpinning = true;
             this.isStopping = false;
@@ -696,7 +696,7 @@ namespace SweetBonanza.View
         #endregion
 
         /// <summary>Updates reel spinning state, toggles bet adjustments, and refreshes button visuals.</summary>
-        public void SetSpinButtonInteractable(bool interactable)
+        internal void SetSpinButtonInteractable(bool interactable)
         {
             if (isInFreeSpins)
             {
@@ -763,7 +763,7 @@ namespace SweetBonanza.View
         //** Controls Spin / Stop / Autoplay Button States (Hot Chilli style)
         //** ----------------------------------------------------
         /// <summary>Swaps visibility between SpinButton, StopSpin button, and AutoSpinStopButton.</summary>
-        public void SetSpinningButtonsState(bool isSpinning)
+        internal void SetSpinningButtonsState(bool isSpinning)
         {
             this.isSpinning = isSpinning;
 
@@ -818,7 +818,7 @@ namespace SweetBonanza.View
         }
 
         /// <summary>Puts the buttons in Stopping/Resolving state: stop button remains visible but non-interactable to prevent spam.</summary>
-        public void SetStoppingButtonsState()
+        internal void SetStoppingButtonsState()
         {
             this.isSpinning = true;
             this.isStopping = true;

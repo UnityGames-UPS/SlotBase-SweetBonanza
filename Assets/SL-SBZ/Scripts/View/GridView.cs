@@ -30,37 +30,37 @@ namespace SweetBonanza.View
         [SerializeField] private float tumbleFallDuration = 0.24f;
 
         [Header("Symbol Sprites Configuration")]
-        public Sprite bananaSprite;
-        public Sprite grapesSprite;
-        public Sprite watermelonSprite;
-        public Sprite plumSprite;
-        public Sprite appleSprite;
-        public Sprite blueOvalSprite;
-        public Sprite greenPentagonSprite;
-        public Sprite purpleSquareSprite;
-        public Sprite redHeartSprite;
-        public Sprite lollipopSprite;
-        public Sprite multiplierBombSprite;
-        public Sprite multiplierBombSprite2;
-        public Sprite multiplierBombSprite3;
+        [SerializeField] private Sprite bananaSprite;
+        [SerializeField] private Sprite grapesSprite;
+        [SerializeField] private Sprite watermelonSprite;
+        [SerializeField] private Sprite plumSprite;
+        [SerializeField] private Sprite appleSprite;
+        [SerializeField] private Sprite blueOvalSprite;
+        [SerializeField] private Sprite greenPentagonSprite;
+        [SerializeField] private Sprite purpleSquareSprite;
+        [SerializeField] private Sprite redHeartSprite;
+        [SerializeField] private Sprite lollipopSprite;
+        [SerializeField] private Sprite multiplierBombSprite;
+        [SerializeField] private Sprite multiplierBombSprite2;
+        [SerializeField] private Sprite multiplierBombSprite3;
 
         [Header("Bomb Bust Effect (30 Frames)")]
-        public Sprite[] bombEffectFrames;
-        public Sprite[] colorfulBombBlastFrames;
+        [SerializeField] private Sprite[] bombEffectFrames;
+        [SerializeField] private Sprite[] colorfulBombBlastFrames;
 
         [Header("Symbol Win Animations (All Gems & Fruits)")]
-        public Sprite[] bananaFrames;
-        public Sprite[] grapesFrames;
-        public Sprite[] watermelonFrames;
-        public Sprite[] plumFrames;
-        public Sprite[] appleFrames;
-        public Sprite[] blueCandyFrames;
-        public Sprite[] greenCandyFrames;
-        public Sprite[] purpleCandyFrames;
-        public Sprite[] redHeartFrames;
-        public Sprite[] spiralCandyFrames;
-        public Sprite[] spiralCandyRotationFrames;
-        public Sprite[] glassEffectFrames;
+        [SerializeField] private Sprite[] bananaFrames;
+        [SerializeField] private Sprite[] grapesFrames;
+        [SerializeField] private Sprite[] watermelonFrames;
+        [SerializeField] private Sprite[] plumFrames;
+        [SerializeField] private Sprite[] appleFrames;
+        [SerializeField] private Sprite[] blueCandyFrames;
+        [SerializeField] private Sprite[] greenCandyFrames;
+        [SerializeField] private Sprite[] purpleCandyFrames;
+        [SerializeField] private Sprite[] redHeartFrames;
+        [SerializeField] private Sprite[] spiralCandyFrames;
+        [SerializeField] private Sprite[] spiralCandyRotationFrames;
+        [SerializeField] private Sprite[] glassEffectFrames;
 
         private bool isQuickSpinMode = false;
         private bool isSlamStopRequested = false;

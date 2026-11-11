@@ -9,7 +9,7 @@ namespace SweetBonanza.View
     /// Formats numbers and currencies into TextMeshPro sprite tags.
     /// Sweet Bonanza TMP Sprite Assets map indices 0..9 to digits 0..9, index 10 to '.', and index 11 to '$'.
     /// </summary>
-    public static class SpriteTextUtility
+    internal static class SpriteTextUtility
     {
         private const string DollarSprite = "<sprite=11>";
         private const string DotSprite = "<sprite=10>";
@@ -18,7 +18,7 @@ namespace SweetBonanza.View
         /// Formats an amount into TMP sprite index tags (<sprite=0>..<sprite=11>).
         /// If targetText has no spriteAsset assigned, falls back to plain numeric string.
         /// </summary>
-        public static string FormatWithSpriteAsset(double amount, TMP_Text targetText, bool includeDollar = false, bool forceTwoDecimals = true)
+        internal static string FormatWithSpriteAsset(double amount, TMP_Text targetText, bool includeDollar = false, bool forceTwoDecimals = true)
         {
             if (targetText != null && targetText.spriteAsset == null)
             {
@@ -39,7 +39,7 @@ namespace SweetBonanza.View
         /// Formats an integer count into TMP sprite index tags (<sprite=0>..<sprite=9>).
         /// If targetText has no spriteAsset assigned, falls back to plain integer string.
         /// </summary>
-        public static string FormatCountWithSpriteAsset(int count, TMP_Text targetText)
+        internal static string FormatCountWithSpriteAsset(int count, TMP_Text targetText)
         {
             if (targetText != null && targetText.spriteAsset == null)
             {
@@ -54,7 +54,7 @@ namespace SweetBonanza.View
         /// Formats a currency amount into Sweet Bonanza TMP sprite tags.
         /// (e.g. 200, includeDollar=true -> "<sprite=11><sprite=2><sprite=0><sprite=0>")
         /// </summary>
-        public static string FormatCurrency(double amount, bool includeDollar = false)
+        internal static string FormatCurrency(double amount, bool includeDollar = false)
         {
             return FormatSpriteAmount(amount, null, forceTwoDecimals: false, includeDollar: includeDollar);
         }
@@ -63,7 +63,7 @@ namespace SweetBonanza.View
         /// Formats an integer count into Sweet Bonanza TMP sprite tags.
         /// (e.g. 10 -> "<sprite=1><sprite=0>")
         /// </summary>
-        public static string FormatCount(int count)
+        internal static string FormatCount(int count)
         {
             if (count < 0) count = 0;
             string s = count.ToString(CultureInfo.InvariantCulture);
@@ -85,7 +85,7 @@ namespace SweetBonanza.View
         /// Formats an amount into sprite index tags.
         /// Prefix parameter is preserved for backwards compatibility with existing call sites.
         /// </summary>
-        public static string FormatSpriteAmount(double amount, string prefix = null, bool forceTwoDecimals = true, bool includeDollar = false)
+        internal static string FormatSpriteAmount(double amount, string prefix = null, bool forceTwoDecimals = true, bool includeDollar = false)
         {
             if (amount < 0) amount = 0;
 
@@ -119,7 +119,7 @@ namespace SweetBonanza.View
         /// <summary>
         /// Formats floating cluster win text.
         /// </summary>
-        public static string FormatFloatingWin(double amount, bool includeDollar = false, bool forceTwoDecimals = true)
+        internal static string FormatFloatingWin(double amount, bool includeDollar = false, bool forceTwoDecimals = true)
         {
             return FormatSpriteAmount(amount, null, forceTwoDecimals, includeDollar);
         }
@@ -127,7 +127,7 @@ namespace SweetBonanza.View
         /// <summary>
         /// Formats floating cluster win text, dynamically checking targetText.
         /// </summary>
-        public static string FormatFloatingWin(double amount, TMP_Text targetText, bool forceTwoDecimals = true)
+        internal static string FormatFloatingWin(double amount, TMP_Text targetText, bool forceTwoDecimals = true)
         {
             return FormatWithSpriteAsset(amount, targetText, includeDollar: false, forceTwoDecimals: forceTwoDecimals);
         }
@@ -135,7 +135,7 @@ namespace SweetBonanza.View
         /// <summary>
         /// Formats top tumble win text.
         /// </summary>
-        public static string FormatTopTumbleWin(double amount, TMP_Text targetText = null, bool forceTwoDecimals = true)
+        internal static string FormatTopTumbleWin(double amount, TMP_Text targetText = null, bool forceTwoDecimals = true)
         {
             return FormatWithSpriteAsset(amount, targetText, includeDollar: false, forceTwoDecimals: forceTwoDecimals);
         }
@@ -143,7 +143,7 @@ namespace SweetBonanza.View
         /// <summary>
         /// Formats formula display: "[BaseWin] x [RunningMultiplier]" (e.g. "5.00 x 30").
         /// </summary>
-        public static string FormatTopTumbleWinFormula(double baseWin, int runningMultiplier, TMP_Text targetText = null)
+        internal static string FormatTopTumbleWinFormula(double baseWin, int runningMultiplier, TMP_Text targetText = null)
         {
             string winStr = FormatTopTumbleWin(baseWin, targetText, forceTwoDecimals: true);
             string multDigits = FormatCountWithSpriteAsset(runningMultiplier, targetText);
@@ -155,7 +155,7 @@ namespace SweetBonanza.View
         /// (e.g. 2 -> "<sprite=2><sprite name=\"x\">")
         /// (e.g. 50 -> "<sprite=5><sprite=0><sprite name=\"x\">")
         /// </summary>
-        public static string FormatBombMultiplier(int multiplier)
+        internal static string FormatBombMultiplier(int multiplier)
         {
             if (multiplier <= 0) return string.Empty;
 

@@ -17,50 +17,52 @@ public class ImageAnimation : MonoBehaviour
         TWO_PHASE
     }
 
-    public List<Sprite> textureArray;
-    public Image rendererDelegate;
-    public bool useSharedMaterial = true;
-    public bool doLoopAnimation = true;
+#pragma warning disable 0414
+    [SerializeField] private List<Sprite> textureArray;
+    [SerializeField] private Image rendererDelegate;
+    [SerializeField] private bool useSharedMaterial = true;
+    [SerializeField] private bool doLoopAnimation = true;
 
     [Header("Dynamic Timing")]
-    public bool useDynamicFramerate = false;
-    public float dynamicLoopDuration = 1.0f;
+    [SerializeField] private bool useDynamicFramerate = false;
+    [SerializeField] private float dynamicLoopDuration = 1.0f;
     [Tooltip("Target frame rate (FPS) for smooth animation. When useDynamicFramerate is true, loop count adaptively scales to maintain smooth speed near this FPS.")]
-    public float targetFPS = 24.0f;
+    [SerializeField] private float targetFPS = 24.0f;
+#pragma warning restore 0414
 
-    public System.Action<int> onLoopComplete;
+    internal event System.Action<int> onLoopComplete;
     private int currentLoopCount = 0;
 
     [SerializeField] private bool StartOnAwake = true;
     [SerializeField] private bool StartonEnable = true;
 
     [HideInInspector]
-    public ImageState currentAnimationState;
+    internal ImageState currentAnimationState;
 
     private int indexOfTexture;
     private float idealFrameRate = 0.0416666679f;
     private float delayBetweenAnimation;
 
-    public float AnimationSpeed = 5f;
-    public float delayBetweenLoop;
+    [SerializeField] private float AnimationSpeed = 5f;
+    [SerializeField] private float delayBetweenLoop;
 
     [Header("Two Phase Animation (Optional)")]
-    public AnimationMode animationMode = AnimationMode.SINGLE_PHASE;
+    [SerializeField] private AnimationMode animationMode = AnimationMode.SINGLE_PHASE;
 
     [Tooltip("Index where Phase 2 starts (Phase 1 is 0 to this index-1)")]
-    public int phase2StartIndex = 0;
+    [SerializeField] private int phase2StartIndex = 0;
 
     [Tooltip("How many times Phase 1 should loop (-1 = infinite, 0 = skip phase 1, 1+ = specific count)")]
-    public int phase1LoopCount = 1;
+    [SerializeField] private int phase1LoopCount = 1;
 
     [Tooltip("How many times Phase 2 should loop (-1 = infinite, 0 = skip phase 2, 1+ = specific count)")]
-    public int phase2LoopCount = -1;
+    [SerializeField] private int phase2LoopCount = -1;
 
     [Tooltip("If enabled, allows separate animation speeds for Phase 1 and Phase 2. Phase 1 uses AnimationSpeed, while Phase 2 uses phase2AnimationSpeed.")]
-    public bool useCustomSpeed = false;
+    [SerializeField] private bool useCustomSpeed = false;
 
     [Tooltip("Animation speed for Phase 2 when useCustomSpeed is enabled.")]
-    public float phase2AnimationSpeed = 5f;
+    [SerializeField] private float phase2AnimationSpeed = 5f;
 
     private int currentPhase = 1;
     private int phase1CurrentLoop = 0;

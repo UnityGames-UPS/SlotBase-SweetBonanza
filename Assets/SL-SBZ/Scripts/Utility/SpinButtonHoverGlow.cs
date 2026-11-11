@@ -47,7 +47,7 @@ public class SpinButtonHoverGlow : MonoBehaviour, IPointerEnterHandler, IPointer
         ResetSpinRect();
     }
 
-    public void OnPointerEnter(PointerEventData eventData)
+    void IPointerEnterHandler.OnPointerEnter(PointerEventData eventData)
     {
         if (glowRect != null)
         {
@@ -55,7 +55,7 @@ public class SpinButtonHoverGlow : MonoBehaviour, IPointerEnterHandler, IPointer
         }
     }
 
-    public void OnPointerExit(PointerEventData eventData)
+    void IPointerExitHandler.OnPointerExit(PointerEventData eventData)
     {
         if (glowRect != null)
         {

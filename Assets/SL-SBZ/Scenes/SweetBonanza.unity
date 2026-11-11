@@ -6239,7 +6239,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &289852654
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6975,7 +6975,6 @@ MonoBehaviour:
   targetFPS: 24
   StartOnAwake: 1
   StartonEnable: 1
-  currentAnimationState: 0
   AnimationSpeed: 72
   delayBetweenLoop: 0
   animationMode: 0
@@ -15986,7 +15985,6 @@ MonoBehaviour:
   targetFPS: 24
   StartOnAwake: 1
   StartonEnable: 1
-  currentAnimationState: 0
   AnimationSpeed: 26
   delayBetweenLoop: 0
   animationMode: 0
@@ -28327,7 +28325,6 @@ MonoBehaviour:
   targetFPS: 24
   StartOnAwake: 0
   StartonEnable: 1
-  currentAnimationState: 0
   AnimationSpeed: 147
   delayBetweenLoop: 0
   animationMode: 0
@@ -31987,9 +31984,9 @@ MonoBehaviour:
   - {fileID: 1738492255}
   - {fileID: 1738492254}
   - {fileID: 1738492253}
-  clipGameMainBg: {fileID: 8300000, guid: b32e0882257b04cf3b6ee31383ad4b02, type: 3}
+  clipGameMainBg: {fileID: 8300000, guid: 23b1b2e1d7187a14f99c0a173a765c66, type: 3}
   clipFeatureBg: {fileID: 8300000, guid: 5def6f465182f4f18a4f12d0bcde6db0, type: 3}
-  clipReelSpinLoop: {fileID: 8300000, guid: 5bcdeb6b38ac841c88386e9358561009, type: 3}
+  clipReelSpinLoop: {fileID: 8300000, guid: 0408f9f08bba66c4baa84f360318b06b, type: 3}
   clipReelStop: {fileID: 8300000, guid: 463cfb302c60f434fa0edb1244e20449, type: 3}
   clipTensionBuilder: {fileID: 8300000, guid: 35b556493dbc54e51b268680ac44643f, type: 3}
   clipWinLinePhase1Start: {fileID: 8300000, guid: cd899aa0760264b479d8b074aad98623, type: 3}
@@ -35168,7 +35165,6 @@ MonoBehaviour:
   targetFPS: 24
   StartOnAwake: 0
   StartonEnable: 1
-  currentAnimationState: 0
   AnimationSpeed: 32
   delayBetweenLoop: 0
   animationMode: 0

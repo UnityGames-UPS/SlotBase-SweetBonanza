@@ -65,7 +65,7 @@ namespace SweetBonanza.View
             }
         }
 
-        public void SetSprites(Sprite trackOff, Sprite trackOn, Sprite knobOff, Sprite knobOn)
+        internal void SetSprites(Sprite trackOff, Sprite trackOn, Sprite knobOff, Sprite knobOn)
         {
             trackOffSprite = trackOff;
             trackOnSprite = trackOn;
@@ -79,7 +79,7 @@ namespace SweetBonanza.View
             UpdateVisuals(isOn, animate: true);
         }
 
-        public void UpdateVisuals(bool isOn, bool animate = true)
+        internal void UpdateVisuals(bool isOn, bool animate = true)
         {
             if (trackImage != null)
             {

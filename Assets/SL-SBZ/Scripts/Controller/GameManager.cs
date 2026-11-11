@@ -197,7 +197,7 @@ namespace SweetBonanza.Controller
             }
         }
 
-        public void RequestStop()
+        internal void RequestStop()
         {
             AudioManager.Instance?.StopReelSpinLoop();
             AudioManager.Instance?.StopTensionBuilder();
@@ -232,6 +232,7 @@ namespace SweetBonanza.Controller
 
         private void SendSpinRequest(double betAmount, bool isAnteBet, bool isBonusBuy)
         {
+            if (gridView != null) gridView.ResetSlamStop();
             double cost = isBonusBuy ? betAmount * buyFeatureCostMultiplier : (isAnteBet ? betAmount * anteBetMultiplier : betAmount);
             if (!isInFreeSpins)
             {
@@ -342,7 +343,13 @@ namespace SweetBonanza.Controller
             isAutoplaying = false;
             remainingAutoplaySpins = 0;
 
+            if (currentState == GameState.Spinning || currentState == GameState.DroppingInitial || currentState == GameState.TumblingDown)
+            {
+                RequestStop();
+            }
+
             if (uiManager != null) uiManager.SetAutoplayState(false, 0);
+            else if (mainView != null) mainView.SetAutoplayState(false, 0);
         }
 
         private void HandleRoundResultReceived(RoundResult result)

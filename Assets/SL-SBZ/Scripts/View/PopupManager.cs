@@ -36,7 +36,7 @@ public class PopupManager : MonoBehaviour
     [Header("Animation Settings")]
     [SerializeField] private float popupScaleDuration = 0.25f;
 
-    public static PopupManager Instance { get; private set; }
+    internal static PopupManager Instance { get; private set; }
 
     private GameObject currentActivePopup;
     private bool isErrorCritical;
@@ -102,7 +102,7 @@ public class PopupManager : MonoBehaviour
 
     #region Popup Core (Open & Close)
 
-    public void OpenPopup(GameObject popup)
+    internal void OpenPopup(GameObject popup)
     {
         if (popup == null) return;
 
@@ -121,7 +121,7 @@ public class PopupManager : MonoBehaviour
         popup.transform.DOScale(1f, popupScaleDuration).SetEase(Ease.OutBack);
     }
 
-    public void ClosePopup(GameObject popup, Action onComplete = null)
+    internal void ClosePopup(GameObject popup, Action onComplete = null)
     {
         if (popup == null || !popup.activeSelf)
         {
