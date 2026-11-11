@@ -364,7 +364,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f521a04de7f494272a617b2719edd271, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SocketIOManager
-  testToken: baa7a47285fb425cb8469c8f14428721
+  testToken: 83d30f0bee8d45a1af87d94eb4de544a
   testSocketURL: https://devrealtime.dingdinghouse.com/
   nameSpace: playground
   JSManager: {fileID: 1638706357}
@@ -504,6 +504,7 @@ GameObject:
   - component: {fileID: 16570948}
   - component: {fileID: 16570947}
   - component: {fileID: 16570950}
+  - component: {fileID: 16570951}
   m_Layer: 5
   m_Name: SpinButton
   m_TagString: Untagged
@@ -628,6 +629,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SpinButtonHoverGlow
   glowRect: {fileID: 1720521211}
   spinRect: {fileID: 1360870979}
+--- !u!114 &16570951
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 16570945}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4fdaa4baa378e7a49a2d8b2e9946935e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SweetBonanza.View.ButtonHoverSound
+  selectable: {fileID: 0}
+  hoverClip: {fileID: 8300000, guid: 50ff95a09cccb499d80af8f5e75f73c2, type: 3}
 --- !u!1 &21864637
 GameObject:
   m_ObjectHideFlags: 0
@@ -640,7 +655,6 @@ GameObject:
   - component: {fileID: 21864640}
   - component: {fileID: 21864639}
   - component: {fileID: 21864641}
-  - component: {fileID: 21864642}
   m_Layer: 5
   m_Name: BetFeatureButton
   m_TagString: Untagged
@@ -751,18 +765,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!225 &21864642
-CanvasGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 21864637}
-  m_Enabled: 1
-  m_Alpha: 1
-  m_Interactable: 1
-  m_BlocksRaycasts: 1
-  m_IgnoreParentGroups: 0
 --- !u!1 &28632777
 GameObject:
   m_ObjectHideFlags: 0
@@ -1712,6 +1714,7 @@ GameObject:
   - component: {fileID: 61155422}
   - component: {fileID: 61155421}
   - component: {fileID: 61155420}
+  - component: {fileID: 61155423}
   m_Layer: 5
   m_Name: MinusButton
   m_TagString: Untagged
@@ -1820,6 +1823,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 61155418}
   m_CullTransparentMesh: 1
+--- !u!114 &61155423
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 61155418}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4fdaa4baa378e7a49a2d8b2e9946935e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SweetBonanza.View.ButtonHoverSound
+  selectable: {fileID: 0}
+  hoverClip: {fileID: 8300000, guid: 50ff95a09cccb499d80af8f5e75f73c2, type: 3}
 --- !u!1 &63876836
 GameObject:
   m_ObjectHideFlags: 0
@@ -2485,7 +2502,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 162.59, y: 4}
+  m_AnchoredPosition: {x: 172.6, y: 22.6}
   m_SizeDelta: {x: 336.5, y: 33.78}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &98819058
@@ -2508,7 +2525,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: $9996.00
+  m_text: <sprite=9><sprite=6><sprite=9><sprite=0><sprite=0><sprite=10><sprite=0><sprite=0>
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 5b658767ac5f21740863272f30ac7330, type: 2}
   m_sharedMaterial: {fileID: 5915704809178489895, guid: 5b658767ac5f21740863272f30ac7330, type: 2}
@@ -2527,7 +2544,7 @@ MonoBehaviour:
     bottomLeft: {r: 1, g: 1, b: 1, a: 1}
     bottomRight: {r: 1, g: 1, b: 1, a: 1}
   m_fontColorGradientPreset: {fileID: 0}
-  m_spriteAsset: {fileID: 0}
+  m_spriteAsset: {fileID: 11400000, guid: e96ff032d6a33a048ac5ecc4d7ab7bb3, type: 2}
   m_tintAllSprites: 0
   m_StyleSheet: {fileID: 0}
   m_TextStyleHashCode: -1183493901
@@ -2535,8 +2552,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 52.5
+  m_fontSizeBase: 52.5
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -2574,7 +2591,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: 2.75, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -2600,6 +2617,7 @@ GameObject:
   - component: {fileID: 100313513}
   - component: {fileID: 100313512}
   - component: {fileID: 100313511}
+  - component: {fileID: 100313514}
   m_Layer: 5
   m_Name: CrossNavigationButton (4)
   m_TagString: Untagged
@@ -2708,6 +2726,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 100313509}
   m_CullTransparentMesh: 1
+--- !u!114 &100313514
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100313509}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4fdaa4baa378e7a49a2d8b2e9946935e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SweetBonanza.View.ButtonHoverSound
+  selectable: {fileID: 0}
+  hoverClip: {fileID: 8300000, guid: 50ff95a09cccb499d80af8f5e75f73c2, type: 3}
 --- !u!1001 &105284080
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2824,6 +2856,7 @@ GameObject:
   m_Component:
   - component: {fileID: 107223298}
   - component: {fileID: 107223299}
+  - component: {fileID: 107223300}
   m_Layer: 5
   m_Name: Slider
   m_TagString: Untagged
@@ -2903,6 +2936,20 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &107223300
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 107223297}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4fdaa4baa378e7a49a2d8b2e9946935e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SweetBonanza.View.ButtonHoverSound
+  selectable: {fileID: 0}
+  hoverClip: {fileID: 8300000, guid: 50ff95a09cccb499d80af8f5e75f73c2, type: 3}
 --- !u!1 &112185265
 GameObject:
   m_ObjectHideFlags: 0
@@ -3946,7 +3993,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 115.92, y: -7.78}
+  m_AnchoredPosition: {x: 119.3, y: -4.9}
   m_SizeDelta: {x: 91.7, y: 23.11}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &163512355
@@ -3996,11 +4043,11 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 31.6
+  m_fontSize: 28.1
   m_fontSizeBase: 31.6
   m_fontWeight: 400
-  m_enableAutoSizing: 0
-  m_fontSizeMin: 18
+  m_enableAutoSizing: 1
+  m_fontSizeMin: 28.1
   m_fontSizeMax: 72
   m_fontStyle: 1
   m_HorizontalAlignment: 2
@@ -4449,6 +4496,7 @@ GameObject:
   - component: {fileID: 204703036}
   - component: {fileID: 204703035}
   - component: {fileID: 204703034}
+  - component: {fileID: 204703037}
   m_Layer: 5
   m_Name: startButtonAutoPlay
   m_TagString: Untagged
@@ -4558,6 +4606,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 204703032}
   m_CullTransparentMesh: 1
+--- !u!114 &204703037
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 204703032}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4fdaa4baa378e7a49a2d8b2e9946935e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SweetBonanza.View.ButtonHoverSound
+  selectable: {fileID: 0}
+  hoverClip: {fileID: 8300000, guid: 50ff95a09cccb499d80af8f5e75f73c2, type: 3}
 --- !u!1 &208882705
 GameObject:
   m_ObjectHideFlags: 0
@@ -4746,6 +4808,7 @@ GameObject:
   - component: {fileID: 214100005}
   - component: {fileID: 214100004}
   - component: {fileID: 214100003}
+  - component: {fileID: 214100006}
   m_Layer: 5
   m_Name: RightNavigationButton (3)
   m_TagString: Untagged
@@ -4854,6 +4917,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 214100001}
   m_CullTransparentMesh: 1
+--- !u!114 &214100006
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 214100001}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4fdaa4baa378e7a49a2d8b2e9946935e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SweetBonanza.View.ButtonHoverSound
+  selectable: {fileID: 0}
+  hoverClip: {fileID: 8300000, guid: 50ff95a09cccb499d80af8f5e75f73c2, type: 3}
 --- !u!1001 &216919931
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6112,6 +6189,7 @@ GameObject:
   m_Component:
   - component: {fileID: 282324490}
   - component: {fileID: 282324491}
+  - component: {fileID: 282324492}
   m_Layer: 5
   m_Name: Toggle (3)
   m_TagString: Untagged
@@ -6188,6 +6266,20 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_IsOn: 0
+--- !u!114 &282324492
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 282324489}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4fdaa4baa378e7a49a2d8b2e9946935e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SweetBonanza.View.ButtonHoverSound
+  selectable: {fileID: 0}
+  hoverClip: {fileID: 8300000, guid: 50ff95a09cccb499d80af8f5e75f73c2, type: 3}
 --- !u!1 &285256449
 GameObject:
   m_ObjectHideFlags: 0
@@ -7434,6 +7526,7 @@ GameObject:
   - component: {fileID: 345930794}
   - component: {fileID: 345930793}
   - component: {fileID: 345930792}
+  - component: {fileID: 345930795}
   m_Layer: 5
   m_Name: MinusButton
   m_TagString: Untagged
@@ -7542,6 +7635,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 345930790}
   m_CullTransparentMesh: 1
+--- !u!114 &345930795
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 345930790}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4fdaa4baa378e7a49a2d8b2e9946935e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SweetBonanza.View.ButtonHoverSound
+  selectable: {fileID: 0}
+  hoverClip: {fileID: 8300000, guid: 50ff95a09cccb499d80af8f5e75f73c2, type: 3}
 --- !u!1 &352576417
 GameObject:
   m_ObjectHideFlags: 0
@@ -8176,16 +8283,16 @@ MonoBehaviour:
   buttonSoundMute: {fileID: 1651432875}
   soundFillImage: {fileID: 438276268}
   soundVolumeText: {fileID: 855094045}
-  speakerAudibleSprite: {fileID: 21300000, guid: b903283b87076064f812206e86e8b9a4, type: 3}
-  speakerMutedSprite: {fileID: 21300000, guid: ebdf374654270e1468b4811bc52fd5cb, type: 3}
-  soundTrackLineImage: {fileID: 1632743540}
+  speakerAudibleSprite: {fileID: -5958229247891249702, guid: 3f2d827639d7424459c4c72d70d78978, type: 3}
+  speakerMutedSprite: {fileID: 4840237254561571183, guid: 21352aacd08568b468be97d704e69b1a, type: 3}
+  soundTrackLineImage: {fileID: 0}
   soundHandleImage: {fileID: 1165289940}
   volumeLineGreenSprite: {fileID: 21300000, guid: c958fcd6d6f8fdd40be7a788446f61ee, type: 3}
   volumeLineRedSprite: {fileID: 21300000, guid: edc6933693888274088c737a1d859e33, type: 3}
-  volumeButtonGreenNormal: {fileID: 21300000, guid: 11ad31070da96174e98bb50e0f8800ca, type: 3}
-  volumeButtonGreenPressed: {fileID: 21300000, guid: fa6027de2b17c3e46866b99ffbedf5d0, type: 3}
-  volumeButtonRedNormal: {fileID: 21300000, guid: 02184af8a194d5849bb2ed2b0a01ae1d, type: 3}
-  volumeButtonRedPressed: {fileID: 21300000, guid: ed79426db8e44ac4f8c3fd2bac8f24d0, type: 3}
+  volumeButtonGreenNormal: {fileID: 0}
+  volumeButtonGreenPressed: {fileID: 0}
+  volumeButtonRedNormal: {fileID: 0}
+  volumeButtonRedPressed: {fileID: 0}
   buyFeatureConfirmPanel: {fileID: 289852653}
   buttonConfirmBuyFeature: {fileID: 937778932}
   buttonCancelBuyFeature: {fileID: 825820685}
@@ -8861,6 +8968,7 @@ GameObject:
   - component: {fileID: 417505431}
   - component: {fileID: 417505430}
   - component: {fileID: 417505433}
+  - component: {fileID: 417505434}
   m_Layer: 0
   m_Name: Toggle_BatterySaver
   m_TagString: Untagged
@@ -8997,6 +9105,20 @@ MonoBehaviour:
   offPositionX: -11
   onPositionX: 11
   animationDuration: 0.15
+--- !u!114 &417505434
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 417505427}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4fdaa4baa378e7a49a2d8b2e9946935e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SweetBonanza.View.ButtonHoverSound
+  selectable: {fileID: 0}
+  hoverClip: {fileID: 8300000, guid: 50ff95a09cccb499d80af8f5e75f73c2, type: 3}
 --- !u!1 &423980091
 GameObject:
   m_ObjectHideFlags: 0
@@ -9159,6 +9281,7 @@ GameObject:
   - component: {fileID: 427161479}
   - component: {fileID: 427161478}
   - component: {fileID: 427161477}
+  - component: {fileID: 427161480}
   m_Layer: 0
   m_Name: AutoplayButton
   m_TagString: Untagged
@@ -9267,6 +9390,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 427161475}
   m_CullTransparentMesh: 1
+--- !u!114 &427161480
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 427161475}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4fdaa4baa378e7a49a2d8b2e9946935e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SweetBonanza.View.ButtonHoverSound
+  selectable: {fileID: 0}
+  hoverClip: {fileID: 8300000, guid: 50ff95a09cccb499d80af8f5e75f73c2, type: 3}
 --- !u!1 &438276266
 GameObject:
   m_ObjectHideFlags: 0
@@ -9557,7 +9694,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 148, y: 4.2}
+  m_AnchoredPosition: {x: 163.3, y: 20.8}
   m_SizeDelta: {x: 279.73, y: 34.68}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &449303579
@@ -9580,7 +9717,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: $2.00
+  m_text: <sprite=2><sprite=10><sprite=0><sprite=0>
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 5b658767ac5f21740863272f30ac7330, type: 2}
   m_sharedMaterial: {fileID: 5915704809178489895, guid: 5b658767ac5f21740863272f30ac7330, type: 2}
@@ -9599,7 +9736,7 @@ MonoBehaviour:
     bottomLeft: {r: 1, g: 1, b: 1, a: 1}
     bottomRight: {r: 1, g: 1, b: 1, a: 1}
   m_fontColorGradientPreset: {fileID: 0}
-  m_spriteAsset: {fileID: 0}
+  m_spriteAsset: {fileID: 11400000, guid: e96ff032d6a33a048ac5ecc4d7ab7bb3, type: 2}
   m_tintAllSprites: 0
   m_StyleSheet: {fileID: 0}
   m_TextStyleHashCode: -1183493901
@@ -9607,8 +9744,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 31.7
-  m_fontSizeBase: 31.7
+  m_fontSize: 52
+  m_fontSizeBase: 52
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -9809,6 +9946,7 @@ GameObject:
   - component: {fileID: 463586829}
   - component: {fileID: 463586828}
   - component: {fileID: 463586827}
+  - component: {fileID: 463586830}
   m_Layer: 5
   m_Name: audioPanelButton
   m_TagString: Untagged
@@ -9917,6 +10055,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 463586825}
   m_CullTransparentMesh: 1
+--- !u!114 &463586830
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 463586825}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4fdaa4baa378e7a49a2d8b2e9946935e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SweetBonanza.View.ButtonHoverSound
+  selectable: {fileID: 0}
+  hoverClip: {fileID: 8300000, guid: 50ff95a09cccb499d80af8f5e75f73c2, type: 3}
 --- !u!1 &465300441
 GameObject:
   m_ObjectHideFlags: 0
@@ -10049,6 +10201,7 @@ GameObject:
   - component: {fileID: 466223324}
   - component: {fileID: 466223323}
   - component: {fileID: 466223322}
+  - component: {fileID: 466223325}
   m_Layer: 5
   m_Name: LeftNavigationButton (1)
   m_TagString: Untagged
@@ -10157,6 +10310,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 466223320}
   m_CullTransparentMesh: 1
+--- !u!114 &466223325
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 466223320}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4fdaa4baa378e7a49a2d8b2e9946935e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SweetBonanza.View.ButtonHoverSound
+  selectable: {fileID: 0}
+  hoverClip: {fileID: 8300000, guid: 50ff95a09cccb499d80af8f5e75f73c2, type: 3}
 --- !u!1 &481768558
 GameObject:
   m_ObjectHideFlags: 0
@@ -11083,6 +11250,7 @@ GameObject:
   - component: {fileID: 547301549}
   - component: {fileID: 547301548}
   - component: {fileID: 547301551}
+  - component: {fileID: 547301552}
   m_Layer: 0
   m_Name: Toggle_IntroScreen
   m_TagString: Untagged
@@ -11219,6 +11387,20 @@ MonoBehaviour:
   offPositionX: -11
   onPositionX: 11
   animationDuration: 0.15
+--- !u!114 &547301552
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 547301545}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4fdaa4baa378e7a49a2d8b2e9946935e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SweetBonanza.View.ButtonHoverSound
+  selectable: {fileID: 0}
+  hoverClip: {fileID: 8300000, guid: 50ff95a09cccb499d80af8f5e75f73c2, type: 3}
 --- !u!1 &552442648
 GameObject:
   m_ObjectHideFlags: 0
@@ -11369,6 +11551,7 @@ GameObject:
   - component: {fileID: 554825565}
   - component: {fileID: 554825564}
   - component: {fileID: 554825567}
+  - component: {fileID: 554825568}
   m_Layer: 0
   m_Name: Toggle_SoundFX
   m_TagString: Untagged
@@ -11505,6 +11688,20 @@ MonoBehaviour:
   offPositionX: -11
   onPositionX: 11
   animationDuration: 0.15
+--- !u!114 &554825568
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 554825561}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4fdaa4baa378e7a49a2d8b2e9946935e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SweetBonanza.View.ButtonHoverSound
+  selectable: {fileID: 0}
+  hoverClip: {fileID: 8300000, guid: 50ff95a09cccb499d80af8f5e75f73c2, type: 3}
 --- !u!1 &555790409
 GameObject:
   m_ObjectHideFlags: 0
@@ -14168,6 +14365,7 @@ GameObject:
   - component: {fileID: 744181974}
   - component: {fileID: 744181973}
   - component: {fileID: 744181972}
+  - component: {fileID: 744181975}
   m_Layer: 5
   m_Name: PlusButton
   m_TagString: Untagged
@@ -14276,6 +14474,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 744181970}
   m_CullTransparentMesh: 1
+--- !u!114 &744181975
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 744181970}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4fdaa4baa378e7a49a2d8b2e9946935e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SweetBonanza.View.ButtonHoverSound
+  selectable: {fileID: 0}
+  hoverClip: {fileID: 8300000, guid: 50ff95a09cccb499d80af8f5e75f73c2, type: 3}
 --- !u!1 &744994664
 GameObject:
   m_ObjectHideFlags: 0
@@ -14637,6 +14849,7 @@ GameObject:
   - component: {fileID: 758762865}
   - component: {fileID: 758762864}
   - component: {fileID: 758762863}
+  - component: {fileID: 758762866}
   m_Layer: 5
   m_Name: MinousButton
   m_TagString: Untagged
@@ -14745,6 +14958,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 758762861}
   m_CullTransparentMesh: 1
+--- !u!114 &758762866
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 758762861}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4fdaa4baa378e7a49a2d8b2e9946935e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SweetBonanza.View.ButtonHoverSound
+  selectable: {fileID: 0}
+  hoverClip: {fileID: 8300000, guid: 50ff95a09cccb499d80af8f5e75f73c2, type: 3}
 --- !u!1 &765801734
 GameObject:
   m_ObjectHideFlags: 0
@@ -15232,6 +15459,7 @@ GameObject:
   - component: {fileID: 825820687}
   - component: {fileID: 825820686}
   - component: {fileID: 825820685}
+  - component: {fileID: 825820688}
   m_Layer: 5
   m_Name: NoButton
   m_TagString: Untagged
@@ -15340,6 +15568,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 825820683}
   m_CullTransparentMesh: 1
+--- !u!114 &825820688
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 825820683}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4fdaa4baa378e7a49a2d8b2e9946935e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SweetBonanza.View.ButtonHoverSound
+  selectable: {fileID: 0}
+  hoverClip: {fileID: 8300000, guid: 50ff95a09cccb499d80af8f5e75f73c2, type: 3}
 --- !u!1001 &836346719
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15458,6 +15700,7 @@ GameObject:
   - component: {fileID: 841351762}
   - component: {fileID: 841351761}
   - component: {fileID: 841351760}
+  - component: {fileID: 841351763}
   m_Layer: 5
   m_Name: PlusButton
   m_TagString: Untagged
@@ -15566,6 +15809,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 841351758}
   m_CullTransparentMesh: 1
+--- !u!114 &841351763
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 841351758}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4fdaa4baa378e7a49a2d8b2e9946935e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SweetBonanza.View.ButtonHoverSound
+  selectable: {fileID: 0}
+  hoverClip: {fileID: 8300000, guid: 50ff95a09cccb499d80af8f5e75f73c2, type: 3}
 --- !u!1 &853396591
 GameObject:
   m_ObjectHideFlags: 0
@@ -16569,6 +16826,7 @@ GameObject:
   - component: {fileID: 899779541}
   - component: {fileID: 899779540}
   - component: {fileID: 899779543}
+  - component: {fileID: 899779544}
   m_Layer: 0
   m_Name: Toggle_AmbientMusic
   m_TagString: Untagged
@@ -16705,6 +16963,20 @@ MonoBehaviour:
   offPositionX: -11
   onPositionX: 11
   animationDuration: 0.15
+--- !u!114 &899779544
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 899779537}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4fdaa4baa378e7a49a2d8b2e9946935e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SweetBonanza.View.ButtonHoverSound
+  selectable: {fileID: 0}
+  hoverClip: {fileID: 8300000, guid: 50ff95a09cccb499d80af8f5e75f73c2, type: 3}
 --- !u!1 &911824338
 GameObject:
   m_ObjectHideFlags: 0
@@ -17219,6 +17491,7 @@ GameObject:
   - component: {fileID: 937778934}
   - component: {fileID: 937778933}
   - component: {fileID: 937778932}
+  - component: {fileID: 937778935}
   m_Layer: 5
   m_Name: yesButton
   m_TagString: Untagged
@@ -17327,6 +17600,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 937778930}
   m_CullTransparentMesh: 1
+--- !u!114 &937778935
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 937778930}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4fdaa4baa378e7a49a2d8b2e9946935e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SweetBonanza.View.ButtonHoverSound
+  selectable: {fileID: 0}
+  hoverClip: {fileID: 8300000, guid: 50ff95a09cccb499d80af8f5e75f73c2, type: 3}
 --- !u!1 &944915844
 GameObject:
   m_ObjectHideFlags: 0
@@ -19799,6 +20086,7 @@ GameObject:
   - component: {fileID: 1059561424}
   - component: {fileID: 1059561423}
   - component: {fileID: 1059561422}
+  - component: {fileID: 1059561425}
   m_Layer: 5
   m_Name: SettingPanelButton
   m_TagString: Untagged
@@ -19907,6 +20195,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1059561420}
   m_CullTransparentMesh: 1
+--- !u!114 &1059561425
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1059561420}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4fdaa4baa378e7a49a2d8b2e9946935e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SweetBonanza.View.ButtonHoverSound
+  selectable: {fileID: 0}
+  hoverClip: {fileID: 8300000, guid: 50ff95a09cccb499d80af8f5e75f73c2, type: 3}
 --- !u!1 &1062065882
 GameObject:
   m_ObjectHideFlags: 0
@@ -22104,6 +22406,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1146474395}
   - component: {fileID: 1146474396}
+  - component: {fileID: 1146474397}
   m_Layer: 5
   m_Name: Toggle (1)
   m_TagString: Untagged
@@ -22180,6 +22483,20 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_IsOn: 0
+--- !u!114 &1146474397
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1146474394}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4fdaa4baa378e7a49a2d8b2e9946935e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SweetBonanza.View.ButtonHoverSound
+  selectable: {fileID: 0}
+  hoverClip: {fileID: 8300000, guid: 50ff95a09cccb499d80af8f5e75f73c2, type: 3}
 --- !u!1001 &1147303119
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -24385,6 +24702,7 @@ GameObject:
   - component: {fileID: 1341747252}
   - component: {fileID: 1341747251}
   - component: {fileID: 1341747250}
+  - component: {fileID: 1341747253}
   m_Layer: 5
   m_Name: CenterNavigationButton (2)
   m_TagString: Untagged
@@ -24493,6 +24811,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1341747248}
   m_CullTransparentMesh: 1
+--- !u!114 &1341747253
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1341747248}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4fdaa4baa378e7a49a2d8b2e9946935e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SweetBonanza.View.ButtonHoverSound
+  selectable: {fileID: 0}
+  hoverClip: {fileID: 8300000, guid: 50ff95a09cccb499d80af8f5e75f73c2, type: 3}
 --- !u!1001 &1344920881
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -27113,6 +27445,7 @@ GameObject:
   - component: {fileID: 1452470377}
   - component: {fileID: 1452470376}
   - component: {fileID: 1452470375}
+  - component: {fileID: 1452470378}
   m_Layer: 5
   m_Name: Button (Legacy)
   m_TagString: Untagged
@@ -27222,6 +27555,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1452470373}
   m_CullTransparentMesh: 1
+--- !u!114 &1452470378
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1452470373}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4fdaa4baa378e7a49a2d8b2e9946935e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SweetBonanza.View.ButtonHoverSound
+  selectable: {fileID: 0}
+  hoverClip: {fileID: 8300000, guid: 50ff95a09cccb499d80af8f5e75f73c2, type: 3}
 --- !u!1 &1461361658
 GameObject:
   m_ObjectHideFlags: 0
@@ -27826,6 +28173,7 @@ GameObject:
   - component: {fileID: 1488580193}
   - component: {fileID: 1488580192}
   - component: {fileID: 1488580191}
+  - component: {fileID: 1488580194}
   m_Layer: 5
   m_Name: PlushButton (Legacy)
   m_TagString: Untagged
@@ -27934,6 +28282,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1488580189}
   m_CullTransparentMesh: 1
+--- !u!114 &1488580194
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1488580189}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4fdaa4baa378e7a49a2d8b2e9946935e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SweetBonanza.View.ButtonHoverSound
+  selectable: {fileID: 0}
+  hoverClip: {fileID: 8300000, guid: 50ff95a09cccb499d80af8f5e75f73c2, type: 3}
 --- !u!1 &1493865235
 GameObject:
   m_ObjectHideFlags: 0
@@ -28901,6 +29263,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1546230872}
   - component: {fileID: 1546230873}
+  - component: {fileID: 1546230874}
   m_Layer: 5
   m_Name: Toggle (2)
   m_TagString: Untagged
@@ -28977,6 +29340,20 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_IsOn: 0
+--- !u!114 &1546230874
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1546230871}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4fdaa4baa378e7a49a2d8b2e9946935e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SweetBonanza.View.ButtonHoverSound
+  selectable: {fileID: 0}
+  hoverClip: {fileID: 8300000, guid: 50ff95a09cccb499d80af8f5e75f73c2, type: 3}
 --- !u!1 &1546493188
 GameObject:
   m_ObjectHideFlags: 0
@@ -29233,6 +29610,7 @@ GameObject:
   - component: {fileID: 1553942970}
   - component: {fileID: 1553942969}
   - component: {fileID: 1553942972}
+  - component: {fileID: 1553942973}
   m_Layer: 0
   m_Name: Toggle_QuickSpin
   m_TagString: Untagged
@@ -29369,6 +29747,20 @@ MonoBehaviour:
   offPositionX: -11
   onPositionX: 11
   animationDuration: 0.15
+--- !u!114 &1553942973
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1553942966}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4fdaa4baa378e7a49a2d8b2e9946935e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SweetBonanza.View.ButtonHoverSound
+  selectable: {fileID: 0}
+  hoverClip: {fileID: 8300000, guid: 50ff95a09cccb499d80af8f5e75f73c2, type: 3}
 --- !u!1 &1562013643
 GameObject:
   m_ObjectHideFlags: 0
@@ -29381,6 +29773,7 @@ GameObject:
   - component: {fileID: 1562013647}
   - component: {fileID: 1562013646}
   - component: {fileID: 1562013645}
+  - component: {fileID: 1562013648}
   m_Layer: 5
   m_Name: PlusButton
   m_TagString: Untagged
@@ -29489,6 +29882,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1562013643}
   m_CullTransparentMesh: 1
+--- !u!114 &1562013648
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1562013643}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4fdaa4baa378e7a49a2d8b2e9946935e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SweetBonanza.View.ButtonHoverSound
+  selectable: {fileID: 0}
+  hoverClip: {fileID: 8300000, guid: 50ff95a09cccb499d80af8f5e75f73c2, type: 3}
 --- !u!1 &1575453621
 GameObject:
   m_ObjectHideFlags: 0
@@ -30907,6 +31314,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1675069048}
   - component: {fileID: 1675069049}
+  - component: {fileID: 1675069050}
   m_Layer: 5
   m_Name: Slider
   m_TagString: Untagged
@@ -30986,6 +31394,20 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &1675069050
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1675069047}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4fdaa4baa378e7a49a2d8b2e9946935e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SweetBonanza.View.ButtonHoverSound
+  selectable: {fileID: 0}
+  hoverClip: {fileID: 8300000, guid: 50ff95a09cccb499d80af8f5e75f73c2, type: 3}
 --- !u!1 &1677217961
 GameObject:
   m_ObjectHideFlags: 0
@@ -32000,7 +32422,7 @@ MonoBehaviour:
   clipAutoplayPanelOpen: {fileID: 8300000, guid: b5fa0e1081b524a02aa50b9b2088ef61, type: 3}
   clipTurboButtonClick: {fileID: 8300000, guid: 1545ce2f353594bdd85973934497bbba, type: 3}
   clipSymbolPop: {fileID: 8300000, guid: 6f31f812a967f40ccbdfb744c41d8c7f, type: 3}
-  clipBombExplode: {fileID: 8300000, guid: 55637ed021c07a145b67e413766b2e08, type: 3}
+  clipBombExplode: {fileID: 8300000, guid: 08bb0d2c8bd341748bc2ed150dfab708, type: 3}
   clipScatterCelebration: {fileID: 8300000, guid: f6996a884c900f141849f50d65b90de0, type: 3}
 --- !u!4 &1738492252
 Transform:
@@ -33503,7 +33925,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -18.8, y: -14.66}
+  m_AnchoredPosition: {x: -32, y: -14.66}
   m_SizeDelta: {x: 229.49, y: 32.12}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1790478925
@@ -34009,6 +34431,7 @@ GameObject:
   - component: {fileID: 1806390769}
   - component: {fileID: 1806390768}
   - component: {fileID: 1806390767}
+  - component: {fileID: 1806390770}
   m_Layer: 5
   m_Name: PlusButton
   m_TagString: Untagged
@@ -34117,6 +34540,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1806390765}
   m_CullTransparentMesh: 1
+--- !u!114 &1806390770
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1806390765}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4fdaa4baa378e7a49a2d8b2e9946935e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SweetBonanza.View.ButtonHoverSound
+  selectable: {fileID: 0}
+  hoverClip: {fileID: 8300000, guid: 50ff95a09cccb499d80af8f5e75f73c2, type: 3}
 --- !u!1 &1809352724
 GameObject:
   m_ObjectHideFlags: 0
@@ -34791,6 +35228,7 @@ GameObject:
   - component: {fileID: 1848884564}
   - component: {fileID: 1848884563}
   - component: {fileID: 1848884562}
+  - component: {fileID: 1848884565}
   m_Layer: 5
   m_Name: MinusButton
   m_TagString: Untagged
@@ -34899,6 +35337,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1848884560}
   m_CullTransparentMesh: 1
+--- !u!114 &1848884565
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1848884560}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4fdaa4baa378e7a49a2d8b2e9946935e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SweetBonanza.View.ButtonHoverSound
+  selectable: {fileID: 0}
+  hoverClip: {fileID: 8300000, guid: 50ff95a09cccb499d80af8f5e75f73c2, type: 3}
 --- !u!1 &1851451955
 GameObject:
   m_ObjectHideFlags: 0
@@ -37204,6 +37656,7 @@ GameObject:
   - component: {fileID: 1959932474}
   - component: {fileID: 1959932473}
   - component: {fileID: 1959932472}
+  - component: {fileID: 1959932475}
   m_Layer: 5
   m_Name: OptionButton
   m_TagString: Untagged
@@ -37312,6 +37765,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1959932470}
   m_CullTransparentMesh: 1
+--- !u!114 &1959932475
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1959932470}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4fdaa4baa378e7a49a2d8b2e9946935e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SweetBonanza.View.ButtonHoverSound
+  selectable: {fileID: 0}
+  hoverClip: {fileID: 8300000, guid: 50ff95a09cccb499d80af8f5e75f73c2, type: 3}
 --- !u!1 &1968008435
 GameObject:
   m_ObjectHideFlags: 0
@@ -37324,7 +37791,6 @@ GameObject:
   - component: {fileID: 1968008438}
   - component: {fileID: 1968008437}
   - component: {fileID: 1968008439}
-  - component: {fileID: 1968008440}
   m_Layer: 5
   m_Name: BuyFeaturebuttton
   m_TagString: Untagged
@@ -37434,18 +37900,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!225 &1968008440
-CanvasGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1968008435}
-  m_Enabled: 1
-  m_Alpha: 1
-  m_Interactable: 1
-  m_BlocksRaycasts: 1
-  m_IgnoreParentGroups: 0
 --- !u!1 &1977679004
 GameObject:
   m_ObjectHideFlags: 0
@@ -37537,6 +37991,7 @@ GameObject:
   - component: {fileID: 1979717416}
   - component: {fileID: 1979717415}
   - component: {fileID: 1979717414}
+  - component: {fileID: 1979717417}
   m_Layer: 5
   m_Name: minousButton (Legacy)
   m_TagString: Untagged
@@ -37645,6 +38100,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1979717412}
   m_CullTransparentMesh: 1
+--- !u!114 &1979717417
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1979717412}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4fdaa4baa378e7a49a2d8b2e9946935e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SweetBonanza.View.ButtonHoverSound
+  selectable: {fileID: 0}
+  hoverClip: {fileID: 8300000, guid: 50ff95a09cccb499d80af8f5e75f73c2, type: 3}
 --- !u!1001 &2010181361
 PrefabInstance:
   m_ObjectHideFlags: 0
