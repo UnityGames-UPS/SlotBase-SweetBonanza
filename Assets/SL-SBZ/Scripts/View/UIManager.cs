@@ -88,6 +88,9 @@ namespace SweetBonanza.View
         [SerializeField] private Sprite volumeButtonGreenPressed;
         [SerializeField] private Sprite volumeButtonRedNormal;
         [SerializeField] private Sprite volumeButtonRedPressed;
+        [SerializeField] private Sprite soundInPanelButMuteSprite;
+        [SerializeField] private Sprite soundInPanelButSpickerSprite;
+
 
         [Header("4. Buy Feature Modal")]
         [SerializeField] private GameObject buyFeatureConfirmPanel;
@@ -630,7 +633,8 @@ namespace SweetBonanza.View
 
             // Speaker Icon
             Sprite speakerSprite = isMuted ? speakerMutedSprite : speakerAudibleSprite;
-            if (buttonSoundMute != null && buttonSoundMute.image != null && speakerSprite != null) buttonSoundMute.image.sprite = speakerSprite;
+            Sprite speakerInPanelSprite = isMuted ? soundInPanelButMuteSprite : soundInPanelButSpickerSprite;
+            if (buttonSoundMute != null && buttonSoundMute.image != null && speakerSprite != null) buttonSoundMute.image.sprite = speakerInPanelSprite;
             if (buttonOpenSound != null && buttonOpenSound.image != null && speakerSprite != null) buttonOpenSound.image.sprite = speakerSprite;
 
             // Fill Area (Turn Red when muted, Green when unmuted)

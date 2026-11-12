@@ -8300,14 +8300,16 @@ MonoBehaviour:
   soundVolumeText: {fileID: 855094045}
   speakerAudibleSprite: {fileID: -5958229247891249702, guid: 3f2d827639d7424459c4c72d70d78978, type: 3}
   speakerMutedSprite: {fileID: 4840237254561571183, guid: 21352aacd08568b468be97d704e69b1a, type: 3}
-  soundTrackLineImage: {fileID: 0}
+  soundTrackLineImage: {fileID: 438276268}
   soundHandleImage: {fileID: 1165289940}
   volumeLineGreenSprite: {fileID: 21300000, guid: c958fcd6d6f8fdd40be7a788446f61ee, type: 3}
   volumeLineRedSprite: {fileID: 21300000, guid: edc6933693888274088c737a1d859e33, type: 3}
-  volumeButtonGreenNormal: {fileID: 0}
-  volumeButtonGreenPressed: {fileID: 0}
-  volumeButtonRedNormal: {fileID: 0}
-  volumeButtonRedPressed: {fileID: 0}
+  volumeButtonGreenNormal: {fileID: 21300000, guid: 11ad31070da96174e98bb50e0f8800ca, type: 3}
+  volumeButtonGreenPressed: {fileID: 21300000, guid: fa6027de2b17c3e46866b99ffbedf5d0, type: 3}
+  volumeButtonRedNormal: {fileID: 21300000, guid: 02184af8a194d5849bb2ed2b0a01ae1d, type: 3}
+  volumeButtonRedPressed: {fileID: 21300000, guid: ed79426db8e44ac4f8c3fd2bac8f24d0, type: 3}
+  soundInPanelButMuteSprite: {fileID: 21300000, guid: ebdf374654270e1468b4811bc52fd5cb, type: 3}
+  soundInPanelButSpickerSprite: {fileID: 21300000, guid: b903283b87076064f812206e86e8b9a4, type: 3}
   buyFeatureConfirmPanel: {fileID: 289852653}
   buttonConfirmBuyFeature: {fileID: 937778932}
   buttonCancelBuyFeature: {fileID: 825820685}
@@ -17645,7 +17647,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &944915845
 RectTransform:
   m_ObjectHideFlags: 0
