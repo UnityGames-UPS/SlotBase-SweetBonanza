@@ -94,20 +94,26 @@ public class OrientationChange : MonoBehaviour
         OnOrientationChangedInstance?.Invoke(isLandscape ? OrientationMode.Landscape : OrientationMode.DesktopPortrait, width, height);
     }
 
+    private void KillTweens()
+    {
+        if (rotationRoutine != null)
+        {
+            StopCoroutine(rotationRoutine);
+            rotationRoutine = null;
+        }
+        if (rotationTween != null && rotationTween.IsActive()) rotationTween.Kill();
+        rotationTween = null;
+        if (matchTween != null && matchTween.IsActive()) matchTween.Kill();
+        matchTween = null;
+    }
+
+    private void OnDisable()
+    {
+        KillTweens();
+    }
+
     private void OnDestroy()
     {
-        if (rotationTween != null && rotationTween.IsActive()) rotationTween.Kill();
-        if (matchTween != null && matchTween.IsActive()) matchTween.Kill();
+        KillTweens();
     }
-
-
-#if UNITY_EDITOR
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            SwitchDisplay(Screen.width + "," + Screen.height);
-        }
-    }
-#endif
 }

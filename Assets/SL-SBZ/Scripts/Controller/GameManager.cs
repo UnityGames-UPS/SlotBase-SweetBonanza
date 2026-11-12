@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using DG.Tweening;
 using SweetBonanza.Model;
 using SweetBonanza.View;
 using SweetBonanza.Service;
@@ -40,6 +41,14 @@ namespace SweetBonanza.Controller
         private bool isAutoplaying = false;
         private int remainingAutoplaySpins = 0;
 
+        private static readonly WaitForSeconds Wait04 = new WaitForSeconds(0.4f);
+        private static readonly WaitForSeconds Wait05 = new WaitForSeconds(0.5f);
+        private static readonly WaitForSeconds Wait06 = new WaitForSeconds(0.6f);
+        private static readonly WaitForSeconds Wait10 = new WaitForSeconds(1.0f);
+        private static readonly WaitForSeconds Wait20 = new WaitForSeconds(2.0f);
+        private static readonly WaitForSeconds Wait30 = new WaitForSeconds(3.0f);
+        private static readonly WaitForSeconds Wait35 = new WaitForSeconds(3.5f);
+
         [Header("Debug")]
         [SerializeField] private bool enableSpinDebugLogs = true;
 
@@ -47,6 +56,7 @@ namespace SweetBonanza.Controller
 
         private void Start()
         {
+            DOTween.SetTweensCapacity(500, 125);
             InitializeServices();
             HookViewEvents();
             ApplyInitialSettings();
@@ -65,14 +75,23 @@ namespace SweetBonanza.Controller
             if (gridView != null) gridView.SetQuickSpinMode(quickSpin);
 
             bool batterySaver = PlayerPrefs.GetInt("settings_battery_saver", 0) == 1;
-            Application.targetFrameRate = batterySaver ? 30 : 60;
-            QualitySettings.vSyncCount = batterySaver ? 0 : 1;
+            ApplyFrameRateSettings(batterySaver);
 
             bool music = PlayerPrefs.GetInt("settings_ambient_music", 1) == 1;
             AudioManager.Instance?.SetMusicEnabled(music);
 
             bool sfx = PlayerPrefs.GetInt("settings_sound_fx", 1) == 1;
             AudioManager.Instance?.SetSfxEnabled(sfx);
+        }
+
+        private void ApplyFrameRateSettings(bool batterySaver)
+        {
+            QualitySettings.vSyncCount = 0;
+#if UNITY_WEBGL && !UNITY_EDITOR
+            Application.targetFrameRate = batterySaver ? 30 : -1;
+#else
+            Application.targetFrameRate = batterySaver ? 30 : 60;
+#endif
         }
 
         private void InitializeServices()
@@ -416,7 +435,7 @@ namespace SweetBonanza.Controller
             if (result.ScatterCount >= 4)
             {
                 SetStatusMessage($"⭐ {result.ScatterCount} SCATTERS HIT! ⭐");
-                yield return new WaitForSeconds(0.4f);
+                yield return Wait04;
             }
 
             currentState = GameState.TumblingDown;
@@ -482,7 +501,7 @@ namespace SweetBonanza.Controller
                 }
 
                 if (mainView != null) mainView.SetWin(result.FinalWinAmount, true);
-                yield return new WaitForSeconds(0.5f);
+                yield return Wait05;
             }
 
             if (result.FinalWinAmount >= CurrentBetAmount * 20)
@@ -490,7 +509,7 @@ namespace SweetBonanza.Controller
                 if (uiManager != null)
                 {
                     uiManager.ShowWinCelebration("MEGA WIN!", result.FinalWinAmount, 3.5f);
-                    yield return new WaitForSeconds(3.5f);
+                    yield return Wait35;
                 }
             }
             else if (result.FinalWinAmount >= CurrentBetAmount * 2)
@@ -498,7 +517,7 @@ namespace SweetBonanza.Controller
                 if (uiManager != null)
                 {
                     uiManager.ShowWinCelebration("NICE WIN!", result.FinalWinAmount, 3.0f);
-                    yield return new WaitForSeconds(3.0f);
+                    yield return Wait30;
                 }
             }
 
@@ -527,7 +546,7 @@ namespace SweetBonanza.Controller
                 if (uiManager != null && showIntro)
                 {
                     uiManager.ShowFreeSpinsIntro(totalFreeSpinsAwarded);
-                    yield return new WaitForSeconds(2.0f);
+                    yield return Wait20;
                 }
             }
             else if (isInFreeSpins)
@@ -546,14 +565,14 @@ namespace SweetBonanza.Controller
                     double finalFsWin = accumulatedFreeSpinsWin > 0 ? accumulatedFreeSpinsWin : result.FinalWinAmount;
                     if (uiManager != null) uiManager.ShowFreeSpinsOutro(finalFsWin);
                     accumulatedFreeSpinsWin = 0;
-                    yield return new WaitForSeconds(2.0f);
+                    yield return Wait20;
                 }
             }
 
             if (result.FinalWinAmount > 0)
             {
                 if (mainView != null) mainView.SetWin(result.FinalWinAmount);
-                yield return new WaitForSeconds(isAutoplaying ? 0.4f : 1.0f);
+                yield return isAutoplaying ? Wait04 : Wait10;
             }
 
             currentState = GameState.Idle;
@@ -566,7 +585,7 @@ namespace SweetBonanza.Controller
 
             if (isInFreeSpins && remainingFreeSpins > 0)
             {
-                yield return new WaitForSeconds(0.6f);
+                yield return Wait06;
                 if (uiManager != null) uiManager.CloseCurrentPanel();
                 SendSpinRequest(currentBetAmount, false, false);
             }
@@ -576,7 +595,7 @@ namespace SweetBonanza.Controller
                 if (remainingAutoplaySpins > 0)
                 {
                     if (uiManager != null) uiManager.SetAutoplayState(true, remainingAutoplaySpins);
-                    yield return new WaitForSeconds(0.5f);
+                    yield return Wait05;
                     HandleSpinClicked();
                 }
                 else
@@ -628,8 +647,7 @@ namespace SweetBonanza.Controller
 
         private void HandleBatterySaverChanged(bool isOn)
         {
-            Application.targetFrameRate = isOn ? 30 : 60;
-            QualitySettings.vSyncCount = isOn ? 0 : 1;
+            ApplyFrameRateSettings(isOn);
         }
 
         private void HandleAmbientMusicChanged(bool isOn)

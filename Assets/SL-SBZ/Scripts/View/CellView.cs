@@ -24,6 +24,10 @@ namespace SweetBonanza.View
         [SerializeField] private Sprite candyBurstSprite;
         [SerializeField] private Sprite bombBurstSprite;
 
+        private static readonly WaitForSeconds Wait30Fps = new WaitForSeconds(1f / 30f);
+        private static readonly WaitForSeconds Wait40Fps = new WaitForSeconds(1f / 40f);
+        private static readonly WaitForSeconds WaitBombFallback = new WaitForSeconds(0.35f);
+
         private SymbolType currentSymbol;
         private int currentMultiplier;
         private Sprite baseSymbolSprite;
@@ -36,8 +40,23 @@ namespace SweetBonanza.View
         {
             if (rectTransform == null) rectTransform = GetComponent<RectTransform>();
             if (canvasGroup == null) canvasGroup = GetComponent<CanvasGroup>();
-            if (winAmountText != null) winAmountText.textWrappingMode = TextWrappingModes.NoWrap;
-            if (multiplierText != null) multiplierText.textWrappingMode = TextWrappingModes.NoWrap;
+            if (canvasGroup != null)
+            {
+                canvasGroup.interactable = false;
+                canvasGroup.blocksRaycasts = false;
+            }
+            if (symbolImage != null) symbolImage.raycastTarget = false;
+            if (burstEffectImage != null) burstEffectImage.raycastTarget = false;
+            if (winAmountText != null)
+            {
+                winAmountText.textWrappingMode = TextWrappingModes.NoWrap;
+                winAmountText.raycastTarget = false;
+            }
+            if (multiplierText != null)
+            {
+                multiplierText.textWrappingMode = TextWrappingModes.NoWrap;
+                multiplierText.raycastTarget = false;
+            }
         }
 
         internal SymbolType CurrentSymbol => currentSymbol;
@@ -61,12 +80,10 @@ namespace SweetBonanza.View
                 if (symbol == SymbolType.Lollipop)
                 {
                     symbolImage.transform.localScale = new Vector3(1.75f, 1.75f, 1f);
-                    transform.SetAsLastSibling();
                 }
                 else if (symbol == SymbolType.MultiplierBomb)
                 {
                     symbolImage.transform.localScale = new Vector3(1.15f, 1.15f, 1f);
-                    transform.SetAsLastSibling();
                 }
                 else
                 {
@@ -142,7 +159,7 @@ namespace SweetBonanza.View
             PlayWinAnimation(null, 0.38f, 0, onComplete);
         }
 
-        internal void PlayExplodeAnimation(Sprite[] burstFrames, Action onComplete, Sprite[] symbolFrames = null)
+        internal void PlayExplodeAnimation(Sprite[] burstFrames, Action<CellView> onComplete, Sprite[] symbolFrames = null)
         {
             KillActiveTweens();
 
@@ -188,7 +205,7 @@ namespace SweetBonanza.View
             {
                 if (symbolImage != null) symbolImage.enabled = false;
                 if (burstEffectImage != null) burstEffectImage.enabled = false;
-                onComplete?.Invoke();
+                onComplete?.Invoke(this);
             });
         }
 
@@ -268,7 +285,6 @@ namespace SweetBonanza.View
             // 5. Special playful Scatter Lollipop landing bounce if Scatter
             if (currentSymbol == SymbolType.Lollipop)
             {
-                transform.SetAsLastSibling();
                 activeSequence.Append(rectTransform.DOPunchScale(Vector3.one * 0.14f, 0.24f, 3, 0.3f));
             }
 
@@ -281,12 +297,12 @@ namespace SweetBonanza.View
             activeSequence.OnComplete(() => onComplete?.Invoke());
         }
 
-        internal void PlayClearDropAnimation(float delay, Action onComplete)
+        internal void PlayClearDropAnimation(float delay, Action<CellView> onComplete)
         {
             PlayClearDropAnimation(delay, 0.30f, onComplete);
         }
 
-        internal void PlayClearDropAnimation(float delay, float duration, Action onComplete)
+        internal void PlayClearDropAnimation(float delay, float duration, Action<CellView> onComplete)
         {
             KillActiveTweens();
             rectTransform.localScale = Vector3.one;
@@ -298,7 +314,7 @@ namespace SweetBonanza.View
             float targetY = rectTransform.anchoredPosition.y - 1100f;
             activeSequence.Append(rectTransform.DOAnchorPosY(targetY, duration).SetEase(Ease.InQuad));
             activeSequence.Join(rectTransform.DOScale(new Vector3(0.90f, 1.12f, 1f), duration * 0.7f).SetEase(Ease.InQuad));
-            activeSequence.OnComplete(() => onComplete?.Invoke());
+            activeSequence.OnComplete(() => onComplete?.Invoke(this));
         }
 
         internal void PlayMultiplierBombRevealAnimation(int multiplier, Action onComplete, Sprite[] threadFrames = null, Sprite[] blastFrames = null, Action onDetonated = null)
@@ -337,29 +353,25 @@ namespace SweetBonanza.View
 
             if (threadFrames != null && threadFrames.Length > 0 && symbolImage != null)
             {
-                Debug.Log("Bomb Fuse Spark");
-                float threadRate = 1f / 30f;
                 for (int i = 0; i < threadFrames.Length; i++)
                 {
                     symbolImage.sprite = threadFrames[i];
-                    yield return new WaitForSeconds(threadRate);
+                    yield return Wait30Fps;
                 }
             }
             // 2. The explosion blast (plays blastFrames 0-59 second on symbolImage)
             AudioManager.Instance?.PlayBombExplode();
             if (blastFrames != null && blastFrames.Length > 0 && symbolImage != null)
             {
-                Debug.Log("Bomb Explode");
-                float blastRate = 1f / 40f;
                 for (int i = 0; i < blastFrames.Length; i++)
                 {
                     symbolImage.sprite = blastFrames[i];
-                    yield return new WaitForSeconds(blastRate);
+                    yield return Wait40Fps;
                 }
             }
             else
             {
-                yield return new WaitForSeconds(0.35f);
+                yield return WaitBombFallback;
             }
 
             if (burstEffectImage != null)
@@ -418,9 +430,11 @@ namespace SweetBonanza.View
         {
             if (frames == null || frames.Length == 0) yield break;
 
-            if (startDelay > 0f)
+            float delayElapsed = 0f;
+            while (delayElapsed < startDelay)
             {
-                yield return new WaitForSeconds(startDelay);
+                yield return null;
+                delayElapsed += Time.deltaTime;
             }
 
             float elapsed = 0f;
@@ -430,12 +444,15 @@ namespace SweetBonanza.View
             float frameRate = 1f / SYMBOL_ANIM_FPS;
             float frameTimer = 0f;
             int index = 0;
+            int lastSpriteIndex = -1;
 
             while (elapsed < duration)
             {
-                if (symbolImage != null && frames != null && frames.Length > 0)
+                int frameIndex = index % frames.Length;
+                if (frameIndex != lastSpriteIndex && symbolImage != null)
                 {
-                    symbolImage.sprite = frames[index % frames.Length];
+                    symbolImage.sprite = frames[frameIndex];
+                    lastSpriteIndex = frameIndex;
                 }
 
                 yield return null;
@@ -468,13 +485,13 @@ namespace SweetBonanza.View
             int index = 0;
             while (elapsed < duration && index < frames.Length)
             {
-                if (burstEffectImage != null && frames != null && index < frames.Length)
+                if (burstEffectImage != null)
                 {
                     burstEffectImage.sprite = frames[index];
                 }
                 index++;
                 elapsed += frameRate;
-                yield return new WaitForSeconds(frameRate);
+                yield return Wait30Fps;
             }
             activeBurstRoutine = null;
         }
@@ -488,7 +505,12 @@ namespace SweetBonanza.View
                 rectTransform.localScale = Vector3.one;
                 rectTransform.localRotation = Quaternion.identity;
             }
-            if (canvasGroup != null) canvasGroup.alpha = 1f;
+            if (canvasGroup != null)
+            {
+                canvasGroup.alpha = 0f;
+                canvasGroup.blocksRaycasts = false;
+                canvasGroup.interactable = false;
+            }
             if (symbolImage != null)
             {
                 symbolImage.sprite = null;
@@ -568,6 +590,10 @@ namespace SweetBonanza.View
             activeTweener = null;
 
             if (multiplierText != null) multiplierText.transform.DOKill();
+            if (winAmountText != null) winAmountText.transform.DOKill();
+            if (burstEffectImage != null) burstEffectImage.DOKill();
+            if (rectTransform != null) rectTransform.DOKill();
+            if (canvasGroup != null) canvasGroup.DOKill();
         }
 
         private void OnDisable()

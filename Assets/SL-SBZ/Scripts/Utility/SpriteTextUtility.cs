@@ -13,6 +13,29 @@ namespace SweetBonanza.View
     {
         private const string DollarSprite = "<sprite=11>";
         private const string DotSprite = "<sprite=10>";
+        private const string XSprite = "<sprite name=\"x\">";
+        private static readonly string[] DigitSprites =
+        {
+            "<sprite=0>", "<sprite=1>", "<sprite=2>", "<sprite=3>", "<sprite=4>",
+            "<sprite=5>", "<sprite=6>", "<sprite=7>", "<sprite=8>", "<sprite=9>"
+        };
+        private static readonly StringBuilder SharedBuilder = new StringBuilder(128);
+
+        private static void AppendSpriteChars(StringBuilder sb, string source, bool includeDot = false)
+        {
+            for (int i = 0; i < source.Length; i++)
+            {
+                char c = source[i];
+                if (c >= '0' && c <= '9')
+                {
+                    sb.Append(DigitSprites[c - '0']);
+                }
+                else if (includeDot && c == '.')
+                {
+                    sb.Append(DotSprite);
+                }
+            }
+        }
 
         /// <summary>
         /// Formats an amount into TMP sprite index tags (<sprite=0>..<sprite=11>).
@@ -68,17 +91,9 @@ namespace SweetBonanza.View
             if (count < 0) count = 0;
             string s = count.ToString(CultureInfo.InvariantCulture);
 
-            StringBuilder sb = new StringBuilder(s.Length * 10);
-            for (int i = 0; i < s.Length; i++)
-            {
-                char c = s[i];
-                if (c >= '0' && c <= '9')
-                {
-                    sb.Append("<sprite=").Append(c - '0').Append('>');
-                }
-            }
-
-            return sb.ToString();
+            SharedBuilder.Clear();
+            AppendSpriteChars(SharedBuilder, s);
+            return SharedBuilder.ToString();
         }
 
         /// <summary>
@@ -95,25 +110,14 @@ namespace SweetBonanza.View
                     ? ((long)Math.Round(amount)).ToString(CultureInfo.InvariantCulture)
                     : amount.ToString("0.00", CultureInfo.InvariantCulture));
 
-            StringBuilder sb = new StringBuilder(formatted.Length * 10 + 12);
+            SharedBuilder.Clear();
             if (includeDollar)
             {
-                sb.Append(DollarSprite);
+                SharedBuilder.Append(DollarSprite);
             }
 
-            for (int i = 0; i < formatted.Length; i++)
-            {
-                char c = formatted[i];
-                if (c >= '0' && c <= '9')
-                {
-                    sb.Append("<sprite=").Append(c - '0').Append('>');
-                }
-                else if (c == '.')
-                {
-                    sb.Append(DotSprite);
-                }
-            }
-            return sb.ToString();
+            AppendSpriteChars(SharedBuilder, formatted, includeDot: true);
+            return SharedBuilder.ToString();
         }
 
         /// <summary>
@@ -160,17 +164,10 @@ namespace SweetBonanza.View
             if (multiplier <= 0) return string.Empty;
 
             string s = multiplier.ToString(CultureInfo.InvariantCulture);
-            StringBuilder sb = new StringBuilder(s.Length * 10 + 16);
-            for (int i = 0; i < s.Length; i++)
-            {
-                char c = s[i];
-                if (c >= '0' && c <= '9')
-                {
-                    sb.Append("<sprite=").Append(c - '0').Append('>');
-                }
-            }
-            sb.Append("<sprite name=\"x\">");
-            return sb.ToString();
+            SharedBuilder.Clear();
+            AppendSpriteChars(SharedBuilder, s);
+            SharedBuilder.Append(XSprite);
+            return SharedBuilder.ToString();
         }
     }
 }

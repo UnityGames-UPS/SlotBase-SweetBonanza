@@ -62,12 +62,44 @@ namespace SweetBonanza.View
         [SerializeField] private Sprite[] spiralCandyRotationFrames;
         [SerializeField] private Sprite[] glassEffectFrames;
 
+        private static readonly Vector2 PoolParkingPosition = new Vector2(0f, 3000f);
+        private static readonly WaitForSeconds WaitSlamStopEnd = new WaitForSeconds(0.04f);
+        private static readonly WaitForSeconds WaitSlamExplode = new WaitForSeconds(0.05f);
+        private static readonly WaitForSeconds WaitSlamMicro = new WaitForSeconds(0.08f);
+        private static readonly WaitForSeconds WaitInitialDropEnd = new WaitForSeconds(0.10f);
+        private static readonly WaitForSeconds WaitTumbleEnd = new WaitForSeconds(0.22f);
+        private static readonly WaitForSeconds WaitBombStep = new WaitForSeconds(0.20f);
+        private static readonly WaitForSeconds WaitBombEnd = new WaitForSeconds(0.25f);
+        private static readonly WaitForSeconds WaitScatterHold = new WaitForSeconds(1.20f);
+        private static readonly WaitForSeconds WaitScatterSettle = new WaitForSeconds(0.25f);
+
         private bool isQuickSpinMode = false;
         private bool isSlamStopRequested = false;
+        private bool isPoolPrewarmed = false;
         private CellView[,] activeCells = new CellView[GameConfig.COLUMNS, GameConfig.ROWS];
-        private readonly List<CellView> cellPool = new List<CellView>();
+        private CellView[,] scratchGrid = new CellView[GameConfig.COLUMNS, GameConfig.ROWS];
+        private readonly List<CellView> cellPool = new List<CellView>(64);
+        private List<CellView>[] oldCellsByCol;
+        private readonly int[] scattersPerCol = new int[GameConfig.COLUMNS];
+        private readonly float[] columnDelays = new float[GameConfig.COLUMNS];
+        private readonly float[] columnDurations = new float[GameConfig.COLUMNS];
+        private readonly int[] explodedCountPerCol = new int[GameConfig.COLUMNS];
+        private readonly List<CellView> scatterCellsScratch = new List<CellView>(12);
         private Dictionary<SymbolType, Sprite> spriteLookup;
         private Dictionary<SymbolType, Sprite[]> animationLookup;
+
+        private WaitForSeconds waitWinPulse;
+        private WaitForSeconds waitExplode;
+
+        private int completedDropsCount;
+        private int completedFallsCount;
+        private int completedSpawnsCount;
+        private Action cachedIncrementDrops;
+        private Action cachedIncrementFalls;
+        private Action cachedIncrementSpawns;
+        private Action<CellView> cachedRecycleCell;
+        private Action cachedReelStop;
+        private Action cachedLastReelStop;
 
         internal void SetQuickSpinMode(bool isQuick)
         {
@@ -88,6 +120,13 @@ namespace SweetBonanza.View
                 explodeDuration = 0.26f;
                 tumbleFallDuration = 0.24f;
             }
+            RefreshTimingCaches();
+        }
+
+        private void RefreshTimingCaches()
+        {
+            waitWinPulse = new WaitForSeconds(winPulseDuration);
+            waitExplode = new WaitForSeconds(explodeDuration);
         }
 
         internal void RequestSlamStop()
@@ -122,6 +161,31 @@ namespace SweetBonanza.View
         {
             InitializeSpriteLookup();
             InitializeAnimationLookup();
+            RefreshTimingCaches();
+
+            oldCellsByCol = new List<CellView>[GameConfig.COLUMNS];
+            for (int c = 0; c < GameConfig.COLUMNS; c++)
+            {
+                oldCellsByCol[c] = new List<CellView>(GameConfig.ROWS);
+            }
+
+            cachedIncrementDrops = () => completedDropsCount++;
+            cachedIncrementFalls = () => completedFallsCount++;
+            cachedIncrementSpawns = () => completedSpawnsCount++;
+            cachedRecycleCell = RecycleCell;
+            cachedReelStop = () =>
+            {
+                if (!isSlamStopRequested) AudioManager.Instance?.PlayReelStop();
+            };
+            cachedLastReelStop = () =>
+            {
+                if (!isSlamStopRequested)
+                {
+                    AudioManager.Instance?.PlayReelStop();
+                    AudioManager.Instance?.StopReelSpinLoop();
+                }
+            };
+
             if (slotFrameTransform == null)
             {
                 var sf = GameObject.Find("MainCanvas/BG/MainGamePlay/slot frame");
@@ -132,14 +196,18 @@ namespace SweetBonanza.View
 
         private void PrewarmCellPool()
         {
+            if (isPoolPrewarmed) return;
+            isPoolPrewarmed = true;
+
             Transform parent = gridContainer != null ? gridContainer : transform;
             var existing = parent.GetComponentsInChildren<CellView>(true);
             foreach (var cell in existing)
             {
                 if (cell != null && !cellPool.Contains(cell))
                 {
+                    if (!cell.gameObject.activeSelf) cell.gameObject.SetActive(true);
                     cell.ResetCell();
-                    cell.gameObject.SetActive(false);
+                    if (cell.RectTransform != null) cell.RectTransform.anchoredPosition = PoolParkingPosition;
                     cellPool.Add(cell);
                 }
             }
@@ -147,8 +215,9 @@ namespace SweetBonanza.View
             while (cellPool.Count < 60 && cellPrefab != null)
             {
                 var cell = Instantiate(cellPrefab, parent);
+                if (!cell.gameObject.activeSelf) cell.gameObject.SetActive(true);
                 cell.ResetCell();
-                cell.gameObject.SetActive(false);
+                if (cell.RectTransform != null) cell.RectTransform.anchoredPosition = PoolParkingPosition;
                 cellPool.Add(cell);
             }
         }
@@ -285,11 +354,10 @@ namespace SweetBonanza.View
         {
             if (gridMask != null) gridMask.enabled = true;
             // 1. Gather active cells by column so exit and entrance can cascade synchronously
-            var oldCellsByCol = new List<CellView>[GameConfig.COLUMNS];
             int totalOldCells = 0;
             for (int c = 0; c < GameConfig.COLUMNS; c++)
             {
-                oldCellsByCol[c] = new List<CellView>();
+                oldCellsByCol[c].Clear();
                 for (int r = 0; r < GameConfig.ROWS; r++)
                 {
                     if (activeCells[c, r] != null)
@@ -310,25 +378,24 @@ namespace SweetBonanza.View
                 for (int c = 0; c < GameConfig.COLUMNS; c++)
                 {
                     float oldColDelay = c * clearStagger;
-                    foreach (var oldCell in oldCellsByCol[c])
+                    var colList = oldCellsByCol[c];
+                    for (int i = 0; i < colList.Count; i++)
                     {
+                        var oldCell = colList[i];
                         if (isSlamStopRequested)
                         {
                             RecycleCell(oldCell);
                         }
                         else
                         {
-                            oldCell.PlayClearDropAnimation(oldColDelay, clearDuration, () =>
-                            {
-                                RecycleCell(oldCell);
-                            });
+                            oldCell.PlayClearDropAnimation(oldColDelay, clearDuration, cachedRecycleCell);
                         }
                     }
                 }
             }
 
             // 3. Count scatters per column to calculate anticipation delays
-            int[] scattersPerCol = new int[GameConfig.COLUMNS];
+            Array.Clear(scattersPerCol, 0, scattersPerCol.Length);
             for (int c = 0; c < GameConfig.COLUMNS; c++)
             {
                 for (int r = 0; r < GameConfig.ROWS; r++)
@@ -346,8 +413,6 @@ namespace SweetBonanza.View
             int cumulativeScatters = 0;
             float currentCumulativeDelay = entranceStartDelay;
             bool anticipationTriggered = false;
-            float[] columnDelays = new float[GameConfig.COLUMNS];
-            float[] columnDurations = new float[GameConfig.COLUMNS];
 
             for (int c = 0; c < GameConfig.COLUMNS; c++)
             {
@@ -378,7 +443,7 @@ namespace SweetBonanza.View
             }
 
             // 5. New symbols enter and land with the bubbly, bouncy stacking wave
-            int completedDrops = 0;
+            completedDropsCount = 0;
             int totalDrops = GameConfig.TOTAL_CELLS;
             float rowStagger = isQuickSpinMode ? 0.02f : 0.065f;
 
@@ -386,8 +451,7 @@ namespace SweetBonanza.View
             {
                 float dropInDelay = columnDelays[c];
                 float duration = columnDurations[c];
-                int colCompleted = 0;
-                bool isLastCol = (c == GameConfig.COLUMNS - 1);
+                Action colImpactAction = (c == GameConfig.COLUMNS - 1) ? cachedLastReelStop : cachedReelStop;
 
                 for (int r = 0; r < GameConfig.ROWS; r++)
                 {
@@ -415,37 +479,19 @@ namespace SweetBonanza.View
 
                     Sprite sprite = (symbol == SymbolType.MultiplierBomb) ? GetMultiplierBombSprite(mult) : GetSymbolSprite(symbol);
                     cell.Setup(symbol, sprite, mult);
-                    cell.transform.SetSiblingIndex(c * GameConfig.ROWS + r);
+                    int targetSibling = c * GameConfig.ROWS + r;
+                    if (cell.transform.GetSiblingIndex() != targetSibling)
+                    {
+                        cell.transform.SetSiblingIndex(targetSibling);
+                    }
 
                     // Row-stagger (r * rowStagger): creates the bubbly stacking wave where Row 0 lands first, Row 1 lands on top of it, Row 2 next, etc.
                     float symbolDropDelay = dropInDelay + (r * rowStagger);
-
-                    Action onImpact = null;
-                    if (r == 0)
-                    {
-                        onImpact = () =>
-                        {
-                            if (!isSlamStopRequested)
-                            {
-                                AudioManager.Instance?.PlayReelStop();
-                                if (isLastCol)
-                                {
-                                    AudioManager.Instance?.StopReelSpinLoop();
-                                    if (gridMask != null) gridMask.enabled = false;
-                                }
-                            }
-                        };
-                    }
-
-                    cell.PlayDropInAnimation(targetPos, symbolDropDelay, duration, () =>
-                    {
-                        completedDrops++;
-                        colCompleted++;
-                    }, null, onImpact);
+                    cell.PlayDropInAnimation(targetPos, symbolDropDelay, duration, cachedIncrementDrops, null, r == 0 ? colImpactAction : null);
                 }
             }
 
-            while (completedDrops < totalDrops)
+            while (completedDropsCount < totalDrops)
             {
                 if (isSlamStopRequested)
                 {
@@ -469,7 +515,7 @@ namespace SweetBonanza.View
             if (gridMask != null) gridMask.enabled = false;
             bool wasSlam = isSlamStopRequested;
             if (wasSlam) AudioManager.Instance?.PlayReelStop();
-            yield return new WaitForSeconds(wasSlam ? 0.04f : 0.10f);
+            yield return wasSlam ? WaitSlamStopEnd : WaitInitialDropEnd;
         }
 
         internal IEnumerator PlayTumbleStepSequence(TumbleStep step, List<BombMultiplierInfo> bombs = null)
@@ -479,16 +525,18 @@ namespace SweetBonanza.View
 
             if (step.Wins != null && step.Wins.Count > 0)
             {
-                foreach (var win in step.Wins)
+                for (int w = 0; w < step.Wins.Count; w++)
                 {
+                    var win = step.Wins[w];
                     Sprite[] frames = GetSymbolAnimationFrames(win.Symbol);
                     if (win.Positions != null && win.Positions.Count > 0)
                     {
                         // Choose center position of cluster to display floating win label
                         GridPosition centerPos = win.Positions[win.Positions.Count / 2];
 
-                        foreach (var pos in win.Positions)
+                        for (int p = 0; p < win.Positions.Count; p++)
                         {
+                            var pos = win.Positions[p];
                             var cell = activeCells[pos.Column, pos.Row];
                             if (cell != null)
                             {
@@ -500,10 +548,11 @@ namespace SweetBonanza.View
                     }
                 }
             }
-            else
+            else if (step.ExplodedPositions != null)
             {
-                foreach (var pos in step.ExplodedPositions)
+                for (int p = 0; p < step.ExplodedPositions.Count; p++)
                 {
+                    var pos = step.ExplodedPositions[p];
                     var cell = activeCells[pos.Column, pos.Row];
                     if (cell != null)
                     {
@@ -514,56 +563,61 @@ namespace SweetBonanza.View
                 }
             }
 
-            yield return new WaitForSeconds(isSlamStopRequested ? 0.08f : winPulseDuration);
+            yield return isSlamStopRequested ? WaitSlamMicro : waitWinPulse;
 
             // 2. Explode and pop with glass / candy burst effect while playing 3D symbol animation
             if (step.ExplodedPositions != null && step.ExplodedPositions.Count > 0)
             {
                 AudioManager.Instance?.PlaySymbolPop();
-            }
-            foreach (var pos in step.ExplodedPositions)
-            {
-                var cell = activeCells[pos.Column, pos.Row];
-                if (cell != null)
+                for (int p = 0; p < step.ExplodedPositions.Count; p++)
                 {
-                    Sprite[] fruitFrames = GetSymbolAnimationFrames(cell.CurrentSymbol);
-                    cell.PlayExplodeAnimation(glassEffectFrames, () => RecycleCell(cell), fruitFrames);
-                    activeCells[pos.Column, pos.Row] = null;
+                    var pos = step.ExplodedPositions[p];
+                    var cell = activeCells[pos.Column, pos.Row];
+                    if (cell != null)
+                    {
+                        Sprite[] fruitFrames = GetSymbolAnimationFrames(cell.CurrentSymbol);
+                        cell.PlayExplodeAnimation(glassEffectFrames, cachedRecycleCell, fruitFrames);
+                        activeCells[pos.Column, pos.Row] = null;
+                    }
                 }
             }
-            yield return new WaitForSeconds(isSlamStopRequested ? 0.05f : explodeDuration);
+            yield return isSlamStopRequested ? WaitSlamExplode : waitExplode;
 
             // Calculate exploded count per column to build the straight lane stack
-            int[] explodedCountPerCol = new int[GameConfig.COLUMNS];
-            foreach (var pos in step.ExplodedPositions)
+            Array.Clear(explodedCountPerCol, 0, explodedCountPerCol.Length);
+            if (step.ExplodedPositions != null)
             {
-                explodedCountPerCol[pos.Column]++;
+                for (int p = 0; p < step.ExplodedPositions.Count; p++)
+                {
+                    explodedCountPerCol[step.ExplodedPositions[p].Column]++;
+                }
             }
 
             // 3. Gravity drop for surviving symbols (straight lane drop: delay = 0f, uniform duration)
-            var newGrid = new CellView[GameConfig.COLUMNS, GameConfig.ROWS];
-            int fallingCount = 0;
+            Array.Clear(scratchGrid, 0, scratchGrid.Length);
+            completedFallsCount = 0;
             int totalFalling = step.FallingSymbols.Count;
             float tumbleDuration = isQuickSpinMode ? 0.16f : tumbleFallDuration;
 
-            foreach (var fall in step.FallingSymbols)
+            for (int f = 0; f < totalFalling; f++)
             {
+                var fall = step.FallingSymbols[f];
                 var cell = activeCells[fall.Column, fall.FromRow];
                 if (cell != null)
                 {
-                    newGrid[fall.Column, fall.ToRow] = cell;
+                    scratchGrid[fall.Column, fall.ToRow] = cell;
                     activeCells[fall.Column, fall.FromRow] = null;
                     Vector2 targetPos = GetCellPosition(fall.Column, fall.ToRow);
-                    cell.PlayFallAnimation(targetPos, tumbleDuration, () => fallingCount++, 0f);
+                    cell.PlayFallAnimation(targetPos, tumbleDuration, cachedIncrementFalls, 0f);
                 }
-                else fallingCount++;
+                else completedFallsCount++;
             }
 
             for (int c = 0; c < GameConfig.COLUMNS; c++)
             {
                 for (int r = 0; r < GameConfig.ROWS; r++)
                 {
-                    if (activeCells[c, r] != null && newGrid[c, r] == null) newGrid[c, r] = activeCells[c, r];
+                    if (activeCells[c, r] != null && scratchGrid[c, r] == null) scratchGrid[c, r] = activeCells[c, r];
                 }
             }
 
@@ -573,13 +627,14 @@ namespace SweetBonanza.View
                 gridMask.enabled = true;
             }
 
-            int spawnCount = 0;
+            completedSpawnsCount = 0;
             int totalSpawns = step.NewSpawns.Count;
 
-            foreach (var spawn in step.NewSpawns)
+            for (int s = 0; s < totalSpawns; s++)
             {
+                var spawn = step.NewSpawns[s];
                 var cell = GetOrCreateCell();
-                newGrid[spawn.Column, spawn.TargetRow] = cell;
+                scratchGrid[spawn.Column, spawn.TargetRow] = cell;
 
                 Vector2 targetPos = GetCellPosition(spawn.Column, spawn.TargetRow);
                 int emptyCount = explodedCountPerCol[spawn.Column];
@@ -602,23 +657,31 @@ namespace SweetBonanza.View
 
                 Sprite sprite = (spawn.Symbol == SymbolType.MultiplierBomb) ? GetMultiplierBombSprite(mult) : GetSymbolSprite(spawn.Symbol);
                 cell.Setup(spawn.Symbol, sprite, mult);
-                cell.PlayFallAnimation(targetPos, tumbleDuration, () => spawnCount++, 0f);
+                cell.PlayFallAnimation(targetPos, tumbleDuration, cachedIncrementSpawns, 0f);
             }
 
-            activeCells = newGrid;
+            var prevActive = activeCells;
+            activeCells = scratchGrid;
+            scratchGrid = prevActive;
+
             // Normalize rendering hierarchy so z-order is clean and predictable
             for (int c = 0; c < GameConfig.COLUMNS; c++)
             {
                 for (int r = 0; r < GameConfig.ROWS; r++)
                 {
-                    if (activeCells[c, r] != null)
+                    var cell = activeCells[c, r];
+                    if (cell != null)
                     {
-                        activeCells[c, r].transform.SetSiblingIndex(c * GameConfig.ROWS + r);
+                        int targetSibling = c * GameConfig.ROWS + r;
+                        if (cell.transform.GetSiblingIndex() != targetSibling)
+                        {
+                            cell.transform.SetSiblingIndex(targetSibling);
+                        }
                     }
                 }
             }
 
-            while (fallingCount < totalFalling || spawnCount < totalSpawns)
+            while (completedFallsCount < totalFalling || completedSpawnsCount < totalSpawns)
             {
                 if (isSlamStopRequested)
                 {
@@ -642,7 +705,7 @@ namespace SweetBonanza.View
             if (gridMask != null) gridMask.enabled = false;
             bool wasSlam = isSlamStopRequested;
             AudioManager.Instance?.PlayReelStop();
-            yield return new WaitForSeconds(wasSlam ? 0.04f : 0.22f);
+            yield return wasSlam ? WaitSlamStopEnd : WaitTumbleEnd;
         }
 
         private void BringScattersAndBombsToFront()
@@ -687,46 +750,47 @@ namespace SweetBonanza.View
                     });
 
                     while (!bombCompleted) yield return null;
-                    yield return new WaitForSeconds(0.2f);
+                    yield return WaitBombStep;
                 }
             }
 
-            yield return new WaitForSeconds(0.25f);
+            yield return WaitBombEnd;
         }
 
         internal IEnumerator PlayScatterCelebrationSequence()
         {
-            var scatterCells = new List<CellView>();
+            scatterCellsScratch.Clear();
             for (int c = 0; c < GameConfig.COLUMNS; c++)
             {
                 for (int r = 0; r < GameConfig.ROWS; r++)
                 {
                     if (activeCells[c, r] != null && activeCells[c, r].CurrentSymbol == SymbolType.Lollipop)
                     {
-                        scatterCells.Add(activeCells[c, r]);
+                        scatterCellsScratch.Add(activeCells[c, r]);
                     }
                 }
             }
 
-            if (scatterCells.Count >= 3)
+            if (scatterCellsScratch.Count >= 3)
             {
                 // Play special 32-frame Spiral candy transition when Scatters trigger Free Spins
                 Sprite[] triggerFrames = (spiralCandyRotationFrames != null && spiralCandyRotationFrames.Length > 0)
                     ? spiralCandyRotationFrames
                     : spiralCandyFrames;
 
-                foreach (var cell in scatterCells)
+                for (int i = 0; i < scatterCellsScratch.Count; i++)
                 {
+                    var cell = scatterCellsScratch[i];
                     cell.transform.SetAsLastSibling();
                     cell.PlayScatterTriggerAnimation(triggerFrames, 1.4f);
                     cell.transform.DOScale(1.75f, 0.25f).SetEase(Ease.OutBack);
                 }
-                yield return new WaitForSeconds(1.2f);
-                foreach (var cell in scatterCells)
+                yield return WaitScatterHold;
+                for (int i = 0; i < scatterCellsScratch.Count; i++)
                 {
-                    cell.transform.DOScale(Vector3.one, 0.2f).SetEase(Ease.InOutQuad);
+                    scatterCellsScratch[i].transform.DOScale(Vector3.one, 0.2f).SetEase(Ease.InOutQuad);
                 }
-                yield return new WaitForSeconds(0.25f);
+                yield return WaitScatterSettle;
             }
         }
 
@@ -751,13 +815,13 @@ namespace SweetBonanza.View
             {
                 var cell = cellPool[cellPool.Count - 1];
                 cellPool.RemoveAt(cellPool.Count - 1);
-                cell.gameObject.SetActive(true);
+                if (!cell.gameObject.activeSelf) cell.gameObject.SetActive(true);
                 return cell;
             }
 
             Transform parent = gridContainer != null ? gridContainer : transform;
             var newCell = Instantiate(cellPrefab, parent);
-            newCell.gameObject.SetActive(true);
+            if (!newCell.gameObject.activeSelf) newCell.gameObject.SetActive(true);
             return newCell;
         }
 
@@ -765,19 +829,25 @@ namespace SweetBonanza.View
         {
             if (cell == null) return;
             cell.ResetCell();
-            cell.gameObject.SetActive(false);
+            if (cell.RectTransform != null) cell.RectTransform.anchoredPosition = PoolParkingPosition;
             if (!cellPool.Contains(cell))
             {
                 cellPool.Add(cell);
             }
         }
 
+        private void OnDisable()
+        {
+            if (slotFrameTransform != null) slotFrameTransform.DOKill();
+        }
+
         private void OnDestroy()
         {
+            if (slotFrameTransform != null) slotFrameTransform.DOKill();
             ClearGrid();
-            foreach (var cell in cellPool)
+            for (int i = 0; i < cellPool.Count; i++)
             {
-                if (cell != null) Destroy(cell.gameObject);
+                if (cellPool[i] != null) Destroy(cellPool[i].gameObject);
             }
             cellPool.Clear();
         }

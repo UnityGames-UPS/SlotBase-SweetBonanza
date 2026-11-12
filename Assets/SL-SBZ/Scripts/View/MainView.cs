@@ -16,6 +16,7 @@ namespace SweetBonanza.View
         internal event Action OnBetDecreaseClicked;
         internal event Action OnBuyBonusClicked;
         internal event Action OnAnteBetToggled;
+        internal event Action OnSpinStarted;
         internal event Action OnSpinStopped;
 
         [Header("Buttons")]
@@ -89,10 +90,19 @@ namespace SweetBonanza.View
         private bool isAutoplaying = false;
         private bool isInFreeSpins = false;
         private bool isAnteBetActive = false;
+        private bool isBuyFeatureActive = false;
         private int remainingAutoplayCount = 0;
+
+        private static readonly WaitForSeconds Wait015 = new WaitForSeconds(0.15f);
+        private static readonly WaitForSeconds Wait035 = new WaitForSeconds(0.35f);
+        private static readonly WaitForSeconds Wait08 = new WaitForSeconds(0.8f);
+        private static readonly WaitForSeconds Wait11 = new WaitForSeconds(1.1f);
 
         private CanvasGroup buyBonusCanvasGroup;
         private CanvasGroup anteBetCanvasGroup;
+        private RectTransform buyBonusRect;
+        private RectTransform anteBetRect;
+        private RectTransform slotFrameContainerRect;
 
         private Vector2 slotFrameDayPos;
         private Vector2 buyButtonDayPos;
@@ -105,11 +115,19 @@ namespace SweetBonanza.View
             if (dayPositionsCaptured) return;
             if (slotFrameImage != null)
             {
-                RectTransform frameRect = slotFrameImage.transform.parent as RectTransform ?? slotFrameImage.rectTransform;
-                slotFrameDayPos = frameRect != null ? frameRect.anchoredPosition : new Vector2(143.60f, 57f);
+                slotFrameContainerRect = slotFrameImage.transform.parent as RectTransform ?? slotFrameImage.rectTransform;
+                slotFrameDayPos = slotFrameContainerRect != null ? slotFrameContainerRect.anchoredPosition : new Vector2(143.60f, 57f);
             }
-            if (buyBonusButton != null) buyButtonDayPos = buyBonusButton.GetComponent<RectTransform>().anchoredPosition;
-            if (anteBetToggleButton != null) anteButtonDayPos = anteBetToggleButton.GetComponent<RectTransform>().anchoredPosition;
+            if (buyBonusButton != null)
+            {
+                buyBonusRect = buyBonusButton.GetComponent<RectTransform>();
+                buyButtonDayPos = buyBonusRect.anchoredPosition;
+            }
+            if (anteBetToggleButton != null)
+            {
+                anteBetRect = anteBetToggleButton.GetComponent<RectTransform>();
+                anteButtonDayPos = anteBetRect.anchoredPosition;
+            }
             dayPositionsCaptured = true;
         }
 
@@ -326,7 +344,11 @@ namespace SweetBonanza.View
         /// <summary>Updates the player's balance text display on the bottom HUD.</summary>
         internal void SetBalance(double balance)
         {
-            if (balanceText != null) balanceText.text = $"{balance:F2}";
+            if (balanceText != null)
+            {
+                balanceText.textWrappingMode = TextWrappingModes.NoWrap;
+                balanceText.text = SpriteTextUtility.FormatWithSpriteAsset(balance, balanceText);
+            }
         }
 
         /// <summary>Updates the current bet text and calculates effective bet when Ante Bet is active.</summary>
@@ -336,7 +358,8 @@ namespace SweetBonanza.View
 
             if (currentBetText != null)
             {
-                currentBetText.text = $"{effectiveBet:F2}";
+                currentBetText.textWrappingMode = TextWrappingModes.NoWrap;
+                currentBetText.text = SpriteTextUtility.FormatWithSpriteAsset(effectiveBet, currentBetText);
             }
 
            /* if (betDisplayText != null)
@@ -355,21 +378,25 @@ namespace SweetBonanza.View
         /// <summary>Called when Buy Feature opens or is active: all bottom bar display objects are hidden.</summary>
         internal void SetBuyFeatureState()
         {
-            
+            isBuyFeatureActive = true;
             if (spinInstructionObj != null) spinInstructionObj.SetActive(false);
             if (payoutMultiplayerObj != null) payoutMultiplayerObj.SetActive(false);
             if (winCountObj != null) winCountObj.SetActive(false);
             if (autoSpinCountObj != null) autoSpinCountObj.SetActive(false);
+            if (betPlusButton != null) betPlusButton.interactable = false;
+            if (betMinusButton != null) betMinusButton.interactable = false;
         }
 
-        /// <summary>Updates the spins badge with sprite swap and priority (Free Spins > AutoSpin > Idle).</summary>
+        /// <summary>Updates the spins badge with sprite swap and priority (Free Spins > AutoSpin > Spin Instruction / Idle).</summary>
         private void UpdateSpinsBadge(int remainingCount = -1)
         {
             int autoCount = remainingCount >= 0 ? remainingCount : remainingAutoplayCount;
             bool show = isInFreeSpins || (isAutoplaying && autoCount > 0);
+            bool hasWinDisplay = (winCountObj != null && winCountObj.activeSelf)
+                              || (payoutMultiplayerObj != null && payoutMultiplayerObj.activeSelf);
 
             if (freeSpinsBadge != null) freeSpinsBadge.SetActive(show);
-            if (spinInstructionObj != null) spinInstructionObj.SetActive(!show && !isSpinning);
+            if (spinInstructionObj != null) spinInstructionObj.SetActive(!show && !isBuyFeatureActive && !hasWinDisplay);
             if (!show) return;
 
             if (freeSpinsBadgeImage != null)
@@ -403,6 +430,7 @@ namespace SweetBonanza.View
             UpdateSpinsBadge(remainingSpins);
 
             SetSpinningButtonsState(true);
+            OnSpinStarted?.Invoke();
         }
 
         /// <summary>Updates bottom bar display on tumble step win: displays win count and symbol payout detail with icon.</summary>
@@ -493,6 +521,7 @@ namespace SweetBonanza.View
         /// <summary>Restores the bottom bar back to its default idle state.</summary>
         internal void SetIdleBottomBarState()
         {
+            this.isBuyFeatureActive = false;
             this.isSpinning = false;
             this.isStopping = false;
             if (payoutMultiplayerObj != null) payoutMultiplayerObj.SetActive(false);
@@ -501,6 +530,7 @@ namespace SweetBonanza.View
             UpdateSpinsBadge();
 
             SetSpinningButtonsState(false);
+            SetSpinButtonInteractable(true);
             OnSpinStopped?.Invoke();
         }
 
@@ -669,7 +699,7 @@ namespace SweetBonanza.View
                 topTumbleWinText.text = SpriteTextUtility.FormatTopTumbleWinFormula(baseTumbleWin, runningMultiplier, topTumbleWinText);
             }
 
-            yield return new WaitForSeconds(0.15f);
+            yield return Wait015;
         }
 
         /// <summary>Calculates and flashes the final multiplied tumble win on the top banner.</summary>
@@ -678,7 +708,7 @@ namespace SweetBonanza.View
             if (topTumbleWinBanner == null) yield break;
             if (!topTumbleWinBanner.activeSelf) topTumbleWinBanner.SetActive(true);
 
-            yield return new WaitForSeconds(0.35f);
+            yield return Wait035;
 
             double finalWin = baseTumbleWin * totalMultiplier;
             topTumbleWinBanner.transform.DOKill();
@@ -690,7 +720,7 @@ namespace SweetBonanza.View
                 topTumbleWinText.text = SpriteTextUtility.FormatTopTumbleWin(finalWin, topTumbleWinText);
             }
 
-            yield return new WaitForSeconds(0.8f);
+            yield return Wait08;
         }
 
         #endregion
@@ -710,7 +740,7 @@ namespace SweetBonanza.View
                 this.isSpinning = !interactable;
             }
 
-            bool canInteractBet = interactable && !this.isSpinning && !isAutoplaying && !isInFreeSpins;
+            bool canInteractBet = interactable && !this.isSpinning && !isAutoplaying && !isInFreeSpins && !isBuyFeatureActive;
             if (betPlusButton != null) betPlusButton.interactable = canInteractBet;
             if (betMinusButton != null) betMinusButton.interactable = canInteractBet;
             //if (betPlusBtn != null) betPlusBtn.interactable = canInteractBet;
@@ -903,29 +933,26 @@ namespace SweetBonanza.View
 
             // 1. Slide Buy Feature and Ante Bet buttons off-screen (Night) or back in (Day)
             float offscreenOffset = -550f;
-            if (buyBonusButton != null)
+            if (buyBonusRect != null)
             {
-                RectTransform buyRect = buyBonusButton.GetComponent<RectTransform>();
-                buyRect.DOKill();
+                buyBonusRect.DOKill();
                 float targetX = nightMode ? buyButtonDayPos.x + offscreenOffset : buyButtonDayPos.x;
-                buyRect.DOAnchorPosX(targetX, 0.45f).SetEase(nightMode ? Ease.InBack : Ease.OutBack);
+                buyBonusRect.DOAnchorPosX(targetX, 0.45f).SetEase(nightMode ? Ease.InBack : Ease.OutBack);
             }
 
-            if (anteBetToggleButton != null)
+            if (anteBetRect != null)
             {
-                RectTransform anteRect = anteBetToggleButton.GetComponent<RectTransform>();
-                anteRect.DOKill();
+                anteBetRect.DOKill();
                 float targetX = nightMode ? anteButtonDayPos.x + offscreenOffset : anteButtonDayPos.x;
-                anteRect.DOAnchorPosX(targetX, 0.45f).SetEase(nightMode ? Ease.InBack : Ease.OutBack);
+                anteBetRect.DOAnchorPosX(targetX, 0.45f).SetEase(nightMode ? Ease.InBack : Ease.OutBack);
             }
 
             // 2. Center slot frame to 6 (Night / Free Spins) or 143.60 (Day / Base Game)
-            if (slotFrameImage != null)
+            if (slotFrameContainerRect != null)
             {
-                RectTransform frameRect = slotFrameImage.transform.parent as RectTransform ?? slotFrameImage.rectTransform;
-                frameRect.DOKill();
+                slotFrameContainerRect.DOKill();
                 float targetSlotX = nightMode ? 6f : (slotFrameDayPos.x != 0 ? slotFrameDayPos.x : 143.60f);
-                frameRect.DOAnchorPosX(targetSlotX, 0.5f).SetEase(Ease.InOutCubic);
+                slotFrameContainerRect.DOAnchorPosX(targetSlotX, 0.5f).SetEase(Ease.InOutCubic);
             }
 
             // 3. Trigger candy transition overlay
@@ -968,7 +995,7 @@ namespace SweetBonanza.View
         {
             if (candyTransitionImage == null) yield break;
             candyTransitionImage.gameObject.SetActive(true);
-            yield return new WaitForSeconds(1.1f);
+            yield return Wait11;
             if (candyTransitionImage != null) candyTransitionImage.gameObject.SetActive(false);
         }
 
@@ -984,14 +1011,16 @@ namespace SweetBonanza.View
             }
         }
 
-        /// <summary>Kills active DOTween tweens when the MainView component is destroyed.</summary>
-        private void OnDestroy()
+        private void KillAllTweens()
         {
             if (slotFrameImage != null)
             {
+                slotFrameImage.DOKill();
                 slotFrameImage.rectTransform.DOKill();
                 if (slotFrameImage.transform.parent != null) slotFrameImage.transform.parent.DOKill();
             }
+            if (backgroundImage != null) backgroundImage.DOKill();
+            if (statusBannerText != null) statusBannerText.transform.DOKill();
             if (buyBonusButton != null) buyBonusButton.transform.DOKill();
             if (anteBetToggleButton != null) anteBetToggleButton.transform.DOKill();
             if (spinButton != null) spinButton.transform.DOKill();
@@ -1001,6 +1030,19 @@ namespace SweetBonanza.View
             if (topTumbleWinBanner != null) topTumbleWinBanner.transform.DOKill();
             if (promoCanvasGroup != null) promoCanvasGroup.DOKill();
             if (tumbleCanvasGroup != null) tumbleCanvasGroup.DOKill();
+        }
+
+        private void OnDisable()
+        {
+            StopAllCoroutines();
+            KillAllTweens();
+        }
+
+        /// <summary>Kills active DOTween tweens when the MainView component is destroyed.</summary>
+        private void OnDestroy()
+        {
+            StopAllCoroutines();
+            KillAllTweens();
         }
     }
 }

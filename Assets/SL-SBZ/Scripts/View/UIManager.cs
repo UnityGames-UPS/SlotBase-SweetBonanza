@@ -207,6 +207,7 @@ namespace SweetBonanza.View
         private Tweener winCelebrationTweener;
         private Tweener freeSpinsOutroTweener;
         private double currentBetAmount = 2.0;
+        private double originalBuyFeatureBet;
         private float lastNonZeroVolume = 0.5f;
         private bool isSoundMuted = false;
 
@@ -312,7 +313,7 @@ namespace SweetBonanza.View
             });
 
             // Buy Feature Modal
-            BindClick(buttonConfirmBuyFeature, () => { CloseCurrentPanel(); OnBuyFeatureConfirmed?.Invoke(); });
+            BindClick(buttonConfirmBuyFeature, () => { originalBuyFeatureBet = currentBetAmount; CloseCurrentPanel(); OnBuyFeatureConfirmed?.Invoke(); });
             BindClick(buttonCancelBuyFeature, CloseCurrentPanel);
 
             // Bet Adjustment Modal Steppers
@@ -491,7 +492,7 @@ namespace SweetBonanza.View
         private void OpenModal(GameObject panel)
         {
             if (panel == null) return;
-            if (currentOpenPanel != null && currentOpenPanel != panel) currentOpenPanel.SetActive(false);
+            if (currentOpenPanel != null && currentOpenPanel != panel) CloseModal(currentOpenPanel);
             currentOpenPanel = panel;
             currentOpenPanel.SetActive(true);
         }
@@ -504,12 +505,14 @@ namespace SweetBonanza.View
                 ResetCelebrationPanelStates();
                 AudioManager.Instance?.StopWinTypePopupOpen();
             }
-            if (panel == buyFeatureConfirmPanel && mainView != null)
-            {
-                mainView.SetIdleBottomBarState();
-            }
+            bool isBuyFeature = panel == buyFeatureConfirmPanel;
+            if (isBuyFeature && mainView != null) mainView.SetIdleBottomBarState();
             panel.SetActive(false);
             if (currentOpenPanel == panel) currentOpenPanel = null;
+            if (isBuyFeature && currentBetAmount != originalBuyFeatureBet)
+            {
+                OnBetAmountSelected?.Invoke(originalBuyFeatureBet);
+            }
         }
 
         private void CloseAllModalsImmediate()
@@ -626,11 +629,9 @@ namespace SweetBonanza.View
             if (soundVolumeText != null) soundVolumeText.text = percentage.ToString();
 
             // Speaker Icon
-            if (buttonSoundMute != null)
-            {
-                var img = buttonSoundMute.GetComponent<Image>();
-                if (img != null) img.sprite = isMuted ? speakerMutedSprite : speakerAudibleSprite;
-            }
+            Sprite speakerSprite = isMuted ? speakerMutedSprite : speakerAudibleSprite;
+            if (buttonSoundMute != null && buttonSoundMute.image != null && speakerSprite != null) buttonSoundMute.image.sprite = speakerSprite;
+            if (buttonOpenSound != null && buttonOpenSound.image != null && speakerSprite != null) buttonOpenSound.image.sprite = speakerSprite;
 
             // Fill Area (Turn Red when muted, Green when unmuted)
             Sprite targetLine = isMuted ? volumeLineRedSprite : volumeLineGreenSprite;
@@ -674,19 +675,15 @@ namespace SweetBonanza.View
 
         internal void OpenBuyFeatureModal(double betAmount, int freeSpinsCount = 10)
         {
-            if (buyFeatureCostText != null) 
-            {
-                buyFeatureCostText.textWrappingMode = TextWrappingModes.NoWrap;
-                buyFeatureCostText.text = SpriteTextUtility.FormatWithSpriteAsset(betAmount * 100.0, buyFeatureCostText, forceTwoDecimals: false);
-            }
-            if (buyFeatureSpinsCountText != null) 
+            originalBuyFeatureBet = betAmount;
+            if (buyFeatureSpinsCountText != null)
             {
                 buyFeatureSpinsCountText.textWrappingMode = TextWrappingModes.NoWrap;
                 buyFeatureSpinsCountText.text = SpriteTextUtility.FormatCountWithSpriteAsset(freeSpinsCount, buyFeatureSpinsCountText);
             }
-            if (mainView != null)
-                mainView.SetBuyFeatureState();
+            if (mainView != null) mainView.SetBuyFeatureState();
             OpenModal(buyFeatureConfirmPanel);
+            UpdateSettingsBetText(betAmount);
         }
 
         internal void OpenBetAdjustmentModal()
@@ -794,10 +791,9 @@ namespace SweetBonanza.View
                 autoplayRemainingText.text = isAutoplay ? $"STOP ({remainingSpins})" : "AUTOPLAY";
                 autoplayRemainingText.gameObject.SetActive(true);
             }*/ //000
-            if (buttonOpenAutoplay != null)
+            if (buttonOpenAutoplay != null && buttonOpenAutoplay.image != null)
             {
-                var img = buttonOpenAutoplay.GetComponent<Image>();
-                if (img != null) img.color = isAutoplay ? new Color(0.85f, 0.22f, 0.22f, 0.95f) : Color.white;
+                buttonOpenAutoplay.image.color = isAutoplay ? new Color(0.85f, 0.22f, 0.22f, 0.95f) : Color.white;
             }
             if (mainView != null) mainView.SetAutoplayState(isAutoplay, remainingSpins);
         }
@@ -1112,20 +1108,18 @@ namespace SweetBonanza.View
 
         private void UpdateSettingsBetText(double bet)
         {
-            if (settingsBetAmountText != null)
+            double effectiveBet = isAnteBet ? bet * 1.25 : bet;
+            string formattedBet = (effectiveBet % 1 == 0)
+                ? effectiveBet.ToString("0")
+                : effectiveBet.ToString("F2", System.Globalization.CultureInfo.InvariantCulture);
+
+            if (settingsBetAmountText != null) settingsBetAmountText.text = formattedBet;
+            if (buyFeatureBetDisplayText != null) buyFeatureBetDisplayText.text = formattedBet;
+
+            if (buyFeatureCostText != null && buyFeatureConfirmPanel != null && buyFeatureConfirmPanel.activeSelf)
             {
-                double effectiveBet = isAnteBet ? bet * 1.25 : bet;
-                settingsBetAmountText.text = (effectiveBet % 1 == 0) 
-                    ? effectiveBet.ToString("0") 
-                    : effectiveBet.ToString("F2", System.Globalization.CultureInfo.InvariantCulture);
-            }
-            //000***
-            if(buyFeatureBetDisplayText != null)
-            {
-                double effectiveBet = isAnteBet ? bet * 1.25 : bet;
-                buyFeatureBetDisplayText.text = (effectiveBet % 1 == 0)
-                    ? effectiveBet.ToString("0")
-                    : effectiveBet.ToString("F2", System.Globalization.CultureInfo.InvariantCulture);
+                buyFeatureCostText.textWrappingMode = TextWrappingModes.NoWrap;
+                buyFeatureCostText.text = SpriteTextUtility.FormatWithSpriteAsset(bet * 100.0, buyFeatureCostText, forceTwoDecimals: false);
             }
         }
 

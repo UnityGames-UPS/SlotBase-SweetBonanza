@@ -28,55 +28,66 @@ namespace SweetBonanza.View
         private bool isFront = true;
         private Coroutine cycleCoroutine;
         private bool isPaused = false;
+        private bool hasInitialized = false;
+        private bool isSpinCycleLocked = false;
 
         private void Awake()
         {
             if (!syncWithSpin) return;
+            if (bannerImageFront != null) bannerImageFront.raycastTarget = false;
             if (mainView == null)
             {
                 mainView = GetComponentInParent<MainView>();
                 if (mainView == null) mainView = UnityEngine.Object.FindFirstObjectByType<MainView>();
             }
+            if (mainView != null)
+            {
+                mainView.OnSpinStarted += AdvanceOnSpin;
+                mainView.OnSpinStopped += HandleSpinStopped;
+            }
         }
 
         private void OnEnable()
         {
-            if (syncWithSpin && mainView != null)
-            {
-                mainView.OnSpinClicked += AdvanceOnSpin;
-                mainView.OnSpinStopped += HandleSpinStopped;
-            }
             InitializeDisplay();
             StartCycle();
         }
 
         private void OnDisable()
         {
+            StopCycle();
+            KillTweens();
+        }
+
+        private void OnDestroy()
+        {
             if (syncWithSpin && mainView != null)
             {
-                mainView.OnSpinClicked -= AdvanceOnSpin;
+                mainView.OnSpinStarted -= AdvanceOnSpin;
                 mainView.OnSpinStopped -= HandleSpinStopped;
             }
             StopCycle();
             KillTweens();
         }
 
-        /// <summary>Advances immediately to the next banner sprite when Spin is clicked.</summary>
+        /// <summary>Locks the banner to index 0 (GOOD LUCK) when a spin starts.</summary>
         internal void AdvanceOnSpin()
         {
             if (!syncWithSpin) return;
-            if (imageList == null || imageList.Count <= 1) return;
+            if (imageList == null || imageList.Count == 0) return;
+            isSpinCycleLocked = true;
             currentIndex = 0;
             ApplySpriteInstant(currentIndex);
-            StartCycle();
+            StopCycle();
         }
 
-        /// <summary>Advances immediately to the next banner sprite or restarts cycling when the slot stops.</summary>
+        /// <summary>Switches to a random idle banner (excluding index 0) and resumes cycling when spin stops.</summary>
         internal void HandleSpinStopped()
         {
             if (!syncWithSpin) return;
-            if (imageList == null || imageList.Count <= 1) return;
-            currentIndex = (currentIndex + 1) % imageList.Count;
+            if (imageList == null || imageList.Count == 0) return;
+            isSpinCycleLocked = false;
+            currentIndex = GetRandomIdleIndex();
             ApplySpriteInstant(currentIndex);
             StartCycle();
         }
@@ -96,22 +107,29 @@ namespace SweetBonanza.View
             else StartCycle();
         }
 
+        private int GetRandomIdleIndex()
+        {
+            if (imageList == null || imageList.Count <= 1) return 0;
+            if (imageList.Count == 2) return 1;
+
+            int next = Random.Range(1, imageList.Count);
+            if (next == currentIndex)
+            {
+                next = next + 1 < imageList.Count ? next + 1 : 1;
+            }
+            return next;
+        }
+
         private void InitializeDisplay()
         {
             if (imageList == null || imageList.Count == 0) return;
 
-            currentIndex = 0;
-            isFront = true;
-
-            if (bannerImageFront != null)
+            if (!hasInitialized)
             {
-                bannerImageFront.sprite = imageList[0];
-                bannerImageFront.color = new Color(bannerImageFront.color.r, bannerImageFront.color.g, bannerImageFront.color.b, 1f);
+                currentIndex = syncWithSpin ? GetRandomIdleIndex() : 0;
+                hasInitialized = true;
             }
-            if (bannerImageBack != null)
-            {
-                bannerImageBack.color = new Color(bannerImageBack.color.r, bannerImageBack.color.g, bannerImageBack.color.b, 0f);
-            }
+            ApplySpriteInstant(currentIndex);
         }
 
         private void ApplySpriteInstant(int index)
@@ -145,7 +163,9 @@ namespace SweetBonanza.View
         private void StartCycle()
         {
             StopCycle();
-            if (isActiveAndEnabled && !isPaused && imageList != null && imageList.Count > 1)
+            if (syncWithSpin && isSpinCycleLocked) return;
+            int minCount = syncWithSpin ? 2 : 1;
+            if (isActiveAndEnabled && !isPaused && imageList != null && imageList.Count > minCount)
             {
                 cycleCoroutine = StartCoroutine(CycleRoutine());
             }
@@ -162,14 +182,16 @@ namespace SweetBonanza.View
 
         private IEnumerator CycleRoutine()
         {
-            while (!isPaused)
+            while (!isPaused && !(syncWithSpin && isSpinCycleLocked))
             {
                 float waitTime = Random.Range(minInterval, maxInterval);
                 yield return new WaitForSeconds(waitTime);
 
                 if (imageList == null || imageList.Count <= 1) yield break;
 
-                currentIndex = (currentIndex + 1) % imageList.Count;
+                currentIndex = syncWithSpin
+                    ? GetRandomIdleIndex()
+                    : (currentIndex + 1) % imageList.Count;
 
                 if (bannerImageBack == null)
                 {

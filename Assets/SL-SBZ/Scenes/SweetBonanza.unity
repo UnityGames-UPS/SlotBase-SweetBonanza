@@ -364,7 +364,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f521a04de7f494272a617b2719edd271, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SocketIOManager
-  testToken: 83d30f0bee8d45a1af87d94eb4de544a
+  testToken: 571c5f2ed7cc42c6b4fa93f9d7f22134
   testSocketURL: https://devrealtime.dingdinghouse.com/
   nameSpace: playground
   JSManager: {fileID: 1638706357}
@@ -511,7 +511,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &16570946
 RectTransform:
   m_ObjectHideFlags: 0
@@ -573,7 +573,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 0
-  m_TargetGraphic: {fileID: 16570948}
+  m_TargetGraphic: {fileID: 1720521212}
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
@@ -5732,6 +5732,7 @@ GameObject:
   - component: {fileID: 254451224}
   - component: {fileID: 254451223}
   - component: {fileID: 254451222}
+  - component: {fileID: 254451225}
   m_Layer: 5
   m_Name: Plush Button (Legacy)
   m_TagString: Untagged
@@ -5840,6 +5841,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 254451220}
   m_CullTransparentMesh: 1
+--- !u!114 &254451225
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 254451220}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4fdaa4baa378e7a49a2d8b2e9946935e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SweetBonanza.View.ButtonHoverSound
+  selectable: {fileID: 0}
+  hoverClip: {fileID: 8300000, guid: 50ff95a09cccb499d80af8f5e75f73c2, type: 3}
 --- !u!1001 &264337630
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8271,8 +8286,8 @@ MonoBehaviour:
   buttonCloseSettings: {fileID: 1399299610}
   toggleQuickSpin: {fileID: 1553942969}
   toggleBatterySaver: {fileID: 417505430}
-  toggleAmbientMusic: {fileID: 899779540}
-  toggleSoundFx: {fileID: 554825564}
+  toggleAmbientMusic: {fileID: 554825564}
+  toggleSoundFx: {fileID: 899779540}
   toggleIntroScreen: {fileID: 547301548}
   settingsBetAmountText: {fileID: 552442650}
   buttonSystemSettingIncreaseBet: {fileID: 254451222}
@@ -18035,7 +18050,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &969532392
 RectTransform:
   m_ObjectHideFlags: 0
@@ -24193,6 +24208,7 @@ GameObject:
   - component: {fileID: 1299787246}
   - component: {fileID: 1299787245}
   - component: {fileID: 1299787244}
+  - component: {fileID: 1299787247}
   m_Layer: 5
   m_Name: minous Button (Legacy)
   m_TagString: Untagged
@@ -24301,6 +24317,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1299787242}
   m_CullTransparentMesh: 1
+--- !u!114 &1299787247
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1299787242}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4fdaa4baa378e7a49a2d8b2e9946935e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SweetBonanza.View.ButtonHoverSound
+  selectable: {fileID: 0}
+  hoverClip: {fileID: 8300000, guid: 50ff95a09cccb499d80af8f5e75f73c2, type: 3}
 --- !u!1001 &1307974162
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -26705,6 +26735,7 @@ GameObject:
   - component: {fileID: 1399299612}
   - component: {fileID: 1399299611}
   - component: {fileID: 1399299610}
+  - component: {fileID: 1399299613}
   m_Layer: 5
   m_Name: 'CrossNavigationButton '
   m_TagString: Untagged
@@ -26813,6 +26844,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1399299608}
   m_CullTransparentMesh: 1
+--- !u!114 &1399299613
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1399299608}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4fdaa4baa378e7a49a2d8b2e9946935e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SweetBonanza.View.ButtonHoverSound
+  selectable: {fileID: 0}
+  hoverClip: {fileID: 8300000, guid: 50ff95a09cccb499d80af8f5e75f73c2, type: 3}
 --- !u!1 &1406291897
 GameObject:
   m_ObjectHideFlags: 0
