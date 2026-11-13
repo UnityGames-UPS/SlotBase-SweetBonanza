@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace SweetBonanza.Model
 {
@@ -17,6 +18,7 @@ namespace SweetBonanza.Model
         internal float AnteBetMultiplier;
         internal float BuyFeatureCostMultiplier;
         internal float MaxWinMultiplier;
+        internal Dictionary<SymbolType, float[]> Payouts;
 
         internal bool IsAnteBetActive;
         internal bool IsInFreeSpins;
@@ -43,6 +45,7 @@ namespace SweetBonanza.Model
 
         internal void SelectBetIndex(int index)
         {
+            if (AvailableBets == null || AvailableBets.Length == 0) return;
             BetIndex = Math.Max(0, Math.Min(index, AvailableBets.Length - 1));
             BetAmount = AvailableBets[BetIndex];
         }

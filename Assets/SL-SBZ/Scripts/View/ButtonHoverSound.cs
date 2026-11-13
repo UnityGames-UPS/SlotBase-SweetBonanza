@@ -18,15 +18,10 @@ namespace SweetBonanza.View
         void IPointerEnterHandler.OnPointerEnter(PointerEventData eventData)
         {
             if (selectable != null && !selectable.interactable) return;
+            if (Input.touchSupported && Input.touchCount > 0) return;
+            if (hoverClip == null) return;
 
-            if (hoverClip != null)
-            {
-                AudioManager.Instance?.PlayOneShot(hoverClip);
-            }
-            else
-            {
-                AudioManager.Instance?.PlayButton();
-            }
+            AudioManager.Instance?.PlayOneShot(hoverClip, 0.25f);
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 
@@ -121,20 +121,12 @@ namespace SweetBonanza.Model
     }
 
     [Serializable]
-    internal class ServerPayouts
-    {
-        [JsonProperty] internal float eightToNine;
-        [JsonProperty] internal float tenToEleven;
-        [JsonProperty] internal float twelvePlus;
-    }
-
-    [Serializable]
     internal class ServerPaytableItem
     {
         [JsonProperty] internal int id;
         [JsonProperty] internal string name;
         [JsonProperty] internal string group;
-        [JsonProperty] internal ServerPayouts payouts;
+        [JsonProperty] internal Dictionary<string, float> payouts;
     }
 
     [Serializable]
@@ -168,17 +160,105 @@ namespace SweetBonanza.Model
         [JsonProperty] internal ServerPlayer player;
     }
 
+    [Serializable]
+    internal class ServerGridPosition
+    {
+        [JsonProperty] internal int row;
+        [JsonProperty] internal int col;
+    }
+
+    [Serializable]
+    internal class ServerWinningGroup
+    {
+        [JsonProperty] internal int symbolId;
+        [JsonProperty] internal string symbolName;
+        [JsonProperty] internal int count;
+        [JsonProperty] internal double multiplier;
+        [JsonProperty] internal double winAmount;
+        [JsonProperty] internal List<ServerGridPosition> positions;
+    }
+
+    [Serializable]
+    internal class ServerBomb
+    {
+        [JsonProperty] internal int row;
+        [JsonProperty] internal int col;
+        [JsonProperty] internal int multiplier;
+    }
+
+    [Serializable]
+    internal class ServerSymbolFill
+    {
+        [JsonProperty] internal int row;
+        [JsonProperty] internal int col;
+        [JsonProperty] internal int symbolId;
+    }
+
+    [Serializable]
+    internal class ServerTumbleStep
+    {
+        [JsonProperty] internal int stepIndex;
+        [JsonProperty] internal List<ServerWinningGroup> winningGroups;
+        [JsonProperty] internal double stepWin;
+        [JsonProperty] internal List<ServerGridPosition> symbolsRemoved;
+        [JsonProperty] internal List<ServerSymbolFill> symbolsToFill;
+        [JsonProperty] internal List<List<string>> resultingMatrix;
+        [JsonProperty] internal List<ServerBomb> bombsAdded;
+    }
+
+    [Serializable]
+    internal class ServerFreeSpinsData
+    {
+        [JsonProperty] internal bool triggered;
+        [JsonProperty] internal int retriggers;
+        [JsonProperty] internal bool inFreeSpins;
+        [JsonProperty] internal int remaining;
+        [JsonProperty] internal int total;
+        [JsonProperty] internal int played;
+        [JsonProperty] internal double accumulatedWin;
+    }
+
+    [Serializable]
+    internal class ServerSpinPayload
+    {
+        [JsonProperty] internal double winAmount;
+        [JsonProperty] internal double betAmount;
+        [JsonProperty] internal double baseBet;
+        [JsonProperty] internal bool isAnteBet;
+        [JsonProperty] internal bool isBuyFeature;
+        [JsonProperty] internal List<ServerTumbleStep> tumbles;
+        [JsonProperty] internal List<ServerBomb> multiplierBombs;
+        [JsonProperty] internal int totalMultiplier;
+        [JsonProperty] internal double tumbleWinSum;
+        [JsonProperty] internal double totalWin;
+        [JsonProperty] internal double scatterWin;
+        [JsonProperty] internal double grandTotalWin;
+        [JsonProperty] internal bool isMaxWinCapped;
+        [JsonProperty] internal ServerFreeSpinsData freeSpins;
+    }
+
+    [Serializable]
+    internal class ServerSpinResponse
+    {
+        [JsonProperty] internal bool success;
+        [JsonProperty] internal string id;
+        [JsonProperty] internal List<List<string>> matrix;
+        [JsonProperty] internal ServerSpinPayload payload;
+        [JsonProperty] internal ServerPlayer player;
+    }
+
 #pragma warning restore 0649
 
     [Serializable]
     internal class InitPayload
     {
-        internal double Balance = 11645.27;
-        internal int DefaultBetIndex = 9;
-        internal float[] AvailableBets = GameConfig.DefaultAvailableBets;
-        internal float AnteBetMultiplier = 1.25f;
-        internal float BuyFeatureCostMultiplier = 100f;
-        internal float MaxWinMultiplier = 21100f;
+        internal double Balance;
+        internal int DefaultBetIndex;
+        internal float[] AvailableBets;
+        internal float AnteBetMultiplier;
+        internal float BuyFeatureCostMultiplier;
+        internal float MaxWinMultiplier;
+        internal Dictionary<SymbolType, float[]> Payouts;
     }
     #endregion
 
@@ -195,66 +275,39 @@ namespace SweetBonanza.Model
             75.0f, 100.0f, 125.0f, 150.0f, 200.0f, 250.0f, 300.0f
         };
 
+        internal static readonly Dictionary<SymbolType, float[]> DemoPayouts = new Dictionary<SymbolType, float[]>
+        {
+            { SymbolType.RedHeart, new float[] { 20f, 50f, 100f } },
+            { SymbolType.PurpleSquare, new float[] { 5f, 20f, 50f } },
+            { SymbolType.GreenPentagon, new float[] { 4f, 10f, 30f } },
+            { SymbolType.BlueOval, new float[] { 3f, 4f, 24f } },
+            { SymbolType.Apple, new float[] { 2f, 3f, 20f } },
+            { SymbolType.Plum, new float[] { 1.6f, 2.4f, 16f } },
+            { SymbolType.Watermelon, new float[] { 1f, 2f, 10f } },
+            { SymbolType.Grapes, new float[] { 0.8f, 1.8f, 8f } },
+            { SymbolType.Banana, new float[] { 0.5f, 1.5f, 4f } },
+            { SymbolType.Lollipop, new float[] { 6f, 10f, 200f } }
+        };
+
         internal static double GetPayoutMultiplier(SymbolType symbol, int count)
         {
-            if (count < 8 && symbol != SymbolType.Lollipop) return 0.0;
-
-            switch (symbol)
+            if (!DemoPayouts.TryGetValue(symbol, out var tiers) || tiers == null || tiers.Length < 3)
             {
-                case SymbolType.RedHeart:
-                    if (count >= 12) return 50.0;
-                    if (count >= 10) return 25.0;
-                    return 10.0;
-
-                case SymbolType.PurpleSquare:
-                    if (count >= 12) return 25.0;
-                    if (count >= 10) return 10.0;
-                    return 2.5;
-
-                case SymbolType.GreenPentagon:
-                    if (count >= 12) return 15.0;
-                    if (count >= 10) return 5.0;
-                    return 2.0;
-
-                case SymbolType.BlueOval:
-                    if (count >= 12) return 12.0;
-                    if (count >= 10) return 2.0;
-                    return 1.5;
-
-                case SymbolType.Apple:
-                    if (count >= 12) return 10.0;
-                    if (count >= 10) return 1.5;
-                    return 1.0;
-
-                case SymbolType.Plum:
-                    if (count >= 12) return 8.0;
-                    if (count >= 10) return 1.2;
-                    return 0.8;
-
-                case SymbolType.Watermelon:
-                    if (count >= 12) return 5.0;
-                    if (count >= 10) return 1.0;
-                    return 0.5;
-
-                case SymbolType.Grapes:
-                    if (count >= 12) return 4.0;
-                    if (count >= 10) return 0.9;
-                    return 0.4;
-
-                case SymbolType.Banana:
-                    if (count >= 12) return 2.0;
-                    if (count >= 10) return 0.75;
-                    return 0.25;
-
-                case SymbolType.Lollipop:
-                    if (count >= 6) return 100.0;
-                    if (count == 5) return 5.0;
-                    if (count == 4) return 3.0;
-                    return 0.0;
-
-                default:
-                    return 0.0;
+                return 0.0;
             }
+
+            if (symbol == SymbolType.Lollipop)
+            {
+                if (count >= 6) return tiers[2];
+                if (count == 5) return tiers[1];
+                if (count == 4) return tiers[0];
+                return 0.0;
+            }
+
+            if (count >= 12) return tiers[2];
+            if (count >= 10) return tiers[1];
+            if (count >= 8) return tiers[0];
+            return 0.0;
         }
     }
 }

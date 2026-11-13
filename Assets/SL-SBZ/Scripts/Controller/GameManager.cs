@@ -17,20 +17,6 @@ namespace SweetBonanza.Controller
         [Header("Service Binding")]
         [SerializeField] private BackendService backendService;
 
-        [Header("Editor / Demo Defaults (replaced by init data)")]
-        [SerializeField] private double currentBalance = 11645.27;
-        [SerializeField] private float currentBetAmount = 2.0f;
-        [SerializeField] private int currentBetIndex = 9;
-        [SerializeField] private float anteBetMultiplier = 1.25f;
-        [SerializeField] private float buyFeatureCostMultiplier = 100f;
-        [SerializeField] private float maxWinMultiplier = 21100f;
-        [SerializeField] private float[] availableBets = new float[]
-        {
-            0.2f, 0.4f, 0.6f, 0.8f, 1.0f, 1.2f, 1.4f, 1.6f, 1.8f, 2.0f,
-            2.4f, 3.0f, 4.0f, 5.0f, 10.0f, 15.0f, 20.0f, 25.0f, 50.0f,
-            75.0f, 100.0f, 125.0f, 150.0f, 200.0f, 250.0f, 300.0f
-        };
-
         [Header("Debug")]
         [SerializeField] private bool enableSpinDebugLogs = true;
 
@@ -41,32 +27,20 @@ namespace SweetBonanza.Controller
         private static readonly WaitForSeconds Wait20 = new WaitForSeconds(2.0f);
 
         private readonly GameSession session = new GameSession();
+        private double lastDeductedSpinCost;
 
         #region Startup
 
         private void Start()
         {
+            Application.targetFrameRate = 60;
             DOTween.SetTweensCapacity(500, 125);
-            SeedSessionFromDefaults();
             InitializeServices();
             HookViewEvents();
             ApplyInitialSettings();
             gridView.InitializeInitialGrid();
             UpdateHUD(false);
             PushBetConfigToUI();
-            session.State = GameState.Idle;
-        }
-
-        private void SeedSessionFromDefaults()
-        {
-            session.Balance = currentBalance;
-            session.BetAmount = currentBetAmount;
-            session.BetIndex = currentBetIndex;
-            session.AvailableBets = availableBets;
-            session.AnteBetMultiplier = anteBetMultiplier;
-            session.BuyFeatureCostMultiplier = buyFeatureCostMultiplier;
-            session.MaxWinMultiplier = maxWinMultiplier;
-            uiManager.SetFeatureMultipliers(session.AnteBetMultiplier, session.BuyFeatureCostMultiplier);
         }
 
         private void ApplyInitialSettings()
@@ -96,19 +70,10 @@ namespace SweetBonanza.Controller
 
         private void InitializeServices()
         {
-            if (backendService is LocalDemoService demo)
-            {
-                demo.SetInitialBalance(session.Balance);
-            }
-
             backendService.OnInitDataReceived += HandleInitDataReceived;
             backendService.OnRoundResultReceived += HandleRoundResultReceived;
             backendService.OnErrorOccurred += HandleErrorOccurred;
-
-            if (SocketIOManager.Instance != null)
-            {
-                SocketIOManager.Instance.OnBalanceSyncReceived += HandleBalanceSync;
-            }
+            backendService.OnBalanceSyncReceived += HandleBalanceSync;
 
             backendService.Initialize();
         }
@@ -137,14 +102,13 @@ namespace SweetBonanza.Controller
 
         private void OnDestroy()
         {
-            if (SocketIOManager.Instance != null)
+            if (backendService != null)
             {
-                SocketIOManager.Instance.OnBalanceSyncReceived -= HandleBalanceSync;
+                backendService.OnInitDataReceived -= HandleInitDataReceived;
+                backendService.OnRoundResultReceived -= HandleRoundResultReceived;
+                backendService.OnErrorOccurred -= HandleErrorOccurred;
+                backendService.OnBalanceSyncReceived -= HandleBalanceSync;
             }
-
-            backendService.OnInitDataReceived -= HandleInitDataReceived;
-            backendService.OnRoundResultReceived -= HandleRoundResultReceived;
-            backendService.OnErrorOccurred -= HandleErrorOccurred;
 
             uiManager.OnSpinClicked -= HandleSpinClicked;
             uiManager.OnStopClicked -= HandleStopClicked;
@@ -178,6 +142,7 @@ namespace SweetBonanza.Controller
         private void PushBetConfigToUI()
         {
             uiManager.SetFeatureMultipliers(session.AnteBetMultiplier, session.BuyFeatureCostMultiplier);
+            uiManager.SetPaytable(session.Payouts);
             if (session.HasBets)
             {
                 uiManager.UpdateBetLimits(session.MinBet, session.MaxBet);
@@ -195,15 +160,24 @@ namespace SweetBonanza.Controller
 
         private void HandleInitDataReceived(InitPayload payload)
         {
-            session.Balance = payload.Balance;
-            if (payload.AvailableBets != null && payload.AvailableBets.Length > 0)
+            if (payload == null || payload.AvailableBets == null || payload.AvailableBets.Length == 0)
             {
-                session.AvailableBets = payload.AvailableBets;
+                HandleErrorOccurred("Failed to read game data from server.");
+                return;
             }
+
+            session.Balance = payload.Balance;
+            session.AvailableBets = payload.AvailableBets;
             session.SelectBetIndex(payload.DefaultBetIndex);
             session.AnteBetMultiplier = payload.AnteBetMultiplier;
             session.BuyFeatureCostMultiplier = payload.BuyFeatureCostMultiplier;
             session.MaxWinMultiplier = payload.MaxWinMultiplier;
+            session.Payouts = payload.Payouts;
+
+            if (session.State == GameState.Initializing)
+            {
+                session.State = GameState.Idle;
+            }
 
             PushBetConfigToUI();
             UpdateHUD(false);
@@ -211,6 +185,8 @@ namespace SweetBonanza.Controller
 
         private void HandleRoundResultReceived(RoundResult result)
         {
+            lastDeductedSpinCost = 0.0;
+
             if (result.PlayerBalance > 0)
             {
                 session.Balance = result.PlayerBalance;
@@ -230,11 +206,20 @@ namespace SweetBonanza.Controller
 
         private void HandleErrorOccurred(string error)
         {
+            if (lastDeductedSpinCost > 0)
+            {
+                session.Balance += lastDeductedSpinCost;
+                lastDeductedSpinCost = 0.0;
+            }
+
+            AudioManager.Instance?.StopReelSpinLoop();
+            AudioManager.Instance?.StopTensionBuilder();
+
             if (session.IsAutoplaying)
             {
                 HandleAutoplayStopped();
             }
-            session.State = GameState.Idle;
+            if (session.State != GameState.Initializing) session.State = GameState.Idle;
             mainView.HideTopTumbleWinBanner();
             mainView.SetIdleBottomBarState();
             UpdateHUD(false);
@@ -294,6 +279,11 @@ namespace SweetBonanza.Controller
             if (!session.IsInFreeSpins)
             {
                 session.Balance -= cost;
+                lastDeductedSpinCost = cost;
+            }
+            else
+            {
+                lastDeductedSpinCost = 0.0;
             }
             mainView.SetSpinStartedState(session.IsAutoplaying, session.IsInFreeSpins ? session.RemainingFreeSpins : session.RemainingAutoplaySpins);
             UpdateHUD(true);
@@ -304,7 +294,7 @@ namespace SweetBonanza.Controller
             }
 
             AudioManager.Instance?.PlayReelSpinLoop();
-            backendService.RequestSpin(betAmount, isAnteBet, isBonusBuy);
+            backendService.RequestSpin(session.BetIndex, betAmount, isAnteBet, isBonusBuy, session.IsInFreeSpins);
         }
 
         #endregion

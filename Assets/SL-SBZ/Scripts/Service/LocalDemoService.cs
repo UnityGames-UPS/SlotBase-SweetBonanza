@@ -13,11 +13,6 @@ namespace SweetBonanza.Service
         private int remainingFreeSpins = 0;
         private double playerBalance = 11645.27;
 
-        internal void SetInitialBalance(double balance)
-        {
-            if (balance > 0) playerBalance = balance;
-        }
-
         internal override void Initialize()
         {
             var payload = new InitPayload
@@ -27,12 +22,13 @@ namespace SweetBonanza.Service
                 AvailableBets = GameConfig.DefaultAvailableBets,
                 AnteBetMultiplier = 1.25f,
                 BuyFeatureCostMultiplier = 100f,
-                MaxWinMultiplier = 21100f
+                MaxWinMultiplier = 21100f,
+                Payouts = GameConfig.DemoPayouts
             };
             RaiseInitDataReceived(payload);
         }
 
-        internal override void RequestSpin(double betAmount, bool isAnteBet, bool isBonusBuy)
+        internal override void RequestSpin(int betIndex, double betAmount, bool isAnteBet, bool isBonusBuy, bool isFreeSpin)
         {
             double cost = isBonusBuy ? betAmount * 100.0 : (isAnteBet ? betAmount * 1.25 : betAmount);
             if (!isInFreeSpins)

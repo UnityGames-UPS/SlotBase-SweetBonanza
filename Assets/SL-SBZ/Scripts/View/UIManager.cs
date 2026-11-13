@@ -54,6 +54,7 @@ namespace SweetBonanza.View
         [SerializeField] private List<GameObject> rulesPageObjects = new List<GameObject>();
         [Header("Rule Book / Paytable Symbols (Page 1)")]
         [SerializeField] private List<PaytableSymbolEntry> paytableSymbols = new List<PaytableSymbolEntry>();
+        private Dictionary<SymbolType, float[]> paytable;
 
         [Header("2. System Settings Modal")]
         [SerializeField] private GameObject systemSettingsPanel;
@@ -235,14 +236,14 @@ namespace SweetBonanza.View
             BindClick(buttonNextRulesPage, NextRulesPage);
             BindClick(buttonPrevRulesPage, PrevRulesPage);
 
-            // System Settings Toggles
+            // System Settings Toggles (Mapped to physical artwork rows: 1=Battery Saver, 2=Music, 3=SFX, 4=Intro, 5=Promo)
             BindClick(buttonOpenSettings, OpenSystemSettings);
             BindClick(buttonCloseSettings, CloseCurrentPanel);
-            BindToggle(toggleQuickSpin, "settings_quick_spin", 0, v => OnQuickSpinChanged?.Invoke(v));
-            BindToggle(toggleBatterySaver, "settings_battery_saver", 0, v => OnBatterySaverChanged?.Invoke(v));
-            BindToggle(toggleAmbientMusic, "settings_ambient_music", 1, v => OnAmbientMusicChanged?.Invoke(v));
-            BindToggle(toggleSoundFx, "settings_sound_fx", 1, v => OnSoundFxChanged?.Invoke(v));
-            BindToggle(toggleIntroScreen, "settings_intro_screen", 1, v => OnIntroScreenChanged?.Invoke(v));
+            BindToggle(toggleQuickSpin, "settings_battery_saver", 0, v => OnBatterySaverChanged?.Invoke(v));
+            BindToggle(toggleBatterySaver, "settings_ambient_music", 1, v => OnAmbientMusicChanged?.Invoke(v));
+            BindToggle(toggleAmbientMusic, "settings_sound_fx", 1, v => OnSoundFxChanged?.Invoke(v));
+            BindToggle(toggleSoundFx, "settings_intro_screen", 1, v => OnIntroScreenChanged?.Invoke(v));
+            BindToggle(toggleIntroScreen, "settings_slots_promotions", 1);
 
             // Sound
             BindClick(buttonOpenSound, ToggleSoundSettings);
@@ -324,11 +325,7 @@ namespace SweetBonanza.View
                 OnAutoplayStarted?.Invoke(autoplaySpinOptions[idx]);
             });
             BindToggle(toggleTurboSpin, "settings_turbo_spin", 0);
-            BindToggle(toggleQuickSpinAutoplay, "settings_quick_spin", 0, v =>
-            {
-                if (toggleQuickSpin != null && toggleQuickSpin.isOn != v) toggleQuickSpin.isOn = v;
-                OnQuickSpinChanged?.Invoke(v);
-            });
+            BindToggle(toggleQuickSpinAutoplay, "settings_quick_spin", 0, v => OnQuickSpinChanged?.Invoke(v));
             BindToggle(toggleSkipScreens, "settings_skip_screens", 0);
 
             // MainView Forwarding
@@ -508,6 +505,11 @@ namespace SweetBonanza.View
             if (maxBetText != null) maxBetText.text = $"{maxBet:F2}";
         }
 
+        internal void SetPaytable(Dictionary<SymbolType, float[]> payouts)
+        {
+            paytable = payouts;
+        }
+
         internal void UpdatePaytableDisplay(double bet)
         {
             if (bet <= 0) bet = 0.20;
@@ -520,13 +522,17 @@ namespace SweetBonanza.View
                 if (h == null) continue;
                 bool isScatter = h.symbol == SymbolType.Lollipop;
 
-                int t1 = isScatter ? 6 : 12;
-                int t2 = isScatter ? 5 : 10;
-                int t3 = isScatter ? 4 : 8;
+                float m0 = 0f, m1 = 0f, m2 = 0f;
+                if (paytable != null && paytable.TryGetValue(h.symbol, out var tiers) && tiers != null && tiers.Length >= 3)
+                {
+                    m0 = tiers[0];
+                    m1 = tiers[1];
+                    m2 = tiers[2];
+                }
 
-                if (h.textTier1 != null) h.textTier1.text = $"{(isScatter ? "6+" : "12+")}  {bet * GameConfig.GetPayoutMultiplier(h.symbol, t1):F2}";
-                if (h.textTier2 != null) h.textTier2.text = $"{(isScatter ? "5" : "10 -11")}  {bet * GameConfig.GetPayoutMultiplier(h.symbol, t2):F2}";
-                if (h.textTier3 != null) h.textTier3.text = $"{(isScatter ? "4" : "8-9")}  {bet * GameConfig.GetPayoutMultiplier(h.symbol, t3):F2}";
+                if (h.textTier1 != null) h.textTier1.text = $"{(isScatter ? "6+" : "12+")}  {bet * m2:F2}";
+                if (h.textTier2 != null) h.textTier2.text = $"{(isScatter ? "5" : "10 -11")}  {bet * m1:F2}";
+                if (h.textTier3 != null) h.textTier3.text = $"{(isScatter ? "4" : "8-9")}  {bet * m0:F2}";
             }
         }
 

@@ -179,9 +179,11 @@ internal class AudioManager : MonoBehaviour
         PlayerPrefs.SetInt(PrefKeyMusic, on ? 1 : 0);
         ApplyMusicVolume();
 
-        if (!on && bgMusicSource != null)
+        if (!on)
         {
-            bgMusicSource.Stop();
+            musicFadeTween?.Kill();
+            musicFadeTween = null;
+            if (bgMusicSource != null) bgMusicSource.Stop();
         }
         else if (on && bgMusicSource != null && !bgMusicSource.isPlaying)
         {
@@ -195,6 +197,13 @@ internal class AudioManager : MonoBehaviour
         _sfxEnabled = on;
         PlayerPrefs.SetInt(PrefKeySfx, on ? 1 : 0);
         ApplySfxVolume();
+
+        if (!on)
+        {
+            StopReelSpinLoop();
+            StopTensionBuilder();
+            StopWinTypePopupOpen();
+        }
     }
 
     internal void SetMusicVolume(float volume)
