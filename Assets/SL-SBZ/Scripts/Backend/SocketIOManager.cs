@@ -6,9 +6,9 @@ using Best.SocketIO;
 using Best.SocketIO.Events;
 using Newtonsoft.Json;
 
-public class SocketIOManager : MonoBehaviour
+internal class SocketIOManager : MonoBehaviour
 {
-    public static SocketIOManager Instance { get; private set; }
+    internal static SocketIOManager Instance { get; private set; }
 
     [Header("Network Configuration")]
     [SerializeField] private string testToken = "e0b9273284d34388bcefa1356074617b";
@@ -47,6 +47,7 @@ public class SocketIOManager : MonoBehaviour
     private Coroutine pingCoroutine;
     private float pingSendTime;
     private const float PING_INTERVAL = 2f;
+    private static readonly WaitForSeconds WaitPing = new WaitForSeconds(PING_INTERVAL);
 
     #region Initialization
 
@@ -86,7 +87,7 @@ public class SocketIOManager : MonoBehaviour
 #endif
     }
 
-    public void ReceiveAuthToken(string jsonData)
+    private void ReceiveAuthToken(string jsonData)
     {
         Debug.Log("[SocketIO] Auth received");
 
@@ -397,7 +398,7 @@ public class SocketIOManager : MonoBehaviour
     {
         while (isConnected)
         {
-            yield return new WaitForSeconds(PING_INTERVAL);
+            yield return WaitPing;
             SendPing();
         }
     }
@@ -499,34 +500,36 @@ public class SocketIOManager : MonoBehaviour
 }
 
 [Serializable]
-public class AuthTokenData
+internal class AuthTokenData
 {
-    public string cookie;
-    public string socketURL;
-    public string nameSpace;
+    [SerializeField] internal string cookie;
+    [SerializeField] internal string socketURL;
+    [SerializeField] internal string nameSpace;
+}
+
+#pragma warning disable 0649 // filled by JSON deserialization
+[Serializable]
+internal class BalanceSyncData
+{
+    [JsonProperty] internal string userId;
+    [JsonProperty] internal string gameId;
+    [JsonProperty] internal double balance;
+}
+#pragma warning restore 0649
+
+[Serializable]
+internal class SpinRequest
+{
+    [SerializeField] internal string type = "SPIN";
+    [SerializeField] internal SpinPayload payload;
 }
 
 [Serializable]
-public class BalanceSyncData
+internal class SpinPayload
 {
-    public string userId;
-    public string gameId;
-    public double balance;
-}
-
-[Serializable]
-public class SpinRequest
-{
-    public string type = "SPIN";
-    public SpinPayload payload;
-}
-
-[Serializable]
-public class SpinPayload
-{
-    public int betIndex;
-    public double betAmount;
-    public bool isFreeSpin;
-    public bool isAnteBet;
-    public bool isBonusBuy;
+    [SerializeField] internal int betIndex;
+    [SerializeField] internal double betAmount;
+    [SerializeField] internal bool isFreeSpin;
+    [SerializeField] internal bool isAnteBet;
+    [SerializeField] internal bool isBonusBuy;
 }

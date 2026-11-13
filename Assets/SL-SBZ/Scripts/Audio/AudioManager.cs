@@ -9,7 +9,7 @@ using DG.Tweening;
 /// and smooth audio transitions.
 /// </summary>
 [DisallowMultipleComponent]
-public class AudioManager : MonoBehaviour
+internal class AudioManager : MonoBehaviour
 {
     #region Singleton & Initialization
 
@@ -24,7 +24,8 @@ public class AudioManager : MonoBehaviour
         _sfxEnabled    = PlayerPrefs.GetInt(PrefKeySfx, 1) == 1;
         _musicVolume   = PlayerPrefs.GetFloat(PrefKeyMusicVol, 0.5f);
         _sfxVolume     = PlayerPrefs.GetFloat(PrefKeySfxVol, 1.0f);
-        _masterVolume  = PlayerPrefs.GetFloat(PrefKeyMasterVol, 1.0f);
+        _masterVolume  = PlayerPrefs.GetFloat(PrefKeyMasterVol, 0.5f);
+        isForceMuted   = PlayerPrefs.GetInt(PrefKeyMuted, 0) == 1;
 
         ApplyMasterVolume();
         ApplyMusicVolume();
@@ -33,10 +34,18 @@ public class AudioManager : MonoBehaviour
 
     private void Start()
     {
-        if (_musicEnabled && !isForceMuted)
+        // Start music even when muted: mute only sets the listener volume to 0,
+        // so the music is already running when the player unmutes.
+        if (_musicEnabled)
         {
             PlayBgMusic();
         }
+    }
+
+    private void OnDisable()
+    {
+        musicFadeTween?.Kill();
+        musicFadeTween = null;
     }
 
     private void OnDestroy()
@@ -44,6 +53,8 @@ public class AudioManager : MonoBehaviour
         if (Instance == this)
         {
             musicFadeTween?.Kill();
+            musicFadeTween = null;
+            PlayerPrefs.Save();
             Instance = null;
         }
     }
@@ -57,6 +68,7 @@ public class AudioManager : MonoBehaviour
     private const string PrefKeyMusicVol  = "audio_music_volume";
     private const string PrefKeySfxVol    = "audio_sfx_volume";
     private const string PrefKeyMasterVol = "settings_master_volume";
+    private const string PrefKeyMuted     = "settings_sound_muted";
 
     #endregion
 
@@ -124,18 +136,6 @@ public class AudioManager : MonoBehaviour
     internal float MusicVolume => _musicVolume;
     internal float SfxVolume   => _sfxVolume;
     internal float MasterVolume => _masterVolume;
-    internal bool IsMuted      => isForceMuted;
-
-    // Clip Accessors
-    internal AudioClip ClipTurboButtonClick   => clipTurboButtonClick;
-    internal AudioClip ClipTensionBuilder     => clipTensionBuilder;
-    internal AudioClip ClipReelSpinLoop       => clipReelSpinLoop;
-    internal AudioClip ClipWinTypePopupOpen   => clipWinTypePopupOpen;
-    internal AudioClip ClipResultPopupOpen    => clipResultPopupOpen;
-    internal AudioClip ClipFeatureBg          => clipFeatureBg;
-    internal AudioClip ClipSymbolPop          => clipSymbolPop;
-    internal AudioClip ClipBombExplode        => clipBombExplode;
-    internal AudioClip ClipScatterCelebration => clipScatterCelebration;
 
     #endregion
 
@@ -177,7 +177,6 @@ public class AudioManager : MonoBehaviour
         if (_musicEnabled == on) return;
         _musicEnabled = on;
         PlayerPrefs.SetInt(PrefKeyMusic, on ? 1 : 0);
-        PlayerPrefs.Save();
         ApplyMusicVolume();
 
         if (!on && bgMusicSource != null)
@@ -195,7 +194,6 @@ public class AudioManager : MonoBehaviour
         if (_sfxEnabled == on) return;
         _sfxEnabled = on;
         PlayerPrefs.SetInt(PrefKeySfx, on ? 1 : 0);
-        PlayerPrefs.Save();
         ApplySfxVolume();
     }
 
@@ -203,7 +201,6 @@ public class AudioManager : MonoBehaviour
     {
         _musicVolume = Mathf.Clamp01(volume);
         PlayerPrefs.SetFloat(PrefKeyMusicVol, _musicVolume);
-        PlayerPrefs.Save();
         ApplyMusicVolume();
     }
 
@@ -211,7 +208,6 @@ public class AudioManager : MonoBehaviour
     {
         _sfxVolume = Mathf.Clamp01(volume);
         PlayerPrefs.SetFloat(PrefKeySfxVol, _sfxVolume);
-        PlayerPrefs.Save();
         ApplySfxVolume();
     }
 
@@ -219,7 +215,6 @@ public class AudioManager : MonoBehaviour
     {
         _masterVolume = Mathf.Clamp01(volume);
         PlayerPrefs.SetFloat(PrefKeyMasterVol, _masterVolume);
-        PlayerPrefs.Save();
         ApplyMasterVolume();
     }
 
@@ -227,6 +222,7 @@ public class AudioManager : MonoBehaviour
     {
         if (forceMute == isForceMuted) return;
         isForceMuted = forceMute;
+        PlayerPrefs.SetInt(PrefKeyMuted, forceMute ? 1 : 0);
         ApplyMasterVolume();
     }
 
@@ -334,16 +330,6 @@ public class AudioManager : MonoBehaviour
         CrossFadeMusic(clipGameMainBg, 0.4f, true);
     }
 
-    internal void StopBgMusic()
-    {
-        if (bgMusicSource == null) return;
-        musicFadeTween?.Kill();
-        musicFadeTween = bgMusicSource.DOFade(0f, 0.35f).OnComplete(() =>
-        {
-            StopSource(bgMusicSource);
-        });
-    }
-
     internal void PlayFeatureBg()
     {
         if (clipFeatureBg == null) return;
@@ -426,8 +412,6 @@ public class AudioManager : MonoBehaviour
         PlayUISound(clipBetPlusMinus);
     }
 
-    internal void PlayBetPlus()  => PlayBetPlusMinus();
-
     internal void PlayMaxBetReached()
     {
         PlayUISound(clipMaxBetReached);
@@ -450,8 +434,6 @@ public class AudioManager : MonoBehaviour
     {
         PlayUISound(clipTurboButtonClick != null ? clipTurboButtonClick : clipGeneralButtonClick);
     }
-
-    internal void PlayTurboBtnClick() => PlayTurboButtonClick();
 
     #endregion
 
@@ -486,13 +468,11 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    internal void PlayReelSpin() => PlayReelSpinLoop();
-    internal void StopReelSpin() => StopReelSpinLoop();
-
     internal void PlayTensionBuilder()
     {
         if (!_sfxEnabled || clipTensionBuilder == null) return;
-        AudioSource targetSource = (reserveSource != null) ? reserveSource : uiSource;
+        // Own channel (uiSource) so the tension loop does not cut the reel spin loop on reserveSource.
+        AudioSource targetSource = (uiSource != null) ? uiSource : reserveSource;
         PlayLoop(targetSource, clipTensionBuilder);
     }
 
@@ -570,6 +550,7 @@ public class AudioManager : MonoBehaviour
 
     private void OnApplicationPause(bool isPaused)
     {
+        if (isPaused) PlayerPrefs.Save();
         AudioListener.volume = (isPaused || isForceMuted) ? 0f : _masterVolume;
     }
 

@@ -55,7 +55,7 @@ namespace SweetBonanza.View
                 return prefix + num;
             }
 
-            return FormatSpriteAmount(amount, null, forceTwoDecimals, includeDollar);
+            return FormatSpriteAmount(amount, forceTwoDecimals, includeDollar);
         }
 
         /// <summary>
@@ -74,19 +74,10 @@ namespace SweetBonanza.View
         }
 
         /// <summary>
-        /// Formats a currency amount into Sweet Bonanza TMP sprite tags.
-        /// (e.g. 200, includeDollar=true -> "<sprite=11><sprite=2><sprite=0><sprite=0>")
-        /// </summary>
-        internal static string FormatCurrency(double amount, bool includeDollar = false)
-        {
-            return FormatSpriteAmount(amount, null, forceTwoDecimals: false, includeDollar: includeDollar);
-        }
-
-        /// <summary>
         /// Formats an integer count into Sweet Bonanza TMP sprite tags.
         /// (e.g. 10 -> "<sprite=1><sprite=0>")
         /// </summary>
-        internal static string FormatCount(int count)
+        private static string FormatCount(int count)
         {
             if (count < 0) count = 0;
             string s = count.ToString(CultureInfo.InvariantCulture);
@@ -98,9 +89,8 @@ namespace SweetBonanza.View
 
         /// <summary>
         /// Formats an amount into sprite index tags.
-        /// Prefix parameter is preserved for backwards compatibility with existing call sites.
         /// </summary>
-        internal static string FormatSpriteAmount(double amount, string prefix = null, bool forceTwoDecimals = true, bool includeDollar = false)
+        private static string FormatSpriteAmount(double amount, bool forceTwoDecimals = true, bool includeDollar = false)
         {
             if (amount < 0) amount = 0;
 
@@ -118,22 +108,6 @@ namespace SweetBonanza.View
 
             AppendSpriteChars(SharedBuilder, formatted, includeDot: true);
             return SharedBuilder.ToString();
-        }
-
-        /// <summary>
-        /// Formats floating cluster win text.
-        /// </summary>
-        internal static string FormatFloatingWin(double amount, bool includeDollar = false, bool forceTwoDecimals = true)
-        {
-            return FormatSpriteAmount(amount, null, forceTwoDecimals, includeDollar);
-        }
-
-        /// <summary>
-        /// Formats floating cluster win text, dynamically checking targetText.
-        /// </summary>
-        internal static string FormatFloatingWin(double amount, TMP_Text targetText, bool forceTwoDecimals = true)
-        {
-            return FormatWithSpriteAsset(amount, targetText, includeDollar: false, forceTwoDecimals: forceTwoDecimals);
         }
 
         /// <summary>

@@ -11,7 +11,7 @@ using SweetBonanza.Model;
 namespace SweetBonanza.View
 {
     [Serializable]
-    public class PaytableSymbolEntry
+    internal class PaytableSymbolEntry
     {
         [SerializeField] internal SymbolType symbol;
         [SerializeField] internal TMP_Text textTier1; // 12+ (or 6+ for Scatter)
@@ -19,7 +19,7 @@ namespace SweetBonanza.View
         [SerializeField] internal TMP_Text textTier3; // 8-9 (or 4 for Scatter)
     }
 
-    public class UIManager : MonoBehaviour
+    internal class UIManager : MonoBehaviour
     {
         internal event Action OnSpinClicked;
         internal event Action OnStopClicked;
@@ -140,7 +140,6 @@ namespace SweetBonanza.View
         [SerializeField] private Button buttonOpenAutoplay;
         [SerializeField] private Button buttonCloseAutoplay;
         [SerializeField] private Button buttonStartAutoplay;
-        //[SerializeField] private TMP_Text autoplayRemainingText;
         [SerializeField] private Slider autoplaySpinsSlider;
         [SerializeField] private TMP_Text autoplaySpinsCountText;
         [SerializeField] private TMP_Text autoplaySpinsCountSliderText;
@@ -176,7 +175,6 @@ namespace SweetBonanza.View
         [SerializeField] private TMP_Text winCelebrationAmountText;
         [SerializeField] private CanvasGroup winDisplayGroup;
         [SerializeField] private Transform winTitleTransform;
-        //[SerializeField] private Transform winBgEffectTransform;
         [SerializeField] private Transform winStarsParent;
         [SerializeField] private Transform winStarCenter;
         [SerializeField] private Transform winStarLeft;
@@ -209,7 +207,10 @@ namespace SweetBonanza.View
         private GameObject currentOpenPanel;
         private Tweener winCelebrationTweener;
         private Tweener freeSpinsOutroTweener;
+        private Coroutine autoDismissRoutine;
         private double currentBetAmount = 2.0;
+        private float anteBetMultiplier;
+        private float buyFeatureCostMultiplier;
         private double originalBuyFeatureBet;
         private float lastNonZeroVolume = 0.5f;
         private bool isSoundMuted = false;
@@ -218,55 +219,11 @@ namespace SweetBonanza.View
 
         private void Awake()
         {
-            if (popupManager == null) popupManager = UnityEngine.Object.FindFirstObjectByType<PopupManager>();
-            if (jsFunctCalls == null) jsFunctCalls = UnityEngine.Object.FindFirstObjectByType<JSFunctCalls>();
             if (jsFunctCalls != null) jsFunctCalls.RegisterFullscreenListener(gameObject.name);
 
-            InitializePanelAnimationReferences();
             RegisterButtonCallbacks();
             CloseAllModalsImmediate();
             SetExpandShrinkButtons(false);
-        }
-
-        private void InitializePanelAnimationReferences()
-        {
-            if (winCelebrationPanel != null)
-            {
-                if (winDisplayGroup == null)
-                {
-                    var disp = winCelebrationPanel.transform.Find("DisplayOnly");
-                    if (disp != null) winDisplayGroup = disp.GetComponent<CanvasGroup>() ?? disp.gameObject.AddComponent<CanvasGroup>();
-                }
-                if (winTitleTransform == null) winTitleTransform = winCelebrationPanel.transform.Find("DisplayOnly/Displaytext place");
-                //if (winBgEffectTransform == null) winBgEffectTransform = winCelebrationPanel.transform.Find("DisplayOnly/BGEfffect");
-                if (winStarsParent == null) winStarsParent = winCelebrationPanel.transform.Find("DisplayOnly/StaresParent");
-                if (winStarsParent != null)
-                {
-                    if (winStarCenter == null) winStarCenter = winStarsParent.Find("s1");
-                    if (winStarLeft == null) winStarLeft = winStarsParent.Find("Ls");
-                    if (winStarRight == null) winStarRight = winStarsParent.Find("Rs");
-                }
-                if (winLabelTransform == null) winLabelTransform = winCelebrationPanel.transform.Find("LabbleTextDisplay");
-            }
-
-            if (freeSpinsOutroPanel != null)
-            {
-                if (outroCanvasGroup == null) outroCanvasGroup = freeSpinsOutroPanel.GetComponent<CanvasGroup>() ?? freeSpinsOutroPanel.AddComponent<CanvasGroup>();
-                if (outroModalBox == null) outroModalBox = freeSpinsOutroPanel.transform.Find("ModalBox");
-                if (outroBadgeTransform == null) outroBadgeTransform = freeSpinsOutroPanel.transform.Find("ModalBox/PanaelShowImage");
-            }
-
-            if (freeSpinsIntroPanel != null)
-            {
-                if (introCanvasGroup == null) introCanvasGroup = freeSpinsIntroPanel.GetComponent<CanvasGroup>() ?? freeSpinsIntroPanel.AddComponent<CanvasGroup>();
-                if (introModalBox == null) introModalBox = freeSpinsIntroPanel.transform.Find("ModalBox");
-                if (introBadgeTransform == null) introBadgeTransform = freeSpinsIntroPanel.transform.Find("ModalBox/PanaelShowImage");
-                if (introPressGroup == null)
-                {
-                    var press = freeSpinsIntroPanel.transform.Find("ModalBox/PressAnythingTextImg (1)");
-                    if (press != null) introPressGroup = press.GetComponent<CanvasGroup>() ?? press.gameObject.AddComponent<CanvasGroup>();
-                }
-            }
         }
 
         private void RegisterButtonCallbacks()
@@ -295,12 +252,14 @@ namespace SweetBonanza.View
                 if (savedVol <= 0.001f) savedVol = 0.5f;
                 lastNonZeroVolume = savedVol;
                 masterVolumeSlider.value = savedVol;
-                SetAudioMute(PlayerPrefs.GetInt("settings_sound_muted", 0) == 1);
+                // AudioManager owns the real volume and mute (it loads the same prefs); here we only mirror them in the UI.
+                isSoundMuted = PlayerPrefs.GetInt("settings_sound_muted", 0) == 1;
+                UpdateSoundUI(savedVol, isSoundMuted);
 
                 masterVolumeSlider.onValueChanged.AddListener(v =>
                 {
                     if (v > 0.001f) lastNonZeroVolume = v;
-                    PlayerPrefs.SetFloat("settings_master_volume", v);
+                    AudioManager.Instance?.SetMasterVolume(v);
                     SetAudioMute(v <= 0.001f);
                 });
             }
@@ -511,6 +470,7 @@ namespace SweetBonanza.View
             bool isBuyFeature = panel == buyFeatureConfirmPanel;
             if (isBuyFeature && mainView != null) mainView.SetIdleBottomBarState();
             panel.SetActive(false);
+            StopAutoDismiss();
             if (currentOpenPanel == panel) currentOpenPanel = null;
             if (isBuyFeature && currentBetAmount != originalBuyFeatureBet)
             {
@@ -617,9 +577,8 @@ namespace SweetBonanza.View
         private void SetAudioMute(bool mute)
         {
             isSoundMuted = mute;
-            PlayerPrefs.SetInt("settings_sound_muted", mute ? 1 : 0);
             float vol = masterVolumeSlider != null ? masterVolumeSlider.value : 0.5f;
-            AudioListener.volume = mute ? 0f : vol;
+            if (!mute) AudioManager.Instance?.SetMasterVolume(vol);
             AudioManager.Instance?.SetMuteAll(mute);
             if (masterVolumeSlider != null) UpdateSoundUI(vol, mute);
         }
@@ -740,7 +699,7 @@ namespace SweetBonanza.View
         {
             int betLevel = betLevels[currentBetLevelIndex];
             float coinVal = coinValues[currentCoinValueIndex];
-            double effectiveTotalBet = isAnteBet ? baseBet * 1.25 : baseBet;
+            double effectiveTotalBet = isAnteBet ? baseBet * anteBetMultiplier : baseBet;
 
             if (betCoinsText != null) betCoinsText.text = betLevel.ToString();
             if (coinValueText != null) coinValueText.text = $"{coinVal:F2}";
@@ -771,30 +730,14 @@ namespace SweetBonanza.View
         {
             int idx = Mathf.Clamp(index, 0, autoplaySpinOptions.Length - 1);
             int count = autoplaySpinOptions[idx];
-            if (autoplaySpinsCountText != null) autoplaySpinsCountText.text = $"START AUTOPLAY ({count})"; //count.ToString();
+            if (autoplaySpinsCountText != null) autoplaySpinsCountText.text = $"START AUTOPLAY ({count})";
             if(autoplaySpinsCountSliderText != null) autoplaySpinsCountSliderText.text = count.ToString();
 
-
-           /* if (buttonStartAutoplay != null)
-            {
-                var txt = buttonStartAutoplay.GetComponentInChildren<UnityEngine.UI.Text>();
-                if (txt != null) txt.text = $"START AUTOPLAY ({count})";
-                else
-                {
-                    var tmp = buttonStartAutoplay.GetComponentInChildren<TMP_Text>();
-                    if (tmp != null) tmp.text = $"START AUTOPLAY ({count})";
-                }
-            }*///000
         }
 
         internal void SetAutoplayState(bool isAutoplay, int remainingSpins = 0)
         {
             this.isAutoplaying = isAutoplay;
-            /*if (autoplayRemainingText != null)
-            {
-                autoplayRemainingText.text = isAutoplay ? $"STOP ({remainingSpins})" : "AUTOPLAY";
-                autoplayRemainingText.gameObject.SetActive(true);
-            }*/ //000
             if (buttonOpenAutoplay != null && buttonOpenAutoplay.image != null)
             {
                 buttonOpenAutoplay.image.color = isAutoplay ? new Color(0.85f, 0.22f, 0.22f, 0.95f) : Color.white;
@@ -827,7 +770,6 @@ namespace SweetBonanza.View
 
             // Win celebration reset
             if (winDisplayGroup != null) { winDisplayGroup.DOKill(); winDisplayGroup.alpha = 1f; }
-            //if (winBgEffectTransform != null) { winBgEffectTransform.DOKill(); winBgEffectTransform.rotation = Quaternion.identity; }
             if (winTitleTransform != null) { winTitleTransform.DOKill(); winTitleTransform.localScale = Vector3.one; }
             if (winLabelTransform != null) { winLabelTransform.DOKill(); winLabelTransform.localScale = Vector3.one; }
             if (winCelebrationAmountText != null) { winCelebrationAmountText.transform.DOKill(); winCelebrationAmountText.transform.localScale = Vector3.one; }
@@ -914,7 +856,7 @@ namespace SweetBonanza.View
                 introPressGroup.DOFade(1.0f, 0.8f).SetEase(Ease.InOutSine).SetLoops(-1, LoopType.Yoyo);
             }
 
-            StartCoroutine(AutoDismissModal(freeSpinsIntroPanel, 3.0f));
+            StartAutoDismiss(freeSpinsIntroPanel, 3.0f);
         }
 
         internal void ShowFreeSpinsOutro(double totalWin)
@@ -973,7 +915,7 @@ namespace SweetBonanza.View
                 });
             }
 
-            StartCoroutine(AutoDismissModal(freeSpinsOutroPanel, 3.5f));
+            StartAutoDismiss(freeSpinsOutroPanel, 3.5f);
         }
 
         internal void ShowWinCelebration(string title, double winAmount, float displayDuration = 3.5f)
@@ -988,13 +930,6 @@ namespace SweetBonanza.View
                 winDisplayGroup.alpha = 0f;
                 winDisplayGroup.DOFade(1f, 0.25f);
             }
-
-            // 2. Sunburst continuous rotation
-           /* if (winBgEffectTransform != null)
-            {
-                winBgEffectTransform.rotation = Quaternion.identity;
-                winBgEffectTransform.DORotate(new Vector3(0, 0, -360), 8f, RotateMode.FastBeyond360).SetEase(Ease.Linear).SetLoops(-1);
-            }*/
 
             // 3. Title pop-in (0 -> 1.15 -> 1.0) and idle breathe (0.85 <-> 1.15)
             if (winTitleTransform != null)
@@ -1054,12 +989,36 @@ namespace SweetBonanza.View
                 });
             }
 
-            StartCoroutine(AutoDismissModal(winCelebrationPanel, displayDuration));
+            StartAutoDismiss(winCelebrationPanel, displayDuration);
+        }
+
+        private static readonly WaitForSeconds Wait30 = new WaitForSeconds(3.0f);
+        private static readonly WaitForSeconds Wait35 = new WaitForSeconds(3.5f);
+
+        internal bool IsWinCelebrationOpen => winCelebrationPanel != null && winCelebrationPanel.activeSelf;
+
+        /// <summary>Only one auto-dismiss timer may run, so an old timer can never close a newer popup.</summary>
+        private void StartAutoDismiss(GameObject modal, float duration)
+        {
+            StopAutoDismiss();
+            autoDismissRoutine = StartCoroutine(AutoDismissModal(modal, duration));
+        }
+
+        private void StopAutoDismiss()
+        {
+            if (autoDismissRoutine != null)
+            {
+                StopCoroutine(autoDismissRoutine);
+                autoDismissRoutine = null;
+            }
         }
 
         private IEnumerator AutoDismissModal(GameObject modal, float duration)
         {
-            yield return new WaitForSeconds(duration);
+            if (Mathf.Approximately(duration, 3.0f)) yield return Wait30;
+            else if (Mathf.Approximately(duration, 3.5f)) yield return Wait35;
+            else yield return new WaitForSeconds(duration);
+            autoDismissRoutine = null;
             if (modal != null && modal.activeSelf) CloseModal(modal);
         }
 
@@ -1067,13 +1026,20 @@ namespace SweetBonanza.View
 
         #region HUD & Status Updates
 
-        internal void UpdateHUD(double balance, double bet, double win, bool isAnteBet, bool isSpinning)
+        /// <summary>Receives the ante and buy feature multipliers from the controller (init data).</summary>
+        internal void SetFeatureMultipliers(float anteMultiplier, float buyCostMultiplier)
+        {
+            anteBetMultiplier = anteMultiplier;
+            buyFeatureCostMultiplier = buyCostMultiplier;
+        }
+
+        internal void UpdateHUD(double balance, double bet, bool isAnteBet, bool isSpinning)
         {
             currentBetAmount = bet;
             if (buyFeatureButtonCostText != null) 
             {
                 buyFeatureButtonCostText.textWrappingMode = TextWrappingModes.NoWrap;
-                buyFeatureButtonCostText.text = SpriteTextUtility.FormatWithSpriteAsset(bet * 100.0, buyFeatureButtonCostText, forceTwoDecimals: false);
+                buyFeatureButtonCostText.text = SpriteTextUtility.FormatWithSpriteAsset(bet * buyFeatureCostMultiplier, buyFeatureButtonCostText, forceTwoDecimals: false);
             }
 
             UpdateAnteBetSliderVisuals(isAnteBet);
@@ -1082,8 +1048,9 @@ namespace SweetBonanza.View
             if (mainView != null)
             {
                 mainView.SetBalance(balance);
-                mainView.SetBet(bet, isAnteBet);
-                mainView.SetWin(win, false);
+                double anteBetAmount = bet * anteBetMultiplier;
+                mainView.SetBet(isAnteBet ? anteBetAmount : bet, anteBetAmount);
+                mainView.SetWin(0);
                 mainView.SetSpinButtonInteractable(!isSpinning);
             }
         }
@@ -1112,7 +1079,7 @@ namespace SweetBonanza.View
 
         private void UpdateSettingsBetText(double bet)
         {
-            double effectiveBet = isAnteBet ? bet * 1.25 : bet;
+            double effectiveBet = isAnteBet ? bet * anteBetMultiplier : bet;
             string formattedBet = (effectiveBet % 1 == 0)
                 ? effectiveBet.ToString("0")
                 : effectiveBet.ToString("F2", System.Globalization.CultureInfo.InvariantCulture);
@@ -1123,7 +1090,7 @@ namespace SweetBonanza.View
             if (buyFeatureCostText != null && buyFeatureConfirmPanel != null && buyFeatureConfirmPanel.activeSelf)
             {
                 buyFeatureCostText.textWrappingMode = TextWrappingModes.NoWrap;
-                buyFeatureCostText.text = SpriteTextUtility.FormatWithSpriteAsset(bet * 100.0, buyFeatureCostText, forceTwoDecimals: false);
+                buyFeatureCostText.text = SpriteTextUtility.FormatWithSpriteAsset(bet * buyFeatureCostMultiplier, buyFeatureCostText, forceTwoDecimals: false);
             }
         }
 
@@ -1137,8 +1104,6 @@ namespace SweetBonanza.View
             if (mainView != null) mainView.SetStoppingButtonsState();
         }
 
-        //** ----------------------------------------------------
-        //** Bottom Banner On/Off & Cross-Fade Cycle
         #endregion
 
         private void OnDisable()

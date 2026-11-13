@@ -5,7 +5,7 @@ using DG.Tweening;
 namespace SweetBonanza.View
 {
     [RequireComponent(typeof(Toggle))]
-    public class UISwitchToggle : MonoBehaviour
+    internal class UISwitchToggle : MonoBehaviour
     {
         [Header("References (Auto-detected if unassigned)")]
         [SerializeField] private Toggle toggle;
@@ -63,15 +63,6 @@ namespace SweetBonanza.View
             {
                 knobImage = knobRect.GetComponent<Image>();
             }
-        }
-
-        internal void SetSprites(Sprite trackOff, Sprite trackOn, Sprite knobOff, Sprite knobOn)
-        {
-            trackOffSprite = trackOff;
-            trackOnSprite = trackOn;
-            knobOffSprite = knobOff;
-            knobOnSprite = knobOn;
-            if (toggle != null) UpdateVisuals(toggle.isOn, animate: false);
         }
 
         private void OnToggleValueChanged(bool isOn)

@@ -364,7 +364,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f521a04de7f494272a617b2719edd271, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SocketIOManager
-  testToken: 571c5f2ed7cc42c6b4fa93f9d7f22134
+  testToken: 94f3d1953f3249948d7772e0a658830b
   testSocketURL: https://devrealtime.dingdinghouse.com/
   nameSpace: playground
   JSManager: {fileID: 1638706357}
@@ -9454,7 +9454,7 @@ RectTransform:
   m_Father: {fileID: 59368361}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 0.6623603, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -17647,7 +17647,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &944915845
 RectTransform:
   m_ObjectHideFlags: 0
@@ -22793,8 +22793,8 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 666154514}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMin: {x: 0.6623603, y: 0}
+  m_AnchorMax: {x: 0.6623603, y: 1}
   m_AnchoredPosition: {x: 0, y: 0.75}
   m_SizeDelta: {x: 7.54, y: 10.05}
   m_Pivot: {x: 0.5, y: 0.5}

@@ -1,17 +1,18 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ImageAnimation : MonoBehaviour
+internal class ImageAnimation : MonoBehaviour
 {
-    public enum ImageState
+    internal enum ImageState
     {
         NONE,
         PLAYING,
         PAUSED
     }
 
-    public enum AnimationMode
+    internal enum AnimationMode
     {
         SINGLE_PHASE,
         TWO_PHASE
@@ -70,6 +71,9 @@ public class ImageAnimation : MonoBehaviour
 
     private float animStartTime;
     private float pauseStartTime;
+    private Coroutine animCoroutine;
+    private WaitForSeconds waitFrameDelay;
+    private WaitForSeconds waitLoopDelay;
 
     private void Awake()
     {
@@ -103,6 +107,11 @@ public class ImageAnimation : MonoBehaviour
     }
 
     private void OnDisable()
+    {
+        StopAnimation();
+    }
+
+    private void OnDestroy()
     {
         StopAnimation();
     }
@@ -154,22 +163,31 @@ public class ImageAnimation : MonoBehaviour
 
         // Safety clamp: Never allow frame delay to fall below 0.016s (~60 FPS) to prevent runaway speedup loops
         if (delayBetweenAnimation < 0.016f) delayBetweenAnimation = 0.016f;
+
+        waitFrameDelay = new WaitForSeconds(delayBetweenAnimation);
+        waitLoopDelay = delayBetweenLoop > 0f
+            ? new WaitForSeconds(Mathf.Max(0.016f, delayBetweenAnimation + delayBetweenLoop))
+            : waitFrameDelay;
     }
 
-    private void ScheduleNextFrame()
+    private IEnumerator AnimationRoutine()
     {
-        if (currentAnimationState != ImageState.PLAYING) return;
-        if (textureArray == null || textureArray.Count == 0) return;
+        yield return waitFrameDelay;
 
-        CancelInvoke(nameof(AnimationProcess));
-        float nextDelay = Mathf.Max(0.016f, delayBetweenAnimation);
-        Invoke(nameof(AnimationProcess), nextDelay);
+        while (currentAnimationState == ImageState.PLAYING)
+        {
+            WaitForSeconds nextWait = AdvanceFrame();
+            if (nextWait == null || currentAnimationState != ImageState.PLAYING) break;
+            yield return nextWait;
+        }
+
+        animCoroutine = null;
     }
 
-    private void AnimationProcess()
+    private WaitForSeconds AdvanceFrame()
     {
-        if (textureArray == null || textureArray.Count == 0) return;
-        if (currentAnimationState != ImageState.PLAYING) return;
+        if (textureArray == null || textureArray.Count == 0) return null;
+        if (currentAnimationState != ImageState.PLAYING) return null;
 
         SetTextureOfIndex();
         indexOfTexture++;
@@ -184,27 +202,18 @@ public class ImageAnimation : MonoBehaviour
 
                 if (doLoopAnimation)
                 {
-                    CancelInvoke(nameof(AnimationProcess));
-                    Invoke(nameof(AnimationProcess), Mathf.Max(0.016f, delayBetweenAnimation + delayBetweenLoop));
+                    return waitLoopDelay;
                 }
-                else
-                {
-                    currentAnimationState = ImageState.NONE;
-                }
+                currentAnimationState = ImageState.NONE;
+                return null;
             }
-            else
-            {
-                CancelInvoke(nameof(AnimationProcess));
-                Invoke(nameof(AnimationProcess), Mathf.Max(0.016f, delayBetweenAnimation));
-            }
+            return waitFrameDelay;
         }
-        else
-        {
-            HandleTwoPhaseAnimation();
-        }
+
+        return HandleTwoPhaseAnimation();
     }
 
-    private void HandleTwoPhaseAnimation()
+    private WaitForSeconds HandleTwoPhaseAnimation()
     {
         if (currentPhase == 1)
         {
@@ -215,31 +224,24 @@ public class ImageAnimation : MonoBehaviour
                 if (phase1LoopCount == -1 || phase1CurrentLoop < phase1LoopCount)
                 {
                     indexOfTexture = 0;
-                    CancelInvoke(nameof(AnimationProcess));
-                    Invoke(nameof(AnimationProcess), Mathf.Max(0.016f, delayBetweenAnimation + delayBetweenLoop));
+                    return waitLoopDelay;
                 }
-                else
-                {
-                    currentPhase = 2;
-                    indexOfTexture = phase2StartIndex;
-                    CalculateFrameDelay();
 
-                    if (phase2LoopCount == 0)
-                    {
-                        currentAnimationState = ImageState.NONE;
-                        return;
-                    }
-                    CancelInvoke(nameof(AnimationProcess));
-                    Invoke(nameof(AnimationProcess), Mathf.Max(0.016f, delayBetweenAnimation + delayBetweenLoop));
+                currentPhase = 2;
+                indexOfTexture = phase2StartIndex;
+                CalculateFrameDelay();
+
+                if (phase2LoopCount == 0)
+                {
+                    currentAnimationState = ImageState.NONE;
+                    return null;
                 }
+                return waitLoopDelay;
             }
-            else
-            {
-                CancelInvoke(nameof(AnimationProcess));
-                Invoke(nameof(AnimationProcess), Mathf.Max(0.016f, delayBetweenAnimation));
-            }
+            return waitFrameDelay;
         }
-        else if (currentPhase == 2)
+
+        if (currentPhase == 2)
         {
             if (indexOfTexture >= textureArray.Count)
             {
@@ -248,20 +250,15 @@ public class ImageAnimation : MonoBehaviour
                 if (phase2LoopCount == -1 || phase2CurrentLoop < phase2LoopCount)
                 {
                     indexOfTexture = phase2StartIndex;
-                    CancelInvoke(nameof(AnimationProcess));
-                    Invoke(nameof(AnimationProcess), Mathf.Max(0.016f, delayBetweenAnimation + delayBetweenLoop));
+                    return waitLoopDelay;
                 }
-                else
-                {
-                    currentAnimationState = ImageState.NONE;
-                }
+                currentAnimationState = ImageState.NONE;
+                return null;
             }
-            else
-            {
-                CancelInvoke(nameof(AnimationProcess));
-                Invoke(nameof(AnimationProcess), Mathf.Max(0.016f, delayBetweenAnimation));
-            }
+            return waitFrameDelay;
         }
+
+        return waitFrameDelay;
     }
 
     internal void StartAnimation()
@@ -271,7 +268,12 @@ public class ImageAnimation : MonoBehaviour
         EnsureRenderer();
         if (rendererDelegate == null) return;
 
-        CancelInvoke(nameof(AnimationProcess));
+        if (animCoroutine != null)
+        {
+            StopCoroutine(animCoroutine);
+            animCoroutine = null;
+        }
+
         indexOfTexture = 0;
         currentLoopCount = 0;
         animStartTime = Time.time;
@@ -292,26 +294,27 @@ public class ImageAnimation : MonoBehaviour
 
         CalculateFrameDelay();
 
-        if (useDynamicFramerate)
+        if (isActiveAndEnabled)
         {
-            ScheduleNextFrame();
-        }
-        else
-        {
-            Invoke(nameof(AnimationProcess), delayBetweenAnimation);
+            animCoroutine = StartCoroutine(AnimationRoutine());
         }
     }
 
     internal void StopAnimation()
     {
+        if (animCoroutine != null)
+        {
+            StopCoroutine(animCoroutine);
+            animCoroutine = null;
+        }
+
         if (currentAnimationState != ImageState.NONE)
         {
             EnsureRenderer();
-            if (rendererDelegate != null && textureArray != null && textureArray.Count > 0)
+            if (rendererDelegate != null && textureArray != null && textureArray.Count > 0 && rendererDelegate.sprite != textureArray[0])
             {
                 rendererDelegate.sprite = textureArray[0];
             }
-            CancelInvoke(nameof(AnimationProcess));
             currentAnimationState = ImageState.NONE;
 
             currentPhase = 1;
@@ -337,7 +340,8 @@ public class ImageAnimation : MonoBehaviour
         EnsureRenderer();
         if (rendererDelegate != null)
         {
-            rendererDelegate.sprite = textureArray[indexOfTexture];
+            Sprite targetSprite = textureArray[indexOfTexture];
+            if (rendererDelegate.sprite != targetSprite) rendererDelegate.sprite = targetSprite;
         }
     }
 }

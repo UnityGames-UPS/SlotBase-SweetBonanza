@@ -7,7 +7,7 @@ using DG.Tweening;
 
 namespace SweetBonanza.View
 {
-    public class MainView : MonoBehaviour
+    internal class MainView : MonoBehaviour
     {
         internal event Action OnSpinClicked;
         internal event Action OnStopClicked;
@@ -64,11 +64,6 @@ namespace SweetBonanza.View
         [SerializeField] private CanvasGroup tumbleCanvasGroup;
 
         [Header("Bottom Bar Display Objects")]
-       
-       /* [SerializeField] private Button betPlusBtn;
-        [SerializeField] private Button betMinusBtn;
-        [SerializeField] private TMP_Text betDisplayText;*/
-
         [SerializeField] private GameObject spinInstructionObj;
         [SerializeField] private GameObject payoutMultiplayerObj;
         [SerializeField] private TMP_Text payoutMultiplayerText;
@@ -82,6 +77,13 @@ namespace SweetBonanza.View
         [SerializeField] private TMP_Text autoSpinRemainingText;
 
         private double displayedWin = 0;
+        // double.MinValue = "nothing shown yet", so the first value always gets written.
+        // (NaN must not be used here: any comparison against NaN is false and the text would never update.)
+        private double lastDisplayedBalance = double.MinValue;
+        private double lastDisplayedAnteBet = double.MinValue;
+        private double lastDisplayedEffectiveBet = double.MinValue;
+        private double lastTotalWinDisplayed = double.NaN;
+        private int lastFeatureVisualMask = -1;
         private bool isCurrentlyNightMode = false;
         private TMP_Text flyerText;
 
@@ -146,29 +148,17 @@ namespace SweetBonanza.View
             }
         }
 
-        /// <summary>Ensures CanvasGroup components exist on top promo banner and top tumble win banner.</summary>
-        private void EnsureTopBannerCanvasGroups()
-        {
-            if (topPromoBannerObj != null && promoCanvasGroup == null)
-            {
-                promoCanvasGroup = topPromoBannerObj.GetComponent<CanvasGroup>();
-                if (promoCanvasGroup == null) promoCanvasGroup = topPromoBannerObj.AddComponent<CanvasGroup>();
-            }
-            if (topTumbleWinBanner != null && tumbleCanvasGroup == null)
-            {
-                tumbleCanvasGroup = topTumbleWinBanner.GetComponent<CanvasGroup>();
-                if (tumbleCanvasGroup == null) tumbleCanvasGroup = topTumbleWinBanner.AddComponent<CanvasGroup>();
-            }
-        }
-
         /// <summary>Updates interactivity and alpha opacity for Buy Feature and Ante Bet buttons.</summary>
         internal void UpdateFeatureButtonsVisualState()
         {
-            EnsureFeatureCanvasGroups();
             bool featuresLocked = isSpinning || isAutoplaying || isInFreeSpins;
+            bool anteInteractive = !featuresLocked;
+            bool buyInteractive = !featuresLocked && !isAnteBetActive;
+            int mask = (anteInteractive ? 1 : 0) | (buyInteractive ? 2 : 0);
+            if (mask == lastFeatureVisualMask) return;
+            lastFeatureVisualMask = mask;
 
             // Ante Bet Button (BetFeaturebuttton): interactive only when fully idle
-            bool anteInteractive = !featuresLocked;
             if (anteBetToggleButton != null) anteBetToggleButton.interactable = anteInteractive;
             if (anteBetCanvasGroup != null)
             {
@@ -178,7 +168,6 @@ namespace SweetBonanza.View
             }
 
             // Buy Feature Button (BuyFeaturebuttton): interactive only when idle AND Ante Bet is OFF
-            bool buyInteractive = !featuresLocked && !isAnteBetActive;
             if (buyBonusButton != null) buyBonusButton.interactable = buyInteractive;
             if (buyBonusCanvasGroup != null)
             {
@@ -223,7 +212,6 @@ namespace SweetBonanza.View
         {
             CaptureDayPositions();
             EnsureFeatureCanvasGroups();
-            EnsureTopBannerCanvasGroups();
             UpdateFeatureButtonsVisualState();
             if (spinButton != null)
             {
@@ -250,9 +238,7 @@ namespace SweetBonanza.View
                 });
             }
             if (betPlusButton != null) betPlusButton.onClick.AddListener(() => OnBetIncreaseClicked?.Invoke());
-            //if (betPlusBtn != null && betPlusBtn != betPlusButton) betPlusBtn.onClick.AddListener(() => OnBetIncreaseClicked?.Invoke());
             if (betMinusButton != null) betMinusButton.onClick.AddListener(() => OnBetDecreaseClicked?.Invoke());
-            //if (betMinusBtn != null && betMinusBtn != betMinusButton) betMinusBtn.onClick.AddListener(() => OnBetDecreaseClicked?.Invoke());
             if (buyBonusButton != null) buyBonusButton.onClick.AddListener(() => OnBuyBonusClicked?.Invoke());
             if (anteBetToggleButton != null) anteBetToggleButton.onClick.AddListener(() => OnAnteBetToggled?.Invoke());
 
@@ -271,7 +257,6 @@ namespace SweetBonanza.View
         {
             UpdateSpinButtonVisuals();
             SetIdleBottomBarState();
-            EnsureTopBannerCanvasGroups();
             if (topTumbleWinBanner != null) topTumbleWinBanner.SetActive(false);
             if (tumbleCanvasGroup != null)
             {
@@ -344,34 +329,29 @@ namespace SweetBonanza.View
         /// <summary>Updates the player's balance text display on the bottom HUD.</summary>
         internal void SetBalance(double balance)
         {
-            if (balanceText != null)
+            if (balanceText != null && Math.Abs(balance - lastDisplayedBalance) > 0.0001)
             {
+                lastDisplayedBalance = balance;
                 balanceText.textWrappingMode = TextWrappingModes.NoWrap;
                 balanceText.text = SpriteTextUtility.FormatWithSpriteAsset(balance, balanceText);
             }
         }
 
-        /// <summary>Updates the current bet text and calculates effective bet when Ante Bet is active.</summary>
-        internal void SetBet(double baseBet, bool isAnteBet)
+        /// <summary>Updates the current bet text and the Ante Bet price text. Amounts are computed by the controller.</summary>
+        internal void SetBet(double effectiveBet, double anteBetAmount)
         {
-            double effectiveBet = isAnteBet ? baseBet * 1.25 : baseBet;
-
-            if (currentBetText != null)
+            if (currentBetText != null && Math.Abs(effectiveBet - lastDisplayedEffectiveBet) > 0.0001)
             {
+                lastDisplayedEffectiveBet = effectiveBet;
                 currentBetText.textWrappingMode = TextWrappingModes.NoWrap;
                 currentBetText.text = SpriteTextUtility.FormatWithSpriteAsset(effectiveBet, currentBetText);
             }
 
-           /* if (betDisplayText != null)
+            if (anteBetAmountText != null && Math.Abs(anteBetAmount - lastDisplayedAnteBet) > 0.0001)
             {
-                betDisplayText.text = $"{effectiveBet:F2}";
-            }*/
-
-            if (anteBetAmountText != null)
-            {
+                lastDisplayedAnteBet = anteBetAmount;
                 anteBetAmountText.textWrappingMode = TextWrappingModes.NoWrap;
-                double anteCost = baseBet * 1.25;
-                anteBetAmountText.text = SpriteTextUtility.FormatWithSpriteAsset(anteCost, anteBetAmountText);
+                anteBetAmountText.text = SpriteTextUtility.FormatWithSpriteAsset(anteBetAmount, anteBetAmountText);
             }
         }
 
@@ -437,6 +417,7 @@ namespace SweetBonanza.View
         internal void SetTumbleStepWin(double tumbleWin, Sprite symbolSprite, int count, double payout, string detail = null)
         {
             displayedWin = tumbleWin;
+            lastTotalWinDisplayed = tumbleWin;
 
             // Keep winCountObj active continuously from the first win through the entire spin
             if (tumbleWin > 0)
@@ -482,18 +463,13 @@ namespace SweetBonanza.View
             }
         }
 
-        /// <summary>Overload for backwards compatibility.</summary>
-        internal void SetTumbleStepWin(double tumbleWin, string detail = null)
-        {
-            SetTumbleStepWin(tumbleWin, null, 0, 0, detail);
-        }
-
         /// <summary>Displays the spin final win amount directly with snap transition (no animation).</summary>
-        internal void SetWin(double targetWin, bool animate = false)
+        internal void SetWin(double targetWin)
         {
             if (targetWin > 0)
             {
                 displayedWin = targetWin;
+                lastTotalWinDisplayed = targetWin;
                 // Final round win: show winCountObj cleanly in the center
                 if (winCountObj != null) winCountObj.SetActive(true);
                 if (winCountText != null) winCountText.text = $"{targetWin:F2}";
@@ -506,9 +482,10 @@ namespace SweetBonanza.View
             }
             else
             {
-                // Only clear win display if displayedWin is also 0
-                if (displayedWin <= 0)
+                // Only clear win display if displayedWin is also 0 and not already cleared
+                if (displayedWin <= 0 && lastTotalWinDisplayed != 0)
                 {
+                    lastTotalWinDisplayed = 0;
                     if (winCountObj != null) winCountObj.SetActive(false);
                     if (totalWinText != null) totalWinText.text = "0.00";
 
@@ -573,7 +550,6 @@ namespace SweetBonanza.View
         internal void ShowTopTumbleWinBanner(double initialTumbleWin)
         {
             if (topTumbleWinBanner == null) return;
-            EnsureTopBannerCanvasGroups();
 
             // Fade out promo banner (topImageReplacePose) if currently visible
             if (promoCanvasGroup != null && topPromoBannerObj != null && topPromoBannerObj.activeSelf)
@@ -612,7 +588,6 @@ namespace SweetBonanza.View
         /// <summary>Hides the top tumble win banner with a smooth cross-fade back to promo banner.</summary>
         internal void HideTopTumbleWinBanner(bool immediate = false)
         {
-            EnsureTopBannerCanvasGroups();
 
             if (immediate)
             {
@@ -728,12 +703,9 @@ namespace SweetBonanza.View
         /// <summary>Updates reel spinning state, toggles bet adjustments, and refreshes button visuals.</summary>
         internal void SetSpinButtonInteractable(bool interactable)
         {
-            if (isInFreeSpins)
-            {
-                SetSpinningButtonsState(isSpinning);
-                return;
-            }
+            if (isInFreeSpins) return;
 
+            bool prevSpinning = this.isSpinning;
             // If already spinning, keep spinning state locked until SetIdleBottomBarState resets it at round end
             if (!this.isSpinning)
             {
@@ -743,11 +715,12 @@ namespace SweetBonanza.View
             bool canInteractBet = interactable && !this.isSpinning && !isAutoplaying && !isInFreeSpins && !isBuyFeatureActive;
             if (betPlusButton != null) betPlusButton.interactable = canInteractBet;
             if (betMinusButton != null) betMinusButton.interactable = canInteractBet;
-            //if (betPlusBtn != null) betPlusBtn.interactable = canInteractBet;
-            //if (betMinusBtn != null) betMinusBtn.interactable = canInteractBet;
 
             UpdateFeatureButtonsVisualState();
-            UpdateSpinButtonVisuals();
+            if (prevSpinning != this.isSpinning)
+            {
+                UpdateSpinButtonVisuals();
+            }
         }
 
         /// <summary>Updates Ante Bet visual indicators, glow button sprite, and animated slider handle.</summary>
@@ -766,8 +739,6 @@ namespace SweetBonanza.View
             bool canInteractBet = !isAutoplay && !isSpinning && !isInFreeSpins;
             if (betPlusButton != null) betPlusButton.interactable = canInteractBet;
             if (betMinusButton != null) betMinusButton.interactable = canInteractBet;
-            //if (betPlusBtn != null) betPlusBtn.interactable = canInteractBet;
-            //if (betMinusBtn != null) betMinusBtn.interactable = canInteractBet;
 
             UpdateFeatureButtonsVisualState();
 
@@ -826,7 +797,12 @@ namespace SweetBonanza.View
                 if (autoSpinStopButton != null) autoSpinStopButton.gameObject.SetActive(false);
 
                 // Manual: Spinning -> spinButton: OFF, stopButton: ON
-                if (spinButton != null) spinButton.gameObject.SetActive(false);
+                if (spinButton != null)
+                {
+                    spinButton.transform.DOKill();
+                    spinButton.transform.localScale = Vector3.one;
+                    spinButton.gameObject.SetActive(false);
+                }
                 if (stopSpinButton != null)
                 {
                     stopSpinButton.gameObject.SetActive(true);

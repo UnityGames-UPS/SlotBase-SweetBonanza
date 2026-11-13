@@ -4,7 +4,7 @@ using UnityEngine.UI;
 using TMPro;
 using DG.Tweening;
 
-public class PopupManager : MonoBehaviour
+internal class PopupManager : MonoBehaviour
 {
     [Header("Popup Backdrop Overlay")]
     [SerializeField] private GameObject popupParent;
@@ -40,6 +40,10 @@ public class PopupManager : MonoBehaviour
 
     private GameObject currentActivePopup;
     private bool isErrorCritical;
+    private TMP_Text errorOkButtonText;
+    private SocketIOManager socketManager;
+    private JSFunctCalls jsFunctCalls;
+    private TweenCallback cachedCloseLoading;
 
     private void Awake()
     {
@@ -49,6 +53,11 @@ public class PopupManager : MonoBehaviour
             return;
         }
         Instance = this;
+
+        if (errorOkButton != null) errorOkButtonText = errorOkButton.GetComponentInChildren<TMP_Text>(true);
+        socketManager = UnityEngine.Object.FindFirstObjectByType<SocketIOManager>();
+        jsFunctCalls = UnityEngine.Object.FindFirstObjectByType<JSFunctCalls>();
+        cachedCloseLoading = () => CloseLoadingPopup();
 
         SetupButtons();
         HideAllPopups();
@@ -180,12 +189,10 @@ public class PopupManager : MonoBehaviour
     internal void ShowErrorPopup(string heading, string message, bool isCritical = false)
     {
         isErrorCritical = isCritical;
-     
 
-        if (errorOkButton != null)
+        if (errorOkButtonText != null)
         {
-            var btnText = errorOkButton.GetComponentInChildren<TMP_Text>(true);
-            if (btnText != null) btnText.text = isCritical ? "Exit Game" : "OKAY";
+            errorOkButtonText.text = isCritical ? "Exit Game" : "OKAY";
         }
 
         OpenPopup(errorPopup);
@@ -193,7 +200,6 @@ public class PopupManager : MonoBehaviour
 
     internal void ShowServerError(string message = "A server error occurred.") => ShowErrorPopup("Server Error", message, true);
     internal void ShowAnotherDeviceError() => ShowErrorPopup("Warning", "Logged in from another device.", true);
-    internal void ShowInsufficientFundsError() => ShowErrorPopup("Information", "Insufficient balance.", false);
 
     // 3. Reconnection
     internal void ShowReconnectionPopup(int currentTry, int maxTries)
@@ -209,7 +215,7 @@ public class PopupManager : MonoBehaviour
         OpenPopup(loadingPopup);
         if (duration > 0f)
         {
-            DOVirtual.DelayedCall(duration, () => CloseLoadingPopup());
+            DOVirtual.DelayedCall(duration, cachedCloseLoading);
         }
     }
 
@@ -221,11 +227,9 @@ public class PopupManager : MonoBehaviour
 
     internal void ExitGame()
     {
-        var socketMgr = UnityEngine.Object.FindFirstObjectByType<SocketIOManager>();
-        if (socketMgr != null) socketMgr.CloseSocket();
-
-        var jsCall = UnityEngine.Object.FindFirstObjectByType<JSFunctCalls>();
-        if (jsCall != null) jsCall.SendCustomMessage("OnExit");
+        // CloseSocket already tells the platform "OnExit"; only send it here when there is no socket.
+        if (socketManager != null) socketManager.CloseSocket();
+        else if (jsFunctCalls != null) jsFunctCalls.SendCustomMessage("OnExit");
 
 #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
@@ -236,8 +240,24 @@ public class PopupManager : MonoBehaviour
 
     #endregion
 
-    private void OnDestroy()
+    private void KillAllTweens()
     {
         DOTween.Kill(this);
+        if (disconnectionPopup != null) disconnectionPopup.transform.DOKill();
+        if (errorPopup != null) errorPopup.transform.DOKill();
+        if (reconnectionPopup != null) reconnectionPopup.transform.DOKill();
+        if (loadingPopup != null) loadingPopup.transform.DOKill();
+        if (exitGamePopup != null) exitGamePopup.transform.DOKill();
+    }
+
+    private void OnDisable()
+    {
+        KillAllTweens();
+    }
+
+    private void OnDestroy()
+    {
+        KillAllTweens();
+        if (Instance == this) Instance = null;
     }
 }

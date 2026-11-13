@@ -4,7 +4,7 @@ using SweetBonanza.Model;
 
 namespace SweetBonanza.Service
 {
-    public abstract class BackendService : MonoBehaviour
+    internal abstract class BackendService : MonoBehaviour
     {
         internal event Action<InitPayload> OnInitDataReceived;
         internal event Action<RoundResult> OnRoundResultReceived;

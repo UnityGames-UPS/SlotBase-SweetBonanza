@@ -6,7 +6,7 @@ using DG.Tweening;
 
 namespace SweetBonanza.View
 {
-    public class BannerCycler : MonoBehaviour
+    internal class BannerCycler : MonoBehaviour
     {
         [Header("Banner Sprites")]
         [SerializeField] private List<Sprite> imageList;
@@ -27,7 +27,6 @@ namespace SweetBonanza.View
         private int currentIndex = 0;
         private bool isFront = true;
         private Coroutine cycleCoroutine;
-        private bool isPaused = false;
         private bool hasInitialized = false;
         private bool isSpinCycleLocked = false;
 
@@ -92,21 +91,6 @@ namespace SweetBonanza.View
             StartCycle();
         }
 
-        /// <summary>Shows or hides the banner images.</summary>
-        internal void SetBannerVisible(bool visible)
-        {
-            if (bannerImageFront != null) bannerImageFront.gameObject.SetActive(visible);
-            if (bannerImageBack != null) bannerImageBack.gameObject.SetActive(visible);
-        }
-
-        /// <summary>Pauses or resumes banner cycling (e.g. during tumble sequences).</summary>
-        internal void PauseCycle(bool pause)
-        {
-            isPaused = pause;
-            if (pause) StopCycle();
-            else StartCycle();
-        }
-
         private int GetRandomIdleIndex()
         {
             if (imageList == null || imageList.Count <= 1) return 0;
@@ -165,7 +149,7 @@ namespace SweetBonanza.View
             StopCycle();
             if (syncWithSpin && isSpinCycleLocked) return;
             int minCount = syncWithSpin ? 2 : 1;
-            if (isActiveAndEnabled && !isPaused && imageList != null && imageList.Count > minCount)
+            if (isActiveAndEnabled && imageList != null && imageList.Count > minCount)
             {
                 cycleCoroutine = StartCoroutine(CycleRoutine());
             }
@@ -182,10 +166,16 @@ namespace SweetBonanza.View
 
         private IEnumerator CycleRoutine()
         {
-            while (!isPaused && !(syncWithSpin && isSpinCycleLocked))
+            while (!(syncWithSpin && isSpinCycleLocked))
             {
                 float waitTime = Random.Range(minInterval, maxInterval);
-                yield return new WaitForSeconds(waitTime);
+                float elapsed = 0f;
+                while (elapsed < waitTime)
+                {
+                    if (syncWithSpin && isSpinCycleLocked) yield break;
+                    yield return null;
+                    elapsed += Time.deltaTime;
+                }
 
                 if (imageList == null || imageList.Count <= 1) yield break;
 

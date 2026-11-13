@@ -5,7 +5,7 @@ using SweetBonanza.Model;
 
 namespace SweetBonanza.Service
 {
-    public class LocalDemoService : BackendService
+    internal class LocalDemoService : BackendService
     {
         private static readonly int[] MultiplierValues = { 2, 3, 5, 8, 10, 15, 20, 25, 50, 100 };
 
@@ -301,7 +301,7 @@ namespace SweetBonanza.Service
                         bool exists = false;
                         foreach (var b in bombs)
                         {
-                            if (b.Position.Equals(pos)) { exists = true; break; }
+                            if (b.Position.Matches(pos)) { exists = true; break; }
                         }
                         if (!exists)
                         {

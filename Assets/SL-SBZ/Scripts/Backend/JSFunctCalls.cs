@@ -1,7 +1,7 @@
 using System.Runtime.InteropServices;
 using UnityEngine;
 
-public class JSFunctCalls : MonoBehaviour
+internal class JSFunctCalls : MonoBehaviour
 {
   #region External Functions
   [DllImport("__Internal")]

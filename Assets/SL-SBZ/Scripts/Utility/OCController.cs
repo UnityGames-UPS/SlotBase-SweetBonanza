@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using DG.Tweening;
 using System.Collections.Generic;
 
-public class OCController : MonoBehaviour
+internal class OCController : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] private OrientationChange orientationChange;

@@ -3,10 +3,10 @@ using UnityEngine;
 /// <summary>
 /// Controls background cloud parallax scrolling and loops clouds from start to end seamlessly.
 /// </summary>
-public class CloudParallax : MonoBehaviour
+internal class CloudParallax : MonoBehaviour
 {
     [System.Serializable]
-    public class CloudLayer
+    internal class CloudLayer
     {
         [SerializeField] internal Transform cloud;
 
@@ -27,29 +27,32 @@ public class CloudParallax : MonoBehaviour
             return;
 
         // Determine move direction based on start and end positions in local space
-        float moveDir = (endPosition.localPosition.x >= startPosition.localPosition.x) ? 1f : -1f;
+        float endX = endPosition.localPosition.x;
+        float moveDir = (endX >= startPosition.localPosition.x) ? 1f : -1f;
         float totalSpan = clouds.Length * 1917f;
+        float stepBase = moveDir * 160f * Time.deltaTime;
 
-        foreach (CloudLayer layer in clouds)
+        for (int i = 0; i < clouds.Length; i++)
         {
+            CloudLayer layer = clouds[i];
             if (layer.cloud == null)
                 continue;
 
             // Move cloud towards end position in local UI space (resolution-independent)
             Vector3 pos = layer.cloud.localPosition;
-            pos.x += moveDir * (layer.speed * 160f) * Time.deltaTime;
+            pos.x += layer.speed * stepBase;
 
             // Check if cloud has reached or passed end position in local space and loop seamlessly
             if (moveDir > 0f)
             {
-                if (pos.x >= endPosition.localPosition.x)
+                if (pos.x >= endX)
                 {
                     pos.x -= totalSpan;
                 }
             }
             else
             {
-                if (pos.x <= endPosition.localPosition.x)
+                if (pos.x <= endX)
                 {
                     pos.x += totalSpan;
                 }

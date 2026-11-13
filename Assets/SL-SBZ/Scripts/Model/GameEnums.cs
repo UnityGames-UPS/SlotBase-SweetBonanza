@@ -1,6 +1,6 @@
 namespace SweetBonanza.Model
 {
-    public enum SymbolType
+    internal enum SymbolType
     {
         Banana = 0,
         Grapes = 1,
@@ -15,26 +15,13 @@ namespace SweetBonanza.Model
         MultiplierBomb = 10
     }
 
-    public enum GameState
+    internal enum GameState
     {
         Initializing,
         Idle,
         Spinning,
         DroppingInitial,
-        HighlightingWins,
-        ExplodingSymbols,
         TumblingDown,
-        SpawningNewSymbols,
-        EvaluatingMultipliers,
-        FreeSpinsTransition,
-        RoundFinished
-    }
-
-    public enum WinTier
-    {
-        None = 0,
-        Tier8To9 = 1,
-        Tier10To11 = 2,
-        Tier12Plus = 3
+        EvaluatingMultipliers
     }
 }

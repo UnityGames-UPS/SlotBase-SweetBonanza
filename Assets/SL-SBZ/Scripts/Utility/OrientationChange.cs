@@ -3,9 +3,9 @@ using UnityEngine.UI;
 using DG.Tweening;
 using System.Collections;
 
-public class OrientationChange : MonoBehaviour
+internal class OrientationChange : MonoBehaviour
 {
-    public enum OrientationMode { Landscape, DesktopPortrait, MobilePortrait }
+    internal enum OrientationMode { Landscape, DesktopPortrait, MobilePortrait }
     internal static event System.Action<OrientationMode, int, int> OnOrientationChanged;
     internal event System.Action<OrientationMode, int, int> OnOrientationChangedInstance;
 
@@ -19,6 +19,9 @@ public class OrientationChange : MonoBehaviour
     private Tween rotationTween;
     private Coroutine rotationRoutine;
     private bool isLandscape;
+    private int lastWidth;
+    private int lastHeight;
+
     private void Awake()
     {
         ReferenceAspect = CanvasScaler.referenceResolution;
@@ -27,6 +30,14 @@ public class OrientationChange : MonoBehaviour
     private void Start()
     {
         ApplyMatch(Screen.width, Screen.height);
+    }
+
+    private void Update()
+    {
+        if (Screen.width != lastWidth || Screen.height != lastHeight)
+        {
+            ApplyMatch(Screen.width, Screen.height);
+        }
     }
 
     internal void SwitchDisplay(string dimensions)
@@ -51,6 +62,9 @@ public class OrientationChange : MonoBehaviour
 
     private void ApplyMatch(int width, int height)
     {
+        lastWidth = width;
+        lastHeight = height;
+
         isLandscape = width > height;
 
         Quaternion targetRotation = isLandscape ? Quaternion.identity : Quaternion.Euler(0, 0, -90);

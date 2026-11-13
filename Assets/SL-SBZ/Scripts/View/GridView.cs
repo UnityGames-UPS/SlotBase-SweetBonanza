@@ -8,7 +8,7 @@ using SweetBonanza.Model;
 
 namespace SweetBonanza.View
 {
-    public class GridView : MonoBehaviour
+    internal class GridView : MonoBehaviour
     {
         internal event Action<int> OnScatterAnticipationTriggered;
 
@@ -26,7 +26,7 @@ namespace SweetBonanza.View
         [SerializeField] private float initialDropDuration = 0.46f;
         [SerializeField] private float columnStaggerDelay = 0.11f;
         [SerializeField] private float winPulseDuration = 0.90f;
-        [SerializeField] private float explodeDuration = 0.26f;
+        [SerializeField] private float explodeDuration = 0.35f;
         [SerializeField] private float tumbleFallDuration = 0.24f;
 
         [Header("Symbol Sprites Configuration")]
@@ -84,7 +84,9 @@ namespace SweetBonanza.View
         private readonly float[] columnDelays = new float[GameConfig.COLUMNS];
         private readonly float[] columnDurations = new float[GameConfig.COLUMNS];
         private readonly int[] explodedCountPerCol = new int[GameConfig.COLUMNS];
+        private readonly int[] bombsShownPerCol = new int[GameConfig.COLUMNS];
         private readonly List<CellView> scatterCellsScratch = new List<CellView>(12);
+        private readonly List<CellView> clearingCells = new List<CellView>(GameConfig.TOTAL_CELLS);
         private Dictionary<SymbolType, Sprite> spriteLookup;
         private Dictionary<SymbolType, Sprite[]> animationLookup;
 
@@ -100,6 +102,12 @@ namespace SweetBonanza.View
         private Action<CellView> cachedRecycleCell;
         private Action cachedReelStop;
         private Action cachedLastReelStop;
+
+        private Canvas rootCanvas;
+        private readonly Vector3[] worldCorners = new Vector3[4];
+        private readonly List<CellView> allCells = new List<CellView>(64);
+        private Rect lastAppliedClipRect;
+        private bool isClippingActive;
 
         internal void SetQuickSpinMode(bool isQuick)
         {
@@ -117,7 +125,7 @@ namespace SweetBonanza.View
                 initialDropDuration = 0.46f;
                 columnStaggerDelay = 0.11f;
                 winPulseDuration = 0.90f;
-                explodeDuration = 0.26f;
+                explodeDuration = 0.35f;
                 tumbleFallDuration = 0.24f;
             }
             RefreshTimingCaches();
@@ -133,7 +141,13 @@ namespace SweetBonanza.View
         {
             if (isSlamStopRequested) return;
             isSlamStopRequested = true;
-            if (gridMask != null) gridMask.enabled = false;
+
+            // Old symbols still falling out would become visible below the grid once the mask is off.
+            for (int i = clearingCells.Count - 1; i >= 0; i--)
+            {
+                RecycleCell(clearingCells[i]);
+            }
+            SetGridClipping(false);
 
             if (activeCells != null)
             {
@@ -163,6 +177,18 @@ namespace SweetBonanza.View
             InitializeAnimationLookup();
             RefreshTimingCaches();
 
+            if (gridMask != null)
+            {
+                gridMask.enabled = false;
+                Canvas canvas = gridMask.GetComponentInParent<Canvas>();
+                if (canvas != null) rootCanvas = canvas.rootCanvas;
+            }
+            if (rootCanvas == null)
+            {
+                Canvas canvas = GetComponentInParent<Canvas>();
+                if (canvas != null) rootCanvas = canvas.rootCanvas;
+            }
+
             oldCellsByCol = new List<CellView>[GameConfig.COLUMNS];
             for (int c = 0; c < GameConfig.COLUMNS; c++)
             {
@@ -186,11 +212,6 @@ namespace SweetBonanza.View
                 }
             };
 
-            if (slotFrameTransform == null)
-            {
-                var sf = GameObject.Find("MainCanvas/BG/MainGamePlay/slot frame");
-                if (sf != null) slotFrameTransform = sf.transform;
-            }
             PrewarmCellPool();
         }
 
@@ -203,18 +224,23 @@ namespace SweetBonanza.View
             var existing = parent.GetComponentsInChildren<CellView>(true);
             foreach (var cell in existing)
             {
-                if (cell != null && !cellPool.Contains(cell))
+                if (cell != null)
                 {
-                    if (!cell.gameObject.activeSelf) cell.gameObject.SetActive(true);
-                    cell.ResetCell();
-                    if (cell.RectTransform != null) cell.RectTransform.anchoredPosition = PoolParkingPosition;
-                    cellPool.Add(cell);
+                    if (!allCells.Contains(cell)) allCells.Add(cell);
+                    if (!cellPool.Contains(cell))
+                    {
+                        if (!cell.gameObject.activeSelf) cell.gameObject.SetActive(true);
+                        cell.ResetCell();
+                        if (cell.RectTransform != null) cell.RectTransform.anchoredPosition = PoolParkingPosition;
+                        cellPool.Add(cell);
+                    }
                 }
             }
 
             while (cellPool.Count < 60 && cellPrefab != null)
             {
                 var cell = Instantiate(cellPrefab, parent);
+                allCells.Add(cell);
                 if (!cell.gameObject.activeSelf) cell.gameObject.SetActive(true);
                 cell.ResetCell();
                 if (cell.RectTransform != null) cell.RectTransform.anchoredPosition = PoolParkingPosition;
@@ -224,7 +250,7 @@ namespace SweetBonanza.View
 
         private void Start()
         {
-            if (gridMask != null) gridMask.enabled = false;
+            SetGridClipping(false);
             InitializeInitialGrid();
         }
 
@@ -252,7 +278,6 @@ namespace SweetBonanza.View
                     cell.RectTransform.anchoredPosition = targetPos;
                     cell.RectTransform.localScale = Vector3.one;
                     cell.Setup(symbol, GetSymbolSprite(symbol));
-                    cell.gameObject.SetActive(true);
                 }
             }
         }
@@ -327,7 +352,7 @@ namespace SweetBonanza.View
             return animationLookup.TryGetValue(symbol, out var frames) ? frames : null;
         }
 
-        internal Sprite GetMultiplierBombSprite(int multiplier = 0)
+        private Sprite GetMultiplierBombSprite()
         {
             return multiplierBombSprite != null ? multiplierBombSprite : GetSymbolSprite(SymbolType.MultiplierBomb);
         }
@@ -352,7 +377,7 @@ namespace SweetBonanza.View
 
         internal IEnumerator PlayInitialDropSequence(int[,] matrix, List<BombMultiplierInfo> bombs = null)
         {
-            if (gridMask != null) gridMask.enabled = true;
+            SetGridClipping(true);
             // 1. Gather active cells by column so exit and entrance can cascade synchronously
             int totalOldCells = 0;
             for (int c = 0; c < GameConfig.COLUMNS; c++)
@@ -388,6 +413,7 @@ namespace SweetBonanza.View
                         }
                         else
                         {
+                            clearingCells.Add(oldCell);
                             oldCell.PlayClearDropAnimation(oldColDelay, clearDuration, cachedRecycleCell);
                         }
                     }
@@ -443,6 +469,7 @@ namespace SweetBonanza.View
             }
 
             // 5. New symbols enter and land with the bubbly, bouncy stacking wave
+            Array.Clear(bombsShownPerCol, 0, bombsShownPerCol.Length);
             completedDropsCount = 0;
             int totalDrops = GameConfig.TOTAL_CELLS;
             float rowStagger = isQuickSpinMode ? 0.02f : 0.065f;
@@ -464,20 +491,9 @@ namespace SweetBonanza.View
 
                     cell.RectTransform.anchoredPosition = spawnPos;
 
-                    int mult = 0;
-                    if (symbol == SymbolType.MultiplierBomb && bombs != null)
-                    {
-                        for (int b = 0; b < bombs.Count; b++)
-                        {
-                            if (bombs[b].Position.Column == c)
-                            {
-                                mult = bombs[b].MultiplierValue;
-                                break;
-                            }
-                        }
-                    }
+                    int mult = symbol == SymbolType.MultiplierBomb ? TakeNextBombMultiplier(bombs, c) : 0;
 
-                    Sprite sprite = (symbol == SymbolType.MultiplierBomb) ? GetMultiplierBombSprite(mult) : GetSymbolSprite(symbol);
+                    Sprite sprite = (symbol == SymbolType.MultiplierBomb) ? GetMultiplierBombSprite() : GetSymbolSprite(symbol);
                     cell.Setup(symbol, sprite, mult);
                     int targetSibling = c * GameConfig.ROWS + r;
                     if (cell.transform.GetSiblingIndex() != targetSibling)
@@ -490,6 +506,8 @@ namespace SweetBonanza.View
                     cell.PlayDropInAnimation(targetPos, symbolDropDelay, duration, cachedIncrementDrops, null, r == 0 ? colImpactAction : null);
                 }
             }
+
+            SetGridClipping(true);
 
             while (completedDropsCount < totalDrops)
             {
@@ -509,10 +527,11 @@ namespace SweetBonanza.View
                     }
                     break;
                 }
+                UpdateGridClippingInWaitLoop();
                 yield return null;
             }
             BringScattersAndBombsToFront();
-            if (gridMask != null) gridMask.enabled = false;
+            SetGridClipping(false);
             bool wasSlam = isSlamStopRequested;
             if (wasSlam) AudioManager.Instance?.PlayReelStop();
             yield return wasSlam ? WaitSlamStopEnd : WaitInitialDropEnd;
@@ -541,7 +560,7 @@ namespace SweetBonanza.View
                             if (cell != null)
                             {
                                 cell.transform.SetAsLastSibling();
-                                double amountToShow = pos.Equals(centerPos) ? win.WinAmount : 0;
+                                double amountToShow = pos.Matches(centerPos) ? win.WinAmount : 0;
                                 cell.PlayWinAnimation(frames, winPulseDuration, amountToShow, null);
                             }
                         }
@@ -622,11 +641,6 @@ namespace SweetBonanza.View
             }
 
             // 4. Spawn new symbols directly in the lane stack above each column (straight unified drop)
-            if (step.NewSpawns.Count > 0 && gridMask != null)
-            {
-                gridMask.enabled = true;
-            }
-
             completedSpawnsCount = 0;
             int totalSpawns = step.NewSpawns.Count;
 
@@ -642,22 +656,16 @@ namespace SweetBonanza.View
 
                 cell.RectTransform.anchoredPosition = spawnPos;
 
-                int mult = 0;
-                if (spawn.Symbol == SymbolType.MultiplierBomb && bombs != null)
-                {
-                    for (int b = 0; b < bombs.Count; b++)
-                    {
-                        if (bombs[b].Position.Column == spawn.Column)
-                        {
-                            mult = bombs[b].MultiplierValue;
-                            break;
-                        }
-                    }
-                }
+                int mult = spawn.Symbol == SymbolType.MultiplierBomb ? TakeNextBombMultiplier(bombs, spawn.Column) : 0;
 
-                Sprite sprite = (spawn.Symbol == SymbolType.MultiplierBomb) ? GetMultiplierBombSprite(mult) : GetSymbolSprite(spawn.Symbol);
+                Sprite sprite = (spawn.Symbol == SymbolType.MultiplierBomb) ? GetMultiplierBombSprite() : GetSymbolSprite(spawn.Symbol);
                 cell.Setup(spawn.Symbol, sprite, mult);
                 cell.PlayFallAnimation(targetPos, tumbleDuration, cachedIncrementSpawns, 0f);
+            }
+
+            if (step.NewSpawns.Count > 0)
+            {
+                SetGridClipping(true);
             }
 
             var prevActive = activeCells;
@@ -699,13 +707,33 @@ namespace SweetBonanza.View
                     }
                     break;
                 }
+                UpdateGridClippingInWaitLoop();
                 yield return null;
             }
             BringScattersAndBombsToFront();
-            if (gridMask != null) gridMask.enabled = false;
+            SetGridClipping(false);
             bool wasSlam = isSlamStopRequested;
             AudioManager.Instance?.PlayReelStop();
             yield return wasSlam ? WaitSlamStopEnd : WaitTumbleEnd;
+        }
+
+        /// <summary>
+        /// Returns the multiplier of the next not-yet-shown bomb in this column.
+        /// Bombs never explode and only fall, so inside one column the bombs list keeps the order in which
+        /// they appear (bottom to top, then later spawns). The n-th bomb shown in a column is the n-th list entry for it.
+        /// </summary>
+        private int TakeNextBombMultiplier(List<BombMultiplierInfo> bombs, int column)
+        {
+            if (bombs == null) return 0;
+            int skip = bombsShownPerCol[column];
+            for (int b = 0; b < bombs.Count; b++)
+            {
+                if (bombs[b].Position.Column != column) continue;
+                if (skip-- > 0) continue;
+                bombsShownPerCol[column]++;
+                return bombs[b].MultiplierValue;
+            }
+            return 0;
         }
 
         private void BringScattersAndBombsToFront()
@@ -736,7 +764,7 @@ namespace SweetBonanza.View
                 if (cell != null)
                 {
                     cell.transform.SetAsLastSibling();
-                    Sprite bombSprite = GetMultiplierBombSprite(bomb.MultiplierValue);
+                    Sprite bombSprite = GetMultiplierBombSprite();
                     cell.Setup(SymbolType.MultiplierBomb, bombSprite, bomb.MultiplierValue);
 
                     Vector3 bombPos = cell.transform.position;
@@ -821,6 +849,11 @@ namespace SweetBonanza.View
 
             Transform parent = gridContainer != null ? gridContainer : transform;
             var newCell = Instantiate(cellPrefab, parent);
+            allCells.Add(newCell);
+            if (isClippingActive)
+            {
+                newCell.SetClipRect(lastAppliedClipRect, true);
+            }
             if (!newCell.gameObject.activeSelf) newCell.gameObject.SetActive(true);
             return newCell;
         }
@@ -828,6 +861,7 @@ namespace SweetBonanza.View
         private void RecycleCell(CellView cell)
         {
             if (cell == null) return;
+            clearingCells.Remove(cell);
             cell.ResetCell();
             if (cell.RectTransform != null) cell.RectTransform.anchoredPosition = PoolParkingPosition;
             if (!cellPool.Contains(cell))
@@ -836,20 +870,98 @@ namespace SweetBonanza.View
             }
         }
 
+        private void SetGridClipping(bool on)
+        {
+            isClippingActive = on;
+            if (on)
+            {
+                lastAppliedClipRect = CalculateClipRect();
+                for (int i = 0; i < allCells.Count; i++)
+                {
+                    var cell = allCells[i];
+                    if (cell != null) cell.SetClipRect(lastAppliedClipRect, true);
+                }
+            }
+            else
+            {
+                for (int i = 0; i < allCells.Count; i++)
+                {
+                    var cell = allCells[i];
+                    if (cell != null) cell.SetClipRect(Rect.zero, false);
+                }
+            }
+        }
+
+        private void UpdateGridClippingInWaitLoop()
+        {
+            if (!isClippingActive) return;
+
+            Rect currentRect = CalculateClipRect();
+            if (currentRect != lastAppliedClipRect)
+            {
+                lastAppliedClipRect = currentRect;
+                for (int i = 0; i < allCells.Count; i++)
+                {
+                    var cell = allCells[i];
+                    if (cell != null) cell.SetClipRect(lastAppliedClipRect, true);
+                }
+            }
+
+            for (int i = 0; i < allCells.Count; i++)
+            {
+                var cell = allCells[i];
+                if (cell != null) cell.RefreshClipIfDirty();
+            }
+        }
+
+        private Rect CalculateClipRect()
+        {
+            if (gridMask == null) return Rect.zero;
+            if (rootCanvas == null)
+            {
+                Canvas canvas = gridMask.GetComponentInParent<Canvas>();
+                if (canvas != null) rootCanvas = canvas.rootCanvas;
+                if (rootCanvas == null) return Rect.zero;
+            }
+
+            RectTransform maskRt = gridMask.rectTransform;
+            maskRt.GetWorldCorners(worldCorners);
+
+            Transform canvasTransform = rootCanvas.transform;
+            float minX = float.MaxValue;
+            float minY = float.MaxValue;
+            float maxX = float.MinValue;
+            float maxY = float.MinValue;
+
+            for (int i = 0; i < 4; i++)
+            {
+                Vector3 p = canvasTransform.InverseTransformPoint(worldCorners[i]);
+                if (p.x < minX) minX = p.x;
+                if (p.x > maxX) maxX = p.x;
+                if (p.y < minY) minY = p.y;
+                if (p.y > maxY) maxY = p.y;
+            }
+
+            return new Rect(minX, minY, maxX - minX, maxY - minY);
+        }
+
         private void OnDisable()
         {
             if (slotFrameTransform != null) slotFrameTransform.DOKill();
+            SetGridClipping(false);
         }
 
         private void OnDestroy()
         {
             if (slotFrameTransform != null) slotFrameTransform.DOKill();
+            SetGridClipping(false);
             ClearGrid();
             for (int i = 0; i < cellPool.Count; i++)
             {
                 if (cellPool[i] != null) Destroy(cellPool[i].gameObject);
             }
             cellPool.Clear();
+            allCells.Clear();
         }
     }
 }

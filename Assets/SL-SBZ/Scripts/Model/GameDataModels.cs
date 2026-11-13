@@ -1,61 +1,49 @@
 ﻿using System;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace SweetBonanza.Model
 {
     [Serializable]
-    public struct GridPosition : IEquatable<GridPosition>
+    internal struct GridPosition : IEquatable<GridPosition>
     {
-        public int Column;
-        public int Row;
+        internal int Column;
+        internal int Row;
 
-        public GridPosition(int column, int row)
+        internal GridPosition(int column, int row)
         {
             Column = column;
             Row = row;
         }
 
-        public bool Equals(GridPosition other)
+        internal bool Matches(GridPosition other)
         {
             return Column == other.Column && Row == other.Row;
         }
 
-        public override bool Equals(object obj)
+        bool IEquatable<GridPosition>.Equals(GridPosition other)
         {
-            return obj is GridPosition other && Equals(other);
-        }
-
-        public override int GetHashCode()
-        {
-            unchecked
-            {
-                return (Column * 397) ^ Row;
-            }
-        }
-
-        public override string ToString()
-        {
-            return $"({Column}, {Row})";
+            return Matches(other);
         }
     }
 
     [Serializable]
-    public class SymbolWin
+    internal class SymbolWin
     {
-        public SymbolType Symbol;
-        public int Count;
-        public double Multiplier;
-        public double WinAmount;
-        public List<GridPosition> Positions = new List<GridPosition>();
+        internal SymbolType Symbol;
+        internal int Count;
+        internal double Multiplier;
+        internal double WinAmount;
+        internal List<GridPosition> Positions = new List<GridPosition>();
     }
 
     [Serializable]
-    public class BombMultiplierInfo
+    internal class BombMultiplierInfo
     {
-        public GridPosition Position;
-        public int MultiplierValue;
+        internal GridPosition Position;
+        internal int MultiplierValue;
 
-        public BombMultiplierInfo(GridPosition position, int multiplierValue)
+        internal BombMultiplierInfo(GridPosition position, int multiplierValue)
         {
             Position = position;
             MultiplierValue = multiplierValue;
@@ -63,14 +51,14 @@ namespace SweetBonanza.Model
     }
 
     [Serializable]
-    public class SymbolFallInfo
+    internal class SymbolFallInfo
     {
-        public int Column;
-        public int FromRow;
-        public int ToRow;
-        public SymbolType Symbol;
+        internal int Column;
+        internal int FromRow;
+        internal int ToRow;
+        internal SymbolType Symbol;
 
-        public SymbolFallInfo(int column, int fromRow, int toRow, SymbolType symbol)
+        internal SymbolFallInfo(int column, int fromRow, int toRow, SymbolType symbol)
         {
             Column = column;
             FromRow = fromRow;
@@ -80,13 +68,13 @@ namespace SweetBonanza.Model
     }
 
     [Serializable]
-    public class NewSpawnInfo
+    internal class NewSpawnInfo
     {
-        public int Column;
-        public int TargetRow;
-        public SymbolType Symbol;
+        internal int Column;
+        internal int TargetRow;
+        internal SymbolType Symbol;
 
-        public NewSpawnInfo(int column, int targetRow, SymbolType symbol)
+        internal NewSpawnInfo(int column, int targetRow, SymbolType symbol)
         {
             Column = column;
             TargetRow = targetRow;
@@ -95,104 +83,102 @@ namespace SweetBonanza.Model
     }
 
     [Serializable]
-    public class TumbleStep
+    internal class TumbleStep
     {
-        public int[,] MatrixBefore;
-        public List<SymbolWin> Wins = new List<SymbolWin>();
-        public double StepWinAmount;
-        public List<GridPosition> ExplodedPositions = new List<GridPosition>();
-        public List<SymbolFallInfo> FallingSymbols = new List<SymbolFallInfo>();
-        public List<NewSpawnInfo> NewSpawns = new List<NewSpawnInfo>();
-        public int[,] MatrixAfter;
+        internal int[,] MatrixBefore;
+        internal List<SymbolWin> Wins = new List<SymbolWin>();
+        internal double StepWinAmount;
+        internal List<GridPosition> ExplodedPositions = new List<GridPosition>();
+        internal List<SymbolFallInfo> FallingSymbols = new List<SymbolFallInfo>();
+        internal List<NewSpawnInfo> NewSpawns = new List<NewSpawnInfo>();
+        internal int[,] MatrixAfter;
     }
 
     [Serializable]
-    public class RoundResult
+    internal class RoundResult
     {
-        public int[,] InitialMatrix;
-        public List<TumbleStep> TumbleSteps = new List<TumbleStep>();
-        public double TotalBaseWin;
-        public List<BombMultiplierInfo> MultiplierBombs = new List<BombMultiplierInfo>();
-        public int TotalMultiplier = 1;
-        public double FinalWinAmount;
-        public double PlayerBalance;
-        public int ScatterCount;
-        public bool TriggeredFreeSpins;
-        public int FreeSpinsAwarded;
-        public bool IsFreeSpin;
-        public int RemainingFreeSpins;
+        internal int[,] InitialMatrix;
+        internal List<TumbleStep> TumbleSteps = new List<TumbleStep>();
+        internal double TotalBaseWin;
+        internal List<BombMultiplierInfo> MultiplierBombs = new List<BombMultiplierInfo>();
+        internal int TotalMultiplier = 1;
+        internal double FinalWinAmount;
+        internal double PlayerBalance;
+        internal int ScatterCount;
+        internal bool TriggeredFreeSpins;
+        internal int FreeSpinsAwarded;
+        internal bool IsFreeSpin;
+        internal int RemainingFreeSpins;
     }
 
     #region Server JSON DTOs
+#pragma warning disable 0649 // filled by JSON deserialization
     [Serializable]
-    public class ServerMatrix
+    internal class ServerMatrix
     {
-        public int x;
-        public int y;
+        [JsonProperty] internal int x;
+        [JsonProperty] internal int y;
     }
 
     [Serializable]
-    public class ServerPayouts
+    internal class ServerPayouts
     {
-        public float eightToNine;
-        public float tenToEleven;
-        public float twelvePlus;
+        [JsonProperty] internal float eightToNine;
+        [JsonProperty] internal float tenToEleven;
+        [JsonProperty] internal float twelvePlus;
     }
 
     [Serializable]
-    public class ServerPaytableItem
+    internal class ServerPaytableItem
     {
-        public int id;
-        public string name;
-        public string group;
-        public ServerPayouts payouts;
+        [JsonProperty] internal int id;
+        [JsonProperty] internal string name;
+        [JsonProperty] internal string group;
+        [JsonProperty] internal ServerPayouts payouts;
     }
 
     [Serializable]
-    public class ServerUIData
+    internal class ServerUIData
     {
-        public List<ServerPaytableItem> paytable;
+        [JsonProperty] internal List<ServerPaytableItem> paytable;
     }
 
     [Serializable]
-    public class ServerGameData
+    internal class ServerGameData
     {
-        public ServerMatrix matrix;
-        public List<float> bets;
-        public float anteBetMultiplier;
-        public float buyFeatureCostMultiplier;
-        public float maxWinMultiplier;
+        [JsonProperty] internal ServerMatrix matrix;
+        [JsonProperty] internal List<float> bets;
+        [JsonProperty] internal float anteBetMultiplier;
+        [JsonProperty] internal float buyFeatureCostMultiplier;
+        [JsonProperty] internal float maxWinMultiplier;
     }
 
     [Serializable]
-    public class ServerPlayer
+    internal class ServerPlayer
     {
-        public double balance;
+        [JsonProperty] internal double balance;
     }
 
     [Serializable]
-    public class ServerInitData
+    internal class ServerInitData
     {
-        public string id;
-        public ServerGameData gameData;
-        public ServerUIData uiData;
-        public ServerPlayer player;
+        [JsonProperty] internal string id;
+        [JsonProperty] internal ServerGameData gameData;
+        [JsonProperty] internal ServerUIData uiData;
+        [JsonProperty] internal ServerPlayer player;
     }
 
+#pragma warning restore 0649
+
     [Serializable]
-    public class InitPayload
+    internal class InitPayload
     {
-        public double Balance = 11645.27;
-        public int DefaultBetIndex = 9;
-        public float[] AvailableBets = new float[]
-        {
-            0.2f, 0.4f, 0.6f, 0.8f, 1.0f, 1.2f, 1.4f, 1.6f, 1.8f, 2.0f,
-            2.4f, 3.0f, 4.0f, 5.0f, 10.0f, 15.0f, 20.0f, 25.0f, 50.0f,
-            75.0f, 100.0f, 125.0f, 150.0f, 200.0f, 250.0f, 300.0f
-        };
-        public float AnteBetMultiplier = 1.25f;
-        public float BuyFeatureCostMultiplier = 100f;
-        public float MaxWinMultiplier = 21100f;
+        internal double Balance = 11645.27;
+        internal int DefaultBetIndex = 9;
+        internal float[] AvailableBets = GameConfig.DefaultAvailableBets;
+        internal float AnteBetMultiplier = 1.25f;
+        internal float BuyFeatureCostMultiplier = 100f;
+        internal float MaxWinMultiplier = 21100f;
     }
     #endregion
 

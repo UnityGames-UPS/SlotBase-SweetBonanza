@@ -3,17 +3,22 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using DG.Tweening;
 
-public class SpinButtonHoverGlow : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+internal class SpinButtonHoverGlow : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     [SerializeField] private RectTransform glowRect;
     [SerializeField] private RectTransform spinRect;
 
+    private static readonly WaitForSeconds Wait5 = new WaitForSeconds(5f);
+
     private Coroutine shakeRoutine;
     private Vector2 initialAnchorPos;
     private Sequence wobbleSequence;
+    private TweenCallback cachedResetRect;
 
     private void Awake()
     {
+        cachedResetRect = ResetSpinRect;
+
         if (glowRect != null)
         {
             glowRect.gameObject.SetActive(false);
@@ -68,7 +73,7 @@ public class SpinButtonHoverGlow : MonoBehaviour, IPointerEnterHandler, IPointer
     {
         while (true)
         {
-            yield return new WaitForSeconds(5f);
+            yield return Wait5;
 
             if (spinRect == null) yield break;
 
@@ -84,7 +89,7 @@ public class SpinButtonHoverGlow : MonoBehaviour, IPointerEnterHandler, IPointer
                 .Append(spinRect.DOLocalRotate(new Vector3(0, 0, -18f), 0.18f).SetEase(Ease.OutSine))
                 .Append(spinRect.DOLocalRotate(new Vector3(0, 0, 12f), 0.22f).SetEase(Ease.InOutSine))
                 .Append(spinRect.DOLocalRotate(Vector3.zero, 0.26f).SetEase(Ease.OutBack))
-                .OnKill(() => ResetSpinRect());
+                .OnKill(cachedResetRect);
         }
     }
 
@@ -99,6 +104,7 @@ public class SpinButtonHoverGlow : MonoBehaviour, IPointerEnterHandler, IPointer
     {
         if (spinRect != null) spinRect.DOKill();
         if (wobbleSequence != null && wobbleSequence.IsActive()) wobbleSequence.Kill();
+        wobbleSequence = null;
     }
 
     private void OnDestroy()

@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using UnityEngine;
 using DG.Tweening;
@@ -8,7 +7,7 @@ using SweetBonanza.Service;
 
 namespace SweetBonanza.Controller
 {
-    public class GameManager : MonoBehaviour
+    internal class GameManager : MonoBehaviour
     {
         [Header("Views Bindings")]
         [SerializeField] private MainView mainView;
@@ -18,7 +17,7 @@ namespace SweetBonanza.Controller
         [Header("Service Binding")]
         [SerializeField] private BackendService backendService;
 
-        [Header("Server Data & Balance")]
+        [Header("Editor / Demo Defaults (replaced by init data)")]
         [SerializeField] private double currentBalance = 11645.27;
         [SerializeField] private float currentBetAmount = 2.0f;
         [SerializeField] private int currentBetIndex = 9;
@@ -32,47 +31,48 @@ namespace SweetBonanza.Controller
             75.0f, 100.0f, 125.0f, 150.0f, 200.0f, 250.0f, 300.0f
         };
 
-        private GameState currentState = GameState.Initializing;
-        private bool isAnteBetActive = false;
-        private bool isInFreeSpins = false;
-        private int remainingFreeSpins = 0;
-        private int totalFreeSpinsAwarded = 10;
-        private double accumulatedFreeSpinsWin = 0;
-        private bool isAutoplaying = false;
-        private int remainingAutoplaySpins = 0;
+        [Header("Debug")]
+        [SerializeField] private bool enableSpinDebugLogs = true;
 
         private static readonly WaitForSeconds Wait04 = new WaitForSeconds(0.4f);
         private static readonly WaitForSeconds Wait05 = new WaitForSeconds(0.5f);
         private static readonly WaitForSeconds Wait06 = new WaitForSeconds(0.6f);
         private static readonly WaitForSeconds Wait10 = new WaitForSeconds(1.0f);
         private static readonly WaitForSeconds Wait20 = new WaitForSeconds(2.0f);
-        private static readonly WaitForSeconds Wait30 = new WaitForSeconds(3.0f);
-        private static readonly WaitForSeconds Wait35 = new WaitForSeconds(3.5f);
 
-        [Header("Debug")]
-        [SerializeField] private bool enableSpinDebugLogs = true;
+        private readonly GameSession session = new GameSession();
 
-        internal double CurrentBetAmount => isAnteBetActive ? currentBetAmount * anteBetMultiplier : currentBetAmount;
+        #region Startup
 
         private void Start()
         {
             DOTween.SetTweensCapacity(500, 125);
+            SeedSessionFromDefaults();
             InitializeServices();
             HookViewEvents();
             ApplyInitialSettings();
-            if (gridView != null) gridView.InitializeInitialGrid();
+            gridView.InitializeInitialGrid();
             UpdateHUD(false);
-            if (uiManager != null && availableBets != null && availableBets.Length > 0)
-            {
-                uiManager.UpdateBetLimits(availableBets[0], availableBets[availableBets.Length - 1]);
-            }
-            currentState = GameState.Idle;
+            PushBetConfigToUI();
+            session.State = GameState.Idle;
+        }
+
+        private void SeedSessionFromDefaults()
+        {
+            session.Balance = currentBalance;
+            session.BetAmount = currentBetAmount;
+            session.BetIndex = currentBetIndex;
+            session.AvailableBets = availableBets;
+            session.AnteBetMultiplier = anteBetMultiplier;
+            session.BuyFeatureCostMultiplier = buyFeatureCostMultiplier;
+            session.MaxWinMultiplier = maxWinMultiplier;
+            uiManager.SetFeatureMultipliers(session.AnteBetMultiplier, session.BuyFeatureCostMultiplier);
         }
 
         private void ApplyInitialSettings()
         {
             bool quickSpin = PlayerPrefs.GetInt("settings_quick_spin", 0) == 1;
-            if (gridView != null) gridView.SetQuickSpinMode(quickSpin);
+            gridView.SetQuickSpinMode(quickSpin);
 
             bool batterySaver = PlayerPrefs.GetInt("settings_battery_saver", 0) == 1;
             ApplyFrameRateSettings(batterySaver);
@@ -96,18 +96,9 @@ namespace SweetBonanza.Controller
 
         private void InitializeServices()
         {
-            if (backendService == null)
-            {
-                backendService = GetComponent<BackendService>();
-                if (backendService == null)
-                {
-                    backendService = gameObject.AddComponent<LocalDemoService>();
-                }
-            }
-
             if (backendService is LocalDemoService demo)
             {
-                demo.SetInitialBalance(currentBalance);
+                demo.SetInitialBalance(session.Balance);
             }
 
             backendService.OnInitDataReceived += HandleInitDataReceived;
@@ -124,169 +115,207 @@ namespace SweetBonanza.Controller
 
         private void HookViewEvents()
         {
-            if (uiManager != null)
-            {
-                uiManager.OnSpinClicked += HandleSpinClicked;
-                uiManager.OnStopClicked += HandleStopClicked;
-                uiManager.OnBetIncreaseClicked += HandleBetIncreaseClicked;
-                uiManager.OnBetDecreaseClicked += HandleBetDecreaseClicked;
-                uiManager.OnBetMaxClicked += HandleBetMaxClicked;
-                uiManager.OnBetAmountSelected += HandleBetAmountSelected;
-                uiManager.OnAnteBetToggled += HandleAnteBetToggled;
-                uiManager.OnBuyFeatureRequested += HandleBuyBonusRequested;
-                uiManager.OnBuyFeatureConfirmed += HandleBuyBonusConfirmed;
-                uiManager.OnAutoplayStarted += HandleAutoplayStarted;
-                uiManager.OnAutoplayStopped += HandleAutoplayStopped;
-                uiManager.OnQuickSpinChanged += HandleQuickSpinChanged;
-                uiManager.OnBatterySaverChanged += HandleBatterySaverChanged;
-                uiManager.OnAmbientMusicChanged += HandleAmbientMusicChanged;
-                uiManager.OnSoundFxChanged += HandleSoundFxChanged;
-                uiManager.OnIntroScreenChanged += HandleIntroScreenChanged;
-            }
-            else if (mainView != null)
-            {
-                mainView.OnSpinClicked += HandleSpinClicked;
-                mainView.OnStopClicked += HandleStopClicked;
-                mainView.OnAutoplayStopClicked += HandleAutoplayStopped;
-                mainView.OnBetIncreaseClicked += HandleBetIncreaseClicked;
-                mainView.OnBetDecreaseClicked += HandleBetDecreaseClicked;
-                mainView.OnAnteBetToggled += HandleAnteBetToggled;
-                mainView.OnBuyBonusClicked += HandleBuyBonusConfirmed;
-            }
+            uiManager.OnSpinClicked += HandleSpinClicked;
+            uiManager.OnStopClicked += HandleStopClicked;
+            uiManager.OnBetIncreaseClicked += HandleBetIncreaseClicked;
+            uiManager.OnBetDecreaseClicked += HandleBetDecreaseClicked;
+            uiManager.OnBetMaxClicked += HandleBetMaxClicked;
+            uiManager.OnBetAmountSelected += HandleBetAmountSelected;
+            uiManager.OnAnteBetToggled += HandleAnteBetToggled;
+            uiManager.OnBuyFeatureRequested += HandleBuyBonusRequested;
+            uiManager.OnBuyFeatureConfirmed += HandleBuyBonusConfirmed;
+            uiManager.OnAutoplayStarted += HandleAutoplayStarted;
+            uiManager.OnAutoplayStopped += HandleAutoplayStopped;
+            uiManager.OnQuickSpinChanged += HandleQuickSpinChanged;
+            uiManager.OnBatterySaverChanged += HandleBatterySaverChanged;
+            uiManager.OnAmbientMusicChanged += HandleAmbientMusicChanged;
+            uiManager.OnSoundFxChanged += HandleSoundFxChanged;
+            uiManager.OnIntroScreenChanged += HandleIntroScreenChanged;
 
-            if (gridView != null)
-            {
-                gridView.OnScatterAnticipationTriggered += HandleScatterAnticipation;
-            }
+            gridView.OnScatterAnticipationTriggered += HandleScatterAnticipation;
         }
 
-        private void HandleInitDataReceived(InitPayload payload)
+        private void OnDestroy()
         {
-            currentBalance = payload.Balance;
-            currentBetIndex = Mathf.Clamp(payload.DefaultBetIndex, 0, availableBets.Length - 1);
-            currentBetAmount = availableBets[currentBetIndex];
-            anteBetMultiplier = payload.AnteBetMultiplier;
-            buyFeatureCostMultiplier = payload.BuyFeatureCostMultiplier;
-            maxWinMultiplier = payload.MaxWinMultiplier;
-
-            if (uiManager != null && availableBets != null && availableBets.Length > 0)
+            if (SocketIOManager.Instance != null)
             {
-                uiManager.UpdateBetLimits(availableBets[0], availableBets[availableBets.Length - 1]);
+                SocketIOManager.Instance.OnBalanceSyncReceived -= HandleBalanceSync;
             }
-            UpdateHUD(false);
+
+            backendService.OnInitDataReceived -= HandleInitDataReceived;
+            backendService.OnRoundResultReceived -= HandleRoundResultReceived;
+            backendService.OnErrorOccurred -= HandleErrorOccurred;
+
+            uiManager.OnSpinClicked -= HandleSpinClicked;
+            uiManager.OnStopClicked -= HandleStopClicked;
+            uiManager.OnBetIncreaseClicked -= HandleBetIncreaseClicked;
+            uiManager.OnBetDecreaseClicked -= HandleBetDecreaseClicked;
+            uiManager.OnBetMaxClicked -= HandleBetMaxClicked;
+            uiManager.OnBetAmountSelected -= HandleBetAmountSelected;
+            uiManager.OnAnteBetToggled -= HandleAnteBetToggled;
+            uiManager.OnBuyFeatureRequested -= HandleBuyBonusRequested;
+            uiManager.OnBuyFeatureConfirmed -= HandleBuyBonusConfirmed;
+            uiManager.OnAutoplayStarted -= HandleAutoplayStarted;
+            uiManager.OnAutoplayStopped -= HandleAutoplayStopped;
+            uiManager.OnQuickSpinChanged -= HandleQuickSpinChanged;
+            uiManager.OnBatterySaverChanged -= HandleBatterySaverChanged;
+            uiManager.OnAmbientMusicChanged -= HandleAmbientMusicChanged;
+            uiManager.OnSoundFxChanged -= HandleSoundFxChanged;
+            uiManager.OnIntroScreenChanged -= HandleIntroScreenChanged;
+
+            gridView.OnScatterAnticipationTriggered -= HandleScatterAnticipation;
         }
+
+        #endregion
+
+        #region HUD
 
         private void UpdateHUD(bool isSpinning)
         {
-            if (uiManager != null)
+            uiManager.UpdateHUD(session.Balance, session.BetAmount, session.IsAnteBetActive, isSpinning);
+        }
+
+        private void PushBetConfigToUI()
+        {
+            uiManager.SetFeatureMultipliers(session.AnteBetMultiplier, session.BuyFeatureCostMultiplier);
+            if (session.HasBets)
             {
-                uiManager.UpdateHUD(currentBalance, currentBetAmount, 0, isAnteBetActive, isSpinning);
-            }
-            else if (mainView != null)
-            {
-                mainView.SetBalance(currentBalance);
-                mainView.SetBet(currentBetAmount, isAnteBetActive);
-                mainView.SetSpinButtonInteractable(!isSpinning);
+                uiManager.UpdateBetLimits(session.MinBet, session.MaxBet);
             }
         }
 
+        private void SetStatusMessage(string message)
+        {
+            uiManager.SetStatusMessage(message);
+        }
+
+        #endregion
+
+        #region Backend Events
+
+        private void HandleInitDataReceived(InitPayload payload)
+        {
+            session.Balance = payload.Balance;
+            if (payload.AvailableBets != null && payload.AvailableBets.Length > 0)
+            {
+                session.AvailableBets = payload.AvailableBets;
+            }
+            session.SelectBetIndex(payload.DefaultBetIndex);
+            session.AnteBetMultiplier = payload.AnteBetMultiplier;
+            session.BuyFeatureCostMultiplier = payload.BuyFeatureCostMultiplier;
+            session.MaxWinMultiplier = payload.MaxWinMultiplier;
+
+            PushBetConfigToUI();
+            UpdateHUD(false);
+        }
+
+        private void HandleRoundResultReceived(RoundResult result)
+        {
+            if (result.PlayerBalance > 0)
+            {
+                session.Balance = result.PlayerBalance;
+            }
+            else
+            {
+                session.Balance += result.FinalWinAmount;
+            }
+
+            if (enableSpinDebugLogs)
+            {
+                LogSpinResultDebug(result);
+            }
+
+            StartCoroutine(PlayRoundSequence(result));
+        }
+
+        private void HandleErrorOccurred(string error)
+        {
+            if (session.IsAutoplaying)
+            {
+                HandleAutoplayStopped();
+            }
+            session.State = GameState.Idle;
+            mainView.HideTopTumbleWinBanner();
+            mainView.SetIdleBottomBarState();
+            UpdateHUD(false);
+            SetStatusMessage(error);
+        }
+
+        private void HandleBalanceSync(double newBalance)
+        {
+            session.Balance = newBalance;
+            UpdateHUD(!session.IsIdle);
+        }
+
+        #endregion
+
+        #region Spin & Stop
+
         private void HandleSpinClicked()
         {
-            if (currentState != GameState.Idle) return;
+            if (!session.IsIdle) return;
 
-            if (currentBalance < CurrentBetAmount && !isInFreeSpins)
+            if (session.Balance < session.EffectiveBet && !session.IsInFreeSpins)
             {
                 SetStatusMessage("INSUFFICIENT BALANCE");
-                if (isAutoplaying)
+                if (session.IsAutoplaying)
                 {
                     HandleAutoplayStopped();
                 }
+                // The spin button disables itself on click; give it back because no spin started.
+                mainView.UpdateSpinButtonVisuals();
                 return;
             }
 
-            currentState = GameState.Spinning;
-            SendSpinRequest(currentBetAmount, isAnteBetActive, false);
+            session.State = GameState.Spinning;
+            SendSpinRequest(session.BetAmount, session.IsAnteBetActive, false);
         }
 
         private void HandleStopClicked()
         {
-            if (currentState == GameState.Spinning || currentState == GameState.DroppingInitial || currentState == GameState.TumblingDown)
+            if (session.IsRoundStoppable)
             {
                 RequestStop();
             }
         }
 
-        internal void RequestStop()
+        private void RequestStop()
         {
             AudioManager.Instance?.StopReelSpinLoop();
             AudioManager.Instance?.StopTensionBuilder();
-            if (uiManager != null) uiManager.SetStoppingState();
-            else if (mainView != null) mainView.SetStoppingButtonsState();
-            if (gridView != null)
-            {
-                gridView.RequestSlamStop();
-            }
-        }
-
-        private void HandleBuyBonusRequested()
-        {
-            if (currentState != GameState.Idle || isAnteBetActive) return;
-            if (mainView != null) mainView.SetBuyFeatureState();
-            if (uiManager != null) uiManager.OpenBuyFeatureModal(currentBetAmount);
-        }
-
-        private void HandleBuyBonusConfirmed()
-        {
-            if (currentState != GameState.Idle) return;
-            double cost = currentBetAmount * buyFeatureCostMultiplier;
-            if (currentBalance < cost)
-            {
-                SetStatusMessage("INSUFFICIENT BALANCE FOR BUY FEATURE");
-                return;
-            }
-
-            currentState = GameState.Spinning;
-            SendSpinRequest(currentBetAmount, false, true);
+            uiManager.SetStoppingState();
+            gridView.RequestSlamStop();
         }
 
         private void SendSpinRequest(double betAmount, bool isAnteBet, bool isBonusBuy)
         {
-            if (gridView != null) gridView.ResetSlamStop();
-            double cost = isBonusBuy ? betAmount * buyFeatureCostMultiplier : (isAnteBet ? betAmount * anteBetMultiplier : betAmount);
-            if (!isInFreeSpins)
+            gridView.ResetSlamStop();
+            double cost = session.GetSpinCost(betAmount, isAnteBet, isBonusBuy);
+            if (!session.IsInFreeSpins)
             {
-                currentBalance -= cost;
+                session.Balance -= cost;
             }
-            if (mainView != null)
-            {
-                mainView.SetSpinStartedState(isAutoplaying, isInFreeSpins ? remainingFreeSpins : remainingAutoplaySpins);
-            }
+            mainView.SetSpinStartedState(session.IsAutoplaying, session.IsInFreeSpins ? session.RemainingFreeSpins : session.RemainingAutoplaySpins);
             UpdateHUD(true);
 
             if (enableSpinDebugLogs)
             {
-                string anteStr = isAnteBet ? "<color=#2ecc71>ACTIVE (1.25x)</color>" : "OFF";
-                string bonusStr = isBonusBuy ? $"<color=#f1c40f>YES ({buyFeatureCostMultiplier}x)</color>" : "NO";
-                string fsStr = isInFreeSpins ? $"<color=#e056fd>ACTIVE ({remainingFreeSpins} remaining)</color>" : "NO";
-                double effectiveCost = isInFreeSpins ? 0.0 : cost;
-
-                Debug.Log($"<color=#3498db><b>[SPIN REQUEST 📤]</b></color> Base Bet: <b>${betAmount:F2}</b> | Cost: <b>${effectiveCost:F2}</b> | Ante Bet: {anteStr} | Bonus Buy: {bonusStr} | Free Spins: {fsStr} | Balance: <b>${currentBalance:F2}</b>");
+                LogSpinRequestDebug(betAmount, cost, isAnteBet, isBonusBuy);
             }
 
-            if (backendService != null)
-            {
-                AudioManager.Instance?.PlayReelSpinLoop();
-                backendService.RequestSpin(betAmount, isAnteBet, isBonusBuy);
-            }
+            AudioManager.Instance?.PlayReelSpinLoop();
+            backendService.RequestSpin(betAmount, isAnteBet, isBonusBuy);
         }
+
+        #endregion
+
+        #region Bet, Ante & Buy Feature
 
         private void HandleBetIncreaseClicked()
         {
-            if (currentState != GameState.Idle || availableBets == null || availableBets.Length == 0) return;
-            if (currentBetIndex < availableBets.Length - 1)
+            if (!session.IsIdle || !session.HasBets) return;
+            if (session.StepBet(1))
             {
-                currentBetIndex++;
-                currentBetAmount = availableBets[currentBetIndex];
                 AudioManager.Instance?.PlayBetPlusMinus();
                 UpdateHUD(false);
             }
@@ -298,11 +327,9 @@ namespace SweetBonanza.Controller
 
         private void HandleBetDecreaseClicked()
         {
-            if (currentState != GameState.Idle || availableBets == null || availableBets.Length == 0) return;
-            if (currentBetIndex > 0)
+            if (!session.IsIdle || !session.HasBets) return;
+            if (session.StepBet(-1))
             {
-                currentBetIndex--;
-                currentBetAmount = availableBets[currentBetIndex];
                 AudioManager.Instance?.PlayBetPlusMinus();
                 UpdateHUD(false);
             }
@@ -310,90 +337,314 @@ namespace SweetBonanza.Controller
 
         private void HandleBetMaxClicked()
         {
-            if (currentState != GameState.Idle || availableBets == null || availableBets.Length == 0) return;
-            currentBetIndex = availableBets.Length - 1;
-            currentBetAmount = availableBets[currentBetIndex];
+            if (!session.IsIdle || !session.HasBets) return;
+            session.SelectMaxBet();
             AudioManager.Instance?.PlayMaxBetReached();
             UpdateHUD(false);
         }
 
         private void HandleBetAmountSelected(double newBet)
         {
-            if (currentState != GameState.Idle) return;
-            currentBetAmount = (float)newBet;
-            if (availableBets != null && availableBets.Length > 0)
-            {
-                int closestIdx = 0;
-                float closestDiff = float.MaxValue;
-                for (int i = 0; i < availableBets.Length; i++)
-                {
-                    float diff = Mathf.Abs(availableBets[i] - currentBetAmount);
-                    if (diff < closestDiff)
-                    {
-                        closestDiff = diff;
-                        closestIdx = i;
-                    }
-                }
-                currentBetIndex = closestIdx;
-            }
+            if (!session.IsIdle) return;
+            session.SelectCustomBet(newBet);
             UpdateHUD(false);
         }
 
         private void HandleAnteBetToggled()
         {
-            if (currentState != GameState.Idle) return;
-            isAnteBetActive = !isAnteBetActive;
+            if (!session.IsIdle) return;
+            session.IsAnteBetActive = !session.IsAnteBetActive;
             AudioManager.Instance?.PlayButton();
-            if (mainView != null) mainView.SetAnteBetState(isAnteBetActive);
+            mainView.SetAnteBetState(session.IsAnteBetActive);
             UpdateHUD(false);
         }
 
+        private void HandleBuyBonusRequested()
+        {
+            if (!session.IsIdle || session.IsAnteBetActive) return;
+            uiManager.OpenBuyFeatureModal(session.BetAmount);
+        }
+
+        private void HandleBuyBonusConfirmed()
+        {
+            if (!session.IsIdle) return;
+            if (session.Balance < session.BuyFeatureCost)
+            {
+                SetStatusMessage("INSUFFICIENT BALANCE FOR BUY FEATURE");
+                return;
+            }
+
+            session.State = GameState.Spinning;
+            SendSpinRequest(session.BetAmount, false, true);
+        }
+
+        #endregion
+
+        #region Autoplay
+
         private void HandleAutoplayStarted(int rounds)
         {
-            if (currentState != GameState.Idle) return;
-            isAutoplaying = true;
-            remainingAutoplaySpins = rounds;
-            if (uiManager != null) uiManager.SetAutoplayState(true, remainingAutoplaySpins);
+            if (!session.IsIdle) return;
+            session.IsAutoplaying = true;
+            session.RemainingAutoplaySpins = rounds;
+            uiManager.SetAutoplayState(true, session.RemainingAutoplaySpins);
             HandleSpinClicked();
         }
 
         private void HandleAutoplayStopped()
         {
-            isAutoplaying = false;
-            remainingAutoplaySpins = 0;
+            session.IsAutoplaying = false;
+            session.RemainingAutoplaySpins = 0;
 
-            if (currentState == GameState.Spinning || currentState == GameState.DroppingInitial || currentState == GameState.TumblingDown)
+            if (session.IsRoundStoppable)
             {
                 RequestStop();
             }
 
-            if (uiManager != null) uiManager.SetAutoplayState(false, 0);
-            else if (mainView != null) mainView.SetAutoplayState(false, 0);
+            uiManager.SetAutoplayState(false, 0);
         }
 
-        private void HandleRoundResultReceived(RoundResult result)
+        #endregion
+
+        #region Round Sequence
+
+        private IEnumerator PlayRoundSequence(RoundResult result)
         {
-            if (result.PlayerBalance > 0)
+            session.State = GameState.DroppingInitial;
+            AudioManager.Instance?.StopTensionBuilder();
+            mainView.HideTopTumbleWinBanner(immediate: true);
+            yield return gridView.PlayInitialDropSequence(result.InitialMatrix, result.MultiplierBombs);
+            AudioManager.Instance?.StopReelSpinLoop();
+            AudioManager.Instance?.StopTensionBuilder();
+
+            if (result.ScatterCount >= 4)
             {
-                currentBalance = result.PlayerBalance;
-            }
-            else
-            {
-                currentBalance += result.FinalWinAmount;
+                SetStatusMessage($"⭐ {result.ScatterCount} SCATTERS HIT! ⭐");
+                yield return Wait04;
             }
 
-            if (enableSpinDebugLogs && result != null)
+            session.State = GameState.TumblingDown;
+            double rollingTumbleWin = 0;
+
+            for (int i = 0; i < result.TumbleSteps.Count; i++)
             {
-                LogSpinResultDebug(result);
+                var step = result.TumbleSteps[i];
+                rollingTumbleWin += step.StepWinAmount;
+
+                string payDetail = "";
+                SymbolType winSymbol = SymbolType.Banana;
+                int winCount = 0;
+                double winPayout = 0;
+
+                if (step.Wins != null && step.Wins.Count > 0)
+                {
+                    var w = step.Wins[0];
+                    winSymbol = w.Symbol;
+                    winCount = w.Count;
+                    winPayout = w.WinAmount;
+                    payDetail = $"{w.Count}X {w.Symbol.ToString().ToUpperInvariant()} PAYS {w.WinAmount:F2}";
+                }
+
+                SetStatusMessage($"TUMBLE #{i + 1} WIN: {step.StepWinAmount:F2}");
+
+                if (session.IsInFreeSpins && rollingTumbleWin > 0)
+                {
+                    mainView.ShowTopTumbleWinBanner(rollingTumbleWin);
+                }
+
+                // Show cluster payout in bottom bar immediately as symbols celebrate and explode
+                Sprite winSprite = winCount > 0 ? gridView.GetSymbolSprite(winSymbol) : null;
+                mainView.SetTumbleStepWin(rollingTumbleWin, winSprite, winCount, winPayout, payDetail);
+
+                yield return gridView.PlayTumbleStepSequence(step, result.MultiplierBombs);
             }
 
-            StartCoroutine(PlayRoundSequence(result));
+            if (result.MultiplierBombs != null && result.MultiplierBombs.Count > 0 && rollingTumbleWin > 0)
+            {
+                session.State = GameState.EvaluatingMultipliers;
+                SetStatusMessage($"💣 MULTIPLIERS ACTIVATED: {result.TotalMultiplier}X!");
+
+                mainView.ShowTopTumbleWinBanner(rollingTumbleWin);
+
+                yield return gridView.PlayMultiplierBombRevealSequence(result.MultiplierBombs, (bombVal, worldPos, runningMult) =>
+                {
+                    StartCoroutine(mainView.AnimateBombMultiplierFlyUp(worldPos, bombVal, rollingTumbleWin, runningMult));
+                });
+
+                yield return mainView.FinalizeTumbleWinMultipliers(rollingTumbleWin, result.TotalMultiplier);
+
+                mainView.SetWin(result.FinalWinAmount);
+                yield return Wait05;
+            }
+
+            if (result.FinalWinAmount >= session.EffectiveBet * 20)
+            {
+                uiManager.ShowWinCelebration("MEGA WIN!", result.FinalWinAmount, 3.5f);
+                yield return WaitForWinCelebration(3.5f);
+            }
+            else if (result.FinalWinAmount >= session.EffectiveBet * 2)
+            {
+                uiManager.ShowWinCelebration("NICE WIN!", result.FinalWinAmount, 3.0f);
+                yield return WaitForWinCelebration(3.0f);
+            }
+
+            if (result.TriggeredFreeSpins && !session.IsInFreeSpins)
+            {
+                BeginFreeSpins(result);
+                yield return StartCoroutine(gridView.PlayScatterCelebrationSequence());
+
+                mainView.SetFreeSpinsDisplay(true, session.RemainingFreeSpins);
+                bool showIntro = PlayerPrefs.GetInt("settings_intro_screen", 1) == 1;
+                if (showIntro)
+                {
+                    uiManager.ShowFreeSpinsIntro(session.TotalFreeSpinsAwarded);
+                    yield return Wait20;
+                }
+            }
+            else if (session.IsInFreeSpins)
+            {
+                if (AdvanceFreeSpins(result)) yield return Wait20;
+            }
+
+            if (result.FinalWinAmount > 0)
+            {
+                mainView.SetWin(result.FinalWinAmount);
+                yield return session.IsAutoplaying ? Wait04 : Wait10;
+            }
+
+            // Between free spins the round is not really idle: the next spin is already queued.
+            // Staying in Spinning blocks any other spin/buy request during the short pause.
+            bool nextFreeSpinQueued = session.IsInFreeSpins && session.RemainingFreeSpins > 0;
+            session.State = nextFreeSpinQueued ? GameState.Spinning : GameState.Idle;
+            mainView.HideTopTumbleWinBanner();
+            mainView.SetIdleBottomBarState();
+            UpdateHUD(false);
+
+            if (nextFreeSpinQueued)
+            {
+                yield return Wait06;
+                uiManager.CloseCurrentPanel();
+                SendSpinRequest(session.BetAmount, false, false);
+            }
+            else if (session.IsAutoplaying)
+            {
+                session.RemainingAutoplaySpins--;
+                if (session.RemainingAutoplaySpins > 0)
+                {
+                    uiManager.SetAutoplayState(true, session.RemainingAutoplaySpins);
+                    yield return Wait05;
+                    // Autoplay may have been stopped during the pause; then no further spin.
+                    if (session.IsAutoplaying) HandleSpinClicked();
+                }
+                else
+                {
+                    HandleAutoplayStopped();
+                }
+            }
+        }
+
+        /// <summary>Waits for the win celebration, but continues as soon as the player taps it away.</summary>
+        private IEnumerator WaitForWinCelebration(float duration)
+        {
+            float elapsed = 0f;
+            while (elapsed < duration && uiManager.IsWinCelebrationOpen)
+            {
+                yield return null;
+                elapsed += Time.deltaTime;
+            }
+        }
+
+        /// <summary>Base game hit the free spins trigger: switch the session into free spins.</summary>
+        private void BeginFreeSpins(RoundResult result)
+        {
+            if (session.IsAutoplaying)
+            {
+                HandleAutoplayStopped();
+            }
+
+            session.IsInFreeSpins = true;
+            session.RemainingFreeSpins = result.RemainingFreeSpins;
+            session.TotalFreeSpinsAwarded = result.FreeSpinsAwarded > 0 ? result.FreeSpinsAwarded : 10;
+            session.AccumulatedFreeSpinsWin = 0;
+
+            AudioManager.Instance?.PlayScatterCelebration();
+            AudioManager.Instance?.PlayFeatureBg();
+        }
+
+        /// <summary>Applies one free spin result. Returns true when the free spins round just ended (outro shown).</summary>
+        private bool AdvanceFreeSpins(RoundResult result)
+        {
+            if (result.TriggeredFreeSpins && result.FreeSpinsAwarded > 0)
+            {
+                session.TotalFreeSpinsAwarded += result.FreeSpinsAwarded;
+            }
+            session.AccumulatedFreeSpinsWin += result.FinalWinAmount;
+            session.RemainingFreeSpins = result.RemainingFreeSpins;
+            mainView.SetFreeSpinsDisplay(session.RemainingFreeSpins > 0, session.RemainingFreeSpins);
+
+            if (session.RemainingFreeSpins > 0) return false;
+
+            session.IsInFreeSpins = false;
+            AudioManager.Instance?.StopFeatureBg();
+            double finalFsWin = session.AccumulatedFreeSpinsWin > 0 ? session.AccumulatedFreeSpinsWin : result.FinalWinAmount;
+            uiManager.ShowFreeSpinsOutro(finalFsWin);
+            session.AccumulatedFreeSpinsWin = 0;
+            return true;
+        }
+
+        private void HandleScatterAnticipation(int targetColumn)
+        {
+            SetStatusMessage("🍭 3 SCATTERS! LOOKING FOR 4TH... 🍭");
+            AudioManager.Instance?.PlayTensionBuilder();
+        }
+
+        #endregion
+
+        #region System Settings Handlers
+
+        private void HandleQuickSpinChanged(bool isOn)
+        {
+            gridView.SetQuickSpinMode(isOn);
+        }
+
+        private void HandleBatterySaverChanged(bool isOn)
+        {
+            ApplyFrameRateSettings(isOn);
+        }
+
+        private void HandleAmbientMusicChanged(bool isOn)
+        {
+            AudioManager.Instance?.SetMusicEnabled(isOn);
+        }
+
+        private void HandleSoundFxChanged(bool isOn)
+        {
+            AudioManager.Instance?.SetSfxEnabled(isOn);
+        }
+
+        private void HandleIntroScreenChanged(bool isOn)
+        {
+            PlayerPrefs.SetInt("settings_intro_screen", isOn ? 1 : 0);
+        }
+
+        #endregion
+
+        #region Debug Logs
+
+        private void LogSpinRequestDebug(double betAmount, double cost, bool isAnteBet, bool isBonusBuy)
+        {
+            string anteStr = isAnteBet ? $"<color=#2ecc71>ACTIVE ({session.AnteBetMultiplier}x)</color>" : "OFF";
+            string bonusStr = isBonusBuy ? $"<color=#f1c40f>YES ({session.BuyFeatureCostMultiplier}x)</color>" : "NO";
+            string fsStr = session.IsInFreeSpins ? $"<color=#e056fd>ACTIVE ({session.RemainingFreeSpins} remaining)</color>" : "NO";
+            double effectiveCost = session.IsInFreeSpins ? 0.0 : cost;
+
+            Debug.Log($"<color=#3498db><b>[SPIN REQUEST 📤]</b></color> Base Bet: <b>${betAmount:F2}</b> | Cost: <b>${effectiveCost:F2}</b> | Ante Bet: {anteStr} | Bonus Buy: {bonusStr} | Free Spins: {fsStr} | Balance: <b>${session.Balance:F2}</b>");
         }
 
         private void LogSpinResultDebug(RoundResult result)
         {
             var sb = new System.Text.StringBuilder();
-            sb.AppendLine($"<color=#2ecc71><b>[SPIN RESULT 📥]</b></color> Final Win: <color=#f1c40f><b>${result.FinalWinAmount:F2}</b></color> | New Balance: <b>${currentBalance:F2}</b>");
+            sb.AppendLine($"<color=#2ecc71><b>[SPIN RESULT 📥]</b></color> Final Win: <color=#f1c40f><b>${result.FinalWinAmount:F2}</b></color> | New Balance: <b>${session.Balance:F2}</b>");
             sb.AppendLine($"  • Mode: {(result.IsFreeSpin ? $"<color=#e056fd>FREE SPIN ({result.RemainingFreeSpins} left)</color>" : "BASE GAME")} | Scatters: <b>{result.ScatterCount}</b> {(result.TriggeredFreeSpins ? $"<color=#e056fd><b>-> TRIGGERED {result.FreeSpinsAwarded} FREE SPINS!</b></color>" : "")}");
             sb.AppendLine($"  • Tumbles: <b>{result.TumbleSteps.Count}</b> | Total Multipliers: <b>{result.TotalMultiplier}X</b> (Bombs: {result.MultiplierBombs.Count})");
 
@@ -424,304 +675,17 @@ namespace SweetBonanza.Controller
             Debug.Log(sb.ToString());
         }
 
-        private IEnumerator PlayRoundSequence(RoundResult result)
-        {
-            currentState = GameState.DroppingInitial;
-            AudioManager.Instance?.StopTensionBuilder();
-            if (mainView != null) mainView.HideTopTumbleWinBanner(immediate: true);
-            if (gridView != null) yield return gridView.PlayInitialDropSequence(result.InitialMatrix, result.MultiplierBombs);
-            AudioManager.Instance?.StopReelSpinLoop();
-
-            if (result.ScatterCount >= 4)
-            {
-                SetStatusMessage($"⭐ {result.ScatterCount} SCATTERS HIT! ⭐");
-                yield return Wait04;
-            }
-
-            currentState = GameState.TumblingDown;
-            double rollingTumbleWin = 0;
-
-            for (int i = 0; i < result.TumbleSteps.Count; i++)
-            {
-                var step = result.TumbleSteps[i];
-                rollingTumbleWin += step.StepWinAmount;
-
-                string payDetail = "";
-                SweetBonanza.Model.SymbolType winSymbol = SweetBonanza.Model.SymbolType.Banana;
-                int winCount = 0;
-                double winPayout = 0;
-
-                if (step.Wins != null && step.Wins.Count > 0)
-                {
-                    var w = step.Wins[0];
-                    winSymbol = w.Symbol;
-                    winCount = w.Count;
-                    winPayout = w.WinAmount;
-                    payDetail = $"{w.Count}X {w.Symbol.ToString().ToUpperInvariant()} PAYS {w.WinAmount:F2}";
-                }
-
-                SetStatusMessage($"TUMBLE #{i + 1} WIN: {step.StepWinAmount:F2}");
-
-                if (isInFreeSpins && mainView != null && rollingTumbleWin > 0)
-                {
-                    mainView.ShowTopTumbleWinBanner(rollingTumbleWin);
-                }
-
-                // Show cluster payout in bottom bar immediately as symbols celebrate and explode
-                Sprite winSprite = (winCount > 0 && gridView != null) ? gridView.GetSymbolSprite(winSymbol) : null;
-                if (mainView != null) mainView.SetTumbleStepWin(rollingTumbleWin, winSprite, winCount, winPayout, payDetail);
-
-                if (gridView != null) yield return gridView.PlayTumbleStepSequence(step, result.MultiplierBombs);
-            }
-
-            if (result.MultiplierBombs != null && result.MultiplierBombs.Count > 0 && rollingTumbleWin > 0)
-            {
-                currentState = GameState.EvaluatingMultipliers;
-                SetStatusMessage($"💣 MULTIPLIERS ACTIVATED: {result.TotalMultiplier}X!");
-
-                if (mainView != null)
-                {
-                    mainView.ShowTopTumbleWinBanner(rollingTumbleWin);
-                }
-
-                if (gridView != null)
-                {
-                    yield return gridView.PlayMultiplierBombRevealSequence(result.MultiplierBombs, (bombVal, worldPos, runningMult) =>
-                    {
-                        if (mainView != null)
-                        {
-                            StartCoroutine(mainView.AnimateBombMultiplierFlyUp(worldPos, bombVal, rollingTumbleWin, runningMult));
-                        }
-                    });
-                }
-
-                if (mainView != null)
-                {
-                    yield return mainView.FinalizeTumbleWinMultipliers(rollingTumbleWin, result.TotalMultiplier);
-                }
-
-                if (mainView != null) mainView.SetWin(result.FinalWinAmount, true);
-                yield return Wait05;
-            }
-
-            if (result.FinalWinAmount >= CurrentBetAmount * 20)
-            {
-                if (uiManager != null)
-                {
-                    uiManager.ShowWinCelebration("MEGA WIN!", result.FinalWinAmount, 3.5f);
-                    yield return Wait35;
-                }
-            }
-            else if (result.FinalWinAmount >= CurrentBetAmount * 2)
-            {
-                if (uiManager != null)
-                {
-                    uiManager.ShowWinCelebration("NICE WIN!", result.FinalWinAmount, 3.0f);
-                    yield return Wait30;
-                }
-            }
-
-            if (result.TriggeredFreeSpins && !isInFreeSpins)
-            {
-                if (isAutoplaying)
-                {
-                    HandleAutoplayStopped();
-                }
-
-                isInFreeSpins = true;
-                remainingFreeSpins = result.RemainingFreeSpins;
-                totalFreeSpinsAwarded = result.FreeSpinsAwarded > 0 ? result.FreeSpinsAwarded : 10;
-                accumulatedFreeSpinsWin = 0;
-
-                AudioManager.Instance?.PlayScatterCelebration();
-                AudioManager.Instance?.PlayFeatureBg();
-
-                if (gridView != null)
-                {
-                    yield return StartCoroutine(gridView.PlayScatterCelebrationSequence());
-                }
-
-                if (mainView != null) mainView.SetFreeSpinsDisplay(true, remainingFreeSpins);
-                bool showIntro = PlayerPrefs.GetInt("settings_intro_screen", 1) == 1;
-                if (uiManager != null && showIntro)
-                {
-                    uiManager.ShowFreeSpinsIntro(totalFreeSpinsAwarded);
-                    yield return Wait20;
-                }
-            }
-            else if (isInFreeSpins)
-            {
-                if (result.TriggeredFreeSpins && result.FreeSpinsAwarded > 0)
-                {
-                    totalFreeSpinsAwarded += result.FreeSpinsAwarded;
-                }
-                accumulatedFreeSpinsWin += result.FinalWinAmount;
-                remainingFreeSpins = result.RemainingFreeSpins;
-                if (mainView != null) mainView.SetFreeSpinsDisplay(remainingFreeSpins > 0, remainingFreeSpins);
-                if (remainingFreeSpins <= 0)
-                {
-                    isInFreeSpins = false;
-                    AudioManager.Instance?.StopFeatureBg();
-                    double finalFsWin = accumulatedFreeSpinsWin > 0 ? accumulatedFreeSpinsWin : result.FinalWinAmount;
-                    if (uiManager != null) uiManager.ShowFreeSpinsOutro(finalFsWin);
-                    accumulatedFreeSpinsWin = 0;
-                    yield return Wait20;
-                }
-            }
-
-            if (result.FinalWinAmount > 0)
-            {
-                if (mainView != null) mainView.SetWin(result.FinalWinAmount);
-                yield return isAutoplaying ? Wait04 : Wait10;
-            }
-
-            currentState = GameState.Idle;
-            if (mainView != null)
-            {
-                mainView.HideTopTumbleWinBanner();
-                mainView.SetIdleBottomBarState();
-            }
-            UpdateHUD(false);
-
-            if (isInFreeSpins && remainingFreeSpins > 0)
-            {
-                yield return Wait06;
-                if (uiManager != null) uiManager.CloseCurrentPanel();
-                SendSpinRequest(currentBetAmount, false, false);
-            }
-            else if (isAutoplaying)
-            {
-                remainingAutoplaySpins--;
-                if (remainingAutoplaySpins > 0)
-                {
-                    if (uiManager != null) uiManager.SetAutoplayState(true, remainingAutoplaySpins);
-                    yield return Wait05;
-                    HandleSpinClicked();
-                }
-                else
-                {
-                    HandleAutoplayStopped();
-                }
-            }
-        }
-
-        private void HandleScatterAnticipation(int targetColumn)
-        {
-            SetStatusMessage("🍭 3 SCATTERS! LOOKING FOR 4TH... 🍭");
-            AudioManager.Instance?.PlayTensionBuilder();
-        }
-
-        private void SetStatusMessage(string message)
-        {
-            if (uiManager != null) uiManager.SetStatusMessage(message);
-            else if (mainView != null) mainView.SetStatusMessage(message);
-        }
-
-        private void HandleErrorOccurred(string error)
-        {
-            if (isAutoplaying)
-            {
-                HandleAutoplayStopped();
-            }
-            currentState = GameState.Idle;
-            if (mainView != null)
-            {
-                mainView.HideTopTumbleWinBanner();
-                mainView.SetIdleBottomBarState();
-            }
-            UpdateHUD(false);
-            SetStatusMessage(error);
-        }
-
-        private void HandleBalanceSync(double newBalance)
-        {
-            currentBalance = newBalance;
-            UpdateHUD(currentState != GameState.Idle);
-        }
-
-        #region System Settings Handlers
-        private void HandleQuickSpinChanged(bool isOn)
-        {
-            if (gridView != null) gridView.SetQuickSpinMode(isOn);
-        }
-
-        private void HandleBatterySaverChanged(bool isOn)
-        {
-            ApplyFrameRateSettings(isOn);
-        }
-
-        private void HandleAmbientMusicChanged(bool isOn)
-        {
-            AudioManager.Instance?.SetMusicEnabled(isOn);
-        }
-
-        private void HandleSoundFxChanged(bool isOn)
-        {
-            AudioManager.Instance?.SetSfxEnabled(isOn);
-        }
-
-        private void HandleIntroScreenChanged(bool isOn)
-        {
-            PlayerPrefs.SetInt("settings_intro_screen", isOn ? 1 : 0);
-        }
-        #endregion
-
-        private void OnDestroy()
-        {
-            if (SocketIOManager.Instance != null)
-            {
-                SocketIOManager.Instance.OnBalanceSyncReceived -= HandleBalanceSync;
-            }
-
-            if (backendService != null)
-            {
-                backendService.OnInitDataReceived -= HandleInitDataReceived;
-                backendService.OnRoundResultReceived -= HandleRoundResultReceived;
-                backendService.OnErrorOccurred -= HandleErrorOccurred;
-            }
-
-            if (uiManager != null)
-            {
-                uiManager.OnSpinClicked -= HandleSpinClicked;
-                uiManager.OnBetIncreaseClicked -= HandleBetIncreaseClicked;
-                uiManager.OnBetDecreaseClicked -= HandleBetDecreaseClicked;
-                uiManager.OnBetMaxClicked -= HandleBetMaxClicked;
-                uiManager.OnBetAmountSelected -= HandleBetAmountSelected;
-                uiManager.OnAnteBetToggled -= HandleAnteBetToggled;
-                uiManager.OnBuyFeatureRequested -= HandleBuyBonusRequested;
-                uiManager.OnBuyFeatureConfirmed -= HandleBuyBonusConfirmed;
-                uiManager.OnAutoplayStarted -= HandleAutoplayStarted;
-                uiManager.OnAutoplayStopped -= HandleAutoplayStopped;
-                uiManager.OnQuickSpinChanged -= HandleQuickSpinChanged;
-                uiManager.OnBatterySaverChanged -= HandleBatterySaverChanged;
-                uiManager.OnAmbientMusicChanged -= HandleAmbientMusicChanged;
-                uiManager.OnSoundFxChanged -= HandleSoundFxChanged;
-                uiManager.OnIntroScreenChanged -= HandleIntroScreenChanged;
-            }
-            else if (mainView != null)
-            {
-                mainView.OnSpinClicked -= HandleSpinClicked;
-                mainView.OnBetIncreaseClicked -= HandleBetIncreaseClicked;
-                mainView.OnBetDecreaseClicked -= HandleBetDecreaseClicked;
-                mainView.OnAnteBetToggled -= HandleAnteBetToggled;
-                mainView.OnBuyBonusClicked -= HandleBuyBonusConfirmed;
-            }
-
-            if (gridView != null)
-            {
-                gridView.OnScatterAnticipationTriggered -= HandleScatterAnticipation;
-            }
-        }
-
 #if UNITY_EDITOR
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.B) && currentState == GameState.Idle)
+            if (Input.GetKeyDown(KeyCode.B) && session.IsIdle)
             {
                 Debug.Log("[DEV TEST] Key B pressed -> Triggering Free Spins Bonus Buy...");
                 HandleBuyBonusConfirmed();
             }
         }
 #endif
+
+        #endregion
     }
 }
