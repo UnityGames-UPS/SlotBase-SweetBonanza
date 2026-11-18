@@ -23,7 +23,7 @@ internal class CloudParallax : MonoBehaviour
 
     void Update()
     {
-        if (startPosition == null || endPosition == null || clouds == null || clouds.Length == 0)
+        if (clouds == null || clouds.Length == 0)
             return;
 
         // Determine move direction based on start and end positions in local space

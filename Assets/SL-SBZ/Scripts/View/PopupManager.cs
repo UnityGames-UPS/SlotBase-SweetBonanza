@@ -54,7 +54,7 @@ internal class PopupManager : MonoBehaviour
         }
         Instance = this;
 
-        if (errorOkButton != null) errorOkButtonText = errorOkButton.GetComponentInChildren<TMP_Text>(true);
+        errorOkButtonText = errorOkButton.GetComponentInChildren<TMP_Text>(true);
         socketManager = UnityEngine.Object.FindFirstObjectByType<SocketIOManager>();
         jsFunctCalls = UnityEngine.Object.FindFirstObjectByType<JSFunctCalls>();
         cachedCloseLoading = () => CloseLoadingPopup();
@@ -65,48 +65,36 @@ internal class PopupManager : MonoBehaviour
 
     private void SetupButtons()
     {
-        if (disconnectionOkButton != null)
+        disconnectionOkButton.onClick.RemoveAllListeners();
+        disconnectionOkButton.onClick.AddListener(() =>
         {
-            disconnectionOkButton.onClick.RemoveAllListeners();
-            disconnectionOkButton.onClick.AddListener(() =>
-            {
-                AudioManager.Instance?.PlayButton();
-                ClosePopup(disconnectionPopup, ExitGame);
-            });
-        }
+            AudioManager.Instance?.PlayButton();
+            ClosePopup(disconnectionPopup, ExitGame);
+        });
 
-        if (errorOkButton != null)
+        errorOkButton.onClick.RemoveAllListeners();
+        errorOkButton.onClick.AddListener(() =>
         {
-            errorOkButton.onClick.RemoveAllListeners();
-            errorOkButton.onClick.AddListener(() =>
+            AudioManager.Instance?.PlayButton();
+            ClosePopup(errorPopup, () =>
             {
-                AudioManager.Instance?.PlayButton();
-                ClosePopup(errorPopup, () =>
-                {
-                    if (isErrorCritical) ExitGame();
-                });
+                if (isErrorCritical) ExitGame();
             });
-        }
+        });
 
-        if (exitGameYesButton != null)
+        exitGameYesButton.onClick.RemoveAllListeners();
+        exitGameYesButton.onClick.AddListener(() =>
         {
-            exitGameYesButton.onClick.RemoveAllListeners();
-            exitGameYesButton.onClick.AddListener(() =>
-            {
-                AudioManager.Instance?.PlayButton();
-                ClosePopup(exitGamePopup, ExitGame);
-            });
-        }
+            AudioManager.Instance?.PlayButton();
+            ClosePopup(exitGamePopup, ExitGame);
+        });
 
-        if (exitGameNoButton != null)
+        exitGameNoButton.onClick.RemoveAllListeners();
+        exitGameNoButton.onClick.AddListener(() =>
         {
-            exitGameNoButton.onClick.RemoveAllListeners();
-            exitGameNoButton.onClick.AddListener(() =>
-            {
-                AudioManager.Instance?.PlayButton();
-                ClosePopup(exitGamePopup);
-            });
-        }
+            AudioManager.Instance?.PlayButton();
+            ClosePopup(exitGamePopup);
+        });
     }
 
     #region Popup Core (Open & Close)
@@ -121,7 +109,7 @@ internal class PopupManager : MonoBehaviour
         }
 
         currentActivePopup = popup;
-        if (popupParent != null) popupParent.SetActive(true);
+        popupParent.SetActive(true);
 
         popup.SetActive(true);
         AudioManager.Instance?.PlayPopupOpen();
@@ -152,25 +140,22 @@ internal class PopupManager : MonoBehaviour
 
     private void UpdateBackdrop()
     {
-        if (popupParent != null)
-        {
-            bool anyActive = (disconnectionPopup != null && disconnectionPopup.activeSelf) ||
-                             (errorPopup != null && errorPopup.activeSelf) ||
-                             (reconnectionPopup != null && reconnectionPopup.activeSelf) ||
-                             (loadingPopup != null && loadingPopup.activeSelf) ||
-                             (exitGamePopup != null && exitGamePopup.activeSelf);
-            popupParent.SetActive(anyActive);
-        }
+        bool anyActive = disconnectionPopup.activeSelf ||
+                         errorPopup.activeSelf ||
+                         reconnectionPopup.activeSelf ||
+                         loadingPopup.activeSelf ||
+                         exitGamePopup.activeSelf;
+        popupParent.SetActive(anyActive);
     }
 
     private void HideAllPopups()
     {
-        if (disconnectionPopup != null) disconnectionPopup.SetActive(false);
-        if (errorPopup != null) errorPopup.SetActive(false);
-        if (reconnectionPopup != null) reconnectionPopup.SetActive(false);
-        if (loadingPopup != null) loadingPopup.SetActive(false);
-        if (exitGamePopup != null) exitGamePopup.SetActive(false);
-        if (popupParent != null) popupParent.SetActive(false);
+        disconnectionPopup.SetActive(false);
+        errorPopup.SetActive(false);
+        reconnectionPopup.SetActive(false);
+        loadingPopup.SetActive(false);
+        exitGamePopup.SetActive(false);
+        popupParent.SetActive(false);
         currentActivePopup = null;
     }
 
@@ -220,7 +205,7 @@ internal class PopupManager : MonoBehaviour
     }
 
     internal void CloseLoadingPopup(Action onComplete = null) => ClosePopup(loadingPopup, onComplete);
-    internal bool IsLoadingPopupActive() => loadingPopup != null && loadingPopup.activeSelf;
+    internal bool IsLoadingPopupActive() => loadingPopup.activeSelf;
 
     // 5. Exit Game
     internal void ShowExitGamePopup() => OpenPopup(exitGamePopup);

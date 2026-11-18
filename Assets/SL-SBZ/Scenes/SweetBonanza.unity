@@ -364,7 +364,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f521a04de7f494272a617b2719edd271, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SocketIOManager
-  testToken: 6c49bb90f73c4613bb21a6fc7b212bbd
+  testToken: 41641a8afd814311b79d72ba6d01f5b1
   testSocketURL: https://devrealtime.dingdinghouse.com/
   nameSpace: playground
   JSManager: {fileID: 1638706357}
@@ -21912,9 +21912,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1132763428}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1c3aba53968e3f04eb03de3be87774db, type: 3}
+  m_Script: {fileID: 11500000, guid: 072698568172b8d42a3b1193ae7dbdb8, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SweetBonanza.Service.LocalDemoService
+  m_EditorClassIdentifier: Assembly-CSharp::SweetBonanza.Service.SocketBackendService
+  socketManager: {fileID: 8473409}
+  spinTimeoutSeconds: 15
 --- !u!1001 &1136236781
 PrefabInstance:
   m_ObjectHideFlags: 0

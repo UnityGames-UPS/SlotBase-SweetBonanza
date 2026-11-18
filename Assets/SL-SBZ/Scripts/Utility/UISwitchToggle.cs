@@ -31,23 +31,15 @@ namespace SweetBonanza.View
 
         private void Awake()
         {
-            AutoAssignReferences();
-
-            if (toggle != null)
-            {
-                // Clear graphic so Unity's built-in Toggle does not hide the Knob when isOn == false
-                toggle.graphic = null;
-                toggle.onValueChanged.AddListener(OnToggleValueChanged);
-                UpdateVisuals(toggle.isOn, animate: false);
-            }
+            // Clear graphic so Unity's built-in Toggle does not hide the Knob when isOn == false
+            toggle.graphic = null;
+            toggle.onValueChanged.AddListener(OnToggleValueChanged);
+            UpdateVisuals(toggle.isOn, animate: false);
         }
 
         private void OnEnable()
         {
-            if (toggle != null)
-            {
-                UpdateVisuals(toggle.isOn, animate: false);
-            }
+            UpdateVisuals(toggle.isOn, animate: false);
         }
 
         private void AutoAssignReferences()
@@ -72,39 +64,30 @@ namespace SweetBonanza.View
 
         internal void UpdateVisuals(bool isOn, bool animate = true)
         {
-            if (trackImage != null)
+            Sprite targetTrack = isOn ? trackOnSprite : trackOffSprite;
+            trackImage.sprite = targetTrack;
+
+            if (!knobImage.gameObject.activeSelf)
+                knobImage.gameObject.SetActive(true);
+
+            if (knobImage.canvasRenderer != null)
+                knobImage.canvasRenderer.SetAlpha(1f);
+
+            Sprite targetKnob = isOn ? knobOnSprite : knobOffSprite;
+            knobImage.sprite = targetKnob;
+
+            float targetX = isOn ? onPositionX : offPositionX;
+            knobRect.DOKill();
+
+            if (animate && gameObject.activeInHierarchy)
             {
-                Sprite targetTrack = isOn && trackOnSprite != null ? trackOnSprite : trackOffSprite;
-                if (targetTrack != null) trackImage.sprite = targetTrack;
+                knobRect.DOAnchorPosX(targetX, animationDuration).SetEase(Ease.OutQuad);
             }
-
-            if (knobImage != null)
+            else
             {
-                if (!knobImage.gameObject.activeSelf)
-                    knobImage.gameObject.SetActive(true);
-
-                if (knobImage.canvasRenderer != null)
-                    knobImage.canvasRenderer.SetAlpha(1f);
-
-                Sprite targetKnob = isOn && knobOnSprite != null ? knobOnSprite : knobOffSprite;
-                if (targetKnob != null) knobImage.sprite = targetKnob;
-            }
-
-            if (knobRect != null)
-            {
-                float targetX = isOn ? onPositionX : offPositionX;
-                knobRect.DOKill();
-
-                if (animate && gameObject.activeInHierarchy)
-                {
-                    knobRect.DOAnchorPosX(targetX, animationDuration).SetEase(Ease.OutQuad);
-                }
-                else
-                {
-                    Vector2 pos = knobRect.anchoredPosition;
-                    pos.x = targetX;
-                    knobRect.anchoredPosition = pos;
-                }
+                Vector2 pos = knobRect.anchoredPosition;
+                pos.x = targetX;
+                knobRect.anchoredPosition = pos;
             }
         }
 

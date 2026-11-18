@@ -59,27 +59,12 @@ internal class OCController : MonoBehaviour
 
     private void Awake()
     {
-        if (orientationChange == null)
-        {
-            orientationChange = GetComponent<OrientationChange>();
-            if (orientationChange == null)
-            {
-                orientationChange = Object.FindFirstObjectByType<OrientationChange>();
-            }
-        }
-        if (canvasScaler == null && orientationChange != null)
-        {
-            canvasScaler = orientationChange.GetComponent<CanvasScaler>();
-        }
     }
 
     private void OnEnable()
     {
         OrientationChange.OnOrientationChanged += HandleOrientationChange;
-        if (orientationChange != null)
-        {
-            orientationChange.OnOrientationChangedInstance += HandleOrientationChange;
-        }
+        orientationChange.OnOrientationChangedInstance += HandleOrientationChange;
     }
 
     private void OnDisable()
@@ -106,57 +91,45 @@ internal class OCController : MonoBehaviour
             portraitPanelObject.SetActive(isMobilePortrait);
         }
 
-        if (landscapeBackground != null)
-        {
-            landscapeBackground.SetActive(!isMobilePortrait);
-        }
+        landscapeBackground.SetActive(!isMobilePortrait);
         if (portraitBackground != null)
         {
             portraitBackground.SetActive(isMobilePortrait);
         }
 
-        if (canvasScaler != null)
-        {
-            Vector2 targetRefRes = isMobilePortrait ? portraitReferenceResolution : landscapeReferenceResolution;
-            canvasScaler.referenceResolution = targetRefRes;
-        }
+        Vector2 targetRefRes = isMobilePortrait ? portraitReferenceResolution : landscapeReferenceResolution;
+        canvasScaler.referenceResolution = targetRefRes;
 
         Vector2 targetSize = isMobilePortrait ? portraitResizedObjectSize : landscapeResizedObjectSize;
-        if (resizedObjects != null)
+        foreach (var rect in resizedObjects)
         {
-            foreach (var rect in resizedObjects)
+            if (rect != null)
             {
-                if (rect != null)
+                if (transitionDuration > 0)
                 {
-                    if (transitionDuration > 0)
-                    {
-                        Tween t = rect.DOSizeDelta(targetSize, transitionDuration).SetEase(Ease.OutCubic);
-                        activeTweens.Add(t);
-                    }
-                    else
-                    {
-                        rect.sizeDelta = targetSize;
-                    }
+                    Tween t = rect.DOSizeDelta(targetSize, transitionDuration).SetEase(Ease.OutCubic);
+                    activeTweens.Add(t);
+                }
+                else
+                {
+                    rect.sizeDelta = targetSize;
                 }
             }
         }
 
         Vector2 targetSquareSize = isMobilePortrait ? portraitSquareResizedObjectSize : landscapeSquareResizedObjectSize;
-        if (squareResizedObjects != null)
+        foreach (var rect in squareResizedObjects)
         {
-            foreach (var rect in squareResizedObjects)
+            if (rect != null)
             {
-                if (rect != null)
+                if (transitionDuration > 0)
                 {
-                    if (transitionDuration > 0)
-                    {
-                        Tween t = rect.DOSizeDelta(targetSquareSize, transitionDuration).SetEase(Ease.OutCubic);
-                        activeTweens.Add(t);
-                    }
-                    else
-                    {
-                        rect.sizeDelta = targetSquareSize;
-                    }
+                    Tween t = rect.DOSizeDelta(targetSquareSize, transitionDuration).SetEase(Ease.OutCubic);
+                    activeTweens.Add(t);
+                }
+                else
+                {
+                    rect.sizeDelta = targetSquareSize;
                 }
             }
         }
@@ -182,7 +155,6 @@ internal class OCController : MonoBehaviour
             }
         }
 
-        if (infoPageScrollObject != null)
         {
             float targetHeight = isMobilePortrait ? 1920f : 1080f;
             Vector2 targetScrollSize = new Vector2(infoPageScrollObject.sizeDelta.x, targetHeight);

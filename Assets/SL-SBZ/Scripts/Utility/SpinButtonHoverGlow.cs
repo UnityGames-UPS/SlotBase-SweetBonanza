@@ -19,24 +19,14 @@ internal class SpinButtonHoverGlow : MonoBehaviour, IPointerEnterHandler, IPoint
     {
         cachedResetRect = ResetSpinRect;
 
-        if (glowRect != null)
-        {
-            glowRect.gameObject.SetActive(false);
-        }
-
-        if (spinRect != null)
-        {
-            initialAnchorPos = spinRect.anchoredPosition;
-        }
+        glowRect.gameObject.SetActive(false);
+        initialAnchorPos = spinRect.anchoredPosition;
     }
 
     private void OnEnable()
     {
         // Start the idle wobble loop when active
-        if (spinRect != null)
-        {
-            shakeRoutine = StartCoroutine(ShakeAnimationRoutine());
-        }
+        shakeRoutine = StartCoroutine(ShakeAnimationRoutine());
     }
 
     private void OnDisable()
@@ -54,18 +44,12 @@ internal class SpinButtonHoverGlow : MonoBehaviour, IPointerEnterHandler, IPoint
 
     void IPointerEnterHandler.OnPointerEnter(PointerEventData eventData)
     {
-        if (glowRect != null)
-        {
-            glowRect.gameObject.SetActive(true);
-        }
+        glowRect.gameObject.SetActive(true);
     }
 
     void IPointerExitHandler.OnPointerExit(PointerEventData eventData)
     {
-        if (glowRect != null)
-        {
-            glowRect.gameObject.SetActive(false);
-        }
+        glowRect.gameObject.SetActive(false);
     }
 
     /// <summary>Loops the attractive shake & rotation wiggle every 3 seconds.</summary>

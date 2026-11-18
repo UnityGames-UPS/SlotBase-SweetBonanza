@@ -33,7 +33,7 @@ namespace SweetBonanza.View
         private void Awake()
         {
             if (!syncWithSpin) return;
-            if (bannerImageFront != null) bannerImageFront.raycastTarget = false;
+            bannerImageFront.raycastTarget = false;
             if (mainView == null)
             {
                 mainView = GetComponentInParent<MainView>();
@@ -73,7 +73,7 @@ namespace SweetBonanza.View
         internal void AdvanceOnSpin()
         {
             if (!syncWithSpin) return;
-            if (imageList == null || imageList.Count == 0) return;
+            if (imageList.Count == 0) return;
             isSpinCycleLocked = true;
             currentIndex = 0;
             ApplySpriteInstant(currentIndex);
@@ -84,7 +84,7 @@ namespace SweetBonanza.View
         internal void HandleSpinStopped()
         {
             if (!syncWithSpin) return;
-            if (imageList == null || imageList.Count == 0) return;
+            if (imageList.Count == 0) return;
             isSpinCycleLocked = false;
             currentIndex = GetRandomIdleIndex();
             ApplySpriteInstant(currentIndex);
@@ -93,7 +93,7 @@ namespace SweetBonanza.View
 
         private int GetRandomIdleIndex()
         {
-            if (imageList == null || imageList.Count <= 1) return 0;
+            if (imageList.Count <= 1) return 0;
             if (imageList.Count == 2) return 1;
 
             int next = Random.Range(1, imageList.Count);
@@ -106,7 +106,7 @@ namespace SweetBonanza.View
 
         private void InitializeDisplay()
         {
-            if (imageList == null || imageList.Count == 0) return;
+            if (imageList.Count == 0) return;
 
             if (!hasInitialized)
             {
@@ -122,20 +122,14 @@ namespace SweetBonanza.View
             if (bannerImageBack == null)
             {
                 // Pure Snap Mode (1 Image)
-                if (bannerImageFront != null)
-                {
-                    bannerImageFront.sprite = imageList[index];
-                    bannerImageFront.color = new Color(bannerImageFront.color.r, bannerImageFront.color.g, bannerImageFront.color.b, 1f);
-                }
+                bannerImageFront.sprite = imageList[index];
+                bannerImageFront.color = new Color(bannerImageFront.color.r, bannerImageFront.color.g, bannerImageFront.color.b, 1f);
             }
             else
             {
                 // Fade Mode reset to front
-                if (bannerImageFront != null)
-                {
-                    bannerImageFront.sprite = imageList[index];
-                    bannerImageFront.color = new Color(bannerImageFront.color.r, bannerImageFront.color.g, bannerImageFront.color.b, 1f);
-                }
+                bannerImageFront.sprite = imageList[index];
+                bannerImageFront.color = new Color(bannerImageFront.color.r, bannerImageFront.color.g, bannerImageFront.color.b, 1f);
                 if (bannerImageBack != null)
                 {
                     bannerImageBack.color = new Color(bannerImageBack.color.r, bannerImageBack.color.g, bannerImageBack.color.b, 0f);
@@ -149,7 +143,7 @@ namespace SweetBonanza.View
             StopCycle();
             if (syncWithSpin && isSpinCycleLocked) return;
             int minCount = syncWithSpin ? 2 : 1;
-            if (isActiveAndEnabled && imageList != null && imageList.Count > minCount)
+            if (isActiveAndEnabled && imageList.Count > minCount)
             {
                 cycleCoroutine = StartCoroutine(CycleRoutine());
             }

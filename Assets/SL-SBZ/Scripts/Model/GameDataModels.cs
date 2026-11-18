@@ -291,10 +291,7 @@ namespace SweetBonanza.Model
 
         internal static double GetPayoutMultiplier(SymbolType symbol, int count)
         {
-            if (!DemoPayouts.TryGetValue(symbol, out var tiers) || tiers == null || tiers.Length < 3)
-            {
-                return 0.0;
-            }
+            var tiers = DemoPayouts[symbol];
 
             if (symbol == SymbolType.Lollipop)
             {

@@ -94,7 +94,6 @@ namespace SweetBonanza.Service
                 for (int i = 0; i < initData.uiData.paytable.Count; i++)
                 {
                     var item = initData.uiData.paytable[i];
-                    if (item.payouts == null) continue;
 
                     SymbolType sym = ServerSpinResultConverter.MapServerSymbol(item.id);
                     bool isScatter = item.group == "scatter";
@@ -102,9 +101,9 @@ namespace SweetBonanza.Service
                     string kMid = isScatter ? "5" : "10-11";
                     string kHigh = isScatter ? "6+" : "12+";
 
-                    item.payouts.TryGetValue(kLow, out float low);
-                    item.payouts.TryGetValue(kMid, out float mid);
-                    item.payouts.TryGetValue(kHigh, out float high);
+                    float low = item.payouts[kLow];
+                    float mid = item.payouts[kMid];
+                    float high = item.payouts[kHigh];
 
                     payouts[sym] = new float[] { low, mid, high };
                 }

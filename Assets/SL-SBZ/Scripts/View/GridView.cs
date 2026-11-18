@@ -177,7 +177,6 @@ namespace SweetBonanza.View
             InitializeAnimationLookup();
             RefreshTimingCaches();
 
-            if (gridMask != null)
             {
                 gridMask.enabled = false;
                 Canvas canvas = gridMask.GetComponentInParent<Canvas>();
@@ -220,7 +219,7 @@ namespace SweetBonanza.View
             if (isPoolPrewarmed) return;
             isPoolPrewarmed = true;
 
-            Transform parent = gridContainer != null ? gridContainer : transform;
+            Transform parent = gridContainer;
             var existing = parent.GetComponentsInChildren<CellView>(true);
             foreach (var cell in existing)
             {
@@ -237,7 +236,7 @@ namespace SweetBonanza.View
                 }
             }
 
-            while (cellPool.Count < 60 && cellPrefab != null)
+            while (cellPool.Count < 60)
             {
                 var cell = Instantiate(cellPrefab, parent);
                 allCells.Add(cell);
@@ -321,7 +320,7 @@ namespace SweetBonanza.View
 
         private void InitializeAnimationLookup()
         {
-            Sprite[] lollipopJump = (spiralCandyRotationFrames != null && spiralCandyRotationFrames.Length > 0)
+            Sprite[] lollipopJump = (spiralCandyRotationFrames.Length > 0)
                 ? spiralCandyRotationFrames
                 : spiralCandyFrames;
 
@@ -354,7 +353,7 @@ namespace SweetBonanza.View
 
         private Sprite GetMultiplierBombSprite()
         {
-            return multiplierBombSprite != null ? multiplierBombSprite : GetSymbolSprite(SymbolType.MultiplierBomb);
+            return multiplierBombSprite;
         }
 
         internal Vector2 GetCellPosition(int column, int row)
@@ -460,11 +459,8 @@ namespace SweetBonanza.View
                     anticipationTriggered = true;
                     currentCumulativeDelay += 0.45f;
                     OnScatterAnticipationTriggered?.Invoke(c + 1);
-                    if (slotFrameTransform != null)
-                    {
-                        slotFrameTransform.DOKill();
-                        slotFrameTransform.DOPunchScale(Vector3.one * 0.02f, 0.45f, 4, 0.5f);
-                    }
+                    slotFrameTransform.DOKill();
+                    slotFrameTransform.DOPunchScale(Vector3.one * 0.02f, 0.45f, 4, 0.5f);
                 }
             }
 
@@ -802,7 +798,7 @@ namespace SweetBonanza.View
             if (scatterCellsScratch.Count >= 3)
             {
                 // Play special 32-frame Spiral candy transition when Scatters trigger Free Spins
-                Sprite[] triggerFrames = (spiralCandyRotationFrames != null && spiralCandyRotationFrames.Length > 0)
+                Sprite[] triggerFrames = (spiralCandyRotationFrames.Length > 0)
                     ? spiralCandyRotationFrames
                     : spiralCandyFrames;
 
@@ -847,7 +843,7 @@ namespace SweetBonanza.View
                 return cell;
             }
 
-            Transform parent = gridContainer != null ? gridContainer : transform;
+            Transform parent = gridContainer;
             var newCell = Instantiate(cellPrefab, parent);
             allCells.Add(newCell);
             if (isClippingActive)
@@ -916,7 +912,6 @@ namespace SweetBonanza.View
 
         private Rect CalculateClipRect()
         {
-            if (gridMask == null) return Rect.zero;
             if (rootCanvas == null)
             {
                 Canvas canvas = gridMask.GetComponentInParent<Canvas>();

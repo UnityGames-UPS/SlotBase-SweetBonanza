@@ -153,7 +153,7 @@ internal class AudioManager : MonoBehaviour
 
     private AudioSource GetNextAvailableSfxSource()
     {
-        if (sfxSourcePool == null || sfxSourcePool.Length == 0) return uiSource;
+        if (sfxSourcePool.Length == 0) return uiSource;
 
         // 1. Look for a voice that has finished playing
         for (int i = 0; i < sfxSourcePool.Length; i++)
@@ -183,9 +183,9 @@ internal class AudioManager : MonoBehaviour
         {
             musicFadeTween?.Kill();
             musicFadeTween = null;
-            if (bgMusicSource != null) bgMusicSource.Stop();
+            bgMusicSource.Stop();
         }
-        else if (on && bgMusicSource != null && !bgMusicSource.isPlaying)
+        else if (on && !bgMusicSource.isPlaying)
         {
             PlayBgMusic();
         }
@@ -242,23 +242,19 @@ internal class AudioManager : MonoBehaviour
 
     private void ApplyMusicVolume()
     {
-        if (bgMusicSource == null) return;
         bgMusicSource.volume = _musicEnabled ? _musicVolume : 0f;
     }
 
     private void ApplySfxVolume()
     {
         float v = _sfxEnabled ? _sfxVolume : 0f;
-        if (uiSource != null) uiSource.volume = v;
-        if (reserveSource != null) reserveSource.volume = v;
-        if (primaryButtonSource != null) primaryButtonSource.volume = v;
+        uiSource.volume = v;
+        reserveSource.volume = v;
+        primaryButtonSource.volume = v;
 
-        if (sfxSourcePool != null)
+        for (int i = 0; i < sfxSourcePool.Length; i++)
         {
-            for (int i = 0; i < sfxSourcePool.Length; i++)
-            {
-                if (sfxSourcePool[i] != null) sfxSourcePool[i].volume = v;
-            }
+            if (sfxSourcePool[i] != null) sfxSourcePool[i].volume = v;
         }
     }
 
@@ -276,7 +272,7 @@ internal class AudioManager : MonoBehaviour
             source.pitch = 1f;
             source.PlayOneShot(clip, _sfxVolume);
         }
-        else if (uiSource != null)
+        else
         {
             uiSource.pitch = 1f;
             uiSource.PlayOneShot(clip, _sfxVolume);
@@ -333,7 +329,6 @@ internal class AudioManager : MonoBehaviour
 
     internal void PlayBgMusic()
     {
-        if (bgMusicSource == null || clipGameMainBg == null) return;
         if (bgMusicSource.isPlaying && bgMusicSource.clip == clipGameMainBg) return;
 
         CrossFadeMusic(clipGameMainBg, 0.4f, true);
@@ -341,13 +336,12 @@ internal class AudioManager : MonoBehaviour
 
     internal void PlayFeatureBg()
     {
-        if (clipFeatureBg == null) return;
         CrossFadeMusic(clipFeatureBg, 0.5f, true);
     }
 
     internal void StopFeatureBg()
     {
-        if (bgMusicSource != null && bgMusicSource.clip == clipFeatureBg)
+        if (bgMusicSource.clip == clipFeatureBg)
         {
             CrossFadeMusic(clipGameMainBg, 0.5f, true);
         }
@@ -355,10 +349,10 @@ internal class AudioManager : MonoBehaviour
 
     internal void CrossFadeMusic(AudioClip newClip, float duration = 0.5f, bool loop = true)
     {
-        if (bgMusicSource == null || newClip == null) return;
+        if (newClip == null) return;
         if (!_musicEnabled)
         {
-            if (bgMusicSource != null) bgMusicSource.Stop();
+            bgMusicSource.Stop();
             return;
         }
 
@@ -393,18 +387,11 @@ internal class AudioManager : MonoBehaviour
     internal void PlayPrimaryActionButton()
     {
         if (!_sfxEnabled) return;
-        AudioClip clip = clipPrimaryActionButton != null ? clipPrimaryActionButton : clipGeneralButtonClick;
+        AudioClip clip = clipPrimaryActionButton;
         if (clip == null) return;
 
-        if (primaryButtonSource != null)
-        {
-            primaryButtonSource.pitch = 1f;
-            primaryButtonSource.PlayOneShot(clip, _sfxVolume);
-        }
-        else
-        {
-            PlayUISound(clip);
-        }
+        primaryButtonSource.pitch = 1f;
+        primaryButtonSource.PlayOneShot(clip, _sfxVolume);
     }
 
     internal void PlaySpinStart()    => PlayPrimaryActionButton();
@@ -428,7 +415,7 @@ internal class AudioManager : MonoBehaviour
 
     internal void PlayPopupOpenClose()
     {
-        PlayUISound(clipPopupOpenClose != null ? clipPopupOpenClose : clipGeneralButtonClick);
+        PlayUISound(clipPopupOpenClose);
     }
 
     internal void PlayPopupClose() => PlayPopupOpenClose();
@@ -436,12 +423,12 @@ internal class AudioManager : MonoBehaviour
 
     internal void PlayAutoplayPanelOpen()
     {
-        PlayUISound(clipAutoplayPanelOpen != null ? clipAutoplayPanelOpen : clipPopupOpenClose);
+        PlayUISound(clipAutoplayPanelOpen);
     }
 
     internal void PlayTurboButtonClick()
     {
-        PlayUISound(clipTurboButtonClick != null ? clipTurboButtonClick : clipGeneralButtonClick);
+        PlayUISound(clipTurboButtonClick);
     }
 
     #endregion
@@ -460,18 +447,18 @@ internal class AudioManager : MonoBehaviour
 
     internal void PlayReelSpinLoop()
     {
-        if (!_sfxEnabled || clipReelSpinLoop == null) return;
-        AudioSource targetSource = (reserveSource != null) ? reserveSource : uiSource;
+        if (!_sfxEnabled) return;
+        AudioSource targetSource = reserveSource;
         PlayLoop(targetSource, clipReelSpinLoop);
     }
 
     internal void StopReelSpinLoop()
     {
-        if (reserveSource != null && reserveSource.clip == clipReelSpinLoop)
+        if (reserveSource.clip == clipReelSpinLoop)
         {
             StopSource(reserveSource);
         }
-        if (uiSource != null && uiSource.clip == clipReelSpinLoop)
+        if (uiSource.clip == clipReelSpinLoop)
         {
             StopSource(uiSource);
         }
@@ -479,19 +466,19 @@ internal class AudioManager : MonoBehaviour
 
     internal void PlayTensionBuilder()
     {
-        if (!_sfxEnabled || clipTensionBuilder == null) return;
+        if (!_sfxEnabled) return;
         // Own channel (uiSource) so the tension loop does not cut the reel spin loop on reserveSource.
-        AudioSource targetSource = (uiSource != null) ? uiSource : reserveSource;
+        AudioSource targetSource = uiSource;
         PlayLoop(targetSource, clipTensionBuilder);
     }
 
     internal void StopTensionBuilder()
     {
-        if (reserveSource != null && reserveSource.clip == clipTensionBuilder)
+        if (reserveSource.clip == clipTensionBuilder)
         {
             StopSource(reserveSource);
         }
-        if (uiSource != null && uiSource.clip == clipTensionBuilder)
+        if (uiSource.clip == clipTensionBuilder)
         {
             StopSource(uiSource);
         }
@@ -503,18 +490,18 @@ internal class AudioManager : MonoBehaviour
 
     internal void PlayWinTypePopupOpen()
     {
-        if (!_sfxEnabled || clipWinTypePopupOpen == null) return;
-        AudioSource targetSource = (reserveSource != null) ? reserveSource : uiSource;
+        if (!_sfxEnabled) return;
+        AudioSource targetSource = reserveSource;
         PlayLoop(targetSource, clipWinTypePopupOpen);
     }
 
     internal void StopWinTypePopupOpen()
     {
-        if (reserveSource != null && reserveSource.clip == clipWinTypePopupOpen)
+        if (reserveSource.clip == clipWinTypePopupOpen)
         {
             StopSource(reserveSource);
         }
-        if (uiSource != null && uiSource.clip == clipWinTypePopupOpen)
+        if (uiSource.clip == clipWinTypePopupOpen)
         {
             StopSource(uiSource);
         }
@@ -522,7 +509,7 @@ internal class AudioManager : MonoBehaviour
 
     internal void PlayResultPopupOpen()
     {
-        PlayUISound(clipResultPopupOpen != null ? clipResultPopupOpen : clipPopupOpenClose);
+        PlayUISound(clipResultPopupOpen);
     }
 
     #endregion
@@ -531,19 +518,19 @@ internal class AudioManager : MonoBehaviour
 
     internal void PlaySymbolPop()
     {
-        AudioClip clip = clipSymbolPop != null ? clipSymbolPop : clipReelStop;
+        AudioClip clip = clipSymbolPop;
         if (clip != null) PlayOneShotRandomPitch(clip, 0.05f, 0.9f);
     }
 
     internal void PlayBombExplode()
     {
-        AudioClip clip = clipBombExplode != null ? clipBombExplode : clipWinLinePhase1Start;
+        AudioClip clip = clipBombExplode;
         if (clip != null) PlayOneShot(clip, 1f);
     }
 
     internal void PlayScatterCelebration()
     {
-        AudioClip clip = clipScatterCelebration != null ? clipScatterCelebration : clipResultPopupOpen;
+        AudioClip clip = clipScatterCelebration;
         if (clip != null) PlayOneShot(clip, 1f);
     }
 

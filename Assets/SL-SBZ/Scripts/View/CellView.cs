@@ -88,25 +88,14 @@ namespace SweetBonanza.View
                 cb?.Invoke(this);
             };
 
-            if (rectTransform == null) rectTransform = GetComponent<RectTransform>();
-            if (canvasGroup == null) canvasGroup = GetComponent<CanvasGroup>();
-            if (canvasGroup != null)
-            {
-                canvasGroup.interactable = false;
-                canvasGroup.blocksRaycasts = false;
-            }
-            if (symbolImage != null) symbolImage.raycastTarget = false;
-            if (burstEffectImage != null) burstEffectImage.raycastTarget = false;
-            if (winAmountText != null)
-            {
-                winAmountText.textWrappingMode = TextWrappingModes.NoWrap;
-                winAmountText.raycastTarget = false;
-            }
-            if (multiplierText != null)
-            {
-                multiplierText.textWrappingMode = TextWrappingModes.NoWrap;
-                multiplierText.raycastTarget = false;
-            }
+            canvasGroup.interactable = false;
+            canvasGroup.blocksRaycasts = false;
+            symbolImage.raycastTarget = false;
+            burstEffectImage.raycastTarget = false;
+            winAmountText.textWrappingMode = TextWrappingModes.NoWrap;
+            winAmountText.raycastTarget = false;
+            multiplierText.textWrappingMode = TextWrappingModes.NoWrap;
+            multiplierText.raycastTarget = false;
         }
 
         internal SymbolType CurrentSymbol => currentSymbol;
@@ -120,56 +109,41 @@ namespace SweetBonanza.View
             currentMultiplier = multiplier;
             baseSymbolSprite = sprite;
 
-            if (symbolImage != null)
+            symbolImage.sprite = sprite;
+            symbolImage.color = Color.white;
+            symbolImage.enabled = sprite != null;
+            if (symbol == SymbolType.Lollipop)
             {
-                symbolImage.sprite = sprite;
-                symbolImage.color = Color.white;
-                symbolImage.enabled = sprite != null;
-                if (symbol == SymbolType.Lollipop)
-                {
-                    symbolImage.transform.localScale = new Vector3(1.75f, 1.75f, 1f);
-                }
-                else if (symbol == SymbolType.MultiplierBomb)
-                {
-                    symbolImage.transform.localScale = new Vector3(1.15f, 1.15f, 1f);
-                }
-                else
-                {
-                    symbolImage.transform.localScale = Vector3.one;
-                }
+                symbolImage.transform.localScale = new Vector3(1.75f, 1.75f, 1f);
+            }
+            else if (symbol == SymbolType.MultiplierBomb)
+            {
+                symbolImage.transform.localScale = new Vector3(1.15f, 1.15f, 1f);
+            }
+            else
+            {
+                symbolImage.transform.localScale = Vector3.one;
             }
 
-            if (multiplierText != null)
+            if (symbol == SymbolType.MultiplierBomb && multiplier > 0)
             {
-                if (symbol == SymbolType.MultiplierBomb && multiplier > 0)
-                {
-                    multiplierText.text = SpriteTextUtility.FormatBombMultiplier(multiplier);
-                    multiplierText.gameObject.SetActive(true);
-                    MarkRenderersDirty();
-                }
-                else
-                {
-                    multiplierText.gameObject.SetActive(false);
-                }
+                multiplierText.text = SpriteTextUtility.FormatBombMultiplier(multiplier);
+                multiplierText.gameObject.SetActive(true);
+                MarkRenderersDirty();
+            }
+            else
+            {
+                multiplierText.gameObject.SetActive(false);
             }
 
-            if (winAmountText != null)
-            {
-                winAmountText.gameObject.SetActive(false);
-            }
+            winAmountText.gameObject.SetActive(false);
 
-            if (burstEffectImage != null)
-            {
-                burstEffectImage.enabled = false;
-                burstEffectImage.transform.localScale = Vector3.one;
-            }
+            burstEffectImage.enabled = false;
+            burstEffectImage.transform.localScale = Vector3.one;
 
-            if (canvasGroup != null) canvasGroup.alpha = 1f;
-            if (rectTransform != null)
-            {
-                rectTransform.localScale = Vector3.one;
-                rectTransform.localRotation = Quaternion.identity;
-            }
+            canvasGroup.alpha = 1f;
+            rectTransform.localScale = Vector3.one;
+            rectTransform.localRotation = Quaternion.identity;
         }
 
         internal void PlayWinAnimation(Sprite[] frames, float duration, double winAmount, Action onComplete)
@@ -186,7 +160,7 @@ namespace SweetBonanza.View
             activeSequence.Append(rectTransform.DOScale(1.18f, 0.14f).SetEase(Ease.OutQuad));
             activeSequence.Append(rectTransform.DOScale(Vector3.one, 0.10f).SetEase(Ease.OutQuad));
 
-            if (winAmount > 0 && winAmountText != null)
+            if (winAmount > 0)
             {
                 winAmountText.text = SpriteTextUtility.FormatWithSpriteAsset(winAmount, winAmountText);
                 winAmountText.gameObject.SetActive(true);
@@ -215,39 +189,30 @@ namespace SweetBonanza.View
         {
             KillActiveTweens();
 
-            if (winAmountText != null)
-            {
-                winAmountText.gameObject.SetActive(false);
-            }
+            winAmountText.gameObject.SetActive(false);
 
             activeSequence = DOTween.Sequence();
 
             // 1. Symbol pops up slightly, then shrinks to zero
-            if (symbolImage != null)
-            {
-                activeSequence.Append(symbolImage.transform.DOScale(1.25f, 0.08f).SetEase(Ease.OutQuad));
-                activeSequence.Append(symbolImage.transform.DOScale(0f, 0.12f).SetEase(Ease.InBack));
-            }
+            activeSequence.Append(symbolImage.transform.DOScale(1.25f, 0.08f).SetEase(Ease.OutQuad));
+            activeSequence.Append(symbolImage.transform.DOScale(0f, 0.12f).SetEase(Ease.InBack));
 
             // 2. Play the glass shatter burst animation starting right as fruit reaches peak pop (0.08s delay)
-            if (burstEffectImage != null)
+            burstEffectImage.enabled = false;
+            burstEffectImage.color = Color.white;
+            burstEffectImage.transform.localScale = new Vector3(3f, 3f, 3f);
+
+            if (burstFrames != null && burstFrames.Length > 0 && gameObject.activeInHierarchy)
             {
-                burstEffectImage.enabled = false;
-                burstEffectImage.color = Color.white;
-                burstEffectImage.transform.localScale = new Vector3(3f, 3f, 3f);
-
-                if (burstFrames != null && burstFrames.Length > 0 && gameObject.activeInHierarchy)
-                {
-                    burstEffectImage.sprite = burstFrames[0];
-                    activeBurstRoutine = StartCoroutine(CycleBurstFrames(burstFrames, 0.28f, 0.1f));
-                }
-                else if (candyBurstSprite != null)
-                {
-                    burstEffectImage.sprite = candyBurstSprite;
-                }
-
-                activeSequence.Join(burstEffectImage.DOFade(0f, 0.06f).SetDelay(0.30f).SetEase(Ease.InQuad));
+                burstEffectImage.sprite = burstFrames[0];
+                activeBurstRoutine = StartCoroutine(CycleBurstFrames(burstFrames, 0.28f, 0.1f));
             }
+            else
+            {
+                burstEffectImage.sprite = candyBurstSprite;
+            }
+
+            activeSequence.Join(burstEffectImage.DOFade(0f, 0.06f).SetDelay(0.30f).SetEase(Ease.InQuad));
 
             pendingCellComplete = onComplete;
             activeSequence.OnComplete(cachedOnExplodeComplete);
@@ -258,19 +223,13 @@ namespace SweetBonanza.View
             KillActiveTweens();
             rectTransform.localScale = Vector3.one;
             rectTransform.localRotation = Quaternion.identity;
-            if (canvasGroup != null) canvasGroup.alpha = 1f;
-            if (symbolImage != null)
-            {
-                symbolImage.enabled = true;
-                if (baseSymbolSprite != null) symbolImage.sprite = baseSymbolSprite;
-            }
-            if (burstEffectImage != null)
-            {
-                burstEffectImage.enabled = false;
-                burstEffectImage.color = Color.white;
-                burstEffectImage.transform.localScale = Vector3.one;
-            }
-            if (winAmountText != null) winAmountText.gameObject.SetActive(false);
+            canvasGroup.alpha = 1f;
+            symbolImage.enabled = true;
+            if (baseSymbolSprite != null) symbolImage.sprite = baseSymbolSprite;
+            burstEffectImage.enabled = false;
+            burstEffectImage.color = Color.white;
+            burstEffectImage.transform.localScale = Vector3.one;
+            winAmountText.gameObject.SetActive(false);
 
             activeSequence = DOTween.Sequence();
             if (delay > 0) activeSequence.AppendInterval(delay);
@@ -304,19 +263,13 @@ namespace SweetBonanza.View
             KillActiveTweens();
             rectTransform.localScale = Vector3.one;
             rectTransform.localRotation = Quaternion.identity;
-            if (canvasGroup != null) canvasGroup.alpha = 1f;
-            if (symbolImage != null)
-            {
-                symbolImage.enabled = true;
-                if (baseSymbolSprite != null) symbolImage.sprite = baseSymbolSprite;
-            }
-            if (burstEffectImage != null)
-            {
-                burstEffectImage.enabled = false;
-                burstEffectImage.color = Color.white;
-                burstEffectImage.transform.localScale = Vector3.one;
-            }
-            if (winAmountText != null) winAmountText.gameObject.SetActive(false);
+            canvasGroup.alpha = 1f;
+            symbolImage.enabled = true;
+            if (baseSymbolSprite != null) symbolImage.sprite = baseSymbolSprite;
+            burstEffectImage.enabled = false;
+            burstEffectImage.color = Color.white;
+            burstEffectImage.transform.localScale = Vector3.one;
+            winAmountText.gameObject.SetActive(false);
 
             activeSequence = DOTween.Sequence();
             if (delay > 0) activeSequence.AppendInterval(delay);
@@ -385,18 +338,12 @@ namespace SweetBonanza.View
             currentMultiplier = multiplier;
             transform.SetAsLastSibling();
 
-            if (multiplierText != null)
-            {
-                multiplierText.text = SpriteTextUtility.FormatBombMultiplier(multiplier);
-                multiplierText.gameObject.SetActive(true);
-                MarkRenderersDirty();
-                multiplierText.transform.localScale = Vector3.one;
-            }
+            multiplierText.text = SpriteTextUtility.FormatBombMultiplier(multiplier);
+            multiplierText.gameObject.SetActive(true);
+            MarkRenderersDirty();
+            multiplierText.transform.localScale = Vector3.one;
 
-            if (burstEffectImage != null)
-            {
-                burstEffectImage.enabled = false;
-            }
+            burstEffectImage.enabled = false;
 
             if (gameObject.activeInHierarchy)
             {
@@ -464,16 +411,13 @@ namespace SweetBonanza.View
         {
             KillActiveTweens();
 
-            if (burstEffectImage != null && candyBurstSprite != null)
-            {
-                burstEffectImage.sprite = candyBurstSprite;
-                burstEffectImage.enabled = true;
-                burstEffectImage.color = new Color(1f, 0.9f, 0.2f, 1f);
-                burstEffectImage.transform.localScale = Vector3.zero;
-                activeSequence = DOTween.Sequence();
-                activeSequence.Join(burstEffectImage.transform.DOScale(1.7f, 0.3f).SetEase(Ease.OutBack));
-                activeSequence.Join(burstEffectImage.DOFade(0f, 0.35f).SetEase(Ease.InQuad));
-            }
+            burstEffectImage.sprite = candyBurstSprite;
+            burstEffectImage.enabled = true;
+            burstEffectImage.color = new Color(1f, 0.9f, 0.2f, 1f);
+            burstEffectImage.transform.localScale = Vector3.zero;
+            activeSequence = DOTween.Sequence();
+            activeSequence.Join(burstEffectImage.transform.DOScale(1.7f, 0.3f).SetEase(Ease.OutBack));
+            activeSequence.Join(burstEffectImage.DOFade(0f, 0.35f).SetEase(Ease.InQuad));
 
             if (frames != null && frames.Length > 0 && gameObject.activeInHierarchy)
             {
@@ -579,31 +523,19 @@ namespace SweetBonanza.View
         {
             KillActiveTweens();
             baseSymbolSprite = null;
-            if (rectTransform != null)
-            {
-                rectTransform.localScale = Vector3.one;
-                rectTransform.localRotation = Quaternion.identity;
-            }
-            if (canvasGroup != null)
-            {
-                canvasGroup.alpha = 0f;
-                canvasGroup.blocksRaycasts = false;
-                canvasGroup.interactable = false;
-            }
-            if (symbolImage != null)
-            {
-                symbolImage.sprite = null;
-                symbolImage.enabled = false;
-                symbolImage.transform.localScale = Vector3.one;
-            }
-            if (multiplierText != null) multiplierText.gameObject.SetActive(false);
-            if (winAmountText != null) winAmountText.gameObject.SetActive(false);
-            if (burstEffectImage != null)
-            {
-                burstEffectImage.enabled = false;
-                burstEffectImage.color = Color.white;
-                burstEffectImage.transform.localScale = Vector3.one;
-            }
+            rectTransform.localScale = Vector3.one;
+            rectTransform.localRotation = Quaternion.identity;
+            canvasGroup.alpha = 0f;
+            canvasGroup.blocksRaycasts = false;
+            canvasGroup.interactable = false;
+            symbolImage.sprite = null;
+            symbolImage.enabled = false;
+            symbolImage.transform.localScale = Vector3.one;
+            multiplierText.gameObject.SetActive(false);
+            winAmountText.gameObject.SetActive(false);
+            burstEffectImage.enabled = false;
+            burstEffectImage.color = Color.white;
+            burstEffectImage.transform.localScale = Vector3.one;
         }
 
         internal void CompleteAnimation()
@@ -618,11 +550,8 @@ namespace SweetBonanza.View
                 StopCoroutine(activeBurstRoutine);
                 activeBurstRoutine = null;
             }
-            if (burstEffectImage != null)
-            {
-                burstEffectImage.enabled = false;
-            }
-            if (multiplierText != null && currentMultiplier > 0)
+            burstEffectImage.enabled = false;
+            if (currentMultiplier > 0)
             {
                 multiplierText.gameObject.SetActive(true);
                 multiplierText.transform.localScale = Vector3.one;
@@ -632,20 +561,11 @@ namespace SweetBonanza.View
                 activeSequence.Kill();
                 activeSequence = null;
             }
-            if (symbolImage != null)
-            {
-                if (baseSymbolSprite != null) symbolImage.sprite = baseSymbolSprite;
-                symbolImage.enabled = true;
-            }
-            if (rectTransform != null)
-            {
-                rectTransform.localScale = Vector3.one;
-                rectTransform.localRotation = Quaternion.identity;
-            }
-            if (canvasGroup != null)
-            {
-                canvasGroup.alpha = 1f;
-            }
+            if (baseSymbolSprite != null) symbolImage.sprite = baseSymbolSprite;
+            symbolImage.enabled = true;
+            rectTransform.localScale = Vector3.one;
+            rectTransform.localRotation = Quaternion.identity;
+            canvasGroup.alpha = 1f;
         }
 
         private void KillActiveTweens()
